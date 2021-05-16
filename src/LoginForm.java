@@ -20,17 +20,10 @@ public class LoginForm extends JFrame implements ActionListener {
 	
 	private MainForm mainForm;
 	
-	private JPanel top;
-	private JPanel center;
-	private JLabel lbId;
-	private JTextField taId;
-	private JLabel lbPw;
-	private JTextField taPw;
-	private JButton btnLogin;
-	private JPanel bottom;
-	private JButton findIdPw;
-	private JButton signUp;
-	
+	private JPanel top, center, bottom;
+	private JLabel lbId, lbPw;
+	private JTextField taId, taPw;
+	private JButton btnLogin, findIdPw, signUp;
 	
 	//연우-로그인 화면 생성
 	public LoginForm(String title, int width, int height, MainForm mainForm) {
