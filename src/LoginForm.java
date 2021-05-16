@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class loginForm extends JFrame implements ActionListener {
+public class LoginForm extends JFrame implements ActionListener {
 
 	Font fontNanumGothic = new Font("NanumGothic", Font.BOLD, 20);
 	
@@ -33,7 +33,7 @@ public class loginForm extends JFrame implements ActionListener {
 	
 	
 	//연우-로그인 화면 생성
-	public loginForm(String title, int width, int height, MainForm mainForm) {
+	public LoginForm(String title, int width, int height, MainForm mainForm) {
 		
 		this.mainForm = mainForm;
 		

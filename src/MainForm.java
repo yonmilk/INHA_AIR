@@ -25,7 +25,7 @@ public class MainForm extends JFrame implements ActionListener {
 	private JButton btnLogo, btnBook, btnAirport, btnInFight, btnMyPage, btnLogin;
 	
 	// 로그인 프레임
-	private loginForm login;
+	private LoginForm login;
 	
 	public MainForm() {
 		setTitle(title);
@@ -147,7 +147,7 @@ public class MainForm extends JFrame implements ActionListener {
 		
 		if(obj == btnLogin)
 		{
-			new loginForm("LOGIN", 400, 500, this);
+			new LoginForm("LOGIN", 400, 500, this);
 		}
 	}
 }
