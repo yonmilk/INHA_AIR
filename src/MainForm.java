@@ -5,6 +5,7 @@ import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,12 +18,21 @@ public class MainForm extends JFrame implements ActionListener {
 	
 	// 폰트
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);
-	Font fontNanumGothic = new Font("NanumGothic", Font.BOLD, 18);
+	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);
+	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);
 	Font fontArial = new Font("Arial", Font.PLAIN, 12);
 	
-	// 상단 메뉴 관련 
+	// 상위 메뉴 관련 
 	private JPanel pnTOP, pnMenu;
 	private JButton btnLogo, btnBook, btnAirport, btnInFight, btnMyPage, btnLogin;
+	
+	// 센터 관련
+	private JPanel pnCENTER;
+	
+	// 하위 메뉴 관련
+	private JPanel pnBOTTOM; 
+	private JButton btnFindTrips, btnCheckIn, btnFilghtStatus;
+	private ImageIcon imgFindTrips, imgCheckIn, imgFilghtStatus;
 	
 	// 로그인 프레임
 	private LoginForm login;
@@ -39,15 +49,74 @@ public class MainForm extends JFrame implements ActionListener {
 		setLayout(null);	// 배치관리자 제거
 		c.setBackground(Color.WHITE);
 		
-		// 메뉴 판넬
-		setMenu();
+		// 상위 메뉴 판넬
+		setUpMenu();
 		
+		// 센터 이미지 판넬
+		setCenter();
+		
+		// 하위 메뉴 판넬
+		setDownMenu();
 		
 		setVisible(true);
 	}
 
 
-	private void setMenu() {
+	private void setCenter() {
+		// 중간 판넬
+		pnCENTER = new JPanel();
+		pnCENTER.setLayout(null);
+//		pnCENTER.setSize(1120, 430);
+		pnCENTER.setSize(750, 430);
+		pnCENTER.setLocation(0, 100);
+		pnCENTER.setBackground(Color.yellow);
+		
+		add(pnCENTER);
+	}
+
+
+	private void setDownMenu() {
+		// 하위 판넬
+		pnBOTTOM = new JPanel();
+//		pnBOTTOM.setLayout(null);
+		pnBOTTOM.setSize(750, 150);
+		pnBOTTOM.setLocation(0, 550);
+//		pnBOTTOM.setBackground(Color.black);
+		
+		// 이미지 아이콘
+		imgFindTrips = new ImageIcon("imgs/findTrips.png");
+		imgCheckIn = new ImageIcon("imgs/checkIn.png");
+		imgFilghtStatus = new ImageIcon("imgs/filghtStatus.png");
+		
+		// 이미지 버튼
+//		btnFindTrips = new JButton("<HTML><U>예약조회</U></HTML>", imgFindTrips);
+		btnFindTrips = new JButton("예약조회", imgFindTrips);
+		btnFindTrips.setFont(fontNanumGothic25);
+		btnFindTrips.setBorderPainted(false);
+		btnFindTrips.setContentAreaFilled(false);
+		
+//		btnCheckIn = new JButton("<HTML><U>체크인</U></HTML>", imgCheckIn);
+		btnCheckIn = new JButton("체크인", imgCheckIn);
+		btnCheckIn.setFont(fontNanumGothic25);
+		btnCheckIn.setBorderPainted(false);
+		btnCheckIn.setContentAreaFilled(false);
+		
+//		btnFilghtStatus = new JButton("<HTML><U>항공편 현황</U></HTML>", imgFilghtStatus);
+		btnFilghtStatus = new JButton("항공편 현황", imgFilghtStatus);
+		btnFilghtStatus.setFont(fontNanumGothic25);
+		btnFilghtStatus.setBorderPainted(false);
+		btnFilghtStatus.setContentAreaFilled(false);
+				
+		pnBOTTOM.add(btnFindTrips);
+		pnBOTTOM.add(btnCheckIn);
+		pnBOTTOM.add(btnFilghtStatus);
+				
+		add(pnBOTTOM);
+		
+	}
+
+
+	private void setUpMenu() {
 		// 상단 판넬
 		pnTOP = new JPanel();		// 상단 판넬 생성
 		pnTOP.setLayout(null);		// 상단 판넬 배치관리자 설정
@@ -76,7 +145,7 @@ public class MainForm extends JFrame implements ActionListener {
 //		btnBook.setLocation(10, 0);				// 버튼 위치 지정
 		btnBook.setLocation(200, 0);				// 버튼 위치 지정
 		btnBook.addActionListener(this);
-		btnBook.setFont(fontNanumGothic);		// 버튼 폰트 설정
+		btnBook.setFont(fontNanumGothic18);		// 버튼 폰트 설정
 //		btnBook.setBackground(Color.LIGHT_GRAY);	// 버튼 배경색 설정
 		btnBook.setBorderPainted(false);		// 버튼 테두리 제거
 		btnBook.setContentAreaFilled(false);	// 버튼 내용영역 채우기 제거
@@ -87,7 +156,7 @@ public class MainForm extends JFrame implements ActionListener {
 //		btnAirport.setLocation(180, 0);
 		btnAirport.setLocation(350, 0);
 		btnAirport.addActionListener(this);
-		btnAirport.setFont(fontNanumGothic);
+		btnAirport.setFont(fontNanumGothic18);
 		btnAirport.setBorderPainted(false);
 		btnAirport.setContentAreaFilled(false);
 		
@@ -96,7 +165,7 @@ public class MainForm extends JFrame implements ActionListener {
 //		btnInFight.setLocation(350, 0);
 		btnInFight.setLocation(500, 0);
 		btnInFight.addActionListener(this);
-		btnInFight.setFont(fontNanumGothic);
+		btnInFight.setFont(fontNanumGothic18);
 		btnInFight.setBorderPainted(false);
 		btnInFight.setContentAreaFilled(false);
 		
@@ -105,7 +174,7 @@ public class MainForm extends JFrame implements ActionListener {
 //		btnMyPage.setLocation(520, 0);
 		btnMyPage.setLocation(650, 0);
 		btnMyPage.addActionListener(this);
-		btnMyPage.setFont(fontNanumGothic);
+		btnMyPage.setFont(fontNanumGothic18);
 		btnMyPage.setBorderPainted(false);
 		btnMyPage.setContentAreaFilled(false);
 		
