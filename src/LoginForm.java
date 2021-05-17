@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +25,8 @@ public class LoginForm extends JFrame implements ActionListener {
 	private JLabel lbId, lbPw;
 	private JTextField taId, taPw;
 	private JButton btnLogin, findIdPw, signUp;
+
+	private JButton btnClose;
 	
 	//연우-로그인 화면 생성
 	public LoginForm(String title, int width, int height, MainForm mainForm) {
@@ -37,6 +40,7 @@ public class LoginForm extends JFrame implements ActionListener {
 		Container c = getContentPane();
 		c.setBackground(Color.white);
 		setLayout(new BorderLayout());
+		this.setUndecorated(true); //타이틀바 없애기 
 		//setFont(fontNanumGothic);
 		
 		setLogin();
@@ -80,8 +84,9 @@ public class LoginForm extends JFrame implements ActionListener {
 		//하단판넬
 		bottom = new JPanel();
 		bottom.setPreferredSize(new Dimension(400, 100));
-		bottom.setLayout(new GridLayout(2,1));
+		bottom.setLayout(new GridLayout(3,1));
 		bottom.setBackground(Color.white);
+		bottom.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
 		findIdPw = new JButton("<HTML><U>아이디/비밀번호 찾기</U></HTML>"); //아이디/비밀번호 찾기 버튼 추가
 		findIdPw.setForeground(new Color(000, 102, 255));
 		findIdPw.addActionListener(this);
@@ -92,9 +97,16 @@ public class LoginForm extends JFrame implements ActionListener {
 		signUp.addActionListener(this);
 		signUp.setBorderPainted(false); //버튼 윤곽선 제거
 		signUp.setContentAreaFilled(false); //버튼배경 제거
+		btnClose = new JButton("닫기");
+		btnClose.setBackground(new Color(000, 102, 255));
+		btnClose.setBorderPainted(false);
+		btnClose.addActionListener(this);
 		bottom.add(findIdPw);
 		bottom.add(signUp);
+		bottom.add(btnClose);
+		
 		add(bottom, BorderLayout.SOUTH);
+		
 		
 		//좌우판넬
 		JPanel west = new JPanel();
@@ -106,12 +118,17 @@ public class LoginForm extends JFrame implements ActionListener {
 		east.setBackground(Color.WHITE);
 		add(east, BorderLayout.EAST);
 		
+		
+		
 	}
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		Object obj = e.getSource();
+		if(obj == btnClose) {
+			this.dispose(); //해당 창만 끄게 하기
+		}
 		
 	}
 	
