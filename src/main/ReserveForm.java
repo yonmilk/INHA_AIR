@@ -1,3 +1,4 @@
+package main;
 
 
 import java.awt.BorderLayout;
@@ -14,11 +15,24 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.LineBorder;
 
 public class ReserveForm extends JFrame{
 	
 	Font fontNanumGothic = new Font("NanumGothic", Font.BOLD, 20);
 
+	// 예원 - 틀 패널 생성
+	private JPanel jp, jpTOP;
+	
+	public JPanel getJp() {
+		return jp;
+	}
+
+	public void setJp(int x, int y) {
+		jp.setLocation(x, y);
+	}
+	//
+	
 	private String [] seat = {"일등석", "비즈니스석", "이코노미석"};
 	private JPanel jp1, jp2, jp3, jpdep, jpswap, jparr;
 	private ImageIcon imgairport, imgdate, imgpeople, imgseat, imgswap;
@@ -29,11 +43,17 @@ public class ReserveForm extends JFrame{
 	
 
 
-	public ReserveForm(String title, int width, int height) {
-		setTitle(title);
-		setSize(width, height);
-		setLocation(900, 300);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	public ReserveForm(int width, int height) {
+
+		// 예원 - 틀 패널 생성
+		jp = new JPanel();
+		jp.setLayout(new BorderLayout());
+		jp.setSize(width, height);
+		jp.setLocation(100, 100);
+		jp.setBackground(Color.WHITE);
+		
+		jp.setBorder(new LineBorder(Color.WHITE, 2));	// 패널 테두리 설정
+		//
 		
 		//출발지 도착지 
 		jp1 = new JPanel();
@@ -114,16 +134,16 @@ public class ReserveForm extends JFrame{
 		jp3.add(btnsearch);
 		
 		
-		add(jp1, BorderLayout.NORTH);
-		add(jp2, BorderLayout.CENTER);
-		add(jp3, BorderLayout.SOUTH);
-		setVisible(true);
+		jp.add(jp1, BorderLayout.NORTH);
+		jp.add(jp2, BorderLayout.CENTER);
+		jp.add(jp3, BorderLayout.SOUTH);
+//		setVisible(true);
 		
 	}
 
 
 	public static void main(String[] args) {
-		new ReserveForm("INHA AIR", 400, 400);
+		new ReserveForm(400, 500);
 	}
 
 }
