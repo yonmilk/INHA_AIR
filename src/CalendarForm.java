@@ -53,7 +53,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 		setLocationRelativeTo(this);
 		Container c = getContentPane();
 		c.setBackground(Color.white);
-		setLayout(new BorderLayout());
+		setLayout(null);
 		
 		
 		setCalendarForm();
@@ -69,6 +69,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	
 	private void setCalendarForm() {
 		
+
 		//제목판넬
 		jpTitle = new JPanel();
 		jpTitle.setLayout(null);
@@ -81,6 +82,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 		lblTitle.setSize(150, 40);
 		lblTitle.setLocation(10, 0);
 		jpTitle.add(lblTitle);
+		
 		
 		//가는날, 오는날
 		jpSelect = new JPanel(); //날짜표시 판매
@@ -112,19 +114,36 @@ public class CalendarForm extends JFrame implements ActionListener {
 		jpSelect.add(tfGo);
 		jpSelect.add(lblCome);
 		jpSelect.add(tfCome);
+
 		
+		//달력추가
 		jpCalendar = new JPanel();
 		setCalendar();
 		
 		
-		//다시선택, 왕복/편도 선택
-		jpBtn = new JPanel(); //하단 버튼 판넬
-		btnReselect = new JButton("다시 선택"); //다시 선택 버튼
-		btnSelect = new JButton("편도 선택"); //왕복/편도 선택 버튼
+		//하단 버튼 판넬
+		jpBtn = new JPanel();
+		jpBtn.setLayout(null);
+		jpBtn.setSize(650, 80);
+		jpBtn.setLocation(50, 500);
+		jpBtn.setBackground(Color.white);
 		
+		//버튼 추가 및 설정
+		btnReselect = new JButton("다시 선택");
+		btnReselect.setFont(fontNanumGothic18);
+		btnReselect.setSize(230, 60);
+		btnReselect.setLocation(65, 0);
+		btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
+		btnReselect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
+		btnSelect = new JButton("왕복 선택");
+		btnSelect.setFont(fontNanumGothic18);
+		btnSelect.setSize(230, 60);
+		btnSelect.setLocation(350, 0);
+		btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
+		btnSelect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		
-		//jpBtn.add(btnReselect);
-		//jpBtn.add(btnSelect);
+		jpBtn.add(btnReselect);
+		jpBtn.add(btnSelect);
 		
 		add(jpTitle);
 		add(jpSelect);
