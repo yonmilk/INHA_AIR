@@ -62,7 +62,7 @@ public class MainForm extends JFrame implements ActionListener {
 		c.setBackground(Color.WHITE);
 		
 		// 예약창
-		res = new ReserveForm(400, 450);
+		res = new ReserveForm(400, 475);
 		res.setJp(650, 150);
 		add(res.getJp());
 		
