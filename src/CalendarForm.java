@@ -51,6 +51,9 @@ public class CalendarForm extends JFrame implements ActionListener {
 		
 	}
 
+	private void setCalendar() {
+		
+	}
 	
 	
 	private void setCalendarForm() {
@@ -68,18 +71,19 @@ public class CalendarForm extends JFrame implements ActionListener {
 		lblTitle.setLocation(10, 0);
 		jpTitle.add(lblTitle);
 		
-		//가는날 날짜표시판넬
+		//날짜표시판넬
 		jpSelect = new JPanel();
 		jpSelect.setLayout(null);
-		jpSelect.setSize(330, 50);
+		jpSelect.setSize(650, 50);
 		jpSelect.setLocation(50, 100);
 		jpSelect.setBackground(Color.red);
 		//가는날 라벨, 
 		
-
-
+		
 		
 		jpCalendar = new JPanel();
+		setCalendar();
+		
 		
 		//하단 버튼 판넬
 		jpBtn = new JPanel();

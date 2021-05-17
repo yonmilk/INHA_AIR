@@ -18,10 +18,14 @@ import javax.swing.JTextField;
 //연우-로그인 화면 생성
 public class LoginForm extends JFrame implements ActionListener {
 
+	private String title = "Sing In";
+	private int width = 400, height = 500;
+	
+	
 	Font fontNanumGothic12 = new Font("NanumGothic", Font.PLAIN , 12);	// 나눔고딕 12
 	Font fontNanumGothic15 = new Font("NanumGothic", Font.PLAIN, 15);	// 나눔고딕 15
 	Font fontNanumGothic16 = new Font("NanumGothic", Font.BOLD, 16);	// 나눔고딕 16
-	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
+	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 25
 	
 	
 	private main.MainForm mainForm;
@@ -33,7 +37,7 @@ public class LoginForm extends JFrame implements ActionListener {
 	//private JButton btnClose;
 	
 	
-	public LoginForm(String title, int width, int height, main.MainForm mainForm) {
+	public LoginForm() {
 		
 		this.mainForm = mainForm;
 		
@@ -61,7 +65,7 @@ public class LoginForm extends JFrame implements ActionListener {
 		jpTop.setPreferredSize(new Dimension(400, 100)); //판넬사이즈 설정
 		jpTop.setLayout(new BorderLayout());
 		JLabel login = new JLabel("로그인"); //로그인 라벨
-		login.setFont(fontNanumGothic25);
+		login.setFont(fontNanumGothic20);
 		login.setHorizontalAlignment(JLabel.CENTER);
 		//btnClose = new JButton();
 		jpTop.add(login);
@@ -130,6 +134,10 @@ public class LoginForm extends JFrame implements ActionListener {
 		
 		
 		
+	}
+	
+	public static void main(String[] args) {
+		new LoginForm();
 	}
 	
 	
