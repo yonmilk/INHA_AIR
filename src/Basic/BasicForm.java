@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.MenuBar;
+import menu.MenuBar;
 
 public class BasicForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
@@ -19,7 +19,7 @@ public class BasicForm extends JFrame implements ActionListener {
 	private int width = 1120, height = 770;
 	
 	// 상단 메뉴바
-	private main.MenuBar menubar;
+	private menu.MenuBar menubar;
 	
 	
 	public BasicForm() {

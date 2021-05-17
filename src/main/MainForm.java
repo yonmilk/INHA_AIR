@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import menu.MenuBar;
+
 // 예원 - 메인 화면 작성
 public class MainForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
@@ -43,7 +45,7 @@ public class MainForm extends JFrame implements ActionListener {
 //	private LoginForm login;
 	
 	// 상단 메뉴
-	private MenuBar menubar;
+	private menu.MenuBar menubar;
 	
 	// 예약창
 	private ReserveForm res;
