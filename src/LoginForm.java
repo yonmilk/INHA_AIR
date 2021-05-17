@@ -32,6 +32,7 @@ public class LoginForm extends JFrame implements ActionListener {
 		
 		setTitle(title);
 		setSize(width, height);
+		setResizable(false);
 		setLocationRelativeTo(this);
 		Container c = getContentPane();
 		c.setBackground(Color.white);

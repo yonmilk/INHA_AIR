@@ -17,10 +17,10 @@ public class MainForm extends JFrame implements ActionListener {
 	private int width = 1120, height = 770;
 	
 	// 폰트
-	Font fontGothic = new Font("Gothic", Font.BOLD, 20);
-	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);
-	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);
-	Font fontArial = new Font("Arial", Font.PLAIN, 12);
+	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
+	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
+	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
+	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
 	
 	// 상위 메뉴 관련 
 	private JPanel pnTOP, pnMenu;
