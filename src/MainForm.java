@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+// 예원 - 메인 화면 작성
 public class MainForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
@@ -67,8 +68,8 @@ public class MainForm extends JFrame implements ActionListener {
 		pnCENTER = new JPanel();
 		pnCENTER.setLayout(null);
 //		pnCENTER.setSize(1120, 430);
-		pnCENTER.setSize(750, 430);
-		pnCENTER.setLocation(0, 100);
+		pnCENTER.setSize(1000, 430);
+		pnCENTER.setLocation(70, 100);
 		pnCENTER.setBackground(Color.yellow);
 		
 		add(pnCENTER);
@@ -79,7 +80,7 @@ public class MainForm extends JFrame implements ActionListener {
 		// 하위 판넬
 		pnBOTTOM = new JPanel();
 //		pnBOTTOM.setLayout(null);
-		pnBOTTOM.setSize(750, 100);
+		pnBOTTOM.setSize(1120, 100);
 		pnBOTTOM.setLocation(0, 550);
 //		pnBOTTOM.setBackground(Color.black);
 		
@@ -154,7 +155,7 @@ public class MainForm extends JFrame implements ActionListener {
 		btnBook.setContentAreaFilled(false);	// 버튼 내용영역 채우기 제거
 //		btnBook.setFocusPainted(false);			// 버튼 포커스 시 테두리 제거
 		
-		btnAirport = new JButton("항공");
+		btnAirport = new JButton("공항");
 		btnAirport.setSize(150, 40);
 //		btnAirport.setLocation(180, 0);
 		btnAirport.setLocation(350, 0);
