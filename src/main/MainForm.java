@@ -23,6 +23,7 @@ public class MainForm extends JFrame implements ActionListener {
 	// 폰트
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
+	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
 	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
 	
@@ -114,19 +115,19 @@ public class MainForm extends JFrame implements ActionListener {
 		// 이미지 버튼
 //		btnFindTrips = new JButton("예약조회", imgFindTrips);
 		btnFindTrips = new JButton("예약조회");
-		btnFindTrips.setFont(fontNanumGothic25);
+		btnFindTrips.setFont(fontNanumGothic20);
 		btnFindTrips.setBorderPainted(false);
 		btnFindTrips.setContentAreaFilled(false);
 		
 //		btnCheckIn = new JButton("체크인", imgCheckIn);
 		btnCheckIn = new JButton("체크인");
-		btnCheckIn.setFont(fontNanumGothic25);
+		btnCheckIn.setFont(fontNanumGothic20);
 		btnCheckIn.setBorderPainted(false);
 		btnCheckIn.setContentAreaFilled(false);
 		
 //		btnFilghtStatus = new JButton("항공편 현황", imgFilghtStatus);
 		btnFilghtStatus = new JButton("항공편 현황");
-		btnFilghtStatus.setFont(fontNanumGothic25);
+		btnFilghtStatus.setFont(fontNanumGothic20);
 		btnFilghtStatus.setBorderPainted(false);
 		btnFilghtStatus.setContentAreaFilled(false);
 				
