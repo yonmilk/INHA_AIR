@@ -51,8 +51,10 @@ public class LoginForm extends JFrame implements ActionListener {
 		top = new JPanel();
 		top.setBackground(Color.white);
 		top.setPreferredSize(new Dimension(400, 100)); //판넬사이즈 설정
+		top.setLayout(new BorderLayout());
 		JLabel login = new JLabel("로그인"); //로그인 라벨
 		login.setFont(fontNanumGothic);
+		login.setHorizontalAlignment(JLabel.CENTER);
 		top.add(login);
 		add(top, BorderLayout.NORTH);
 		
