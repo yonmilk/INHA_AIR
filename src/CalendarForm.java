@@ -26,6 +26,8 @@ public class CalendarForm extends JFrame implements ActionListener {
 
 	//폰트
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
+	Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 12
+	Font fontNanumGothic15 = new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 15
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 25
 	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
@@ -39,12 +41,12 @@ public class CalendarForm extends JFrame implements ActionListener {
 	private JButton btnSelect;
 	private Calendar cal;
 	private String[] day = new String[] {"S", "M", "T", "W", "T", "F", "S"};
-	private JPanel jpYearMonth, jpDay, jpDate;
-	private JLabel lblYear;
-	private JLabel lblDay;
 	private int thisYear;
 	private int thisMonth;
 	private int today;
+	private JLabel lblday;
+	private JLabel lblYear;
+	private JLabel lblMonth;
 
 	public CalendarForm() {
 			
@@ -68,12 +70,16 @@ public class CalendarForm extends JFrame implements ActionListener {
 	private void setCalendar() {
 		
 		//달력 생성 함수
+		jpCalendar = new JPanel();
+		jpCalendar.setLayout(null);
+		jpCalendar.setSize(290, 320);
+		jpCalendar.setLocation(50, 160);
+		jpCalendar.setBackground(Color.white);
 		cal = Calendar.getInstance(); //캘린더 객체 생성
 		thisYear = cal.get(Calendar.YEAR); //현재 년
 		thisMonth = cal.get(Calendar.MONTH)+1; //현재 달
 		today = cal.get(Calendar.DATE);
-		jpDay = new JPanel();
-		jpDay.setLayout(new GridLayout(0, 7)); //요일 그리드 설정
+
 		
 		cal.set(thisYear, thisMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
 		
@@ -82,12 +88,27 @@ public class CalendarForm extends JFrame implements ActionListener {
 		
 		int intDateNum = 1;
 		
+		lblYear = new JLabel(thisYear+"년");
+		lblYear.setFont(fontNanumGothic12);
+		lblYear.setSize(150, 40);
+		lblYear.setLocation(10, 2);
+		lblMonth = new JLabel(thisMonth+"월");
+		lblMonth.setFont(fontNanumGothic18);
+		lblMonth.setSize(80, 40);
+		lblMonth.setLocation(60, 0);
+		jpCalendar.add(lblYear);
+		jpCalendar.add(lblMonth);
+		
+		
 		for (int i = 0; i<7; i++) { //요일 추가
-			lblDay = new JLabel(day[i]);
-			lblDay.setFont(fontNanumGothic18);
-			jpDay.add(lblDay);
+			lblday = new JLabel(day[i]);
+			lblday.setFont(fontNanumGothic15);
+			lblday.setSize(150, 40);
+			lblday.setLocation(40*i + 10, 30);
+			jpCalendar.add(lblday);
+			
 		}
-		jpCalendar.add(jpDay);
+
 		
 		for (int i = 1; intDateNum <= endDate; i++) { //intDateNum이 1일부터 마지막일이 될 때까지 반복 
 			
@@ -101,7 +122,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 				intDateNum++; //출력할 date 증가
 			}
 			
-			if(i%7 == 0)
+			if(i%7 == 0) //i가 7로 나눠지면 다음 줄로 이동
 			{
 				
 			}
@@ -160,7 +181,6 @@ public class CalendarForm extends JFrame implements ActionListener {
 
 		
 		//달력추가
-		jpCalendar = new JPanel();
 		setCalendar();
 		
 		
