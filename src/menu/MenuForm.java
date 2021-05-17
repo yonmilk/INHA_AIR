@@ -31,6 +31,10 @@ public class MenuForm extends JFrame implements ActionListener {
 	private JPanel jpClose;
 	private JButton btnClose;
 	
+	// 메뉴 관련
+	private JPanel jpBook, jpAirport, jpInFight;
+	
+	
 	public MenuForm() {
 		setTitle(title);
 		setSize(width, height);
@@ -45,6 +49,8 @@ public class MenuForm extends JFrame implements ActionListener {
 		// 닫기 버튼
 		setClose();
 		
+		setMenu();
+		
 		// 배경색
 //		Container c = getContentPane();
 //		c.setBackground(Color.WHITE);
@@ -53,10 +59,32 @@ public class MenuForm extends JFrame implements ActionListener {
 	}
 
 	
+	private void setMenu() {
+		jpBook = new JPanel();
+		jpBook.setSize(210, 480);
+		jpBook.setLocation(10, 60);
+		jpBook.setBackground(Color.yellow);
+		
+		jpAirport = new JPanel();
+		jpAirport.setSize(210, 480);
+		jpAirport.setLocation(240, 60);
+		jpAirport.setBackground(Color.blue);
+		
+		jpInFight = new JPanel();
+		jpInFight.setSize(210, 480);
+		jpInFight.setLocation(470, 60);
+		jpInFight.setBackground(Color.green);
+		
+		add(jpBook);
+		add(jpAirport);
+		add(jpInFight);
+	}
+
+
 	private void setClose() {
 		jpClose = new JPanel();
 		jpClose.setSize(700, 50);
-		jpClose.setLocation(0, 0);
+		jpClose.setLocation(0, 5);
 		jpClose.setLayout(new FlowLayout(FlowLayout.RIGHT));
 //		jpClose.setBackground(Color.black);
 		
