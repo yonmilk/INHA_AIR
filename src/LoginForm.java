@@ -26,10 +26,10 @@ public class LoginForm extends JFrame implements ActionListener {
 	
 	private main.MainForm mainForm;
 	
-	private JPanel top, center, bottom;
-	private JLabel lbId, lbPw;
-	private JTextField taId, taPw;
-	private JButton btnLogin, findIdPw, signUp;
+	private JPanel jpTop, jpCenter, jpBottom;
+	private JLabel lblId, lblPw;
+	private JTextField tfId, tfPw;
+	private JButton btnLogin, btnFindIdPw, btnSignUp;
 	//private JButton btnClose;
 	
 	
@@ -56,66 +56,66 @@ public class LoginForm extends JFrame implements ActionListener {
 	private void setLogin() {
 		
 		//상단판넬
-		top = new JPanel();
-		top.setBackground(Color.white);
-		top.setPreferredSize(new Dimension(400, 100)); //판넬사이즈 설정
-		top.setLayout(new BorderLayout());
+		jpTop = new JPanel();
+		jpTop.setBackground(Color.white);
+		jpTop.setPreferredSize(new Dimension(400, 100)); //판넬사이즈 설정
+		jpTop.setLayout(new BorderLayout());
 		JLabel login = new JLabel("로그인"); //로그인 라벨
 		login.setFont(fontNanumGothic25);
 		login.setHorizontalAlignment(JLabel.CENTER);
 		//btnClose = new JButton();
-		top.add(login);
-		add(top, BorderLayout.NORTH);
+		jpTop.add(login);
+		add(jpTop, BorderLayout.NORTH);
 		
 		//중앙판넬
-		center = new JPanel();
-		center.setLayout(new GridLayout(5, 1, 10, 10));
-		center.setBackground(Color.white);
-		lbId = new JLabel("아이디"); //아이디 라벨
-		taId = new JTextField(); //아이디 입력
-		lbPw = new JLabel("비밀번호"); //비밀번호 라벨
-		taPw = new JTextField(); //비밀번호 입력
-		lbId.setFont(fontNanumGothic15);
-		lbPw.setFont(fontNanumGothic15);
-		taId.setFont(fontNanumGothic15);
-		taPw.setFont(fontNanumGothic15);
+		jpCenter = new JPanel();
+		jpCenter.setLayout(new GridLayout(5, 1, 10, 10));
+		jpCenter.setBackground(Color.white);
+		lblId = new JLabel("아이디"); //아이디 라벨
+		tfId = new JTextField(); //아이디 입력
+		lblPw = new JLabel("비밀번호"); //비밀번호 라벨
+		tfPw = new JTextField(); //비밀번호 입력
+		lblId.setFont(fontNanumGothic15);
+		lblPw.setFont(fontNanumGothic15);
+		tfId.setFont(fontNanumGothic15);
+		tfPw.setFont(fontNanumGothic15);
 		
 		
 		btnLogin = new JButton("로그인"); //로그인 버튼
 		btnLogin.setFont(fontNanumGothic16);
 		btnLogin.setBorderPainted(false); //버튼 윤곽선 제거
 		btnLogin.setBackground(new Color(153, 204, 255)); //버튼 색 설정
-		center.add(lbId);
-		center.add(taId);
-		center.add(lbPw);
-		center.add(taPw);
-		center.add(btnLogin);
-		add(center, BorderLayout.CENTER);
+		jpCenter.add(lblId);
+		jpCenter.add(tfId);
+		jpCenter.add(lblPw);
+		jpCenter.add(tfPw);
+		jpCenter.add(btnLogin);
+		add(jpCenter, BorderLayout.CENTER);
 		
 		
 		//하단판넬
-		bottom = new JPanel();
-		bottom.setPreferredSize(new Dimension(400, 100));
-		bottom.setLayout(new GridLayout(3,1));
-		bottom.setBackground(Color.white);
-		bottom.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
-		findIdPw = new JButton("<HTML><U>아이디/비밀번호 찾기</U></HTML>"); //아이디/비밀번호 찾기 버튼 추가
-		findIdPw.setForeground(new Color(000, 102, 255));
-		findIdPw.addActionListener(this);
-		findIdPw.setBorderPainted(false); //버튼 윤곽선 제거
-		findIdPw.setContentAreaFilled(false); //버튼배경 제거
-		signUp = new JButton("<HTML><U>회원가입</U></HTML>"); //회원가입 버튼 추가
-		signUp.setForeground(new Color(000, 102, 255));
-		signUp.addActionListener(this);
-		signUp.setBorderPainted(false); //버튼 윤곽선 제거
-		signUp.setContentAreaFilled(false); //버튼배경 제거
-		findIdPw.setFont(fontNanumGothic12);
-		signUp.setFont(fontNanumGothic12);
+		jpBottom = new JPanel();
+		jpBottom.setPreferredSize(new Dimension(400, 100));
+		jpBottom.setLayout(new GridLayout(3,1));
+		jpBottom.setBackground(Color.white);
+		jpBottom.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
+		btnFindIdPw = new JButton("<HTML><U>아이디/비밀번호 찾기</U></HTML>"); //아이디/비밀번호 찾기 버튼 추가
+		btnFindIdPw.setForeground(new Color(000, 102, 255));
+		btnFindIdPw.addActionListener(this);
+		btnFindIdPw.setBorderPainted(false); //버튼 윤곽선 제거
+		btnFindIdPw.setContentAreaFilled(false); //버튼배경 제거
+		btnSignUp = new JButton("<HTML><U>회원가입</U></HTML>"); //회원가입 버튼 추가
+		btnSignUp.setForeground(new Color(000, 102, 255));
+		btnSignUp.addActionListener(this);
+		btnSignUp.setBorderPainted(false); //버튼 윤곽선 제거
+		btnSignUp.setContentAreaFilled(false); //버튼배경 제거
+		btnFindIdPw.setFont(fontNanumGothic12);
+		btnSignUp.setFont(fontNanumGothic12);
 		
-		bottom.add(findIdPw);
-		bottom.add(signUp);
+		jpBottom.add(btnFindIdPw);
+		jpBottom.add(btnSignUp);
 		
-		add(bottom, BorderLayout.SOUTH);
+		add(jpBottom, BorderLayout.SOUTH);
 		
 		
 		//좌우판넬
