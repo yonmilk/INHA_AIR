@@ -1,10 +1,13 @@
+package main;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,7 +39,10 @@ public class MainForm extends JFrame implements ActionListener {
 	private ImageIcon imgFindTrips, imgCheckIn, imgFilghtStatus;
 	
 	// 로그인 프레임
-	private LoginForm login;
+//	private LoginForm login;
+	
+	// 예약창
+	private ReserveForm res;
 	
 	public MainForm() {
 		setTitle(title);
@@ -49,6 +55,11 @@ public class MainForm extends JFrame implements ActionListener {
 		
 		setLayout(null);	// 배치관리자 제거
 		c.setBackground(Color.WHITE);
+		
+		// 예약창
+		res = new ReserveForm(400, 450);
+		res.setJp(650, 150);
+		add(res.getJp());
 		
 		// 상위 메뉴 판넬
 		setUpMenu();
@@ -70,7 +81,7 @@ public class MainForm extends JFrame implements ActionListener {
 //		pnCENTER.setSize(1120, 430);
 		pnCENTER.setSize(1000, 430);
 		pnCENTER.setLocation(70, 100);
-		pnCENTER.setBackground(Color.yellow);
+		pnCENTER.setBackground(new Color(135,206,250));
 		
 		add(pnCENTER);
 	}
@@ -80,8 +91,13 @@ public class MainForm extends JFrame implements ActionListener {
 		// 하위 판넬
 		pnBOTTOM = new JPanel();
 //		pnBOTTOM.setLayout(null);
+		pnBOTTOM.setLayout(new FlowLayout(FlowLayout.LEFT));
 		pnBOTTOM.setSize(1120, 100);
 		pnBOTTOM.setLocation(0, 550);
+		pnBOTTOM.setLayout(new FlowLayout(FlowLayout.LEFT, 80, 10));
+//		pnBOTTOM.setBorder(BorderFactory.createEmptyBorder(25, 50, 0, 0));
+		pnBOTTOM.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+		
 //		pnBOTTOM.setBackground(Color.black);
 		
 		// 이미지 아이콘
@@ -90,21 +106,18 @@ public class MainForm extends JFrame implements ActionListener {
 		imgFilghtStatus = new ImageIcon("imgs/filghtStatus.png");
 		
 		// 이미지 버튼
-//		btnFindTrips = new JButton("<HTML><U>예약조회</U></HTML>", imgFindTrips);
 //		btnFindTrips = new JButton("예약조회", imgFindTrips);
 		btnFindTrips = new JButton("예약조회");
 		btnFindTrips.setFont(fontNanumGothic25);
 		btnFindTrips.setBorderPainted(false);
 		btnFindTrips.setContentAreaFilled(false);
 		
-//		btnCheckIn = new JButton("<HTML><U>체크인</U></HTML>", imgCheckIn);
 //		btnCheckIn = new JButton("체크인", imgCheckIn);
 		btnCheckIn = new JButton("체크인");
 		btnCheckIn.setFont(fontNanumGothic25);
 		btnCheckIn.setBorderPainted(false);
 		btnCheckIn.setContentAreaFilled(false);
 		
-//		btnFilghtStatus = new JButton("<HTML><U>항공편 현황</U></HTML>", imgFilghtStatus);
 //		btnFilghtStatus = new JButton("항공편 현황", imgFilghtStatus);
 		btnFilghtStatus = new JButton("항공편 현황");
 		btnFilghtStatus.setFont(fontNanumGothic25);
@@ -220,7 +233,7 @@ public class MainForm extends JFrame implements ActionListener {
 		
 		if(obj == btnLogin)
 		{
-			new LoginForm("LOGIN", 400, 500, this);
+//			new LoginForm("LOGIN", 400, 500, this);
 		}
 	}
 }
