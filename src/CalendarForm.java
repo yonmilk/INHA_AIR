@@ -14,10 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
-import Basic.BasicForm;
-
 //연우 - 탑승일 선택 작성
 
 public class CalendarForm extends JFrame implements ActionListener {
