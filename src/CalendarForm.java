@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,7 +24,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	
 	// Title 및 사이즈 설정
 	private String title = "탑승일 선택";
-	private int width = 800, height = 700;
+	private int width = 750, height = 700;
 	
 	//private MainForm mainForm;
 
@@ -40,6 +41,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	private JTextField tfCome;
 	private JButton btnReselect;
 	private JButton btnSelect;
+	private Calendar cal;
 
 	
 
@@ -63,6 +65,23 @@ public class CalendarForm extends JFrame implements ActionListener {
 	}
 
 	private void setCalendar() {
+		//달력 생성 함수
+		
+		cal = Calendar.getInstance(); //캘린더 객체 생성
+		int thisYear = cal.get(Calendar.YEAR); //현재 년
+		int thisMonth = cal.get(Calendar.MONTH)+1; //현재 달
+		int today = cal.get(Calendar.DATE);
+		
+		cal.set(thisYear, thisMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
+		
+		int sDayNum = cal.get(Calendar.DAY_OF_WEEK); //1일의 요일 얻어오기
+		int endDate = cal.getActualMaximum(Calendar.DATE); //달의 마지막 일 얻기
+		
+		int intDateNum = 1;
+		
+		for (int i = 1; intDateNum <= endDate; i++) { //intDateNum이 
+			
+		}
 		
 	}
 	
@@ -95,7 +114,6 @@ public class CalendarForm extends JFrame implements ActionListener {
 		lblGo.setFont(fontNanumGothic18);
 		lblGo.setSize(150, 40);
 		lblGo.setLocation(10, 0);
-
 		tfGo = new JTextField(); //가는 날짜 선택 시 확인
 		tfGo.setFont(fontNanumGothic18);
 		tfGo.setSize(150, 40);
@@ -118,7 +136,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 		
 		//달력추가
 		jpCalendar = new JPanel();
-		setCalendar();
+		//setCalendar();
 		
 		
 		//하단 버튼 판넬
@@ -132,13 +150,13 @@ public class CalendarForm extends JFrame implements ActionListener {
 		btnReselect = new JButton("다시 선택");
 		btnReselect.setFont(fontNanumGothic18);
 		btnReselect.setSize(230, 60);
-		btnReselect.setLocation(65, 0);
+		btnReselect.setLocation(20, 0);
 		btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnReselect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		btnSelect = new JButton("왕복 선택");
 		btnSelect.setFont(fontNanumGothic18);
 		btnSelect.setSize(230, 60);
-		btnSelect.setLocation(350, 0);
+		btnSelect.setLocation(370, 0);
 		btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnSelect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		
