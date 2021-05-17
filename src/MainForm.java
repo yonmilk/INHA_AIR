@@ -92,20 +92,21 @@ public class MainForm extends JFrame implements ActionListener {
 //		btnFindTrips = new JButton("<HTML><U>예약조회</U></HTML>", imgFindTrips);
 //		btnFindTrips = new JButton("예약조회", imgFindTrips);
 		btnFindTrips = new JButton("예약조회");
-		btnFindTrips.setFont(fontNanumGothic18);
+		btnFindTrips.setFont(fontNanumGothic25);
 		btnFindTrips.setBorderPainted(false);
 		btnFindTrips.setContentAreaFilled(false);
 		
 //		btnCheckIn = new JButton("<HTML><U>체크인</U></HTML>", imgCheckIn);
 //		btnCheckIn = new JButton("체크인", imgCheckIn);
 		btnCheckIn = new JButton("체크인");
-		btnCheckIn.setFont(fontNanumGothic18);
+		btnCheckIn.setFont(fontNanumGothic25);
 		btnCheckIn.setBorderPainted(false);
 		btnCheckIn.setContentAreaFilled(false);
 		
 //		btnFilghtStatus = new JButton("<HTML><U>항공편 현황</U></HTML>", imgFilghtStatus);
-		btnFilghtStatus = new JButton("항공편 현황", imgFilghtStatus);
-		btnFilghtStatus.setFont(fontNanumGothic18);
+//		btnFilghtStatus = new JButton("항공편 현황", imgFilghtStatus);
+		btnFilghtStatus = new JButton("항공편 현황");
+		btnFilghtStatus.setFont(fontNanumGothic25);
 		btnFilghtStatus.setBorderPainted(false);
 		btnFilghtStatus.setContentAreaFilled(false);
 				
