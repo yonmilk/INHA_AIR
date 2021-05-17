@@ -79,7 +79,7 @@ public class MainForm extends JFrame implements ActionListener {
 		// 하위 판넬
 		pnBOTTOM = new JPanel();
 //		pnBOTTOM.setLayout(null);
-		pnBOTTOM.setSize(750, 150);
+		pnBOTTOM.setSize(750, 100);
 		pnBOTTOM.setLocation(0, 550);
 //		pnBOTTOM.setBackground(Color.black);
 		
@@ -90,20 +90,22 @@ public class MainForm extends JFrame implements ActionListener {
 		
 		// 이미지 버튼
 //		btnFindTrips = new JButton("<HTML><U>예약조회</U></HTML>", imgFindTrips);
-		btnFindTrips = new JButton("예약조회", imgFindTrips);
-		btnFindTrips.setFont(fontNanumGothic25);
+//		btnFindTrips = new JButton("예약조회", imgFindTrips);
+		btnFindTrips = new JButton("예약조회");
+		btnFindTrips.setFont(fontNanumGothic18);
 		btnFindTrips.setBorderPainted(false);
 		btnFindTrips.setContentAreaFilled(false);
 		
 //		btnCheckIn = new JButton("<HTML><U>체크인</U></HTML>", imgCheckIn);
-		btnCheckIn = new JButton("체크인", imgCheckIn);
-		btnCheckIn.setFont(fontNanumGothic25);
+//		btnCheckIn = new JButton("체크인", imgCheckIn);
+		btnCheckIn = new JButton("체크인");
+		btnCheckIn.setFont(fontNanumGothic18);
 		btnCheckIn.setBorderPainted(false);
 		btnCheckIn.setContentAreaFilled(false);
 		
 //		btnFilghtStatus = new JButton("<HTML><U>항공편 현황</U></HTML>", imgFilghtStatus);
 		btnFilghtStatus = new JButton("항공편 현황", imgFilghtStatus);
-		btnFilghtStatus.setFont(fontNanumGothic25);
+		btnFilghtStatus.setFont(fontNanumGothic18);
 		btnFilghtStatus.setBorderPainted(false);
 		btnFilghtStatus.setContentAreaFilled(false);
 				
