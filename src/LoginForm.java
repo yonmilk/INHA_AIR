@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 //연우-로그인 화면 생성
-
 public class LoginForm extends JFrame implements ActionListener {
 
 	Font fontNanumGothic12 = new Font("NanumGothic", Font.PLAIN , 12);	// 나눔고딕 12
@@ -25,7 +24,7 @@ public class LoginForm extends JFrame implements ActionListener {
 	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 	
 	
-	private MainForm mainForm;
+	private main.MainForm mainForm;
 	
 	private JPanel top, center, bottom;
 	private JLabel lbId, lbPw;
@@ -34,7 +33,7 @@ public class LoginForm extends JFrame implements ActionListener {
 	//private JButton btnClose;
 	
 	
-	public LoginForm(String title, int width, int height, MainForm mainForm) {
+	public LoginForm(String title, int width, int height, main.MainForm mainForm) {
 		
 		this.mainForm = mainForm;
 		
