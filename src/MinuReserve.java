@@ -79,7 +79,7 @@ public class MinuReserve extends JFrame{
 		jp2.setLayout(new GridLayout(3, 2, 20,30));
 		
 		imgdate = new ImageIcon("image/calender.png");
-		lbdate = new JLabel("출발일", imgdate, SwingUtilities.LEFT); //라벨에 이미지 삽입, 위치 주기
+		lbdate = new JLabel("탑승일", imgdate, SwingUtilities.LEFT); //라벨에 이미지 삽입, 위치 주기
 		btndate = new JButton("");
 		btndate.setBackground(Color.white);
 		

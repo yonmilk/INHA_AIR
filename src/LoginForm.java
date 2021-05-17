@@ -15,9 +15,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+//연우-로그인 화면 생성
+
 public class LoginForm extends JFrame implements ActionListener {
 
-	Font fontNanumGothic = new Font("NanumGothic", Font.BOLD, 20);
+	Font fontNanumGothic12 = new Font("NanumGothic", Font.PLAIN , 12);	// 나눔고딕 12
+	Font fontNanumGothic15 = new Font("NanumGothic", Font.PLAIN, 15);	// 나눔고딕 15
+	Font fontNanumGothic16 = new Font("NanumGothic", Font.BOLD, 16);	// 나눔고딕 16
+	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
+	
 	
 	private MainForm mainForm;
 	
@@ -25,10 +31,9 @@ public class LoginForm extends JFrame implements ActionListener {
 	private JLabel lbId, lbPw;
 	private JTextField taId, taPw;
 	private JButton btnLogin, findIdPw, signUp;
-
-	private JButton btnClose;
+	//private JButton btnClose;
 	
-	//연우-로그인 화면 생성
+	
 	public LoginForm(String title, int width, int height, MainForm mainForm) {
 		
 		this.mainForm = mainForm;
@@ -40,7 +45,7 @@ public class LoginForm extends JFrame implements ActionListener {
 		Container c = getContentPane();
 		c.setBackground(Color.white);
 		setLayout(new BorderLayout());
-		this.setUndecorated(true); //타이틀바 없애기 
+		//this.setUndecorated(true); //타이틀바 없애기 
 		//setFont(fontNanumGothic);
 		
 		setLogin();
@@ -57,8 +62,9 @@ public class LoginForm extends JFrame implements ActionListener {
 		top.setPreferredSize(new Dimension(400, 100)); //판넬사이즈 설정
 		top.setLayout(new BorderLayout());
 		JLabel login = new JLabel("로그인"); //로그인 라벨
-		login.setFont(fontNanumGothic);
+		login.setFont(fontNanumGothic25);
 		login.setHorizontalAlignment(JLabel.CENTER);
+		//btnClose = new JButton();
 		top.add(login);
 		add(top, BorderLayout.NORTH);
 		
@@ -70,7 +76,14 @@ public class LoginForm extends JFrame implements ActionListener {
 		taId = new JTextField(); //아이디 입력
 		lbPw = new JLabel("비밀번호"); //비밀번호 라벨
 		taPw = new JTextField(); //비밀번호 입력
+		lbId.setFont(fontNanumGothic15);
+		lbPw.setFont(fontNanumGothic15);
+		taId.setFont(fontNanumGothic15);
+		taPw.setFont(fontNanumGothic15);
+		
+		
 		btnLogin = new JButton("로그인"); //로그인 버튼
+		btnLogin.setFont(fontNanumGothic16);
 		btnLogin.setBorderPainted(false); //버튼 윤곽선 제거
 		btnLogin.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		center.add(lbId);
@@ -97,13 +110,11 @@ public class LoginForm extends JFrame implements ActionListener {
 		signUp.addActionListener(this);
 		signUp.setBorderPainted(false); //버튼 윤곽선 제거
 		signUp.setContentAreaFilled(false); //버튼배경 제거
-		btnClose = new JButton("닫기");
-		btnClose.setBackground(new Color(000, 102, 255));
-		btnClose.setBorderPainted(false);
-		btnClose.addActionListener(this);
+		findIdPw.setFont(fontNanumGothic12);
+		signUp.setFont(fontNanumGothic12);
+		
 		bottom.add(findIdPw);
 		bottom.add(signUp);
-		bottom.add(btnClose);
 		
 		add(bottom, BorderLayout.SOUTH);
 		
@@ -126,9 +137,6 @@ public class LoginForm extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if(obj == btnClose) {
-			this.dispose(); //해당 창만 끄게 하기
-		}
 		
 	}
 	
