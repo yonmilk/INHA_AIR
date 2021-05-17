@@ -1,4 +1,6 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,44 +11,44 @@ import Basic.BasicForm;
 
 public class CalendarForm extends JFrame implements ActionListener {
 	
-// Title 및 사이즈 설정
-	private String title = "INHA AIR";
-	private int width = 1120, height = 770;
-	
-	private JPanel pnTOP;
-	
-	public CalendarForm() {
+	//private MainForm mainForm;
+
+
+	public CalendarForm(String title, int width, int height) {
+			
+		//this.mainForm = mainForm;
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
 		setLocationRelativeTo(this);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		Container c = getContentPane();
+		c.setBackground(Color.white);
+		setLayout(new BorderLayout());
+		//this.setUndecorated(true); //타이틀바 없애기 
+		//setFont(fontNanumGothic);
 		
-		// 이거 건들지말기
-		setLayout(null);
-		setUpMenu();
+		setCalendar();
 		
 		setVisible(true);
-	}
-
-
-	// 이거 건들지말기
-	private void setUpMenu() {
 		
 	}
+
+	
+	
+	private void setCalendar() {
+		
+		
+		
+		
+		
+	}
+
 
 
 	public static void main(String[] args) {
-		new BasicForm();
-	}
-
-
-
-
-
-
-	
-	
+		new CalendarForm("탑승일 선택", 600, 600);
+	}	
 	
 	
 	@Override
