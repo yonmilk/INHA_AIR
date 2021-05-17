@@ -19,24 +19,24 @@ public class MenuBar extends JFrame implements ActionListener {
 	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
 	
 	// 상위 메뉴 관련 
-	private JPanel pnTOP, pnMenu;
+	private JPanel jpTOP, jpMenu;
 	private JButton btnLogo, btnBook, btnAirport, btnInFight, btnMyPage, btnLogin;
 		
 	public JPanel getPnTOP() {
-		return pnTOP;
+		return jpTOP;
 	}
 
 	public void setPnTOP(JPanel pnTOP) {
-		this.pnTOP = pnTOP;
+		this.jpTOP = pnTOP;
 	}
 
 	public MenuBar() {
 		// 상단 판넬
-		pnTOP = new JPanel();		// 상단 판넬 생성
-		pnTOP.setLayout(null);		// 상단 판넬 배치관리자 설정
-		pnTOP.setSize(1120, 80);	// 상단 판넬 사이즈 설정
-		pnTOP.setLocation(0, 0);	// 상단 판넬 위치 설정
-		pnTOP.setBackground(Color.WHITE);	// 상단 패널 배경색 설정
+		jpTOP = new JPanel();		// 상단 판넬 생성
+		jpTOP.setLayout(null);		// 상단 판넬 배치관리자 설정
+		jpTOP.setSize(1120, 80);	// 상단 판넬 사이즈 설정
+		jpTOP.setLocation(0, 0);	// 상단 판넬 위치 설정
+		jpTOP.setBackground(Color.WHITE);	// 상단 패널 배경색 설정
 			
 		// 로고 버튼
 		btnLogo = new JButton("INHA AIR");
@@ -45,12 +45,12 @@ public class MenuBar extends JFrame implements ActionListener {
 		btnLogo.addActionListener(this);
 				
 		// 메뉴 선택 판넬
-		pnMenu = new JPanel();
-		pnMenu.setLayout(null);
+		jpMenu = new JPanel();
+		jpMenu.setLayout(null);
 //		pnMenu.setSize(700, 70);
-		pnMenu.setSize(1000, 50);
+		jpMenu.setSize(1000, 50);
 //		pnMenu.setLocation(250, 5);
-		pnMenu.setLocation(70, 40);
+		jpMenu.setLocation(70, 40);
 //		pnMenu.setBackground(Color.LIGHT_GRAY);
 		
 		// 메뉴 버튼
@@ -102,19 +102,19 @@ public class MenuBar extends JFrame implements ActionListener {
 		btnLogin.setBorderPainted(false);
 		btnLogin.setContentAreaFilled(false);
 				
-		pnTOP.add(btnLogo);
-		pnTOP.add(pnMenu);
+		jpTOP.add(btnLogo);
+		jpTOP.add(jpMenu);
 		
 		
-		pnMenu.add(btnBook);
-		pnMenu.add(btnAirport);
-		pnMenu.add(btnInFight);
-		pnMenu.add(btnMyPage);
+		jpMenu.add(btnBook);
+		jpMenu.add(btnAirport);
+		jpMenu.add(btnInFight);
+		jpMenu.add(btnMyPage);
 			
 			
-		pnTOP.add(btnLogin);
+		jpTOP.add(btnLogin);
 				
-		add(pnTOP);
+		add(jpTOP);
 	}
 
 	@Override

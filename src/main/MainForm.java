@@ -32,10 +32,10 @@ public class MainForm extends JFrame implements ActionListener {
 //	private JButton btnLogo, btnBook, btnAirport, btnInFight, btnMyPage, btnLogin;
 	
 	// 센터 관련
-	private JPanel pnCENTER;
+	private JPanel jpCENTER;
 	
 	// 하위 메뉴 관련
-	private JPanel pnBOTTOM; 
+	private JPanel jpBOTTOM; 
 	private JButton btnFindTrips, btnCheckIn, btnFilghtStatus;
 	private ImageIcon imgFindTrips, imgCheckIn, imgFilghtStatus;
 	
@@ -83,27 +83,27 @@ public class MainForm extends JFrame implements ActionListener {
 
 	private void setCenter() {
 		// 중간 판넬
-		pnCENTER = new JPanel();
-		pnCENTER.setLayout(null);
+		jpCENTER = new JPanel();
+		jpCENTER.setLayout(null);
 //		pnCENTER.setSize(1120, 430);
-		pnCENTER.setSize(1000, 430);
-		pnCENTER.setLocation(70, 100);
-		pnCENTER.setBackground(new Color(135,206,250));
+		jpCENTER.setSize(1000, 430);
+		jpCENTER.setLocation(70, 100);
+		jpCENTER.setBackground(new Color(135,206,250));
 		
-		add(pnCENTER);
+		add(jpCENTER);
 	}
 
 
 	private void setDownMenu() {
 		// 하위 판넬
-		pnBOTTOM = new JPanel();
+		jpBOTTOM = new JPanel();
 //		pnBOTTOM.setLayout(null);
-		pnBOTTOM.setLayout(new FlowLayout(FlowLayout.LEFT));
-		pnBOTTOM.setSize(1120, 100);
-		pnBOTTOM.setLocation(0, 550);
-		pnBOTTOM.setLayout(new FlowLayout(FlowLayout.LEFT, 80, 10));
+		jpBOTTOM.setLayout(new FlowLayout(FlowLayout.LEFT));
+		jpBOTTOM.setSize(1120, 100);
+		jpBOTTOM.setLocation(0, 550);
+		jpBOTTOM.setLayout(new FlowLayout(FlowLayout.LEFT, 80, 10));
 //		pnBOTTOM.setBorder(BorderFactory.createEmptyBorder(25, 50, 0, 0));
-		pnBOTTOM.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+		jpBOTTOM.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 		
 //		pnBOTTOM.setBackground(Color.black);
 		
@@ -131,11 +131,11 @@ public class MainForm extends JFrame implements ActionListener {
 		btnFilghtStatus.setBorderPainted(false);
 		btnFilghtStatus.setContentAreaFilled(false);
 				
-		pnBOTTOM.add(btnFindTrips);
-		pnBOTTOM.add(btnCheckIn);
-		pnBOTTOM.add(btnFilghtStatus);
+		jpBOTTOM.add(btnFindTrips);
+		jpBOTTOM.add(btnCheckIn);
+		jpBOTTOM.add(btnFilghtStatus);
 				
-		add(pnBOTTOM);
+		add(jpBOTTOM);
 		
 	}
 
@@ -238,9 +238,5 @@ public class MainForm extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
-//		if(obj == btnLogin)
-//		{
-////			new LoginForm("LOGIN", 400, 500, this);
-//		}
 	}
 }
