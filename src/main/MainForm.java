@@ -33,7 +33,6 @@ public class MainForm extends JFrame implements ActionListener {
 	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
 	
-	
 	// 상위 메뉴 관련 
 //	private JPanel pnTOP, pnMenu;
 //	private JButton btnLogo, btnBook, btnAirport, btnInFight, btnMyPage, btnLogin;
