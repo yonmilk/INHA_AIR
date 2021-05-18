@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 
 //연우 - 탑승일 선택 작성
 
-public class CalendarForm extends JFrame implements ActionListener {
+public class SelectDate extends JFrame implements ActionListener {
 	
 	// Title 및 사이즈 설정
 	private String title = "탑승일 선택";
@@ -62,7 +62,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	private JButton btnRight;
 	
 
-	public CalendarForm() {
+	public SelectDate() {
 			
 		//this.mainForm = mainForm;
 		
@@ -289,7 +289,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	
 
 	public static void main(String[] args) {
-		new CalendarForm();
+		new SelectDate();
 	}	
 	
 	
