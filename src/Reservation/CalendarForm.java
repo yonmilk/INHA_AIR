@@ -1,3 +1,4 @@
+package Reservation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -22,7 +23,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	
 	// Title 및 사이즈 설정
 	private String title = "탑승일 선택";
-	private int width = 750, height = 700;
+	private int width = 750, height = 800;
 	
 	//private MainForm mainForm;
 
@@ -42,7 +43,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	private JTextField tfCome;
 	private JButton btnReselect;
 	private JButton btnSelect;
-	private Calendar cal;
+	private static Calendar cal = Calendar.getInstance(); //캘린더 객체 생성;
 	private String[] day = new String[] {"S", "M", "T", "W", "T", "F", "S"};
 	private int thisYear;
 	private int thisMonth;
@@ -54,6 +55,10 @@ public class CalendarForm extends JFrame implements ActionListener {
 	private JButton btnDay;
 	private int dayY;
 	private int dayX;
+	private static int todayYear = cal.get(Calendar.YEAR);
+	private static int todayMonth = cal.get(Calendar.MONTH)+1;
+	
+	
 
 	public CalendarForm() {
 			
@@ -74,17 +79,17 @@ public class CalendarForm extends JFrame implements ActionListener {
 		
 	}
 
-	private void setCalendar() {
+	private void setCalendar(int year, int month, int x, int y) {
 		
 		//달력 생성 함수
 		jpCalendar = new JPanel();
 		jpCalendar.setLayout(null);
 		jpCalendar.setSize(290, 370);
-		jpCalendar.setLocation(50, 160);
+		jpCalendar.setLocation(x, y);
 		jpCalendar.setBackground(Color.WHITE);
-		cal = Calendar.getInstance(); //캘린더 객체 생성
-		thisYear = cal.get(Calendar.YEAR); //현재 년
-		thisMonth = cal.get(Calendar.MONTH)+1; //현재 달
+		
+		thisYear = year; //현재 년
+		thisMonth = month; //현재 달
 		today = cal.get(Calendar.DATE);
 
 		
@@ -214,8 +219,8 @@ public class CalendarForm extends JFrame implements ActionListener {
 
 		
 		//달력추가
-		setCalendar();
-		
+		setCalendar(todayYear, todayMonth, 50, 160);
+		//setCalendar(todayYear+1, todayMonth+1, 400, 160);
 		
 		//하단 버튼 판넬
 		jpBtn = new JPanel();
