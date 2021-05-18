@@ -35,8 +35,29 @@ public class MenuForm extends JFrame implements ActionListener {
 	// 메뉴 관련
 	private JPanel jpBook, jpAirport, jpInFight;
 	
-	// 예
+	// 예매 Book
+	private JButton btnBook,				// 예매
+					btnKoreaDomestic,		// 국내선
+					btnInternational,		// 국제선
+					btnRefund;				// 환불
 	
+	// 공항 Airport
+	private JButton btnAirport;				// 공항
+	private JLabel lblBaggage;				// 수화물
+	private JButton	btnBaggageInformation,	// 수화물 안내
+					btnRestrictedItems,		// 운송제한물품
+					btnDamagedOrLost;		// 파손 및 유실물
+	
+	// 기내 InFight
+	private JButton btnInFight;				// 기내
+	private JLabel	lblInFlightService;		// 기내 서비스
+	private JButton	btnInFlightMeals,		// 기내식
+					btnDutyFree,			// 면세품
+					btnGuide;				// 가이드
+	private JLabel	lblFleet;				// 항공기 안내
+	private JButton btnFleetInformation;	// 항공기 정보
+	
+	// 메뉴폼
 	public MenuForm() {
 		setTitle(title);
 		setSize(width, height);
@@ -52,6 +73,7 @@ public class MenuForm extends JFrame implements ActionListener {
 		setClose();
 		
 		setMenu();
+		
 		
 		// 배경색
 //		Container c = getContentPane();
