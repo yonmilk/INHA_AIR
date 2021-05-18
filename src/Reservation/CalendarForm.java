@@ -35,7 +35,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 25
 	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
-	private JPanel jpTitle, jpSelect, jpCalendar, jpBtn;
+	private JPanel jpTitle, jpSelect, jpBtn, jpCalendarLeft, jpCalendarRight;
 	private JLabel lblTitle;
 	private JLabel lblCome;
 	private JLabel lblGo;
@@ -52,6 +52,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	private JLabel lblYear;
 	private JLabel lblMonth;
 	private ArrayList<JButton> lstBtn = new ArrayList<JButton>();
+	private ArrayList<JPanel> lstCal = new ArrayList<JPanel>();
 	private JButton btnDay;
 	private int dayY;
 	private int dayX;
@@ -79,14 +80,15 @@ public class CalendarForm extends JFrame implements ActionListener {
 		
 	}
 
-	private void setCalendar(int year, int month, int x, int y) {
+	private void setCalendar(JPanel jpCal, int year, int month, int x, int y) { //달력생성함수
 		
-		//달력 생성 함수
-		jpCalendar = new JPanel();
-		jpCalendar.setLayout(null);
-		jpCalendar.setSize(290, 370);
-		jpCalendar.setLocation(x, y);
-		jpCalendar.setBackground(Color.WHITE);
+		//왼쪽 달력패널 생성
+		jpCal = new JPanel();
+		jpCal.setLayout(null);
+		jpCal.setSize(290, 370);
+		jpCal.setLocation(x, y);
+		jpCal.setBackground(Color.WHITE);
+		
 		
 		thisYear = year; //현재 년
 		thisMonth = month; //현재 달
@@ -108,8 +110,8 @@ public class CalendarForm extends JFrame implements ActionListener {
 		lblMonth.setFont(fontNanumGothic18);
 		lblMonth.setSize(80, 40);
 		lblMonth.setLocation(60, 0);
-		jpCalendar.add(lblYear);
-		jpCalendar.add(lblMonth);
+		jpCal.add(lblYear);
+		jpCal.add(lblMonth);
 		
 		
 		for (int i = 0; i<7; i++) { //요일 추가
@@ -117,7 +119,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 			lblday.setFont(fontNanumGothic15);
 			lblday.setSize(100, 40);
 			lblday.setLocation(40*i + 18, 30);
-			jpCalendar.add(lblday);
+			jpCal.add(lblday);
 			
 		}
 		
@@ -131,29 +133,39 @@ public class CalendarForm extends JFrame implements ActionListener {
 			if (i<sDayNum) //i가 요일숫자보다 작으면 공백 버튼
 			{
 				btnDay = new JButton("");
-				btnDay.setFont(fontNanumGothic9);
+				btnDay.setFont(fontNanumGothic12);
 				btnDay.setBorderPainted(false); //버튼 윤곽선 제거
 				//btnDay.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 				btnDay.setBackground(Color.white); //버튼 색 설정
-				btnDay.setSize(45, 50);
+				btnDay.setSize(60, 60);
 				btnDay.setLocation(dayX, dayY);
 				lstBtn.add(btnDay);
-				jpCalendar.add(btnDay);
+				jpCal.add(btnDay);
 				
 				dayX += 40;
+				
 			}
 			else //date값의 버튼 출력 
 			{
 				btnDay = new JButton(intDateNum+"");
 				btnDay.addActionListener(this);
-				btnDay.setFont(fontNanumGothic9);
+				btnDay.setFont(fontNanumGothic12);
 				btnDay.setBorderPainted(false); //버튼 윤곽선 제거
 				//btnDay.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 				btnDay.setBackground(Color.white); //버튼 색 설정
-				btnDay.setSize(45, 50);
+				btnDay.setSize(60, 60);
 				btnDay.setLocation(dayX, dayY);
+				
+				if ((i-8)%7 ==0) {
+					btnDay.setForeground(Color.red);
+				} else if (i%7 ==0) {
+					btnDay.setForeground(Color.blue);
+				} else {
+					btnDay.setForeground(Color.black);
+				}
+				
 				lstBtn.add(btnDay);
-				jpCalendar.add(btnDay);
+				jpCal.add(btnDay);
 				
 				intDateNum++; //출력할 date 증가
 				dayX += 40;
@@ -164,8 +176,10 @@ public class CalendarForm extends JFrame implements ActionListener {
 				dayY += 50;
 				dayX = 0;
 			}
-			
+		
 		}
+		
+		add(jpCal);
 		
 	}
 	
@@ -219,8 +233,8 @@ public class CalendarForm extends JFrame implements ActionListener {
 
 		
 		//달력추가
-		setCalendar(todayYear, todayMonth, 50, 160);
-		//setCalendar(todayYear+1, todayMonth+1, 400, 160);
+		setCalendar(jpCalendarLeft, todayYear, todayMonth, 50, 160); //이번달 달력 출력
+		setCalendar(jpCalendarRight, todayYear+1, todayMonth+1, 400, 160); //다음달 달력 출력
 		
 		//하단 버튼 판넬
 		jpBtn = new JPanel();
@@ -248,7 +262,6 @@ public class CalendarForm extends JFrame implements ActionListener {
 		
 		add(jpTitle);
 		add(jpSelect);
-		add(jpCalendar);
 		add(jpBtn);
 		
 	}
