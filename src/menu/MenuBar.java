@@ -15,13 +15,13 @@ import main.MainForm;
 public class MenuBar extends JFrame implements ActionListener {
 	
 	// 폰트
-//	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
-//	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
-//	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
-//	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
+	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
+	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
+	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
+	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
 	
 	// 폰트 사용 위함
-	private MainForm main;
+//	private MainForm main;
 	
 	// 상위 메뉴 관련 
 	private JPanel jpTOP, jpMenu;
@@ -64,8 +64,7 @@ public class MenuBar extends JFrame implements ActionListener {
 //		btnBook.setLocation(10, 0);				// 버튼 위치 지정
 		btnBook.setLocation(200, 0);				// 버튼 위치 지정
 		btnBook.addActionListener(this);
-		btnBook.setFont(main.fontNanumGothic18);	// 버튼 폰트 설정
-//		btnBook.setFont(fontNanumGothic18);		
+		btnBook.setFont(fontNanumGothic18);		
 //		btnBook.setBackground(Color.LIGHT_GRAY);	// 버튼 배경색 설정
 		btnBook.setBorderPainted(false);		// 버튼 테두리 제거
 		btnBook.setContentAreaFilled(false);	// 버튼 내용영역 채우기 제거
@@ -76,7 +75,7 @@ public class MenuBar extends JFrame implements ActionListener {
 //		btnAirport.setLocation(180, 0);
 		btnAirport.setLocation(350, 0);
 		btnAirport.addActionListener(this);
-		btnAirport.setFont(main.fontNanumGothic18);
+		btnAirport.setFont(fontNanumGothic18);
 		btnAirport.setBorderPainted(false);
 		btnAirport.setContentAreaFilled(false);
 		
@@ -85,7 +84,7 @@ public class MenuBar extends JFrame implements ActionListener {
 //		btnInFight.setLocation(350, 0);
 		btnInFight.setLocation(500, 0);
 		btnInFight.addActionListener(this);
-		btnInFight.setFont(main.fontNanumGothic18);
+		btnInFight.setFont(fontNanumGothic18);
 		btnInFight.setBorderPainted(false);
 		btnInFight.setContentAreaFilled(false);
 			
@@ -94,7 +93,7 @@ public class MenuBar extends JFrame implements ActionListener {
 //		btnMyPage.setLocation(520, 0);
 		btnMyPage.setLocation(650, 0);
 		btnMyPage.addActionListener(this);
-		btnMyPage.setFont(main.fontNanumGothic18);
+		btnMyPage.setFont(fontNanumGothic18);
 		btnMyPage.setBorderPainted(false);
 		btnMyPage.setContentAreaFilled(false);
 				
@@ -104,7 +103,7 @@ public class MenuBar extends JFrame implements ActionListener {
 //		btnLogin.setLocation(970, 35);
 		btnLogin.setLocation(970, 5);
 		btnLogin.addActionListener(this);
-		btnLogin.setFont(main.fontArial);
+		btnLogin.setFont(fontArial);
 		btnLogin.setBorderPainted(false);
 		btnLogin.setContentAreaFilled(false);
 				

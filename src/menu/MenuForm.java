@@ -24,6 +24,7 @@ public class MenuForm extends JFrame implements ActionListener {
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
+	Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 22
 	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 	Font fontArial = new Font("Arial", Font.PLAIN, 25);					// 영어
 	
@@ -34,6 +35,7 @@ public class MenuForm extends JFrame implements ActionListener {
 	// 메뉴 관련
 	private JPanel jpBook, jpAirport, jpInFight;
 	
+	// 예
 	
 	public MenuForm() {
 		setTitle(title);
