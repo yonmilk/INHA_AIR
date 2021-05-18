@@ -23,11 +23,15 @@ public class MainForm extends JFrame implements ActionListener {
 	private int width = 1120, height = 770;
 	
 	// 폰트
-	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
-	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
-	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
-	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
-	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
+	public Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
+	public Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);	// 나눔고딕 18
+	public Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 18
+	public Font fontNanumGothic15= new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 18
+	public Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
+	public Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
+	public Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
+	public Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
+	public Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
 	
 	// 상위 메뉴 관련 
 //	private JPanel pnTOP, pnMenu;
@@ -48,7 +52,7 @@ public class MainForm extends JFrame implements ActionListener {
 	private menu.MenuBar menubar;
 	
 	// 예약창
-	private ReserveForm res;
+	private ReservePanel res;
 	
 	public MainForm() {
 		setTitle(title);
@@ -64,7 +68,7 @@ public class MainForm extends JFrame implements ActionListener {
 		c.setBackground(Color.WHITE);
 		
 		// 예약창
-		res = new ReserveForm(400, 475);
+		res = new ReservePanel(400, 475);
 		res.setJp(650, 150);
 		add(res.getJp());
 		
