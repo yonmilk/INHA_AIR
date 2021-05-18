@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
-public class ReserveForm extends JFrame{
+public class ReservePanel extends JFrame{
 	
 	Font fontNanumGothic = new Font("NanumGothic", Font.BOLD, 20);
 
@@ -43,7 +43,7 @@ public class ReserveForm extends JFrame{
 	
 
 
-	public ReserveForm(int width, int height) {
+	public ReservePanel(int width, int height) {
 
 		// 예원 - 틀 패널 생성
 		jp = new JPanel();
@@ -143,7 +143,7 @@ public class ReserveForm extends JFrame{
 
 
 	public static void main(String[] args) {
-		new ReserveForm(400, 500);
+		new ReservePanel(400, 500);
 	}
 
 }
