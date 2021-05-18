@@ -14,7 +14,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 
 	// Title 및 사이즈 설정
 	private String title = "승객 선택";
-	private int width = 500, height = 500;
+	private int width = 490, height = 500;
 	
 	//폰트
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
@@ -28,6 +28,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 	private JLabel lblTitle;
 	private JPanel jpAge;
 	private JPanel jpNumSelect;
+	private JPanel jpAgeCal;
 	
 	
 	
@@ -70,29 +71,28 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		//연령패널
 		jpAge = new JPanel();
 		jpAge.setLayout(null);
-		jpAge.setSize(200, 60);
-		jpAge.setLocation(20, 100);
+		jpAge.setSize(200, 200);
+		jpAge.setLocation(20, 90);
 		jpAge.setBackground(Color.red);
 		
 		//인원선택 패널
 		jpNumSelect = new JPanel();
 		jpNumSelect.setLayout(null);
-		jpNumSelect.setSize(200, 60);
-		jpNumSelect.setLocation(20, 300);
+		jpNumSelect.setSize(200, 200);
+		jpNumSelect.setLocation(250, 90);
 		jpNumSelect.setBackground(Color.blue);
 		
-		//나이계산기 패널
-		jpNumSelect = new JPanel();
-		jpNumSelect.setLayout(null);
-		jpNumSelect.setSize(200, 60);
-		jpNumSelect.setLocation(20, 300);
-		jpNumSelect.setBackground(Color.blue);
-		
-		//확인버튼
+		//나이계산기 패널  및 확인버튼
+		jpAgeCal = new JPanel();
+		jpAgeCal.setLayout(null);
+		jpAgeCal.setSize(430, 150);
+		jpAgeCal.setLocation(20, 300);
+		jpAgeCal.setBackground(Color.CYAN);
 		
 		add(jpTitle);
 		add(jpAge);
 		add(jpNumSelect);
+		add(jpAgeCal);
 		
 	}
 
