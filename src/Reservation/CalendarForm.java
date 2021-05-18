@@ -23,7 +23,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	
 	// Title 및 사이즈 설정
 	private String title = "탑승일 선택";
-	private int width = 750, height = 800;
+	private int width = 750, height = 700;
 	
 	//private MainForm mainForm;
 
@@ -266,7 +266,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 		
 	}
 
-
+	
 
 	public static void main(String[] args) {
 		new CalendarForm();
