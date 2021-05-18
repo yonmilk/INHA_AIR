@@ -15,10 +15,10 @@ import javax.swing.JPanel;
 import menu.MenuBar;
 
 // 예원 - 메뉴 화면
-public class MenuForm extends JFrame implements ActionListener {
+public class MenuPanel extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
-	private int width = 700, height = 550;
+	private int width = 800, height = 300;
 	
 	// 폰트
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
@@ -34,39 +34,36 @@ public class MenuForm extends JFrame implements ActionListener {
 	private JButton btnClose;
 	
 	// 메뉴 관련
-	private JPanel jpBook, jpAirport, jpInFight;
-	
+	private JPanel jpMenu, jpBook, jpAirport, jpInFight;
+		
 	// 예매 Book
-	private JButton btnBook,				// 예매
-					btnKoreaDomestic,		// 국내선
+	private JButton btnKoreaDomestic,		// 국내선
 					btnInternational,		// 국제선
 					btnRefund;				// 환불
-	
+		
 	// 공항 Airport
-	private JButton btnAirport;				// 공항
 	private JLabel lblBaggage;				// 수화물
 	private JButton	btnBaggageInformation,	// 수화물 안내
 					btnRestrictedItems,		// 운송제한물품
 					btnDamagedOrLost;		// 파손 및 유실물
-	
+		
 	// 기내 InFight
-	private JButton btnInFight;				// 기내
 	private JLabel	lblInFlightService;		// 기내 서비스
 	private JButton	btnInFlightMeals,		// 기내식
 					btnDutyFree,			// 면세품
 					btnGuide;				// 가이드
 	private JLabel	lblFleet;				// 항공기 안내
 	private JButton btnFleetInformation;	// 항공기 정보
-	
+		
 	
 	// 메뉴폼
-	public MenuForm() {
+	public MenuPanel() {
 		setTitle(title);
 		setSize(width, height);
-		setResizable(false);
+//		setResizable(false);
 		setLocationRelativeTo(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setUndecorated(true); //타이틀바 없애기 
+//		this.setUndecorated(true); //타이틀바 없애기 
 		
 		// 레이아웃 설정
 		setLayout(null);
@@ -75,102 +72,34 @@ public class MenuForm extends JFrame implements ActionListener {
 //		Container c = getContentPane();
 //		c.setBackground(Color.WHITE);
 		
-		// 닫기 버튼
-		setClose();
+//		// 닫기 버튼
+//		setClose();
 		
 		// 예매 메뉴
-		setBook();
-		
-		// 공항 메뉴
-		setAirport();
-		
-		// 기내 메뉴
-		setInFight();
+		setMenuPop();
 		
 		setVisible(true);
 	}
 
 	
-	private void setBook() {
-		// 예매 메뉴 패널
-		jpBook = new JPanel();
-		jpBook.setLayout(null);
-		jpBook.setSize(170, 480);
-		jpBook.setLocation(50, 60);
-//		jpBook.setBackground(Color.yellow);
+	private void setMenuPop() {
+		// 닫기 버튼
+		setClose();
 		
-		btnBook = new JButton("예매");
-		btnBook.setSize(170, 50);
-		btnBook.setLocation(0, 5);
-		btnBook.setHorizontalAlignment(JButton.LEFT);
-		btnBook.setFont(fontNanumGothic25);
-		btnBook.setBorderPainted(false);
-		btnBook.setContentAreaFilled(false);
+		jpMenu = new JPanel();
+		jpMenu.setLayout(null);
+		jpMenu.setSize(775, 200);
+		jpMenu.setLocation(5, 55);
+		jpMenu.setBackground(Color.YELLOW);
 		
-		btnKoreaDomestic = new JButton("국제선");
-		btnKoreaDomestic.setSize(170, 40);
-		btnKoreaDomestic.setLocation(0, 60);
-		btnKoreaDomestic.setHorizontalAlignment(JButton.LEFT);
-		btnKoreaDomestic.setFont(fontNanumGothicPlain18);
-		btnKoreaDomestic.setBorderPainted(false);
-		btnKoreaDomestic.setContentAreaFilled(false);
-		
-		
-		btnInternational = new JButton("국내선");
-		btnInternational.setSize(170, 40);
-		btnInternational.setLocation(0, 105);
-		btnInternational.setHorizontalAlignment(JButton.LEFT);
-		btnInternational.setFont(fontNanumGothicPlain18);
-		btnInternational.setBorderPainted(false);
-		btnInternational.setContentAreaFilled(false);
-		
-		btnRefund = new JButton("환불");
-		btnRefund.setSize(170, 40);
-		btnRefund.setLocation(0, 150);
-		btnRefund.setHorizontalAlignment(JButton.LEFT);
-		btnRefund.setFont(fontNanumGothicPlain18);
-		btnRefund.setBorderPainted(false);
-		btnRefund.setContentAreaFilled(false);
-		
-		
-		jpBook.add(btnBook);
-		jpBook.add(btnKoreaDomestic);
-		jpBook.add(btnInternational);
-		jpBook.add(btnRefund);
-		
-		add(jpBook);
+		add(jpMenu);
 	}
 
-	
-	private void setAirport() {
-		// 공항 메뉴 패널
-		jpAirport = new JPanel();
-		jpAirport.setSize(210, 480);
-		jpAirport.setLocation(240, 60);
-		jpAirport.setBackground(Color.blue);	
-		
-		
-		add(jpAirport);
-	}
-
-	
-	private void setInFight() {
-		// 기내 메뉴 패널
-		jpInFight = new JPanel();
-		jpInFight.setSize(210, 480);
-		jpInFight.setLocation(470, 60);
-		jpInFight.setBackground(Color.green);
-		
-		
-		
-		add(jpInFight);
-	}
-
-
+	// 닫기 버튼
 	private void setClose() {
 		jpClose = new JPanel();
-		jpClose.setSize(700, 50);
-		jpClose.setLocation(0, 5);
+		jpClose.setSize(790, 50);
+		jpClose.setLocation(0, 0);
 		jpClose.setLayout(new FlowLayout(FlowLayout.RIGHT));
 //		jpClose.setBackground(Color.black);
 		
@@ -186,7 +115,7 @@ public class MenuForm extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new MenuForm();
+		new MenuPanel();
 	}
 
 
