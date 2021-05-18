@@ -265,15 +265,15 @@ public class CalendarForm extends JFrame implements ActionListener {
 		//캘린더 변경 버튼
 		btnLeft = new JButton("<");
 		btnLeft.setFont(fontNanumGothic12);
-		btnLeft.setSize(30, 300);
-		btnLeft.setLocation(20, 200);
-		//btnLeft.setBorderPainted(false);
+		btnLeft.setSize(50, 300);
+		btnLeft.setLocation(0, 200);
+		btnLeft.setBorderPainted(false);
 		btnLeft.setBackground(Color.white);
 		btnRight = new JButton(">");
 		btnRight.setFont(fontNanumGothic12);
-		btnRight.setSize(30, 300);
-		btnRight.setLocation(700, 200);
-		//btnRight.setBorderPainted(false);
+		btnRight.setSize(50, 300);
+		btnRight.setLocation(680, 200);
+		btnRight.setBorderPainted(false);
 		btnRight.setBackground(Color.white);
 		
 		add(btnLeft);
