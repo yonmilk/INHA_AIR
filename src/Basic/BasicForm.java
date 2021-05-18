@@ -11,12 +11,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.MainForm;
 import menu.MenuBar;
 
 public class BasicForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
+	
+	// 폰트 사용 위함
+	private MainForm main;
 	
 	// 상단 메뉴바
 	private menu.MenuBar menubar;
