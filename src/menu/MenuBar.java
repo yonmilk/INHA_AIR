@@ -20,7 +20,8 @@ public class MenuBar extends JFrame implements ActionListener {
 //	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 //	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
 	
-	MainForm main;
+	// 폰트 사용 위함
+	private MainForm main;
 	
 	// 상위 메뉴 관련 
 	private JPanel jpTOP, jpMenu;
