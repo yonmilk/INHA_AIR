@@ -59,6 +59,8 @@ public class CalendarForm extends JFrame implements ActionListener {
 	private static int todayYear = cal.get(Calendar.YEAR);
 	private static int todayMonth = cal.get(Calendar.MONTH)+1;
 	private int setTime = 0;
+	private JButton btnLeft;
+	private JButton btnRight;
 	
 
 	public CalendarForm() {
@@ -233,8 +235,8 @@ public class CalendarForm extends JFrame implements ActionListener {
 
 		
 		//달력추가
-		setCalendar(jpCalendarLeft, todayYear, todayMonth, 50, 160); //이번달 달력 출력
-		setCalendar(jpCalendarRight, todayYear+1, todayMonth+1, 400, 160); //다음달 달력 출력
+		setCalendar(jpCalendarLeft, todayYear+setTime, todayMonth+setTime, 50, 160); //이번달 달력 출력
+		setCalendar(jpCalendarRight, todayYear+setTime+1, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
 		
 		//하단 버튼 판넬
 		jpBtn = new JPanel();
@@ -248,18 +250,34 @@ public class CalendarForm extends JFrame implements ActionListener {
 		btnReselect.setFont(fontNanumGothic18);
 		btnReselect.setSize(230, 60);
 		btnReselect.setLocation(60, 0);
-		//btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
+		btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnReselect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		btnSelect = new JButton("왕복 선택");
 		btnSelect.setFont(fontNanumGothic18);
 		btnSelect.setSize(230, 60);
 		btnSelect.setLocation(370, 0);
-		//btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
+		btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnSelect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		
 		jpBtn.add(btnReselect);
 		jpBtn.add(btnSelect);
 		
+		//캘린더 변경 버튼
+		btnLeft = new JButton("<");
+		btnLeft.setFont(fontNanumGothic12);
+		btnLeft.setSize(30, 300);
+		btnLeft.setLocation(20, 200);
+		//btnLeft.setBorderPainted(false);
+		btnLeft.setBackground(Color.white);
+		btnRight = new JButton(">");
+		btnRight.setFont(fontNanumGothic12);
+		btnRight.setSize(30, 300);
+		btnRight.setLocation(700, 200);
+		//btnRight.setBorderPainted(false);
+		btnRight.setBackground(Color.white);
+		
+		add(btnLeft);
+		add(btnRight);
 		add(jpTitle);
 		add(jpSelect);
 		add(jpBtn);
