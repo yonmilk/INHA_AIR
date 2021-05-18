@@ -58,7 +58,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	private int dayX;
 	private static int todayYear = cal.get(Calendar.YEAR);
 	private static int todayMonth = cal.get(Calendar.MONTH)+1;
-	
+	private int setTime = 0;
 	
 
 	public CalendarForm() {
@@ -105,11 +105,11 @@ public class CalendarForm extends JFrame implements ActionListener {
 		lblYear = new JLabel(thisYear+"년");
 		lblYear.setFont(fontNanumGothic12);
 		lblYear.setSize(150, 40);
-		lblYear.setLocation(10, 2);
+		lblYear.setLocation(25, 2);
 		lblMonth = new JLabel(thisMonth+"월");
 		lblMonth.setFont(fontNanumGothic18);
 		lblMonth.setSize(80, 40);
-		lblMonth.setLocation(60, 0);
+		lblMonth.setLocation(80, 0);
 		jpCal.add(lblYear);
 		jpCal.add(lblMonth);
 		
@@ -118,7 +118,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 			lblday = new JLabel(day[i]);
 			lblday.setFont(fontNanumGothic15);
 			lblday.setSize(100, 40);
-			lblday.setLocation(40*i + 18, 30);
+			lblday.setLocation(40*i + 25, 30);
 			jpCal.add(lblday);
 			
 		}
@@ -197,7 +197,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 		lblTitle = new JLabel("탑승일 선택");
 		lblTitle.setFont(fontNanumGothic20);
 		lblTitle.setSize(150, 40);
-		lblTitle.setLocation(10, 0);
+		lblTitle.setLocation(20, 0);
 		jpTitle.add(lblTitle);
 		
 		
@@ -211,11 +211,11 @@ public class CalendarForm extends JFrame implements ActionListener {
 		lblGo = new JLabel("가는 날"); //가는날 라벨
 		lblGo.setFont(fontNanumGothic18);
 		lblGo.setSize(150, 40);
-		lblGo.setLocation(10, 0);
+		lblGo.setLocation(25, 0);
 		tfGo = new JTextField(); //가는 날짜 선택 시 확인
 		tfGo.setFont(fontNanumGothic18);
-		tfGo.setSize(150, 40);
-		tfGo.setLocation(90,0);
+		tfGo.setSize(180, 40);
+		tfGo.setLocation(100,0);
 		
 		lblCome = new JLabel("오는 날 "); //오는날 라벨
 		lblCome.setFont(fontNanumGothic18);
@@ -223,7 +223,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 		lblCome.setLocation(375, 0);
 		tfCome = new JTextField(); //오는 날짜 선택 시 확인
 		tfCome.setFont(fontNanumGothic18);
-		tfCome.setSize(150, 40);
+		tfCome.setSize(180, 40);
 		tfCome.setLocation(455, 0);
 		
 		jpSelect.add(lblGo);
@@ -247,14 +247,14 @@ public class CalendarForm extends JFrame implements ActionListener {
 		btnReselect = new JButton("다시 선택");
 		btnReselect.setFont(fontNanumGothic18);
 		btnReselect.setSize(230, 60);
-		btnReselect.setLocation(20, 0);
-		btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
+		btnReselect.setLocation(60, 0);
+		//btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnReselect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		btnSelect = new JButton("왕복 선택");
 		btnSelect.setFont(fontNanumGothic18);
 		btnSelect.setSize(230, 60);
 		btnSelect.setLocation(370, 0);
-		btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
+		//btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnSelect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		
 		jpBtn.add(btnReselect);
