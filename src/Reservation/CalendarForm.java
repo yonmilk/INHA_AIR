@@ -220,7 +220,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 		
 		//달력추가
 		setCalendar(todayYear, todayMonth, 50, 160);
-		//setCalendar(todayYear+1, todayMonth+1, 160, 160);
+		//setCalendar(todayYear+1, todayMonth+1, 400, 160);
 		
 		//하단 버튼 판넬
 		jpBtn = new JPanel();
