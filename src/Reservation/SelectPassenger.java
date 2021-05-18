@@ -26,6 +26,8 @@ public class SelectPassenger extends JFrame implements ActionListener{
 	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
 	private JPanel jpTitle;
 	private JLabel lblTitle;
+	private JPanel jpAge;
+	private JPanel jpNumSelect;
 	
 	
 	
@@ -52,12 +54,12 @@ public class SelectPassenger extends JFrame implements ActionListener{
 	
 	private void setPassenger() {
 		
-		//제목판넬
+		//제목패널
 		jpTitle = new JPanel();
 		jpTitle.setLayout(null);
 		jpTitle.setSize(200, 60);
 		jpTitle.setLocation(20, 20);
-		jpTitle.setBackground(Color.white);
+		jpTitle.setBackground(Color.green);
 		//제목라벨
 		lblTitle = new JLabel("승객 선택");
 		lblTitle.setFont(fontNanumGothic20);
@@ -65,7 +67,32 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		lblTitle.setLocation(10, 0);
 		jpTitle.add(lblTitle);
 		
+		//연령패널
+		jpAge = new JPanel();
+		jpAge.setLayout(null);
+		jpAge.setSize(200, 60);
+		jpAge.setLocation(20, 100);
+		jpAge.setBackground(Color.red);
+		
+		//인원선택 패널
+		jpNumSelect = new JPanel();
+		jpNumSelect.setLayout(null);
+		jpNumSelect.setSize(200, 60);
+		jpNumSelect.setLocation(20, 300);
+		jpNumSelect.setBackground(Color.blue);
+		
+		//나이계산기 패널
+		jpNumSelect = new JPanel();
+		jpNumSelect.setLayout(null);
+		jpNumSelect.setSize(200, 60);
+		jpNumSelect.setLocation(20, 300);
+		jpNumSelect.setBackground(Color.blue);
+		
+		//확인버튼
+		
 		add(jpTitle);
+		add(jpAge);
+		add(jpNumSelect);
 		
 	}
 
