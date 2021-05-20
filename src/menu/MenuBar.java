@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import main.MainForm;
 
@@ -19,6 +20,10 @@ public class MenuBar extends JFrame implements ActionListener {
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
 	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
+	Font fontArial36 = new Font("Arial", Font.BOLD | Font.ITALIC, 36);
+	Font fontDialog = new Font("Dialog", Font.BOLD, 35);
+	Font fontMonospaced = new Font("monospaced", Font.BOLD, 35);
+	Font fontSansSerif = new Font("SansSerif", Font.BOLD, 35);
 	
 	// 폰트 사용 위함
 //	private MainForm main;
@@ -45,10 +50,19 @@ public class MenuBar extends JFrame implements ActionListener {
 			
 		// 로고 버튼
 		btnLogo = new JButton("INHA AIR");
+		btnLogo.setFont(fontArial36);
 		btnLogo.setSize(200, 70);
 		btnLogo.setLocation(10, 5);
 		btnLogo.addActionListener(this);
-				
+		btnLogo.setBackground(Color.WHITE);
+//		btnLogo.setForeground(new Color(25, 25, 112));	// 글자색 변경
+//		btnLogo.setForeground(new Color(0, 12, 61));	// 글자색 변경
+		btnLogo.setForeground(new Color(24, 62, 111));	// 글자색 변경
+		btnLogo.setBorderPainted(false);
+//		btnLogo.setContentAreaFilled(false);
+		btnLogo.setHorizontalAlignment(SwingConstants.RIGHT);
+		btnLogo.setVerticalAlignment(SwingConstants.BOTTOM);
+		
 		// 메뉴 선택 판넬
 		jpMenu = new JPanel();
 		jpMenu.setLayout(null);
