@@ -25,7 +25,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 	
 	//폰트
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
-	Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);	// 나눔고딕 9
+	Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);		// 나눔고딕 9
 	Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 12
 	Font fontNanumGothic15 = new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 15
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
@@ -91,8 +91,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		jpTitle.setSize(200, 60);
 		jpTitle.setLocation(20, 20);
 		jpTitle.setBackground(Color.white);
-		//제목라벨
-		lblTitle = new JLabel("승객 선택");
+		lblTitle = new JLabel("승객 선택"); 		//제목라벨
 		lblTitle.setFont(fontNanumGothic20);
 		lblTitle.setSize(150, 40);
 		lblTitle.setLocation(0, 10);
@@ -105,7 +104,6 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		jpAge.setLocation(20, 90);
 		jpAge.setBackground(Color.white);
 		jpAge.setLayout(new GridLayout(3, 2));
-		
 		
 		lblAdult = new JLabel("성인"); 
 		lblAdult.setFont(fontNanumGothic18);
@@ -137,7 +135,8 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		jpNumSelect.setLocation(250, 90);
 		jpNumSelect.setBackground(Color.white);
 		jpNumSelect.setLayout(new GridLayout(3, 3));
-		btnPlusAdult = new JButton(plusIcon);
+		
+		btnPlusAdult = new JButton(plusIcon); //성인 인원라벨, +버튼, -버튼
 		btnPlusAdult.setBorderPainted(false); //버튼 윤곽선 제거
 		btnPlusAdult.setContentAreaFilled(false); //버튼배경 제거
 		lblNumAdult = new JLabel("0");
@@ -146,7 +145,8 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		btnMinusAdult = new JButton(minusIcon);
 		btnMinusAdult.setBorderPainted(false); //버튼 윤곽선 제거
 		btnMinusAdult.setContentAreaFilled(false); //버튼배경 제거
-		btnPlusInfant = new JButton(plusIcon);
+		
+		btnPlusInfant = new JButton(plusIcon); //소아 인원라벨, +버튼, -버튼
 		btnPlusInfant.setBorderPainted(false); //버튼 윤곽선 제거
 		btnPlusInfant.setContentAreaFilled(false); //버튼배경 제거
 		lblNumInfant = new JLabel("0");
@@ -155,7 +155,8 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		btnMinusInfant = new JButton(minusIcon);
 		btnMinusInfant.setBorderPainted(false); //버튼 윤곽선 제거
 		btnMinusInfant.setContentAreaFilled(false); //버튼배경 제거
-		btnPlusChild = new JButton(plusIcon);
+		
+		btnPlusChild = new JButton(plusIcon); //유아 인원라벨, +버튼, -버튼
 		btnPlusChild.setBorderPainted(false); //버튼 윤곽선 제거
 		btnPlusChild.setContentAreaFilled(false); //버튼배경 제거
 		lblNumChild = new JLabel("0");
@@ -182,27 +183,27 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		jpAgeCal.setLocation(20, 300);
 		jpAgeCal.setBackground(Color.white);
 		
-		lblAgeCal = new JLabel("나이계산기");
+		lblAgeCal = new JLabel("나이계산기"); //나이계산기
 		lblAgeCal.setFont(fontNanumGothic12);
 		lblAgeCal.setSize(150, 40);
 		lblAgeCal.setLocation(10, 0);
-		lblAgeGuide = new JLabel("생년월일(예: 20020214)");
+		lblAgeGuide = new JLabel("생년월일(예: 20020214)"); //예시
 		lblAgeGuide.setFont(fontNanumGothic12);
 		lblAgeGuide.setSize(150, 40);
 		lblAgeGuide.setLocation(10, 20);
 		lblAgeGuide.setForeground(Color.gray);
-		tfAge = new JTextField();
+		tfAge = new JTextField(); //생년월일 입력 필드
 		tfAge.setFont(fontNanumGothic12);
 		tfAge.setSize(300, 30);
 		tfAge.setLocation(10, 50);
-		btnCalculate = new JButton("계산하기");
+		btnCalculate = new JButton("계산하기"); //계산하기 버튼
 		btnCalculate.setFont(fontNanumGothic12);
 		btnCalculate.setSize(100, 30);
 		btnCalculate.setLocation(315, 50);
 		btnCalculate.setBorder(new LineBorder(Color.gray,1));
 		//btnCalculate.setContentAreaFilled(false); //버튼배경 제거
 		btnCalculate.setBackground(Color.white);
-		btnOk = new JButton("확인");
+		btnOk = new JButton("확인"); //확인버튼
 		btnOk.setFont(fontNanumGothic15);
 		btnOk.setForeground(Color.white);
 		btnOk.setSize(100, 30);
