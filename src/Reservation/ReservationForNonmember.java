@@ -40,6 +40,8 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 	private Component tfLastName;
 	private Component lblFirstName;
 	private JTextField tfFirstName;
+	private JLabel lblExplanation;
+	private JButton btnLogin;
 
 	
 	
@@ -67,14 +69,28 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 		//제목, 로그인 설명 패널
 		jpTitle = new JPanel();
 		jpTitle.setLayout(null);
-		jpTitle.setSize(200, 60);
-		jpTitle.setLocation(20, 20);
+		jpTitle.setSize(400, 80);
+		jpTitle.setLocation(20, 5);
 		jpTitle.setBackground(Color.white);
 		lblTitle = new JLabel("예약 조회");		//제목라벨
 		lblTitle.setFont(fontNanumGothic20);
 		lblTitle.setSize(150, 40);
 		lblTitle.setLocation(0, 10);
+		lblExplanation = new JLabel("로그인하시면 예약 목록을 확인하실 수 있습니다.");
+		lblExplanation.setFont(fontNanumGothic12);
+		lblExplanation.setSize(300, 40);
+		lblExplanation.setLocation(0, 30);
+		btnLogin = new JButton("<HTML><U>회원 로그인 하기 ></U></HTML>");
+		btnLogin.setForeground(new Color(000, 102, 255));
+		btnLogin.addActionListener(this);
+		btnLogin.setBorderPainted(false); //버튼 윤곽선 제거
+		btnLogin.setContentAreaFilled(false); //버튼배경 제거
+		btnLogin.setFont(fontNanumGothic12);
+		btnLogin.setSize(150, 40);
+		btnLogin.setLocation(-23, 48);
 		jpTitle.add(lblTitle);
+		jpTitle.add(lblExplanation);
+		jpTitle.add(btnLogin);
 		
 		//정보입력 패널
 		jpInput = new JPanel();
