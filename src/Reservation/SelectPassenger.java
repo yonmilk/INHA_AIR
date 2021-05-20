@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 //연우 - 승객선택
 public class SelectPassenger extends JFrame implements ActionListener{
@@ -53,6 +54,11 @@ public class SelectPassenger extends JFrame implements ActionListener{
 	private JLabel lblNumAdult;
 	private JLabel lblNumInfant;
 	private JLabel lblNumChild;
+	private JLabel lblAgeCal;
+	private JLabel lblAgeGuide;
+	private JTextField tfAge;
+	private JButton btnCalculate;
+	private JButton btnOk;
 	
 	
 	
@@ -89,7 +95,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		lblTitle = new JLabel("승객 선택");
 		lblTitle.setFont(fontNanumGothic20);
 		lblTitle.setSize(150, 40);
-		lblTitle.setLocation(10, 0);
+		lblTitle.setLocation(0, 10);
 		jpTitle.add(lblTitle);
 		
 		//연령패널
@@ -159,7 +165,6 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		btnMinusChild.setBorderPainted(false); //버튼 윤곽선 제거
 		btnMinusChild.setContentAreaFilled(false); //버튼배경 제거
 		
-		
 		jpNumSelect.add(btnPlusAdult);
 		jpNumSelect.add(lblNumAdult);
 		jpNumSelect.add(btnMinusAdult);
@@ -175,7 +180,42 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		jpAgeCal.setLayout(null);
 		jpAgeCal.setSize(430, 150);
 		jpAgeCal.setLocation(20, 300);
-		jpAgeCal.setBackground(Color.CYAN);
+		jpAgeCal.setBackground(Color.white);
+		
+		lblAgeCal = new JLabel("나이계산기");
+		lblAgeCal.setFont(fontNanumGothic12);
+		lblAgeCal.setSize(150, 40);
+		lblAgeCal.setLocation(10, 0);
+		lblAgeGuide = new JLabel("생년월일(예: 20020214)");
+		lblAgeGuide.setFont(fontNanumGothic12);
+		lblAgeGuide.setSize(150, 40);
+		lblAgeGuide.setLocation(10, 20);
+		lblAgeGuide.setForeground(Color.gray);
+		tfAge = new JTextField();
+		tfAge.setFont(fontNanumGothic12);
+		tfAge.setSize(300, 30);
+		tfAge.setLocation(10, 50);
+		btnCalculate = new JButton("계산하기");
+		btnCalculate.setFont(fontNanumGothic12);
+		btnCalculate.setSize(100, 30);
+		btnCalculate.setLocation(315, 50);
+		btnCalculate.setBorder(new LineBorder(Color.gray,1));
+		//btnCalculate.setContentAreaFilled(false); //버튼배경 제거
+		btnCalculate.setBackground(Color.white);
+		btnOk = new JButton("확인");
+		btnOk.setFont(fontNanumGothic15);
+		btnOk.setForeground(Color.white);
+		btnOk.setSize(100, 30);
+		btnOk.setLocation(150, 100);
+		btnOk.setBorderPainted(false); //버튼 윤곽선 제거
+		btnOk.setBackground(new Color(10,90,150));
+		
+		
+		jpAgeCal.add(lblAgeCal);
+		jpAgeCal.add(lblAgeGuide);
+		jpAgeCal.add(tfAge);
+		jpAgeCal.add(btnCalculate);
+		jpAgeCal.add(btnOk);
 		
 		add(jpTitle);
 		add(jpAge);
