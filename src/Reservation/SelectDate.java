@@ -236,7 +236,7 @@ public class SelectDate extends JFrame implements ActionListener {
 		
 		//달력추가
 		setCalendar(jpCalendarLeft, todayYear+setTime, todayMonth+setTime, 50, 160); //이번달 달력 출력
-		setCalendar(jpCalendarRight, todayYear+setTime+1, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
+		setCalendar(jpCalendarRight, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
 		
 		//하단 버튼 판넬
 		jpBtn = new JPanel();
@@ -249,13 +249,13 @@ public class SelectDate extends JFrame implements ActionListener {
 		btnReselect = new JButton("다시 선택");
 		btnReselect.setFont(fontNanumGothic18);
 		btnReselect.setSize(230, 60);
-		btnReselect.setLocation(60, 0);
+		btnReselect.setLocation(40, 0);
 		btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnReselect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		btnSelect = new JButton("왕복 선택");
 		btnSelect.setFont(fontNanumGothic18);
 		btnSelect.setSize(230, 60);
-		btnSelect.setLocation(370, 0);
+		btnSelect.setLocation(360, 0);
 		btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnSelect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		
