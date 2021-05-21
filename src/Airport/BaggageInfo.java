@@ -105,7 +105,7 @@ public class BaggageInfo extends JFrame implements ActionListener {
 		lblBagPreCont.setBounds(25,245 ,1000, 60);
 		lblBagPreCont.setFont(fontNanumGothic15P);
 		
-		lblItemRest = new JLabel("운송 제한 품목 보기 》");
+		lblItemRest = new JLabel("운송 제한 품목 보기 》"); //운송제한품목창으로 넘어감
 		lblItemRest.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblItemRest.setBounds(40,285 ,200, 60);
 		lblItemRest.setFont(fontNanumGothic12P);
