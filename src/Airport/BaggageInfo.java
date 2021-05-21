@@ -49,10 +49,10 @@ public class BaggageInfo extends JFrame implements ActionListener {
 	private JLabel lblBagInfoCont; //"수하물 안내" 내용
 	private JLabel lblBagNotice; //"수하물 준비 방법 및 유의사항"
 	private JLabel lblBagPre; //"수하물 준비할 때"
-	private Color crBagNotice = new Color(30,30,170); // 수하물 유의사항 색
+	private Color crNavy = new Color(30,30,170); // 수하물 유의사항 색
 	private JLabel lblBagPreCont; //"수하물 준비 할때" 내용
 	private JLabel lblItemRest; //"운송 제한 품목" 가기
-	private Color crItemRest = new Color(20,100,250); //"운송제한품목" 색
+	private Color crBlue = new Color(20,100,250); //"운송제한품목" 색
 	private Font underline; //밑줄 그을때 필요
 	private JLabel lblBagChk; //"수하물 수속"
 	private JLabel lblBagChkCont; //"수하물 수속" 내용
@@ -92,7 +92,7 @@ public class BaggageInfo extends JFrame implements ActionListener {
 		lblBagNotice = new JLabel("수하물 준비 방법 및 유의사항");// 제목 1
 		lblBagNotice.setBounds(40,175 ,500, 30);
 		lblBagNotice.setFont(fontNanumGothic25);
-		lblBagNotice.setForeground(crBagNotice);
+		lblBagNotice.setForeground(crNavy);
 		
 		lblBagPre = new JLabel("수하물 준비할 때"); // 소제목
 		lblBagPre.setBounds(40,200,300,60);
@@ -106,10 +106,10 @@ public class BaggageInfo extends JFrame implements ActionListener {
 		lblBagPreCont.setFont(fontNanumGothic15P);
 		
 		lblItemRest = new JLabel("운송 제한 품목 보기 》");
-//		lblItemRest.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblItemRest.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblItemRest.setBounds(40,285 ,200, 60);
 		lblItemRest.setFont(fontNanumGothic12P);
-		lblItemRest.setForeground(crItemRest);
+		lblItemRest.setForeground(crBlue);
 
 		underline = lblItemRest.getFont(); //밑줄
 		Map attributes = underline.getAttributes();
@@ -140,17 +140,17 @@ public class BaggageInfo extends JFrame implements ActionListener {
 		lblFeeInfo = new JLabel("종가요금 안내"); //제목2
 		lblFeeInfo.setBounds(40,555 ,500, 30);
 		lblFeeInfo.setFont(fontNanumGothic25);
-		lblFeeInfo.setForeground(crBagNotice);
+		lblFeeInfo.setForeground(crNavy);
 		
 		lblFeeInfoCont = new JLabel("고가의 수하물을 위탁하는 경우 여행 전 그 가치를 신고함으로써 해당 물품이 파손 혹은 분실되는 경우 추가 보상을 받기 위해 지불하는 요금을 말합니다.");
 		lblFeeInfoCont.setBounds(30,590 ,1000, 20);
 		lblFeeInfoCont.setFont(fontNanumGothic15P);
 		
 		lblFeeDet = new JLabel("종가요금 제도 자세히 보기 》");
-//		lblFeeDet.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblFeeDet.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblFeeDet.setBounds(40,595 ,200, 60);
 		lblFeeDet.setFont(fontNanumGothic12P);
-		lblFeeDet.setForeground(crItemRest);
+		lblFeeDet.setForeground(crBlue);
 		
 		underline2 = lblFeeDet.getFont(); //밑줄 2
 		Map attributes2 = underline2.getAttributes();
