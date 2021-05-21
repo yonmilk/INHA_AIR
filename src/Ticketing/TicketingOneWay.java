@@ -23,7 +23,7 @@ public class TicketingOneWay extends JFrame implements ActionListener {
 	private int width = 1120, height = 770;
 	
 	// 폰트 사용 위함
-//	private MainForm main;
+	//	private MainForm main;
 	
 	// 상단 메뉴바
 	private menu.MenuBar menubar;
