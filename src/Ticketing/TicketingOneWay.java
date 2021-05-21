@@ -83,7 +83,8 @@ public class TicketingOneWay extends JFrame implements ActionListener {
 		Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
 		Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
 		Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
-		
+		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 30
+
 	public TicketingOneWay() {
 		setTitle(title);
 		setSize(width, height);
@@ -124,7 +125,7 @@ public class TicketingOneWay extends JFrame implements ActionListener {
 //		imgAeroPlane = new ImageIcon("images/aeroplane.png");
 //		imgArrow = new ImageIcon("images/arrow.png");
 		
-		lblArrow = new JLabel("-›"); //문자로 넣을지 그림으로 넣을지 ..
+		lblArrow = new JLabel("→"); //문자로 넣을지 그림으로 넣을지 ..
 		lblArrow.setFont(fontNanumGothic18);
 		lblArrow.setBounds(135, -20, 200, 100);
 

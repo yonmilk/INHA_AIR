@@ -82,6 +82,7 @@ public class TicketingRoundTripComing extends JFrame implements ActionListener {
 		Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
 		Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
 		Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
+		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 30
 		
 	public TicketingRoundTripComing() {
 		setTitle(title);
@@ -123,8 +124,8 @@ public class TicketingRoundTripComing extends JFrame implements ActionListener {
 //		imgAeroPlane = new ImageIcon("images/aeroplane.png");
 //		imgArrow = new ImageIcon("images/arrow.png");
 		
-		lblArrow = new JLabel("-›"); //문자로 넣을지 그림으로 넣을지 ..
-		lblArrow.setFont(fontNanumGothic18);
+		lblArrow = new JLabel("→"); //문자로 넣을지 그림으로 넣을지 ..
+		lblArrow.setFont(fontNanumGothic30);
 		lblArrow.setBounds(135, -20, 200, 100);
 
 		lblDepArrD = new JLabel(selctedDepartD + "  ~  " + selctedArriveD ); //왕복 출발일과 도착일 함께 표시
