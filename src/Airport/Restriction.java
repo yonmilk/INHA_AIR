@@ -203,27 +203,6 @@ public class Restriction extends JFrame implements ActionListener {
 		lblEtcCont.setFont(fontNanumGothic15P);
 		
 		
-//		lblDanger = new JLabel("기타 위험 물질"); // 소제목
-//		lblDanger.setBounds(600,205,300,60);
-//		lblDanger.setFont(fontNanumGothic20);
-//		
-//		lblDangerCont = new JLabel("<html>소화기, 에어로졸(살충제 등), 락스, 파마약 등 탑승객 및 항공기에 위험이 <br>될 가능성이 있는 물질<html>");
-//		lblDangerCont.setBounds(600,250 ,1000, 35);
-//		lblDangerCont.setFont(fontNanumGothic15P);
-//
-//		lblLithium  = new JLabel("리튬 배터리 장착 전자기기"); // 소제목
-//		lblLithium.setBounds(40,275,300,60);
-//		lblLithium.setFont(fontNanumGothic20);
-//		
-//		lblLithiumCont = new JLabel("<html>· 배터리 용량이 160Wh를 초과하는 리튬 배터리가 장착된 전자기기. 전동휠체어 등 보행 보조기구는 예외"
-//				+ "<br>· 배터리 용량이 160Wh를 초과하는 보조/여분의 리튬 배터리. "
-//				+ "<br>· 리튬 배터리가 분리되지 않는 전동 휠, 스마트 가방. 배터리를 분리할 수 있으며 용량이 160Wh 이내인 경우는 배터리 분리 후 배터리는 휴대, 휠/가방 등은  휴대 또는 위탁 할 수 있습니다."
-//				+ "<br>· 배터리 분리가 불가한 헤어컬(고데기). 일본 출발편 한정. "
-//				+ "유의사항</html>");
-//		lblLithiumCont.setBounds(40,320 ,1000, 90);
-//		lblLithiumCont.setFont(fontNanumGothic15P);
-//		
-		
 		
 		jpWhite.add(lblRestrict);
 		jpWhite.add(lblRestrictCont);
