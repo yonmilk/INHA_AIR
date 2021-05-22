@@ -36,7 +36,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 	// 결제 부분
 	private JPanel jpPayment, jpLbl, jpBtn;
 	private JLabel lblPayment;
-	private JButton btnOK;
+	private JButton btnOK, btnCheckRes;
 	
 	public PaymentForm() {
 		setTitle(title);
@@ -89,15 +89,25 @@ public class PaymentForm extends JFrame implements ActionListener {
 		jpBtn.setLocation(0, 430);
 		jpBtn.setBackground(Color.WHITE);
 		
-		btnOK = new JButton("확인");
+		btnOK = new JButton("첫화면으로 이동");
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setBackground(new Color(10,90,150));
 		btnOK.setForeground(Color.WHITE);
 		btnOK.setBorderPainted(false);
-		btnOK.setSize(200, 40);
-		btnOK.setLocation(450, 20);
+		btnOK.setSize(250, 40);
+		btnOK.setLocation(280, 20);
 		btnOK.setHorizontalAlignment(JButton.CENTER);
 		jpBtn.add(btnOK);
+		
+		btnCheckRes = new JButton("예약 확인페이지로 이동");
+		btnCheckRes.setFont(fontNanumGothic20);
+		btnCheckRes.setBackground(new Color(150,150,150));
+		btnCheckRes.setForeground(Color.WHITE);
+		btnCheckRes.setBorderPainted(false);
+		btnCheckRes.setSize(250, 40);
+		btnCheckRes.setLocation(570, 20);
+		btnCheckRes.setHorizontalAlignment(JButton.CENTER);
+		jpBtn.add(btnCheckRes);
 		
 		jpPayment.add(jpLbl);
 		jpPayment.add(jpBtn);
