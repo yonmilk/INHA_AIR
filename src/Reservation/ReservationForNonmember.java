@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 public class ReservationForNonmember extends JFrame implements ActionListener {
 
 	// Title 및 사이즈 설정
-	private String title = "예약 조회";
+	private String title = "비회원 예약 조회";
 	private int width = 360, height = 500;
 	
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
@@ -99,7 +99,7 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 		jpInput.setLocation(20, 100);
 		jpInput.setBackground(Color.white);
 		
-		lblNum = new JLabel("예약번호 또는 항공권 번호");
+		lblNum = new JLabel("예약번호");
 		lblNum.setSize(200, 30);
 		lblNum.setLocation(0, 0);
 		lblNum.setFont(fontNanumGothic13);
