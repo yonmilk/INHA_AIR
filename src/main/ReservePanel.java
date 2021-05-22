@@ -153,7 +153,9 @@ public class ReservePanel extends JFrame{
 		imgAirport = new ImageIcon("image/airport.png");
 		btnSearch = new JButton("조회", imgAirport); //버튼에 이미지, 라벨 삽입
 		btnSearch.setFont(fontNanumGothic20);
-		btnSearch.setBackground(new Color(135,206,250)); //버튼 배경색 RGB코드값으로 주기
+//		btnSearch.setBackground(new Color(135,206,250)); //버튼 배경색 RGB코드값으로 주기
+//		btnSearch.setBackground(new Color(153, 204, 255)); //버튼 배경색 RGB코드값으로 주기
+		btnSearch.setBackground(new Color(10,90,150)); //버튼 배경색 RGB코드값으로 주기
 		btnSearch.setForeground(Color.white); //버튼 폰트 색 변경
 		btnSearch.setPreferredSize(new Dimension(300, 35));
 		btnSearch.setBorderPainted(false); //버튼 윤곽선 제거
