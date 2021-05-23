@@ -7,10 +7,12 @@ import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -35,7 +37,8 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	
 	// 결제 부분
 	private JPanel jpPayment, jpLbl, jpBtn;
-	
+	private ButtonGroup bgPayment;
+	private JButton btnCash, btnCard;	// 결제수단 - 무통장입금, 카드결제
 	private JButton btnOK;
 	
 	public SelectPaymentForm() {
@@ -71,13 +74,15 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 //		jpPayment.setBackground(Color.yellow);
 		
 		// 라벨 부분
-		jpLbl = new JPanel(new BorderLayout());
+		jpLbl = new JPanel(null);
 		jpLbl.setSize(1000, 500);
 		jpLbl.setLocation(50, 10);
 //		jpLbl.setBorder(new LineBorder(new Color(10,90,150), 1));
 		jpLbl.setBorder(new EtchedBorder(EtchedBorder.RAISED));		// 테두리 설정
 		jpLbl.setBackground(Color.WHITE);
 		
+		// 결제 수단 버튼 그룹
+		setBtnGroup();
 		
 		// 결제하기 버튼 부분
 		jpBtn = new JPanel(null);
@@ -100,6 +105,37 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		jpPayment.add(jpBtn);
 		
 		add(jpPayment);
+	}
+
+	// 결제 수단 버튼 그룹
+	private void setBtnGroup() {
+		
+		bgPayment = new ButtonGroup();
+		
+		btnCash = new JButton("무통장 입금");
+		btnCash.setFont(fontNanumGothic20);
+		btnCash.setSize(150, 200);
+		btnCash.setLocation(320, 150);
+//		btnCash.setBackground(Color.WHITE);
+//		btnCash.setBackground(new Color(10,90,150));
+		btnCash.setBackground(new Color(150,150,150));
+		btnCash.setForeground(Color.WHITE);
+		btnCash.setSelected(true);
+//		btnCash.setBorderPainted(false);
+		
+		btnCard = new JButton("카드 결제");
+		btnCard.setFont(fontNanumGothic20);
+		btnCard.setSize(150, 200);
+		btnCard.setLocation(530, 150);
+		btnCard.setBackground(Color.WHITE);
+		btnCard.setForeground(new Color(10,90,150));
+//		btnCard.setBorderPainted(false);
+		
+		bgPayment.add(btnCash);
+		bgPayment.add(btnCard);
+		
+		jpLbl.add(btnCash);
+		jpLbl.add(btnCard);
 	}
 
 
