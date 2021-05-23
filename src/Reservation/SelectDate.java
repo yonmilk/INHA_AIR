@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,11 +20,11 @@ import javax.swing.JTextField;
 
 //연우 - 탑승일 선택 작성
 
-public class CalendarForm extends JFrame implements ActionListener {
+public class SelectDate extends JFrame implements ActionListener {
 	
 	// Title 및 사이즈 설정
 	private String title = "탑승일 선택";
-	private int width = 750, height = 700;
+	private int width = 760, height = 700;
 	
 	//private MainForm mainForm;
 
@@ -47,21 +48,21 @@ public class CalendarForm extends JFrame implements ActionListener {
 	private String[] day = new String[] {"S", "M", "T", "W", "T", "F", "S"};
 	private int thisYear;
 	private int thisMonth;
-	private int today;
 	private JLabel lblday;
 	private JLabel lblYear;
 	private JLabel lblMonth;
 	private ArrayList<JButton> lstBtn = new ArrayList<JButton>();
-	private ArrayList<JPanel> lstCal = new ArrayList<JPanel>();
 	private JButton btnDay;
 	private int dayY;
 	private int dayX;
 	private static int todayYear = cal.get(Calendar.YEAR);
 	private static int todayMonth = cal.get(Calendar.MONTH)+1;
 	private int setTime = 0;
+	private JButton btnLeft;
+	private JButton btnRight;
 	
 
-	public CalendarForm() {
+	public SelectDate() {
 			
 		//this.mainForm = mainForm;
 		
@@ -80,9 +81,9 @@ public class CalendarForm extends JFrame implements ActionListener {
 		
 	}
 
-	private void setCalendar(JPanel jpCal, int year, int month, int x, int y) { //달력생성함수
+	private void setCalendar(JPanel jpCal, int year, int month, int x, int y) { //달력생성함수. 패널, 년도, 달, x좌표, y좌표 입력
 		
-		//왼쪽 달력패널 생성
+		//달력패널 생성 및 설정
 		jpCal = new JPanel();
 		jpCal.setLayout(null);
 		jpCal.setSize(290, 370);
@@ -92,7 +93,6 @@ public class CalendarForm extends JFrame implements ActionListener {
 		
 		thisYear = year; //현재 년
 		thisMonth = month; //현재 달
-		today = cal.get(Calendar.DATE);
 
 		
 		cal.set(thisYear, thisMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
@@ -100,31 +100,31 @@ public class CalendarForm extends JFrame implements ActionListener {
 		int sDayNum = cal.get(Calendar.DAY_OF_WEEK); //1일의 요일 얻어오기
 		int endDate = cal.getActualMaximum(Calendar.DATE); //달의 마지막 일 얻기
 		
-		int intDateNum = 1;
+		int intDateNum = 1; //1일부터 날짜 시작
 		
-		lblYear = new JLabel(thisYear+"년");
+		lblYear = new JLabel(thisYear+"년"); //년도 표시 라벨
 		lblYear.setFont(fontNanumGothic12);
 		lblYear.setSize(150, 40);
-		lblYear.setLocation(25, 2);
-		lblMonth = new JLabel(thisMonth+"월");
+		lblYear.setLocation(15, 2);
+		lblMonth = new JLabel(thisMonth+"월"); //달 표시 라벨
 		lblMonth.setFont(fontNanumGothic18);
 		lblMonth.setSize(80, 40);
-		lblMonth.setLocation(80, 0);
+		lblMonth.setLocation(65, 0);
 		jpCal.add(lblYear);
 		jpCal.add(lblMonth);
 		
 		
 		for (int i = 0; i<7; i++) { //요일 추가
-			lblday = new JLabel(day[i]);
+			lblday = new JLabel(day[i]); //day[i]로 요일 배열 추가
 			lblday.setFont(fontNanumGothic15);
 			lblday.setSize(100, 40);
-			lblday.setLocation(40*i + 25, 30);
+			lblday.setLocation(40*i + 16, 30); //위치 설정
 			jpCal.add(lblday);
 			
 		}
 		
-		dayX = 0;
-		dayY = 70;
+		dayX = 0; //날짜버튼 x좌표 기본 0으로 설정
+		dayY = 70; //날짜버튼 y좌표 기본 설정
 		
 		for (int i = 1; intDateNum <= endDate; i++) { //intDateNum이 1일부터 마지막일이 될 때까지 반복 
 		
@@ -136,8 +136,9 @@ public class CalendarForm extends JFrame implements ActionListener {
 				btnDay.setFont(fontNanumGothic12);
 				btnDay.setBorderPainted(false); //버튼 윤곽선 제거
 				//btnDay.setBackground(new Color(153, 204, 255)); //버튼 색 설정
+				btnDay.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0)); //안쪽 여백 설정
 				btnDay.setBackground(Color.white); //버튼 색 설정
-				btnDay.setSize(60, 60);
+				btnDay.setSize(40, 40);
 				btnDay.setLocation(dayX, dayY);
 				lstBtn.add(btnDay);
 				jpCal.add(btnDay);
@@ -152,34 +153,35 @@ public class CalendarForm extends JFrame implements ActionListener {
 				btnDay.setFont(fontNanumGothic12);
 				btnDay.setBorderPainted(false); //버튼 윤곽선 제거
 				//btnDay.setBackground(new Color(153, 204, 255)); //버튼 색 설정
+				btnDay.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0)); //안쪽 여백 설정
 				btnDay.setBackground(Color.white); //버튼 색 설정
-				btnDay.setSize(60, 60);
+				btnDay.setSize(40, 40);
 				btnDay.setLocation(dayX, dayY);
 				
 				if ((i-8)%7 ==0) {
-					btnDay.setForeground(Color.red);
+					btnDay.setForeground(Color.red); //일요일은 빨간색 설정
 				} else if (i%7 ==0) {
-					btnDay.setForeground(Color.blue);
+					btnDay.setForeground(Color.blue); //토요일은 파란색 설정
 				} else {
-					btnDay.setForeground(Color.black);
+					btnDay.setForeground(Color.black); //나머지 검정색 설정
 				}
 				
 				lstBtn.add(btnDay);
 				jpCal.add(btnDay);
 				
 				intDateNum++; //출력할 date 증가
-				dayX += 40;
+				dayX += 40; //X좌표 증가로 옆으로 이동
 			}
 			
 			if(i%7 == 0) //i가 7로 나눠지면 다음 줄로 이동
 			{
-				dayY += 50;
-				dayX = 0;
+				dayY += 50; //Y좌표 증가로 다음 줄로 이동
+				dayX = 0; //X좌표 초기화
 			}
 		
 		}
 		
-		add(jpCal);
+		add(jpCal); //판넬 추가
 		
 	}
 	
@@ -197,7 +199,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 		lblTitle = new JLabel("탑승일 선택");
 		lblTitle.setFont(fontNanumGothic20);
 		lblTitle.setSize(150, 40);
-		lblTitle.setLocation(20, 0);
+		lblTitle.setLocation(16, 0);
 		jpTitle.add(lblTitle);
 		
 		
@@ -205,7 +207,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 		jpSelect = new JPanel(); //날짜표시 판매
 		jpSelect.setLayout(null);
 		jpSelect.setSize(650, 40);
-		jpSelect.setLocation(50, 100);
+		jpSelect.setLocation(40, 100);
 		jpSelect.setBackground(Color.white);
 		
 		lblGo = new JLabel("가는 날"); //가는날 라벨
@@ -233,8 +235,8 @@ public class CalendarForm extends JFrame implements ActionListener {
 
 		
 		//달력추가
-		setCalendar(jpCalendarLeft, todayYear, todayMonth, 50, 160); //이번달 달력 출력
-		setCalendar(jpCalendarRight, todayYear+1, todayMonth+1, 400, 160); //다음달 달력 출력
+		setCalendar(jpCalendarLeft, todayYear+setTime, todayMonth+setTime, 50, 160); //이번달 달력 출력
+		setCalendar(jpCalendarRight, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
 		
 		//하단 버튼 판넬
 		jpBtn = new JPanel();
@@ -247,19 +249,37 @@ public class CalendarForm extends JFrame implements ActionListener {
 		btnReselect = new JButton("다시 선택");
 		btnReselect.setFont(fontNanumGothic18);
 		btnReselect.setSize(230, 60);
-		btnReselect.setLocation(60, 0);
-		//btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
+		btnReselect.setLocation(40, 0);
+		btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnReselect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		btnSelect = new JButton("왕복 선택");
 		btnSelect.setFont(fontNanumGothic18);
 		btnSelect.setSize(230, 60);
-		btnSelect.setLocation(370, 0);
-		//btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
+		btnSelect.setLocation(360, 0);
+		btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnSelect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
 		
 		jpBtn.add(btnReselect);
 		jpBtn.add(btnSelect);
 		
+		//캘린더 변경 버튼
+		btnLeft = new JButton("<");
+		btnLeft.setFont(fontNanumGothic12);
+		btnLeft.setSize(50, 300);
+		btnLeft.setLocation(5, 200);
+		btnLeft.setBorderPainted(false);
+		btnLeft.setBackground(Color.white);
+		btnLeft.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0));
+		btnRight = new JButton(">");
+		btnRight.setFont(fontNanumGothic12);
+		btnRight.setSize(50, 300);
+		btnRight.setLocation(690, 200);
+		btnRight.setBorderPainted(false);
+		btnRight.setBackground(Color.white);
+		btnRight.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0));
+		
+		add(btnLeft);
+		add(btnRight);
 		add(jpTitle);
 		add(jpSelect);
 		add(jpBtn);
@@ -269,7 +289,7 @@ public class CalendarForm extends JFrame implements ActionListener {
 	
 
 	public static void main(String[] args) {
-		new CalendarForm();
+		new SelectDate();
 	}	
 	
 	

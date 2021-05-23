@@ -24,6 +24,7 @@ public class MenuForm extends JFrame implements ActionListener {
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
+	Font fontNanumGothicPlain18 = new Font("NanumGothic", Font.PLAIN, 18);	// 나눔고딕 20
 	Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 22
 	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 	Font fontArial = new Font("Arial", Font.PLAIN, 25);					// 영어
@@ -57,6 +58,7 @@ public class MenuForm extends JFrame implements ActionListener {
 	private JLabel	lblFleet;				// 항공기 안내
 	private JButton btnFleetInformation;	// 항공기 정보
 	
+	
 	// 메뉴폼
 	public MenuForm() {
 		setTitle(title);
@@ -69,38 +71,98 @@ public class MenuForm extends JFrame implements ActionListener {
 		// 레이아웃 설정
 		setLayout(null);
 		
-		// 닫기 버튼
-		setClose();
-		
-		setMenu();
-		
-		
 		// 배경색
 //		Container c = getContentPane();
 //		c.setBackground(Color.WHITE);
+		
+		// 닫기 버튼
+		setClose();
+		
+		// 예매 메뉴
+		setBook();
+		
+		// 공항 메뉴
+		setAirport();
+		
+		// 기내 메뉴
+		setInFight();
 		
 		setVisible(true);
 	}
 
 	
-	private void setMenu() {
+	private void setBook() {
+		// 예매 메뉴 패널
 		jpBook = new JPanel();
-		jpBook.setSize(210, 480);
-		jpBook.setLocation(10, 60);
-		jpBook.setBackground(Color.yellow);
+		jpBook.setLayout(null);
+		jpBook.setSize(170, 480);
+		jpBook.setLocation(50, 60);
+//		jpBook.setBackground(Color.yellow);
 		
+		btnBook = new JButton("예매");
+		btnBook.setSize(170, 50);
+		btnBook.setLocation(0, 5);
+		btnBook.setHorizontalAlignment(JButton.LEFT);
+		btnBook.setFont(fontNanumGothic25);
+		btnBook.setBorderPainted(false);
+		btnBook.setContentAreaFilled(false);
+		
+		btnKoreaDomestic = new JButton("국제선");
+		btnKoreaDomestic.setSize(170, 40);
+		btnKoreaDomestic.setLocation(0, 60);
+		btnKoreaDomestic.setHorizontalAlignment(JButton.LEFT);
+		btnKoreaDomestic.setFont(fontNanumGothicPlain18);
+		btnKoreaDomestic.setBorderPainted(false);
+		btnKoreaDomestic.setContentAreaFilled(false);
+		
+		
+		btnInternational = new JButton("국내선");
+		btnInternational.setSize(170, 40);
+		btnInternational.setLocation(0, 105);
+		btnInternational.setHorizontalAlignment(JButton.LEFT);
+		btnInternational.setFont(fontNanumGothicPlain18);
+		btnInternational.setBorderPainted(false);
+		btnInternational.setContentAreaFilled(false);
+		
+		btnRefund = new JButton("환불");
+		btnRefund.setSize(170, 40);
+		btnRefund.setLocation(0, 150);
+		btnRefund.setHorizontalAlignment(JButton.LEFT);
+		btnRefund.setFont(fontNanumGothicPlain18);
+		btnRefund.setBorderPainted(false);
+		btnRefund.setContentAreaFilled(false);
+		
+		
+		jpBook.add(btnBook);
+		jpBook.add(btnKoreaDomestic);
+		jpBook.add(btnInternational);
+		jpBook.add(btnRefund);
+		
+		add(jpBook);
+	}
+
+	
+	private void setAirport() {
+		// 공항 메뉴 패널
 		jpAirport = new JPanel();
 		jpAirport.setSize(210, 480);
 		jpAirport.setLocation(240, 60);
-		jpAirport.setBackground(Color.blue);
+		jpAirport.setBackground(Color.blue);	
 		
+		
+		add(jpAirport);
+	}
+
+	
+	private void setInFight() {
+		// 기내 메뉴 패널
 		jpInFight = new JPanel();
 		jpInFight.setSize(210, 480);
 		jpInFight.setLocation(470, 60);
 		jpInFight.setBackground(Color.green);
 		
-		add(jpBook);
-		add(jpAirport);
+		
+		
 		add(jpInFight);
 	}
 
