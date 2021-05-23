@@ -37,7 +37,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	
 	// 결제 부분
 	private JPanel jpPayment, jpLbl, jpBtn;
-	private ButtonGroup bgPayment;
+	private ButtonGroup bgPayment;		// 결제수단 버튼 그룹
 	private JButton btnCash, btnCard;	// 결제수단 - 무통장입금, 카드결제
 	private JButton btnOK;
 	
