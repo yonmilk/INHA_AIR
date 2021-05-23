@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,7 +20,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
-public class ReservePanel extends JFrame{
+import Reservation.SelectDate;
+import Reservation.SelectPassenger;
+import Ticketing.TicketingRoundTripComing;
+import Ticketing.TicketingRoundTripGoing;
+
+public class ReservePanel extends JFrame implements ActionListener{
 	
 	// 예원 - 폰트 설정
 	Font fontNanumGothic15 = new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 18
@@ -48,9 +55,19 @@ public class ReservePanel extends JFrame{
 	private JComboBox<String> cbSeat;
 	
 
+	// 예원 - 액션
+	private MainForm main;
+	private SelectDate selectDate;				// 출발일
+	private SelectPassenger selectPassenger;	// 탑승인원
+	private TicketingRoundTripGoing ticketingRoundTripGoing;		// 조회 - 왕복 티켓 - 가는 행
 
-	public ReservePanel(int width, int height) {
+	public JButton getBtnSearch() {
+		return btnSearch;
+	}
 
+	public ReservePanel(int width, int height, MainForm main) {
+		this.main = main;
+		
 		// 예원 - 틀 패널 생성
 		jpSet = new JPanel();
 		jpSet.setLayout(new BorderLayout());
@@ -77,6 +94,7 @@ public class ReservePanel extends JFrame{
 		btnDep.setFont(fontNanumGothic15);
 		btnDep.setBackground(Color.white);
 		btnDep.setBorderPainted(false);
+		btnDep.addActionListener(this);
 		jpDep.add(lblDep);
 		jpDep.add(btnDep);
 		
@@ -103,6 +121,7 @@ public class ReservePanel extends JFrame{
 		btnArr.setFont(fontNanumGothic15);
 		btnArr.setBackground(Color.white);
 		btnArr.setBorderPainted(false);
+		btnArr.addActionListener(this);
 		jpArr.add(lblArr);
 		jpArr.add(btnArr);
 		
@@ -123,6 +142,7 @@ public class ReservePanel extends JFrame{
 		lblDate.setFont(fontNanumGothic18);
 		btnDate = new JButton("");
 		btnDate.setBackground(Color.white);
+		btnDate.addActionListener(this);
 		
 		
 		imgPeople = new ImageIcon("image/people.png");
@@ -130,6 +150,7 @@ public class ReservePanel extends JFrame{
 		lblPeople.setFont(fontNanumGothic18);
 		btnPeople = new JButton("");
 		btnPeople.setBackground(Color.white);
+		btnPeople.addActionListener(this);
 		
 		
 		imgSeat = new ImageIcon("image/seat.png");
@@ -159,6 +180,7 @@ public class ReservePanel extends JFrame{
 		btnSearch.setForeground(Color.white); //버튼 폰트 색 변경
 		btnSearch.setPreferredSize(new Dimension(300, 35));
 		btnSearch.setBorderPainted(false); //버튼 윤곽선 제거
+		btnSearch.addActionListener(this);
 		jpBOTTOM.add(btnSearch);
 		
 		
@@ -171,7 +193,22 @@ public class ReservePanel extends JFrame{
 
 
 	public static void main(String[] args) {
-		new ReservePanel(400, 500);
+//		new ReservePanel(400, 500);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		
+		if(obj == btnDate) {
+			selectDate = new SelectDate();
+		} else if(obj == btnPeople) {
+			selectPassenger = new SelectPassenger();
+		} 
+		else if(obj == btnSearch) {
+			ticketingRoundTripGoing = new TicketingRoundTripGoing();
+			main.setVisible(false);
+		}
 	}
 
 }

@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Reservation.SelectDate;
+import Ticketing.TicketingRoundTripGoing;
 import menu.MenuBar;
 
 // 예원 - 메인 화면 작성
@@ -58,6 +60,9 @@ public class MainForm extends JFrame implements ActionListener {
 	// 예약창
 	private ReservePanel res;
 	
+	// 액션
+	private TicketingRoundTripGoing ticketingRoundTripGoing;
+	
 	public MainForm() {
 		setTitle(title);
 		setSize(width, height);
@@ -72,7 +77,7 @@ public class MainForm extends JFrame implements ActionListener {
 		c.setBackground(Color.WHITE);
 		
 		// 예약창
-		res = new ReservePanel(400, 475);
+		res = new ReservePanel(400, 475, this);
 		res.setJp(650, 150);
 		add(res.getJp());
 		
@@ -163,6 +168,12 @@ public class MainForm extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
+		
+//		if(obj == res.getBtnSearch())
+//		{
+//			ticketingRoundTripGoing = new TicketingRoundTripGoing();
+//			setVisible(false);
+//		}
 		
 	}
 }
