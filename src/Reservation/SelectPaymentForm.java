@@ -114,8 +114,8 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		
 		btnCash = new JButton("무통장 입금");
 		btnCash.setFont(fontNanumGothic20);
-		btnCash.setSize(150, 200);
-		btnCash.setLocation(320, 150);
+		btnCash.setSize(175, 200);
+		btnCash.setLocation(295, 150);
 //		btnCash.setBackground(Color.WHITE);
 //		btnCash.setBackground(new Color(10,90,150));
 		btnCash.setBackground(new Color(150,150,150));
@@ -125,8 +125,8 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		
 		btnCard = new JButton("카드 결제");
 		btnCard.setFont(fontNanumGothic20);
-		btnCard.setSize(150, 200);
-		btnCard.setLocation(530, 150);
+		btnCard.setSize(175, 200);
+		btnCard.setLocation(535, 150);
 		btnCard.setBackground(Color.WHITE);
 		btnCard.setForeground(new Color(10,90,150));
 //		btnCard.setBorderPainted(false);
