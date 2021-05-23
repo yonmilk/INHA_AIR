@@ -20,6 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class SignUp extends JFrame{
+	
+	private String title = "INHA AIR";
+	private int width = 500, height = 800;
 
 	Font fontGothic = new Font("Gothic", Font.BOLD, 13);
 	Font fontNanumGothic = new Font("NanumGothic", Font.BOLD, 20);
@@ -34,7 +37,7 @@ public class SignUp extends JFrame{
 	private JRadioButton rbMan, rbWoman;
 
 
-	public SignUp(String title, int width, int height) {
+	public SignUp() {
 		setTitle(title);
 		setSize(width, height);
 		setLocationRelativeTo(this);
@@ -205,7 +208,7 @@ public class SignUp extends JFrame{
 
 
 	public static void main(String[] args) {
-		new SignUp("INHA AIR", 500, 800);
+		new SignUp();
 	}
 
 }

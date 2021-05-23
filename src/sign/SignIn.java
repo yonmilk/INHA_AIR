@@ -38,6 +38,9 @@ public class SignIn extends JFrame implements ActionListener {
 	//private JButton btnClose;
 	
 	
+	// 액션
+	private SignUp signUp;
+	
 	public SignIn() {
 		
 		this.mainForm = mainForm;
@@ -146,6 +149,10 @@ public class SignIn extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
+		if(obj == btnSignUp) {
+			signUp = new SignUp();
+			this.setVisible(false);
+		}
 	}
 	
 }
