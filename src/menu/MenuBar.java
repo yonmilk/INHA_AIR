@@ -131,7 +131,7 @@ public class MenuBar extends JFrame implements ActionListener {
 		jpMenu.add(btnBook);
 		jpMenu.add(btnAirport);
 		jpMenu.add(btnInFight);
-		jpMenu.add(btnMyPage);
+//		jpMenu.add(btnMyPage);
 			
 		jpTOP.add(btnLogin);
 				
