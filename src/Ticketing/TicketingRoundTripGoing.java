@@ -81,6 +81,10 @@ public class TicketingRoundTripGoing extends JFrame implements ActionListener {
 		Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 25
 		
+		
+	// 예원 - 액션
+	private TicketingRoundTripComing ticketingRoundTripComing;
+		
 	public TicketingRoundTripGoing() {
 		setTitle(title);
 		setSize(width, height);
@@ -229,6 +233,7 @@ public class TicketingRoundTripGoing extends JFrame implements ActionListener {
 		btnNext.setBackground(crNext);
 		btnNext.setForeground(Color.white);
 		btnNext.setBounds(905, 0, 200, 100);
+		btnNext.addActionListener(this);
 	
 		jpFlight1.add(btnEco1);
 		jpFlight2.add(btnEco2);
@@ -274,7 +279,13 @@ public class TicketingRoundTripGoing extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		Object obj = e.getSource();
+		
+		if(obj == btnNext)
+		{
+			ticketingRoundTripComing = new TicketingRoundTripComing();
+			this.setVisible(false);
+		}
 	}
 }
 
