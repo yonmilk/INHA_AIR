@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import sign.SignIn;
+
 public class ReservationForNonmember extends JFrame implements ActionListener {
 
 	// Title 및 사이즈 설정
@@ -43,7 +45,8 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 	private JLabel lblExplanation;
 	private JButton btnLogin;
 
-	
+	// 액션
+	private SignIn singIn;
 	
 	
 	public ReservationForNonmember() {
@@ -167,6 +170,10 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
 		
+		if(obj == btnLogin) {
+			singIn = new SignIn();
+		}
 	}
 }

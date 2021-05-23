@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Reservation.ReservationForNonmember;
 import Reservation.SelectDate;
 import Ticketing.TicketingRoundTripGoing;
 import menu.MenuBar;
@@ -63,6 +64,7 @@ public class MainForm extends JFrame implements ActionListener {
 	
 	// 액션
 	private TicketingRoundTripGoing ticketingRoundTripGoing;
+	private ReservationForNonmember reservationForNonmember;
 	
 	public MainForm() {
 		setTitle(title);
@@ -140,18 +142,21 @@ public class MainForm extends JFrame implements ActionListener {
 		btnFindTrips.setFont(fontNanumGothic20);
 		btnFindTrips.setBorderPainted(false);
 		btnFindTrips.setContentAreaFilled(false);
+		btnFindTrips.addActionListener(this);
 		
 //		btnCheckIn = new JButton("체크인", imgCheckIn);
 		btnCheckIn = new JButton("체크인");
 		btnCheckIn.setFont(fontNanumGothic20);
 		btnCheckIn.setBorderPainted(false);
 		btnCheckIn.setContentAreaFilled(false);
+		btnCheckIn.addActionListener(this);
 		
 //		btnFilghtStatus = new JButton("항공편 현황", imgFilghtStatus);
 		btnFilghtStatus = new JButton("항공편 현황");
 		btnFilghtStatus.setFont(fontNanumGothic20);
 		btnFilghtStatus.setBorderPainted(false);
 		btnFilghtStatus.setContentAreaFilled(false);
+		btnFilghtStatus.addActionListener(this);
 				
 		jpBOTTOM.add(btnFindTrips);
 		jpBOTTOM.add(btnCheckIn);
@@ -170,6 +175,9 @@ public class MainForm extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
-		
+		if(obj == btnFindTrips) {
+			reservationForNonmember = new ReservationForNonmember();
+		}
+			
 	}
 }
