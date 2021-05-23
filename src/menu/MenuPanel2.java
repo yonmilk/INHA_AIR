@@ -12,11 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import main.MainForm;
 import menu.MenuBar;
 
 // 예원 - 메뉴 화면
-public class MenuPanel extends JFrame implements ActionListener {
+public class MenuPanel2 extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 800, height = 300;
@@ -38,15 +37,6 @@ public class MenuPanel extends JFrame implements ActionListener {
 	// 메뉴 관련
 	private JPanel jpMenu, jpBook, jpAirport, jpInFight;
 		
-	public JPanel getJpMenu() {
-		return jpMenu;
-	}
-
-
-	public void setJpMenu(int x, int y) {
-		jpMenu.setLocation(x, y);
-	}
-	
 	// 예매 Book
 	private JButton btnKoreaDomestic,		// 국내선
 					btnInternational,		// 국제선
@@ -66,12 +56,58 @@ public class MenuPanel extends JFrame implements ActionListener {
 	private JLabel	lblFleet;				// 항공기 안내
 	private JButton btnFleetInformation;	// 항공기 정보
 		
+	
+	public JPanel getJpMenu() {
+		
+		return jpMenu;
+	}
+
+
+	public void setJpMenu(int x, int y) {
+		jpMenu.setLocation(x, y);
+	}
+
+	
 	// 메뉴폼
-	public MenuPanel() {
+	public MenuPanel2() {
+		setTitle(title);
+		setSize(width, height);
+//		setResizable(false);
+		setLocationRelativeTo(this);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+//		this.setUndecorated(true); //타이틀바 없애기 
+		
+		// 레이아웃 설정
+		setLayout(null);
+		
+		// 배경색
+//		Container c = getContentPane();
+//		c.setBackground(Color.WHITE);
+		
+//		// 닫기 버튼
+//		setClose();
+		
+		// 예매 메뉴
+		setMenuPop(5, 5);
+		
+		add(jpMenu);
+		
+		setVisible(true);
+	}
+
+
+
+	private void setMenuPop(int x, int y) {
+		// 닫기 버튼
+//		setClose();
+		
 		jpMenu = new JPanel();
 		jpMenu.setLayout(null);
+//		jpMenu.setSize(775, 200);
+//		jpMenu.setLocation(5, 55);
 		jpMenu.setSize(775, 255);
-		jpMenu.setLocation(0, 0);
+		jpMenu.setLocation(x, y);
+//		jpMenu.setBackground(Color.YELLOW);
 		
 		// 예매 메뉴 
 		setBookMenu();
@@ -81,7 +117,6 @@ public class MenuPanel extends JFrame implements ActionListener {
 		
 		// 기내 메뉴
 		setInFightMenu();
-		
 		
 	}
 
@@ -253,7 +288,7 @@ public class MenuPanel extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new MenuPanel();
+		new MenuPanel2();
 	}
 
 

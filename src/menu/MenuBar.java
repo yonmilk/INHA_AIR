@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import main.MainForm;
+import sign.SignIn;
 
 // 예원 - 메뉴바
 public class MenuBar extends JFrame implements ActionListener {
@@ -39,6 +40,11 @@ public class MenuBar extends JFrame implements ActionListener {
 	public void setPnTOP(JPanel pnTOP) {
 		this.jpTOP = pnTOP;
 	}
+	
+	// 액션
+	private MainForm main;
+	private sign.SignIn singIn;
+	private MenuPanel menuPanel;
 
 	public MenuBar() {
 		// 상단 판넬
@@ -124,12 +130,10 @@ public class MenuBar extends JFrame implements ActionListener {
 		jpTOP.add(btnLogo);
 		jpTOP.add(jpMenu);
 		
-		
 		jpMenu.add(btnBook);
 		jpMenu.add(btnAirport);
 		jpMenu.add(btnInFight);
 		jpMenu.add(btnMyPage);
-			
 			
 		jpTOP.add(btnLogin);
 				
@@ -138,7 +142,15 @@ public class MenuBar extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Object obj = e.getSource();
 		
+		if(obj == btnLogo) {
+			
+		} else if(obj == btnLogin) {
+			singIn = new SignIn();
+		} else if(obj == btnMyPage){
+		
+		} else{
+		}
 	}
 }

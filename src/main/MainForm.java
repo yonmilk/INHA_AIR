@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import Reservation.SelectDate;
 import Ticketing.TicketingRoundTripGoing;
 import menu.MenuBar;
+import menu.MenuPanel;
 
 // 예원 - 메인 화면 작성
 public class MainForm extends JFrame implements ActionListener {
@@ -169,11 +170,6 @@ public class MainForm extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
-//		if(obj == res.getBtnSearch())
-//		{
-//			ticketingRoundTripGoing = new TicketingRoundTripGoing();
-//			setVisible(false);
-//		}
 		
 	}
 }
