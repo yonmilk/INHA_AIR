@@ -42,9 +42,7 @@ public class MenuBar extends JFrame implements ActionListener {
 	}
 	
 	// 액션
-	private MainForm main;
-	private sign.SignIn singIn;
-	private MenuPanel menuPanel;
+	private SignIn singIn;
 
 	public MenuBar() {
 		// 상단 판넬
@@ -146,11 +144,13 @@ public class MenuBar extends JFrame implements ActionListener {
 		
 		if(obj == btnLogo) {
 			
-		} else if(obj == btnLogin) {
+		} else if(obj == btnLogin){
 			singIn = new SignIn();
-		} else if(obj == btnMyPage){
-		
-		} else{
+		} else if(obj == btnMyPage) {
+			// 마이페이지
+		} else
+		{
+			// 하위 메뉴
 		}
 	}
 }
