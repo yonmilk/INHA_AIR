@@ -130,7 +130,7 @@ public class AbleInfoDetail extends JFrame{
 		}
 		
 	public static void main(String[] args) {
-		new AbleInfoDetail("항공기 반입 금지 물품",800,450);
+		new AbleInfoDetail("제한적 기내 반입 가능 물품",800,450);
 	}
 
 }

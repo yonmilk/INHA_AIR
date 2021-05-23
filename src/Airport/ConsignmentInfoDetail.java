@@ -115,7 +115,7 @@ public class ConsignmentInfoDetail extends JFrame{
 		}
 		
 	public static void main(String[] args) {
-		new ConsignmentInfoDetail("항공기 반입 금지 물품",800,450);
+		new ConsignmentInfoDetail("위탁 수하물 운송 제한",800,450);
 	}
 
 }
