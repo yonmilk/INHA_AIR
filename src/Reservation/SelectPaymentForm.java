@@ -33,10 +33,11 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
 	Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
 	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
-	Font fontNanumGothic30 = new Font("NanumGothic", Font.PLAIN, 30);	// 나눔고딕 25
+	Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 25
 	
 	// 결제 부분
 	private JPanel jpPayment, jpLbl, jpBtn;
+	private JLabel lblPyment;
 	private ButtonGroup bgPayment;		// 결제수단 버튼 그룹
 	private JButton btnCash, btnCard;	// 결제수단 - 무통장입금, 카드결제
 	private JButton btnOK;
@@ -81,6 +82,12 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		jpLbl.setBorder(new EtchedBorder(EtchedBorder.RAISED));		// 테두리 설정
 		jpLbl.setBackground(Color.WHITE);
 		
+		lblPyment = new JLabel("결제 수단을 선택해주세요.");
+		lblPyment.setFont(fontNanumGothic30);
+		lblPyment.setSize(450, 50);
+		lblPyment.setLocation(330, 100);
+		jpLbl.add(lblPyment);
+		
 		// 결제 수단 버튼 그룹
 		setBtnGroup();
 		
@@ -115,7 +122,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		btnCash = new JButton("무통장 입금");
 		btnCash.setFont(fontNanumGothic20);
 		btnCash.setSize(175, 200);
-		btnCash.setLocation(295, 150);
+		btnCash.setLocation(295, 200);
 //		btnCash.setBackground(Color.WHITE);
 //		btnCash.setBackground(new Color(10,90,150));
 		btnCash.setBackground(new Color(150,150,150));
@@ -126,7 +133,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		btnCard = new JButton("카드 결제");
 		btnCard.setFont(fontNanumGothic20);
 		btnCard.setSize(175, 200);
-		btnCard.setLocation(535, 150);
+		btnCard.setLocation(535, 200);
 		btnCard.setBackground(Color.WHITE);
 		btnCard.setForeground(new Color(10,90,150));
 //		btnCard.setBorderPainted(false);
