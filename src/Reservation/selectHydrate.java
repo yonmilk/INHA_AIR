@@ -59,7 +59,7 @@ public class selectHydrate extends JFrame implements ActionListener {
 		
 		
 		// 안내 레이블
-		lblHydrate = new JLabel("초과 수화물 선택해주세요.");
+		lblHydrate = new JLabel("초과수화물 선택");
 		lblHydrate.setFont(fontNanumGothic30);
 //		lblHydrate.setForeground(new Color(10,90,150));
 		lblHydrate.setHorizontalAlignment(JLabel.CENTER);
@@ -85,8 +85,6 @@ public class selectHydrate extends JFrame implements ActionListener {
 		// 배경색
 		Container c = getContentPane();
 		c.setBackground(Color.WHITE);
-		
-		
 		
 		setVisible(true);
 	}

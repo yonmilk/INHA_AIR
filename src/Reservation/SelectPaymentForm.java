@@ -82,7 +82,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		jpLbl.setBorder(new EtchedBorder(EtchedBorder.RAISED));		// 테두리 설정
 		jpLbl.setBackground(Color.WHITE);
 		
-		lblPyment = new JLabel("결제 수단을 선택해주세요.");
+		lblPyment = new JLabel("결제수단 선택");
 		lblPyment.setFont(fontNanumGothic30);
 		lblPyment.setHorizontalAlignment(JLabel.CENTER);
 		lblPyment.setSize(1000, 50);
