@@ -251,13 +251,13 @@ public class SelectDate extends JFrame implements ActionListener {
 		btnReselect.setSize(230, 60);
 		btnReselect.setLocation(40, 0);
 		btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
-		btnReselect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
+		btnReselect.setBackground(new Color(10,90,150)); //버튼 색 설정
 		btnSelect = new JButton("왕복 선택");
 		btnSelect.setFont(fontNanumGothic18);
 		btnSelect.setSize(230, 60);
 		btnSelect.setLocation(360, 0);
 		btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
-		btnSelect.setBackground(new Color(153, 204, 255)); //버튼 색 설정
+		btnSelect.setBackground(new Color(10,90,150)); //버튼 색 설정
 		
 		jpBtn.add(btnReselect);
 		jpBtn.add(btnSelect);

@@ -20,7 +20,7 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 
 	// Title 및 사이즈 설정
 	private String title = "비회원 예약 조회";
-	private int width = 360, height = 500;
+	private int width = 360, height = 450;
 	
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
 	Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);		// 나눔고딕 9
@@ -37,8 +37,6 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 	private JPanel jpInput;
 	private JLabel lblNum;
 	private JTextField tfNum;
-	private Component lblDate;
-	private Component tfDate;
 	private Component lblLastName;
 	private Component tfLastName;
 	private Component lblFirstName;
@@ -99,7 +97,7 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 		//정보입력 패널
 		jpInput = new JPanel();
 		jpInput.setLayout(null);
-		jpInput.setSize(320, 280);
+		jpInput.setSize(320, 200);
 		jpInput.setLocation(20, 100);
 		jpInput.setBackground(Color.white);
 		
@@ -116,33 +114,23 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 		jpInput.add(lblNum);
 		jpInput.add(tfNum);
 		
-		lblDate = new JLabel("탑승일(YYYYMMDD)");
-		lblDate.setSize(200, 30);
-		lblDate.setLocation(0, 70);
-		lblDate.setFont(fontNanumGothic13);
-		tfDate = new JTextField();
-		tfDate.setSize(300, 30);
-		tfDate.setLocation(0, 100);
-		jpInput.add(lblDate);
-		jpInput.add(tfDate);
-		
-		lblLastName = new JLabel("승객 성");
+		lblLastName = new JLabel("승객 성)");
 		lblLastName.setSize(200, 30);
-		lblLastName.setLocation(0, 140);
+		lblLastName.setLocation(0, 70);
 		lblLastName.setFont(fontNanumGothic13);
 		tfLastName = new JTextField();
 		tfLastName.setSize(300, 30);
-		tfLastName.setLocation(0, 170);
+		tfLastName.setLocation(0, 100);
 		jpInput.add(lblLastName);
 		jpInput.add(tfLastName);
 		
 		lblFirstName = new JLabel("승객 이름");
 		lblFirstName.setSize(200, 30);
-		lblFirstName.setLocation(0, 210);
+		lblFirstName.setLocation(0, 140);
 		lblFirstName.setFont(fontNanumGothic13);
 		tfFirstName = new JTextField();
 		tfFirstName.setSize(300, 30);
-		tfFirstName.setLocation(0, 240);
+		tfFirstName.setLocation(0, 170);
 		jpInput.add(lblFirstName);
 		jpInput.add(tfFirstName);
 		
@@ -151,7 +139,7 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 		btnSearch.setFont(fontNanumGothic15);
 		btnSearch.setForeground(Color.white);
 		btnSearch.setSize(100, 40);
-		btnSearch.setLocation(120, 390);
+		btnSearch.setLocation(120, 320);
 		btnSearch.setBorderPainted(false); //버튼 윤곽선 제거
 		btnSearch.setBackground(new Color(10,90,150));
 		btnSearch.addActionListener(this);
