@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 
 import main.MainForm;
 import menu.MenuBar;
@@ -23,7 +24,7 @@ import menu.MenuBar;
 public class selectHydrate extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "초과수화물";
-	private int width = 700, height = 600;
+	private int width = 700, height = 480;
 	
 	// 폰트
 		Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
@@ -77,7 +78,7 @@ public class selectHydrate extends JFrame implements ActionListener {
 		btnOK = new JButton("확인");
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setSize(400, 50);
-		btnOK.setLocation(145, 475);
+		btnOK.setLocation(145, 350);
 		btnOK.setBackground(new Color(10,90,150));
 		btnOK.setForeground(Color.WHITE);
 		btnOK.setBorderPainted(false);
@@ -94,22 +95,33 @@ public class selectHydrate extends JFrame implements ActionListener {
 	// 초과 소화물 선택 패널 생성
 	private void addHydrate() {
 		
-		jpHydrate = new JPanel(new BorderLayout(50, 50));
-		jpHydrate.setBorder(new EmptyBorder(30, 30, 30, 30));
-		jpHydrate.setSize(645, 350);
-		jpHydrate.setLocation(20, 100);
+//		jpHydrate = new JPanel(new BorderLayout(50, 50));
+//		jpHydrate = new JPanel(new BorderLayout());
+//		jpHydrate.setBorder(new EmptyBorder(30, 30, 30, 30));
+//		jpHydrate.setSize(645, 350);
+		jpHydrate = new JPanel(null);
+		jpHydrate.setSize(645, 200);
+		jpHydrate.setLocation(20, 110);
+		jpHydrate.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		jpHydrate.setBackground(Color.WHITE);
 		
 		// 이름 체크 박스
 		String name = "승객1";
 		chName = new JCheckBox(name);
-//		chName.setSize(635, 200);
-//		chName.setLocation(5, 5);
+		chName.setSize(550, 50);
+		chName.setLocation(40, 15);
 		chName.setFont(fontNanumGothic20);
+		chName.setBackground(Color.WHITE);
 		
 		JPanel jpSelectHydrate = new JPanel();
-		jpSelectHydrate.setLayout(new GridLayout(2, 3, 50, 10));
-		jpSelectHydrate.setBorder(new EmptyBorder(50, 70, 50, 70));
+		jpSelectHydrate.setLayout(new GridLayout(2, 3, 20, 20));
+//		jpSelectHydrate.setBorder(new EmptyBorder(50, 70, 50, 20));
+		jpSelectHydrate.setBorder(new EmptyBorder(20, 5, 20, 5));
+		jpSelectHydrate.setSize(550, 130);
+//		jpSelectHydrate.setSize(625, 150);
+//		jpSelectHydrate.setSize(550, 150);
+		jpSelectHydrate.setLocation(40, 55);
+		jpSelectHydrate.setBackground(Color.WHITE);
 		
 		lblFree = new JLabel("무료");
 		lblFree.setFont(fontNanumGothic18);
