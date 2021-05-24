@@ -29,7 +29,6 @@ public class NonTel extends JFrame{
 	private JPasswordField pfPw, pfPWcheck;
 	private JButton btnOK, btnSeat, btnLaug, btnPay;
 	private JCheckBox ckAgree;
-	private Container c;
 
 	public NonTel(String title, int width, int height) {
 		setTitle(title);
