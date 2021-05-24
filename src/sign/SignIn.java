@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -92,7 +93,7 @@ public class SignIn extends JFrame implements ActionListener {
 		btnLogin = new JButton("로그인"); //로그인 버튼
 		btnLogin.setFont(fontNanumGothic16);
 		btnLogin.setBorderPainted(false); //버튼 윤곽선 제거
-		btnLogin.setBackground(new Color(153, 204, 255)); //버튼 색 설정
+		btnLogin.setBackground(new Color(10,90,150)); //버튼 색 설정
 		jpCenter.add(lblId);
 		jpCenter.add(tfId);
 		jpCenter.add(lblPw);
@@ -107,7 +108,7 @@ public class SignIn extends JFrame implements ActionListener {
 		jpBottom.setLayout(new GridLayout(3,1));
 		jpBottom.setBackground(Color.white);
 		jpBottom.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
-		btnFindIdPw = new JButton("<HTML><U>아이디/비밀번호 찾기</U></HTML>"); //아이디/비밀번호 찾기 버튼 추가
+		btnFindIdPw = new JButton("<HTML><U>아이디/비밀번호찾기</U></HTML>"); //아이디/비밀번호 찾기 버튼 추가
 		btnFindIdPw.setForeground(new Color(000, 102, 255));
 		btnFindIdPw.addActionListener(this);
 		btnFindIdPw.setBorderPainted(false); //버튼 윤곽선 제거
