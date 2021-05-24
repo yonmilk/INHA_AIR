@@ -122,7 +122,7 @@ public class MainForm extends JFrame implements ActionListener {
 		// 하위 판넬
 		jpBOTTOM = new JPanel();
 //		pnBOTTOM.setLayout(null);
-		jpBOTTOM.setLayout(new FlowLayout(FlowLayout.LEFT));
+	//	jpBOTTOM.setLayout(new FlowLayout(FlowLayout.LEFT));
 		jpBOTTOM.setSize(1120, 100);
 		jpBOTTOM.setLocation(0, 550);
 		jpBOTTOM.setLayout(new FlowLayout(FlowLayout.LEFT, 80, 10));
