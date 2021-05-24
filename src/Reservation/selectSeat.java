@@ -16,7 +16,7 @@ import menu.MenuBar;
 
 public class selectSeat extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
-	private String title = "좌석 선택";
+	private String title = "좌석";
 	private int width = 760, height = 700;
 	
 	public selectSeat() {
