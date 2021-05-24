@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Inquiry.NonMemberInquiryDetail;
 import sign.SignIn;
 
 public class ReservationForNonmember extends JFrame implements ActionListener {
@@ -47,7 +48,7 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 
 	// 액션
 	private SignIn singIn;
-	
+	private NonMemberInquiryDetail nonMemberInquiryDetail;
 	
 	public ReservationForNonmember() {
 		//this.mainForm = mainForm;
@@ -153,6 +154,7 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 		btnSearch.setLocation(120, 390);
 		btnSearch.setBorderPainted(false); //버튼 윤곽선 제거
 		btnSearch.setBackground(new Color(10,90,150));
+		btnSearch.addActionListener(this);
 		
 		add(jpTitle);
 		add(jpInput);
@@ -174,6 +176,8 @@ public class ReservationForNonmember extends JFrame implements ActionListener {
 		
 		if(obj == btnLogin) {
 			singIn = new SignIn();
+		} else if(obj == btnSearch) {
+			nonMemberInquiryDetail = new NonMemberInquiryDetail();
 		}
 	}
 }
