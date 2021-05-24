@@ -84,8 +84,9 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		
 		lblPyment = new JLabel("결제 수단을 선택해주세요.");
 		lblPyment.setFont(fontNanumGothic30);
-		lblPyment.setSize(450, 50);
-		lblPyment.setLocation(330, 100);
+		lblPyment.setHorizontalAlignment(JLabel.CENTER);
+		lblPyment.setSize(1000, 50);
+		lblPyment.setLocation(10, 100);
 		jpLbl.add(lblPyment);
 		
 		// 결제 수단 버튼 그룹
