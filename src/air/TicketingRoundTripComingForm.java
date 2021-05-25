@@ -255,6 +255,9 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		btnMember.setForeground(Color.white);
 		btnMember.setBounds(905, 0, 200, 100);
 		
+		// 예원 - 리스너
+		btnMember.addActionListener(this);
+		
 //		btnNonMember = new JButton("비회원으로 진행"); // 회원 진행 버튼
 //		btnNonMember.setFont(fontNanumGothic20);
 //		btnNonMember.setBackground(crNonMember);
@@ -305,6 +308,9 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			mainMenuForm = new MainMenuForm();
 			this.setVisible(false);
 			
+		} else if(obj == btnMember) {
+			new InputInformationForm();
+			this.setVisible(false);
 		}
 	}
 }
