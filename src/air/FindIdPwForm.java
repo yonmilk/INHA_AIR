@@ -100,8 +100,8 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		btnFindId = new JButton("아이디 찾기");
 		btnFindId.setFont(fontNanumGothic15);
 		btnFindId.setForeground(Color.white);
-		btnFindId.setSize(100, 40);
-		btnFindId.setLocation(100, 240);
+		btnFindId.setSize(250, 40);
+		btnFindId.setLocation(15, 240);
 		btnFindId.setBorderPainted(false); //버튼 윤곽선 제거
 		btnFindId.setBackground(new Color(10,90,150));
 		jpIdFind.add(lblIdName);
@@ -154,8 +154,8 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		btnFindPw = new JButton("비밀번호 찾기");
 		btnFindPw.setFont(fontNanumGothic15);
 		btnFindPw.setForeground(Color.white);
-		btnFindPw.setSize(100, 40);
-		btnFindPw.setLocation(100, 240);
+		btnFindPw.setSize(250, 40);
+		btnFindPw.setLocation(15, 240);
 		btnFindPw.setBorderPainted(false); //버튼 윤곽선 제거
 		btnFindPw.setBackground(new Color(10,90,150));
 		jpPwFind.add(lblPwName);
