@@ -21,7 +21,7 @@ import javax.swing.border.EtchedBorder;
 import main.MainForm;
 import menu.MenuBar;
 
-public class SelectHydrate extends JFrame implements ActionListener {
+public class SelectHydrateForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "초과수화물";
 	private int width = 700, height = 480;
@@ -50,7 +50,7 @@ public class SelectHydrate extends JFrame implements ActionListener {
 	private JButton btnOK;
 	
 	
-	public SelectHydrate() {
+	public SelectHydrateForm() {
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -158,7 +158,7 @@ public class SelectHydrate extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new SelectHydrate();
+		new SelectHydrateForm();
 	}
 
 
