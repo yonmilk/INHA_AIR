@@ -234,9 +234,9 @@ public class BookForm extends JFrame implements ActionListener {
 			this.setVisible(false);
 			
 		} else if(obj == btnDate) {
-			new SelectDate();
+			new air.SelectDate();
 		} else if(obj == btnPeople) {
-			new SelectPassenger();
+			new air.SelectPassenger();
 		}
 	}
 }
