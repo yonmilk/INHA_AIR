@@ -55,7 +55,7 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 		setSize(width, height);
 		setResizable(false);
 		setLocationRelativeTo(this);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		// 레이아웃 설정
 		setLayout(null);
@@ -164,6 +164,10 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		Object obj = e.getSource();
+		
+		if(obj == btnOK) {
+			this.setVisible(false);
+		}
 	}
 }

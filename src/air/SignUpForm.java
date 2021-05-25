@@ -41,7 +41,7 @@ public class SignUpForm extends JFrame{
 		setTitle(title);
 		setSize(width, height);
 		setLocationRelativeTo(this);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+//		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		jpInf = new JPanel();
 		jpInf.setLayout(null);
