@@ -24,6 +24,9 @@ public class SignUpForm extends JFrame{
 	Font fontGothic = new Font("Gothic", Font.BOLD, 13);
 	Font fontNanumGothic = new Font("NanumGothic", Font.BOLD, 20);
 	
+	private String title="INHA AIR";
+	private int width = 500, height = 800;
+	
 	private JPanel jpInf;
 	private JCheckBox chkNewsLetter, chkPromotion, chkSMS;
 	private JButton btnchk, btnBirth, btnBack, btnOk;
@@ -34,7 +37,7 @@ public class SignUpForm extends JFrame{
 	private JRadioButton rbMan, rbWoman;
 
 
-	public SignUpForm(String title, int width, int height) {
+	public SignUpForm() {
 		setTitle(title);
 		setSize(width, height);
 		setLocationRelativeTo(this);
@@ -205,7 +208,7 @@ public class SignUpForm extends JFrame{
 
 
 	public static void main(String[] args) {
-		new SignUpForm("INHA AIR", 500, 800);
+		new SignUpForm();
 	}
 
 }

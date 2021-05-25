@@ -46,6 +46,8 @@ public class LoginForm extends JFrame implements ActionListener {
 	
 	// Forms
 	private MainMenuForm mainMenuForm;
+	private SignUpForm signUpForm;
+	private FindIdPwForm findIdPwForm;
 	
 	public LoginForm() {
 		setTitle(title);
@@ -168,6 +170,10 @@ public class LoginForm extends JFrame implements ActionListener {
 		if(obj == btnLogin) {
 			mainMenuForm = new MainMenuForm();
 			this.setVisible(false);
+		} else if(obj == btnFindIdPw) {
+			findIdPwForm = new FindIdPwForm();
+		} else if(obj == btnSignUp) {
+			signUpForm = new SignUpForm();
 		}
 	}
 }
