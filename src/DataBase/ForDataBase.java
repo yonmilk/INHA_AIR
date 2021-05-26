@@ -11,7 +11,7 @@ import java.sql.Statement;
 //
 // MySQL 연결 코드
 //
-public class conDB {
+public class ForDataBase {
 	private static Connection conn;
 	private static Statement stmt;
 	
@@ -75,6 +75,8 @@ public class conDB {
 		
 		return rs;
 	}
+	
+	
 	
 	public static void main(String[] args) {
 		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";

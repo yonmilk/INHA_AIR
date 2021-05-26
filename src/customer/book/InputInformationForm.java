@@ -37,6 +37,7 @@ public class InputInformationForm extends JFrame implements ActionListener {
 	
 	// 폰트
 	Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
+	Font fontNanumGothicP15 = new Font("NanumGothic", Font.PLAIN, 15);	// 나눔고딕 18
 	Font fontNanumGothic15 = new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 18
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
@@ -173,9 +174,11 @@ public class InputInformationForm extends JFrame implements ActionListener {
 		JPanel jpTfNameKor = new JPanel(new GridLayout(1, 2, 10, 10));
 		jpTfNameKor.setBackground(Color.WHITE);
 		tfFamilyNameKor = new JTextField(20);
-		tfFamilyNameKor.setFont(fontNanumGothic15);
+		tfFamilyNameKor.setFont(fontNanumGothicP15);
+		tfFamilyNameKor.setText("예: 이");
 		tfNameKor = new JTextField(20);
-		tfNameKor.setFont(fontNanumGothic15);
+		tfNameKor.setFont(fontNanumGothicP15);
+		tfNameKor.setText("예: 은선");
 		jpTfNameKor.add(tfFamilyNameKor);
 		jpTfNameKor.add(tfNameKor);
 		
@@ -193,9 +196,11 @@ public class InputInformationForm extends JFrame implements ActionListener {
 		JPanel jpTfNameEng = new JPanel(new GridLayout(1, 2, 10, 10));
 		jpTfNameEng.setBackground(Color.WHITE);
 		tfFamilyNameEng = new JTextField(20);
-		tfFamilyNameEng.setFont(fontNanumGothic15);
+		tfFamilyNameEng.setFont(fontNanumGothicP15);
+		tfFamilyNameEng.setText("예: LEE");
 		tfNameEng = new JTextField(20);
-		tfNameEng.setFont(fontNanumGothic15);
+		tfNameEng.setFont(fontNanumGothicP15);
+		tfNameEng.setText("예: EUNSEON");
 		jpTfNameEng.add(tfFamilyNameEng);
 		jpTfNameEng.add(tfNameEng);
 		
@@ -207,10 +212,10 @@ public class InputInformationForm extends JFrame implements ActionListener {
 		JPanel jpSex = new JPanel(new GridLayout(1, 2, 10, 10));
 		jpSex.setBackground(Color.WHITE);
 		bgSex = new ButtonGroup();
-		rbMan = new JRadioButton("남자");
+		rbMan = new JRadioButton("남자", false);
 		rbMan.setFont(fontNanumGothic15);
 		rbMan.setBackground(Color.WHITE);
-		rbWoman = new JRadioButton("여자");
+		rbWoman = new JRadioButton("여자", true);
 		rbWoman.setFont(fontNanumGothic15);
 		rbWoman.setBackground(Color.WHITE);
 		bgSex.add(rbMan);
@@ -232,9 +237,11 @@ public class InputInformationForm extends JFrame implements ActionListener {
 		JPanel jpTfPss = new JPanel(new GridLayout(1, 2, 10, 10));
 		jpTfPss.setBackground(Color.WHITE);
 		tfPassport = new JTextField(20);
-		tfPassport.setFont(fontNanumGothic15);
+		tfPassport.setFont(fontNanumGothicP15);
+		tfPassport.setText("예: M46910832");
 		tfBirth = new JTextField(20);
-		tfBirth.setFont(fontNanumGothic15);
+		tfBirth.setFont(fontNanumGothicP15);
+		tfBirth.setText("예: 20010414");
 		jpTfPss.add(tfPassport);
 		jpTfPss.add(tfBirth);
 		
@@ -252,9 +259,11 @@ public class InputInformationForm extends JFrame implements ActionListener {
 		JPanel jptfTel = new JPanel(new GridLayout(1, 2, 10, 10));
 		jptfTel.setBackground(Color.WHITE);
 		tfTel = new JTextField(20);
-		tfTel.setFont(fontNanumGothic15);
+		tfTel.setFont(fontNanumGothicP15);
+		tfTel.setText("예: 01092032769");
 		tfEmail = new JTextField(20);
-		tfEmail.setFont(fontNanumGothic15);
+		tfEmail.setFont(fontNanumGothicP15);
+		tfEmail.setText("예: oow214@gmail.com");
 		jptfTel.add(tfTel);
 		jptfTel.add(tfEmail);
 		
