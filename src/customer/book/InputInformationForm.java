@@ -54,9 +54,9 @@ public class InputInformationForm extends JFrame implements ActionListener {
 	// 컴포넌트
 	private JPanel jpInputInfor, jpBtns;
 	private JLabel lblFamilyNameKor, lblNameKor, lblFamilyNameEng, lblNameEng, 
-					lblSex, lblPassport, lblTel, lblEmail;
+					lblSex, lblPassport, lblTel, lblEmail, lblBirth;
 	private JTextField tfFamilyNameKor, tfNameKor, tfFamilyNameEng, tfNameEng,
-					tfPassport, tfTel, tfEmail;
+					tfPassport, tfTel, tfEmail, tfBirth;
 	private ButtonGroup bgSex;
 	private JRadioButton rbWoman, rbMan;
 	private JCheckBox cbAgree;
@@ -218,16 +218,25 @@ public class InputInformationForm extends JFrame implements ActionListener {
 		jpSex.add(rbMan);
 		jpSex.add(rbWoman);
 		
-		// 여권번호 라벨
+		// 여권번호/생년월일 라벨
+		JPanel jpLblPss = new JPanel(new GridLayout(1, 2, 10, 10));
+		jpLblPss.setBackground(Color.WHITE);
 		lblPassport = new JLabel("여권 번호");
 		lblPassport.setFont(fontNanumGothic15);
+		lblBirth = new JLabel("생년월일");
+		lblBirth.setFont(fontNanumGothic15);
+		jpLblPss.add(lblPassport);
+		jpLblPss.add(lblBirth);
 		
-		// 여권번호 텍스트필드
-		JPanel jpPassport = new JPanel(new GridLayout(1, 2, 10, 10));
-		jpPassport.setBackground(Color.WHITE);
+		// 여권번호/생년월일 텍스트필드
+		JPanel jpTfPss = new JPanel(new GridLayout(1, 2, 10, 10));
+		jpTfPss.setBackground(Color.WHITE);
 		tfPassport = new JTextField(20);
 		tfPassport.setFont(fontNanumGothic15);
-		jpPassport.add(tfPassport);
+		tfBirth = new JTextField(20);
+		tfBirth.setFont(fontNanumGothic15);
+		jpTfPss.add(tfPassport);
+		jpTfPss.add(tfBirth);
 		
 		// 연락처 라벨
 		JPanel jpLblTel = new JPanel(new GridLayout(1, 2, 10, 10));
@@ -262,8 +271,8 @@ public class InputInformationForm extends JFrame implements ActionListener {
 		jpInputInfor.add(jpTfNameEng);
 		jpInputInfor.add(lblSex);
 		jpInputInfor.add(jpSex);
-		jpInputInfor.add(lblPassport);
-		jpInputInfor.add(jpPassport);
+		jpInputInfor.add(jpLblPss);
+		jpInputInfor.add(jpTfPss);
 		jpInputInfor.add(jpLblTel);
 		jpInputInfor.add(jptfTel);
 		jpInputInfor.add(cbAgree);
