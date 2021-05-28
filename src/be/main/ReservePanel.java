@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
-import be.Reservation.SelectDate;
+import be.Reservation.SelectDate_old;
 import be.Reservation.SelectPassenger;
 import be.Ticketing.TicketingRoundTripComing;
 import be.Ticketing.TicketingRoundTripGoing;
@@ -57,7 +57,7 @@ public class ReservePanel extends JFrame implements ActionListener{
 
 	// 예원 - 액션
 	private MainForm main;
-	private SelectDate selectDate;				// 출발일
+	private SelectDate_old selectDate;				// 출발일
 	private SelectPassenger selectPassenger;	// 탑승인원
 	private TicketingRoundTripGoing ticketingRoundTripGoing;		// 조회 - 왕복 티켓 - 가는 행
 
@@ -201,7 +201,7 @@ public class ReservePanel extends JFrame implements ActionListener{
 		Object obj = e.getSource();
 		
 		if(obj == btnDate) {
-			selectDate = new SelectDate();
+			selectDate = new SelectDate_old();
 		} else if(obj == btnPeople) {
 			selectPassenger = new SelectPassenger();
 		} 

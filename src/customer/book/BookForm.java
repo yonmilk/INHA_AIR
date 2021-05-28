@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import be.Reservation.SelectDate;
+import be.Reservation.SelectDate_old;
 import be.Reservation.SelectPassenger;
 import be.main.MainForm;
 import be.menu.MenuBar;

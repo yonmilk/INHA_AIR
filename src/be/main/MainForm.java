@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import be.Reservation.ReservationForNonmember;
-import be.Reservation.SelectDate;
+import be.Reservation.SelectDate_old;
 import be.Ticketing.TicketingRoundTripGoing;
 import be.menu.MenuBar;
 import be.menu.MenuPanel;

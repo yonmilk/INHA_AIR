@@ -1,4 +1,4 @@
-package customer.book;
+package be.Reservation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 
 //연우 - 탑승일 선택 작성
 
-public class SelectDate extends JFrame implements ActionListener {
+public class SelectDate_old extends JFrame implements ActionListener {
 	
 	// Title 및 사이즈 설정
 	private String title = "탑승일 선택";
@@ -49,9 +49,9 @@ public class SelectDate extends JFrame implements ActionListener {
 	private int thisYear;
 	private int thisMonth;
 	private JLabel lblday;
-	private JLabel lblYearLeft;
-	private JLabel lblMonthLeft;
-	//private ArrayList<JButton> lstBtn = new ArrayList<JButton>();
+	private JLabel lblYear;
+	private JLabel lblMonth;
+	private ArrayList<JButton> lstBtn = new ArrayList<JButton>();
 	private JButton btnDay;
 	private int dayY;
 	private int dayX;
@@ -61,16 +61,9 @@ public class SelectDate extends JFrame implements ActionListener {
 	private JButton btnLeft;
 	private JButton btnRight;
 	private int selectindex = 0;
-	private int sDayNum;
-	private int endDate;
-	private int intDateNum;
-	private JLabel lblYearRight;
-	private JLabel lblMonthRight;
-	private int NextMonth;
-	
 	
 
-	public SelectDate() {
+	public SelectDate_old() {
 			
 		//this.mainForm = mainForm;
 		
@@ -89,13 +82,54 @@ public class SelectDate extends JFrame implements ActionListener {
 		
 	}
 
-	private void setDay(JPanel jpCal) { //달력생성함수. 패널, 년도, 달, x좌표, y좌표 입력
+	private void setCalendar(JPanel jpCal, int year, int month, int x, int y) { //달력생성함수. 패널, 년도, 달, x좌표, y좌표 입력
 		
+		//달력패널 생성 및 설정
+		jpCal = new JPanel();
+		jpCal.setLayout(null);
+		jpCal.setSize(290, 370);
+		jpCal.setLocation(x, y);
+		jpCal.setBackground(Color.WHITE);
+		
+		
+		thisYear = year; //현재 년
+		thisMonth = month; //현재 달
+
+		
+		cal.set(thisYear, thisMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
+		
+		int sDayNum = cal.get(Calendar.DAY_OF_WEEK); //1일의 요일 얻어오기
+		int endDate = cal.getActualMaximum(Calendar.DATE); //달의 마지막 일 얻기
+		
+		int intDateNum = 1; //1일부터 날짜 시작
+		
+		lblYear = new JLabel(thisYear+"년"); //년도 표시 라벨
+		lblYear.setFont(fontNanumGothic12);
+		lblYear.setSize(150, 40);
+		lblYear.setLocation(15, 2);
+		lblMonth = new JLabel(thisMonth+"월"); //달 표시 라벨
+		lblMonth.setFont(fontNanumGothic18);
+		lblMonth.setSize(80, 40);
+		lblMonth.setLocation(65, 0);
+		jpCal.add(lblYear);
+		jpCal.add(lblMonth);
+		
+		
+		for (int i = 0; i<7; i++) { //요일 추가
+			lblday = new JLabel(day[i]); //day[i]로 요일 배열 추가
+			lblday.setFont(fontNanumGothic15);
+			lblday.setSize(100, 40);
+			lblday.setLocation(40*i + 16, 30); //위치 설정
+			jpCal.add(lblday);
+			
+		}
 		
 		dayX = 0; //날짜버튼 x좌표 기본 0으로 설정
 		dayY = 70; //날짜버튼 y좌표 기본 설정
 		
 		for (int i = 1; intDateNum <= endDate; i++) { //intDateNum이 1일부터 마지막일이 될 때까지 반복 
+		
+			
 			
 			if (i<sDayNum) //i가 요일숫자보다 작으면 공백 버튼
 			{
@@ -107,7 +141,7 @@ public class SelectDate extends JFrame implements ActionListener {
 				btnDay.setBackground(Color.white); //버튼 색 설정
 				btnDay.setSize(40, 40);
 				btnDay.setLocation(dayX, dayY);
-				//lstBtn.add(btnDay);
+				lstBtn.add(btnDay);
 				jpCal.add(btnDay);
 				
 				dayX += 40;
@@ -133,7 +167,7 @@ public class SelectDate extends JFrame implements ActionListener {
 					btnDay.setForeground(Color.black); //나머지 검정색 설정
 				}
 				
-				//lstBtn.add(btnDay);
+				lstBtn.add(btnDay);
 				jpCal.add(btnDay);
 				
 				intDateNum++; //출력할 date 증가
@@ -148,7 +182,7 @@ public class SelectDate extends JFrame implements ActionListener {
 		
 		}
 		
-		add(jpCal); //패널 추가
+		add(jpCal); //판넬 추가
 		
 	}
 	
@@ -200,88 +234,10 @@ public class SelectDate extends JFrame implements ActionListener {
 		jpSelect.add(lblCome);
 		jpSelect.add(tfCome);
 
-	
-		//왼쪽 달력패널 생성 및 설정
-		jpCalendarLeft = new JPanel();
-		jpCalendarLeft.setLayout(null);
-		jpCalendarLeft.setSize(290, 370);
-		jpCalendarLeft.setLocation(50, 160);
-		jpCalendarLeft.setBackground(Color.WHITE);
 		
-		thisYear = todayYear; //현재 년
-		thisMonth = todayMonth+setTime; //현재 달
-		
-		cal.set(thisYear, thisMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
-		
-		
-		sDayNum = cal.get(Calendar.DAY_OF_WEEK); //1일의 요일 얻어오기
-		endDate = cal.getActualMaximum(Calendar.DATE); //달의 마지막 일 얻기
-		
-		intDateNum = 1; //1일부터 날짜 시작
-		
-		lblYearLeft = new JLabel(thisYear+"년"); //년도 표시 라벨
-		lblYearLeft.setFont(fontNanumGothic12);
-		lblYearLeft.setSize(150, 40);
-		lblYearLeft.setLocation(15, 2);
-		lblMonthLeft = new JLabel(thisMonth+"월"); //달 표시 라벨
-		lblMonthLeft.setFont(fontNanumGothic18);
-		lblMonthLeft.setSize(80, 40);
-		lblMonthLeft.setLocation(65, 0);
-		jpCalendarLeft.add(lblYearLeft);
-		jpCalendarLeft.add(lblMonthLeft);
-		
-		for (int i = 0; i<7; i++) { //요일 추가
-			lblday = new JLabel(day[i]); //day[i]로 요일 배열 추가
-			lblday.setFont(fontNanumGothic15);
-			lblday.setSize(100, 40);
-			lblday.setLocation(40*i + 16, 30); //위치 설정
-			jpCalendarLeft.add(lblday);
-			
-		}
-		
-		setDay(jpCalendarLeft); //달력 일 출력
-		
-		//오른쪽 달력패널 생성 및 설정
-		jpCalendarRight = new JPanel();
-		jpCalendarRight.setLayout(null);
-		jpCalendarRight.setSize(290, 370);
-		jpCalendarRight.setLocation(400, 160);
-		jpCalendarRight.setBackground(Color.WHITE);
-		
-		
-		NextMonth = todayMonth+setTime+1;
-		cal.set(thisYear, NextMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
-		
-		sDayNum = cal.get(Calendar.DAY_OF_WEEK); //1일의 요일 얻어오기
-		endDate = cal.getActualMaximum(Calendar.DATE); //달의 마지막 일 얻기
-		
-		intDateNum = 1; //1일부터 날짜 시작
-		
-		lblYearRight = new JLabel(thisYear+"년"); //년도 표시 라벨
-		lblYearRight.setFont(fontNanumGothic12);
-		lblYearRight.setSize(150, 40);
-		lblYearRight.setLocation(15, 2);
-		lblMonthRight = new JLabel(NextMonth+"월"); //달 표시 라벨
-		lblMonthRight.setFont(fontNanumGothic18);
-		lblMonthRight.setSize(80, 40);
-		lblMonthRight.setLocation(65, 0);
-		jpCalendarRight.add(lblYearRight);
-		jpCalendarRight.add(lblMonthRight);
-		
-		for (int i = 0; i<7; i++) { //요일 추가
-			lblday = new JLabel(day[i]); //day[i]로 요일 배열 추가
-			lblday.setFont(fontNanumGothic15);
-			lblday.setSize(100, 40);
-			lblday.setLocation(40*i + 16, 30); //위치 설정
-			jpCalendarRight.add(lblday);
-			
-		}
-		
-		setDay(jpCalendarRight); //달력 일 출력
-		
-
-		
-		
+		//달력추가
+		setCalendar(jpCalendarLeft, todayYear+setTime, todayMonth+setTime, 50, 160); //이번달 달력 출력
+		setCalendar(jpCalendarRight, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
 		
 		//하단 버튼 판넬
 		jpBtn = new JPanel();
@@ -340,7 +296,7 @@ public class SelectDate extends JFrame implements ActionListener {
 	
 
 	public static void main(String[] args) {
-		new SelectDate();
+		new SelectDate_old();
 	}	
 	
 	
@@ -348,57 +304,31 @@ public class SelectDate extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		String objText = e.getActionCommand();
-
-		if (obj instanceof JButton) {
-			JButton b = (JButton)obj;
-			System.out.println(b.getText());
-			//b.getParent().getComponent(n);
-		}
 		
-		//System.out.println(obj);
-		//System.out.println(objText);
+		
+		
 		
 		if (obj == btnSelect) {
 			
-		} 
-		else if (obj == btnReselect) {
+		} else if (obj == btnReselect) {
 			tfGo.setText("");
 			tfCome.setText("");
-			selectindex  = 0;
-		} else if (obj == btnDay) {
-			System.out.println(btnDay.getText());
-		}
-		
-		else if (obj == btnLeft) { //이전 달 달력 출력
-			lblYearLeft = new JLabel(thisYear + "년");
-			lblMonthLeft = new JLabel(thisMonth-1 + "월");
-			lblYearRight = new JLabel(thisYear+"년");
-			lblMonthRight = new JLabel(NextMonth-1 +"월");
-			
-			jpCalendarLeft.add(lblYearLeft);
-			jpCalendarLeft.add(lblMonthLeft);
-			jpCalendarRight.add(lblYearRight);
-			jpCalendarRight.add(lblMonthRight);
-			
-		} else if (obj == btnRight) { //다음 달 출력
-			lblYearLeft = new JLabel(thisYear + "년");
-			lblMonthLeft = new JLabel(thisMonth+1 + "월");
-			lblYearRight = new JLabel(thisYear+"년");
-			lblMonthRight = new JLabel(NextMonth+1 +"월");
-			
-			jpCalendarLeft.add(lblYearLeft);
-			jpCalendarLeft.add(lblMonthLeft);
-			jpCalendarRight.add(lblYearRight);
-			jpCalendarRight.add(lblMonthRight);
-			
+			selectindex = 0;
+		} else if (obj == btnLeft) { //이전 달 달력 출력
+			setTime -= 1;
+			setCalendar(jpCalendarLeft, todayYear+setTime, todayMonth+setTime, 50, 160); 
+			setCalendar(jpCalendarRight, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
+		} else if (obj == btnRight) {
+			setTime += 1;
+			setCalendar(jpCalendarLeft, todayYear+setTime, todayMonth+setTime, 50, 160);
+			setCalendar(jpCalendarRight, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
 		} else {	//일 버튼을 클릭했을 경우
 			if (selectindex == 0) {
-				
-				tfGo.setText(lblYearLeft.getText() + "/" + lblMonthLeft.getText() + "/" + objText);
-				tfCome.setText("");
-				selectindex++;
+			tfGo.setText(objText);
+			tfCome.setText("");
+			selectindex++;
 			} else if(selectindex == 1) {
-				tfCome.setText(lblYearRight.getText() + "/" + lblMonthRight.getText() + "/" + objText);
+				tfCome.setText(objText);
 				selectindex--;
 			}
 		}

@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-import be.Reservation.SelectDate;
+import be.Reservation.SelectDate_old;
 import be.Reservation.SelectPassenger;
 import be.main.MainForm;
 import be.menu.MenuBar;

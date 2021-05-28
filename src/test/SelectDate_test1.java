@@ -1,4 +1,4 @@
-package be.Reservation;
+package test;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,7 +21,7 @@ import javax.swing.JTextField;
 
 //연우 - 탑승일 선택 작성
 
-public class SelectDate extends JFrame implements ActionListener {
+public class SelectDate_test1 extends JFrame implements ActionListener {
 	
 	// Title 및 사이즈 설정
 	private String title = "탑승일 선택";
@@ -60,9 +61,15 @@ public class SelectDate extends JFrame implements ActionListener {
 	private int setTime = 0;
 	private JButton btnLeft;
 	private JButton btnRight;
-	
+	private int selectindex = 0;
+	private JLabel lblLeftYear;
+	private JLabel lblLeftMonth;
+	private JLabel lblRightYear;
+	private JLabel lblRightMonth = new JLabel("good");
 
-	public SelectDate() {
+
+
+	public SelectDate_test1() {
 			
 		//this.mainForm = mainForm;
 		
@@ -81,8 +88,8 @@ public class SelectDate extends JFrame implements ActionListener {
 		
 	}
 
-	private void setCalendar(JPanel jpCal, int year, int month, int x, int y) { //달력생성함수. 패널, 년도, 달, x좌표, y좌표 입력
-		
+	private JPanel setCalendar(JPanel jpCal, JLabel lblYear, JLabel lblMonth, int year, int month, int x, int y) { //달력생성함수. 패널, 년도, 달, x좌표, y좌표 입력
+
 		//달력패널 생성 및 설정
 		jpCal = new JPanel();
 		jpCal.setLayout(null);
@@ -106,7 +113,8 @@ public class SelectDate extends JFrame implements ActionListener {
 		lblYear.setFont(fontNanumGothic12);
 		lblYear.setSize(150, 40);
 		lblYear.setLocation(15, 2);
-		lblMonth = new JLabel(thisMonth+"월"); //달 표시 라벨
+		lblMonth = new JLabel(""); //달 표시 라벨
+		lblMonth.setText(thisMonth+"월");
 		lblMonth.setFont(fontNanumGothic18);
 		lblMonth.setSize(80, 40);
 		lblMonth.setLocation(65, 0);
@@ -182,6 +190,7 @@ public class SelectDate extends JFrame implements ActionListener {
 		}
 		
 		add(jpCal); //판넬 추가
+		return jpCal;
 		
 	}
 	
@@ -235,8 +244,8 @@ public class SelectDate extends JFrame implements ActionListener {
 
 		
 		//달력추가
-		setCalendar(jpCalendarLeft, todayYear+setTime, todayMonth+setTime, 50, 160); //이번달 달력 출력
-		setCalendar(jpCalendarRight, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
+		setCalendar(jpCalendarLeft, lblLeftYear, lblLeftMonth, todayYear+setTime, todayMonth+setTime, 50, 160); //이번달 달력 출력
+		setCalendar(jpCalendarRight, lblRightYear, lblRightMonth, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
 		
 		//하단 버튼 판넬
 		jpBtn = new JPanel();
@@ -250,16 +259,18 @@ public class SelectDate extends JFrame implements ActionListener {
 		btnReselect.setFont(fontNanumGothic18);
 		btnReselect.setSize(230, 60);
 		btnReselect.setLocation(40, 0);
-		btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
+		//btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnReselect.setBackground(new Color(10,90,150)); //버튼 색 설정
 		btnReselect.setForeground(Color.white);
+		btnReselect.addActionListener(this);
 		btnSelect = new JButton("왕복 선택");
 		btnSelect.setFont(fontNanumGothic18);
 		btnSelect.setSize(230, 60);
 		btnSelect.setLocation(360, 0);
-		btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
+		//btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnSelect.setBackground(new Color(10,90,150)); //버튼 색 설정
 		btnSelect.setForeground(Color.white);
+		btnSelect.addActionListener(this);
 		
 		jpBtn.add(btnReselect);
 		jpBtn.add(btnSelect);
@@ -272,6 +283,7 @@ public class SelectDate extends JFrame implements ActionListener {
 		btnLeft.setBorderPainted(false);
 		btnLeft.setBackground(Color.white);
 		btnLeft.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0));
+		btnLeft.addActionListener(this);
 		btnRight = new JButton(">");
 		btnRight.setFont(fontNanumGothic12);
 		btnRight.setSize(50, 300);
@@ -279,6 +291,7 @@ public class SelectDate extends JFrame implements ActionListener {
 		btnRight.setBorderPainted(false);
 		btnRight.setBackground(Color.white);
 		btnRight.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0));
+		btnRight.addActionListener(this);
 		
 		add(btnLeft);
 		add(btnRight);
@@ -291,15 +304,42 @@ public class SelectDate extends JFrame implements ActionListener {
 	
 
 	public static void main(String[] args) {
-		new SelectDate();
+		new SelectDate_test1();
 	}	
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		String objText = e.getActionCommand();
 		
+		//System.out.println(lblRightMonth.getText());
+		//System.out.println(btnLeft.getText());
+		System.out.println(jpCalendarLeft);
 		
-		
+		if (obj == btnSelect) {
+			
+		} else if (obj == btnReselect) {
+			tfGo.setText("");
+			tfCome.setText("");
+			selectindex = 0;
+		} else if (obj == btnLeft) { //이전 달 달력 출력
+			//setTime -= 1;
+			//setCalendar(jpCalendarLeft, todayYear+setTime, todayMonth+setTime, 50, 160); 
+			//setCalendar(jpCalendarRight, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
+		} else if (obj == btnRight) {
+			//setTime += 1;
+			//setCalendar(jpCalendarLeft, todayYear+setTime, todayMonth+setTime, 50, 160);
+			//setCalendar(jpCalendarRight, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
+		} else {	//일 버튼을 클릭했을 경우
+			if (selectindex == 0) {
+			tfGo.setText(objText);
+			tfCome.setText("");
+			selectindex++;
+			} else if(selectindex == 1) {
+				tfCome.setText(objText);
+				selectindex--;
+			}
+		}
 	}
-
 }
