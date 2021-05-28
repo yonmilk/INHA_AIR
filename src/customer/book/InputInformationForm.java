@@ -37,12 +37,12 @@ public class InputInformationForm extends JFrame implements ActionListener {
 	
 	// 폰트
 	Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
-	Font fontNanumGothicP15 = new Font("NanumGothic", Font.PLAIN, 15);	// 나눔고딕 18
-	Font fontNanumGothic15 = new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 18
-	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
-	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
-	Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
-	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
+	Font fontNanumGothicP15 = new Font("NanumGothic", Font.PLAIN, 15);
+	Font fontNanumGothic15 = new Font("NanumGothic", Font.BOLD, 15);
+	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);
+	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);
+	Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);
+	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);
 	
 	// 색상
 	Color colorLogo = new Color(24, 62, 111);	
@@ -68,6 +68,15 @@ public class InputInformationForm extends JFrame implements ActionListener {
 	private SelectHydrateForm hydrate;
 	private SelectPaymentForm payment;
 	
+	// 데이터 저장용
+	private String addHydrate = "";		// 추과수화물
+	
+	public void setAddHydrate(String addHydrate) {
+		this.addHydrate = addHydrate;
+		
+		System.out.println(addHydrate);
+	}
+
 	// 예원 - 시작 화면
 	public InputInformationForm() {
 		setTitle(title);
@@ -310,7 +319,7 @@ public class InputInformationForm extends JFrame implements ActionListener {
 			this.setVisible(false);
 			
 		} else if(obj == btnHydrate) {
-			hydrate = new SelectHydrateForm();
+			hydrate = new SelectHydrateForm(this);
 			
 		} else if(obj == btnSeat) {
 			

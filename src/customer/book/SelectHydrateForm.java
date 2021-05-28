@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
@@ -44,18 +45,23 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 	// 컴포넌트
 	private JPanel jpHydrate;
 	private JCheckBox chName;
-	private JLabel lblHydrate, lblFree, lblAddHydrate;
+	private JLabel lblHydrate, lblFree, lblf23kg, lblAddHydrate, lbla23kg;
 	private JTextField tfFree;					// 무료 수화물 개수
 	private JComboBox<String> cbAddHydrate;		// 초과 수화물 선택
 	private JButton btnOK;
 	
+	// 
+	private InputInformationForm informationF;
 	
-	public SelectHydrateForm() {
+	
+	public SelectHydrateForm(InputInformationForm informationF) {
+		this.informationF = informationF;
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
 		setLocationRelativeTo(this);
-//		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		
 		// 레이아웃 설정
 		setLayout(null);
@@ -112,36 +118,39 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 		chName.setLocation(40, 15);
 		chName.setFont(fontNanumGothic20);
 		chName.setBackground(Color.WHITE);
+		chName.addActionListener(this);
 		
 		JPanel jpSelectHydrate = new JPanel();
 		jpSelectHydrate.setLayout(new GridLayout(2, 3, 20, 20));
-//		jpSelectHydrate.setBorder(new EmptyBorder(50, 70, 50, 20));
 		jpSelectHydrate.setBorder(new EmptyBorder(20, 5, 20, 5));
 		jpSelectHydrate.setSize(550, 130);
-//		jpSelectHydrate.setSize(625, 150);
-//		jpSelectHydrate.setSize(550, 150);
 		jpSelectHydrate.setLocation(40, 55);
 		jpSelectHydrate.setBackground(Color.WHITE);
 		
 		lblFree = new JLabel("무료");
 		lblFree.setFont(fontNanumGothic18);
+		lblFree.setEnabled(false);
 		
-		JLabel lblf23kg = new JLabel("23kg x");
+		lblf23kg = new JLabel("23kg x");
 		lblf23kg.setFont(fontNanumGothic18);
-		lblf23kg.setHorizontalTextPosition(JLabel.RIGHT);
+		lblf23kg.setEnabled(false);
 		
 		tfFree = new JTextField("1", 20);
 		tfFree.setFont(fontNanumGothic15);
+		tfFree.setEnabled(false);
+		tfFree.setEditable(false);	// textfield 입력 불가 설정
 		
 		lblAddHydrate = new JLabel("초과수화물");
 		lblAddHydrate.setFont(fontNanumGothic18);
+		lblAddHydrate.setEnabled(false);
 		
-		JLabel lbla23kg = new JLabel("23kg x");
+		lbla23kg = new JLabel("23kg x");
 		lbla23kg.setFont(fontNanumGothic18);
-		lbla23kg.setHorizontalTextPosition(JLabel.RIGHT);
+		lbla23kg.setEnabled(false);
 		
 		cbAddHydrate = new JComboBox<String>(addCount);
 		cbAddHydrate.setFont(fontNanumGothic15);
+		cbAddHydrate.setEnabled(false);
 		
 		jpSelectHydrate.add(lblFree);
 		jpSelectHydrate.add(lblf23kg);
@@ -158,7 +167,6 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new SelectHydrateForm();
 	}
 
 
@@ -167,7 +175,35 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		
 		if(obj == btnOK) {
-			this.setVisible(false);
+			
+			if(chName.isSelected()) {
+				String addHydrate = cbAddHydrate.getSelectedItem().toString();
+				
+				informationF.setAddHydrate(addHydrate);
+				
+				System.out.println(addHydrate);
+			}
+
+			this.setVisible(false);		// 창 종료
+			
+		} else if(obj == chName) {
+			if(chName.isSelected()) {
+				// 체크박스 체크시 초과수화물 입력 가능
+				lblFree.setEnabled(true);
+				lblf23kg.setEnabled(true);
+				tfFree.setEnabled(true);
+				lblAddHydrate.setEnabled(true);
+				lbla23kg.setEnabled(true);
+				cbAddHydrate.setEnabled(true);
+			} else {
+				// 체크박스 해제시 초과수화물 입력 불가능
+				lblFree.setEnabled(false);
+				lblf23kg.setEnabled(false);
+				tfFree.setEnabled(false);
+				lblAddHydrate.setEnabled(false);
+				lbla23kg.setEnabled(false);
+				cbAddHydrate.setEnabled(false);
+			}
 		}
 	}
 }
