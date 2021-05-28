@@ -53,9 +53,13 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 	// 
 	private InputInformationForm informationF;
 	
+	// 승객 이름
+	private String name;
 	
-	public SelectHydrateForm(InputInformationForm informationF) {
+	
+	public SelectHydrateForm(InputInformationForm informationF, String name) {
 		this.informationF = informationF;
+		this.name = name;
 		
 		setTitle(title);
 		setSize(width, height);
@@ -101,10 +105,6 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 	// 초과 소화물 선택 패널 생성
 	private void addHydrate() {
 		
-//		jpHydrate = new JPanel(new BorderLayout(50, 50));
-//		jpHydrate = new JPanel(new BorderLayout());
-//		jpHydrate.setBorder(new EmptyBorder(30, 30, 30, 30));
-//		jpHydrate.setSize(645, 350);
 		jpHydrate = new JPanel(null);
 		jpHydrate.setSize(645, 200);
 		jpHydrate.setLocation(20, 110);
@@ -112,7 +112,7 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 		jpHydrate.setBackground(Color.WHITE);
 		
 		// 이름 체크 박스
-		String name = "승객1";
+//		String name = "승객1";
 		chName = new JCheckBox(name);
 		chName.setSize(550, 50);
 		chName.setLocation(40, 15);

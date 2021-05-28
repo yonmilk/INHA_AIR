@@ -11,11 +11,11 @@ import java.sql.Statement;
 //
 // MySQL 연결 코드
 //
-public class ForDataBase {
+public class databaseClass {
 	private static Connection conn;
 	private static Statement stmt;
 	
-	public static void conDB(String dbURL, String dbID, String dbPassword) {
+	public static void connect(String dbURL, String dbID, String dbPassword) {
 		try {
 			// Database 연결
 			Class.forName("com.mysql.cj.jdbc.Driver");	// 드라이버 로드
@@ -45,9 +45,9 @@ public class ForDataBase {
 	}
 	
 	//
-	// select 문
+	// SELECT
 	//
-	public static ResultSet sqlSelect(String sql) {
+	public static ResultSet select(String sql) {
 		// 쿼리 수행
 		ResultSet rs = null;
 		
@@ -61,9 +61,25 @@ public class ForDataBase {
 	}
 	
 	//
-	// update 문
+	// INSERT
 	//
-	public static int sqlUpdate(String sql) {
+	public static int insert(String sql) {
+		// 쿼리 수행
+		int rs = 0;
+				
+		try {
+			rs = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
+	
+	//
+	// UPDATE
+	//
+	public static int update(String sql) {
 		// 쿼리 수행
 		int rs = 0;
 				
@@ -83,7 +99,7 @@ public class ForDataBase {
 		String dbID="inhaair";
 		String dbPassword="1234";
 		
-		conDB(dbURL, dbID, dbPassword);
+		connect(dbURL, dbID, dbPassword);
 		
 	}
 }

@@ -18,12 +18,14 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import DataBase.databaseClass;
 import customer.start.MainMenuForm;
 
 public class InputInformationForm extends JFrame implements ActionListener {
@@ -65,7 +67,7 @@ public class InputInformationForm extends JFrame implements ActionListener {
 	private SelectPaymentForm paymentForm;
 	
 	// 데이터 저장용
-	private String reserveNum = "";			// 예매 번호
+	private String reserveNum = "test0001";			// 예매 번호
 	private String scheduleNo = "A12345";	// 항공스케쥴 번호(테스트값)
 	private String ID = "test1";			// 아이디(테스트값)
 	private String nameKOR = "";			// 한글이름
@@ -75,12 +77,12 @@ public class InputInformationForm extends JFrame implements ActionListener {
 	private String birth = "";				// 생년월일
 	private String tel = "";				// 연락처
 	private String email = "";				// 이메일
-	private boolean agree = false;			// 수신동의
-	private String hydrate = "";			// 추과수화물
+	private int agree = 0;			// 수신동의
+	private String hydrate = "0";			// 추과수화물 (기본값: 0)
 	public void setAddHydrate(String hydrate) {
 		this.hydrate = hydrate;
 	}
-	private String seatNum = "";			// 좌석번호
+	private String seatNum = "0";			// 좌석번호 (기본값: 0)
 	public void setSeatNum(String seatNum) {
 		this.seatNum = seatNum;
 	}
@@ -129,6 +131,13 @@ public class InputInformationForm extends JFrame implements ActionListener {
 		add(jpSet);
 		
 		setVisible(true);
+		
+		// DB 정보 - 테스트 소스
+		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbID="inhaair";
+		String dbPassword="1234";
+		// 데이터베이스 연결 - 테스트 소스
+		databaseClass.connect(dbURL, dbID, dbPassword);
 	}
 
 	// 버튼 레이아웃
@@ -322,13 +331,19 @@ public class InputInformationForm extends JFrame implements ActionListener {
 			
 		} else if(obj == btnNextPayment) {
 			
-			insertInformationData();
-			
-			paymentForm = new SelectPaymentForm(this);
-			this.setVisible(false);
+			if(cbAgree.isSelected()) {
+				insertInformationData();
+				
+//				paymentForm = new SelectPaymentForm(this);
+//				this.setVisible(false);
+				
+			} else {
+				JOptionPane.showMessageDialog(null, "예약 여정의 정보를 이메일과 SMS로 수신하는 것에 동의해주십시오.", "동의 안내", JOptionPane.INFORMATION_MESSAGE);
+			}
 			
 		} else if(obj == btnHydrate) {
-			hydrateFrom = new SelectHydrateForm(this);
+			nameKOR = tfFamilyNameKor.getText().toString() + tfNameKor.getText().toString();
+			hydrateFrom = new SelectHydrateForm(this, nameKOR);
 			
 		} else if(obj == btnSeat) {
 			
@@ -336,7 +351,39 @@ public class InputInformationForm extends JFrame implements ActionListener {
 	}
 
 	private void insertInformationData() {
-		// TODO Auto-generated method stub
+//		String sql = "INSERT INTO reservation"
+//				+ "VALUES ('adfsdfs', 'A12345', 'test1', '유저', 'user1', '남', 'm123524', 20000201, '01023459023', 'test@gmail.com', 1, 1, 1)";
+		String sql = "INSERT INTO reservation VALUES ('";
 		
+		nameKOR = tfFamilyNameKor.getText().toString() + tfNameKor.getText().toString();
+		nameENG = tfFamilyNameEng.getText().toString() + tfNameEng.getText().toString();
+		
+		if(rbMan.isSelected()) {
+			sex = "남";
+		} else if(rbWoman.isSelected()) {
+			sex = "여";
+		}
+		
+		passport = tfPassport.getText().toString();
+		birth = tfBirth.getText().toString();
+		tel = tfTel.getText().toString();
+		email = tfEmail.getText().toString();
+		if(cbAgree.isSelected()) {
+			agree = 1;
+		}
+		
+		sql += reserveNum + "', '" + scheduleNo + "', '" + ID + "', '" + nameKOR + "', '" + nameENG + "', '" + sex + "', '"
+			+ passport + "', " + birth + ", '" + tel + "', '" + email + "', " + agree + ", " + hydrate + ", " + seatNum + ")";
+		
+		System.out.println(sql);
+		
+		int result = databaseClass.insert(sql);
+		
+		if(result == 1) {
+			paymentForm = new SelectPaymentForm(this);
+			this.setVisible(false);
+		} else {
+			JOptionPane.showMessageDialog(null, "입력한 정보를 확인해주십시오.", "예매 안내", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 }

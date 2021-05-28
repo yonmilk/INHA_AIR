@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import DataBase.databaseClass;
 import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.login.LoginForm;
@@ -31,6 +32,11 @@ public class StartForm extends JFrame implements ActionListener {
 	
 	// Forms
 	private LoginForm loginF;
+	
+	// DB 정보
+	private String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+	private String dbID="inhaair";
+	private String dbPassword="1234";
 	
 	// 예원 - 시작 화면
 	public StartForm() {
@@ -59,6 +65,9 @@ public class StartForm extends JFrame implements ActionListener {
 		
 		
 		setVisible(true);
+		
+		// 데이터베이스 연결
+		databaseClass.connect(dbURL, dbID, dbPassword);
 	}
 
 	public static void main(String[] args) {
