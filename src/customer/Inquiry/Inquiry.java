@@ -1,4 +1,4 @@
-package be.Inquiry;
+package customer.Inquiry;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -13,8 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import be.main.MainForm;
-import be.menu.MenuBar;
+//import be.main.MainForm;
+//import be.menu.MenuBar;
+
 
 
 public class Inquiry extends JFrame implements ActionListener {
@@ -24,7 +25,7 @@ public class Inquiry extends JFrame implements ActionListener {
 	
 	
 	// 상단 메뉴바
-	private MenuBar menubar;
+//	private MenuBar menubar;
 	//--가상의 고객이 선택한 정보
 		
 		private JPanel jpInquiry1; // 시간 선택시 비행기1
@@ -173,8 +174,8 @@ public class Inquiry extends JFrame implements ActionListener {
 
 	// 상단 메뉴바
 	private void setUpMenu() {
-		menubar = new MenuBar();
-		add(menubar.getPnTOP());
+//		menubar = new MenuBar();
+//		add(menubar.getPnTOP());
 	}
 
 	public static void main(String[] args) {
