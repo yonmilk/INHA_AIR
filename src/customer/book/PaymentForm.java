@@ -46,6 +46,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 	private JLabel lblPayment;
 	private JButton btnOK, btnCheckRes;
 	
+	
 	public PaymentForm() {
 		setTitle(title);
 		setSize(width, height);

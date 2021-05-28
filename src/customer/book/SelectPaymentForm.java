@@ -52,7 +52,12 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	private JButton btnCash, btnCard;	// 결제수단 - 무통장입금, 카드결제
 	private JButton btnOK;
 	
-	public SelectPaymentForm() {
+	//
+	private InputInformationForm informationF;
+	
+	public SelectPaymentForm(InputInformationForm informationF) {
+		this.informationF = informationF;
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -171,7 +176,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 
 
 	public static void main(String[] args) {
-		new SelectPaymentForm();
 	}
 
 
