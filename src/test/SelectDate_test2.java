@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -37,7 +36,7 @@ public class SelectDate_test2 extends JFrame implements ActionListener {
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 25
 	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
-	private JPanel jpTitle, jpSelect, jpBtn, jpCalendarLeft, jpCalendarRight;
+	private JPanel jpTitle, jpSelect, jpBtn, jpCal;
 	private JLabel lblTitle;
 	private JLabel lblCome;
 	private JLabel lblGo;
@@ -52,7 +51,7 @@ public class SelectDate_test2 extends JFrame implements ActionListener {
 	private JLabel lblday;
 	private JLabel lblYear;
 	private JLabel lblMonth;
-	private ArrayList<JButton> lstBtn = new ArrayList<JButton>();
+	//private ArrayList<JButton> lstBtn = new ArrayList<JButton>();
 	private JButton btnDay;
 	private int dayY;
 	private int dayX;
@@ -62,12 +61,13 @@ public class SelectDate_test2 extends JFrame implements ActionListener {
 	private JButton btnLeft;
 	private JButton btnRight;
 	private int selectindex = 0;
-	private JLabel lblLeftYear;
-	private JLabel lblLeftMonth;
-	private JLabel lblRightYear;
-	private JLabel lblRightMonth = new JLabel("good");
-
-
+	private int sDayNum;
+	private int endDate;
+	private int intDateNum;
+	private String lblstringYear;
+	private String lblstringMonth;
+	
+	
 
 	public SelectDate_test2() {
 			
@@ -87,113 +87,6 @@ public class SelectDate_test2 extends JFrame implements ActionListener {
 		setVisible(true);
 		
 	}
-
-	private JPanel setCalendar(JPanel jpCal, JLabel lblYear, JLabel lblMonth, int year, int month, int x, int y) { //달력생성함수. 패널, 년도, 달, x좌표, y좌표 입력
-
-		//달력패널 생성 및 설정
-		jpCal = new JPanel();
-		jpCal.setLayout(null);
-		jpCal.setSize(290, 370);
-		jpCal.setLocation(x, y);
-		jpCal.setBackground(Color.WHITE);
-		
-		
-		thisYear = year; //현재 년
-		thisMonth = month; //현재 달
-
-		
-		cal.set(thisYear, thisMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
-		
-		int sDayNum = cal.get(Calendar.DAY_OF_WEEK); //1일의 요일 얻어오기
-		int endDate = cal.getActualMaximum(Calendar.DATE); //달의 마지막 일 얻기
-		
-		int intDateNum = 1; //1일부터 날짜 시작
-		
-		lblYear = new JLabel(thisYear+"년"); //년도 표시 라벨
-		lblYear.setFont(fontNanumGothic12);
-		lblYear.setSize(150, 40);
-		lblYear.setLocation(15, 2);
-		lblMonth = new JLabel(""); //달 표시 라벨
-		lblMonth.setText(thisMonth+"월");
-		lblMonth.setFont(fontNanumGothic18);
-		lblMonth.setSize(80, 40);
-		lblMonth.setLocation(65, 0);
-		jpCal.add(lblYear);
-		jpCal.add(lblMonth);
-		
-		
-		for (int i = 0; i<7; i++) { //요일 추가
-			lblday = new JLabel(day[i]); //day[i]로 요일 배열 추가
-			lblday.setFont(fontNanumGothic15);
-			lblday.setSize(100, 40);
-			lblday.setLocation(40*i + 16, 30); //위치 설정
-			jpCal.add(lblday);
-			
-		}
-		
-		dayX = 0; //날짜버튼 x좌표 기본 0으로 설정
-		dayY = 70; //날짜버튼 y좌표 기본 설정
-		
-		for (int i = 1; intDateNum <= endDate; i++) { //intDateNum이 1일부터 마지막일이 될 때까지 반복 
-		
-			
-			
-			if (i<sDayNum) //i가 요일숫자보다 작으면 공백 버튼
-			{
-				btnDay = new JButton("");
-				btnDay.setFont(fontNanumGothic12);
-				btnDay.setBorderPainted(false); //버튼 윤곽선 제거
-				//btnDay.setBackground(new Color(153, 204, 255)); //버튼 색 설정
-				btnDay.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0)); //안쪽 여백 설정
-				btnDay.setBackground(Color.white); //버튼 색 설정
-				btnDay.setSize(40, 40);
-				btnDay.setLocation(dayX, dayY);
-				lstBtn.add(btnDay);
-				jpCal.add(btnDay);
-				
-				dayX += 40;
-				
-			}
-			else //date값의 버튼 출력 
-			{
-				btnDay = new JButton(intDateNum+"");
-				btnDay.addActionListener(this);
-				btnDay.setFont(fontNanumGothic12);
-				btnDay.setBorderPainted(false); //버튼 윤곽선 제거
-				//btnDay.setBackground(new Color(153, 204, 255)); //버튼 색 설정
-				btnDay.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0)); //안쪽 여백 설정
-				btnDay.setBackground(Color.white); //버튼 색 설정
-				btnDay.setSize(40, 40);
-				btnDay.setLocation(dayX, dayY);
-				
-				if ((i-8)%7 ==0) {
-					btnDay.setForeground(Color.red); //일요일은 빨간색 설정
-				} else if (i%7 ==0) {
-					btnDay.setForeground(Color.blue); //토요일은 파란색 설정
-				} else {
-					btnDay.setForeground(Color.black); //나머지 검정색 설정
-				}
-				
-				lstBtn.add(btnDay);
-				jpCal.add(btnDay);
-				
-				intDateNum++; //출력할 date 증가
-				dayX += 40; //X좌표 증가로 옆으로 이동
-			}
-			
-			if(i%7 == 0) //i가 7로 나눠지면 다음 줄로 이동
-			{
-				dayY += 50; //Y좌표 증가로 다음 줄로 이동
-				dayX = 0; //X좌표 초기화
-			}
-		
-		}
-		
-		add(jpCal); //판넬 추가
-		return jpCal;
-		
-	}
-	
 	
 	private void setCalendarForm() {
 		
@@ -242,10 +135,99 @@ public class SelectDate_test2 extends JFrame implements ActionListener {
 		jpSelect.add(lblCome);
 		jpSelect.add(tfCome);
 
+	
+		//왼쪽 달력패널 생성 및 설정
+		jpCal = new JPanel();
+		jpCal.setLayout(null);
+		jpCal.setSize(290, 370);
+		jpCal.setLocation(50, 160);
+		jpCal.setBackground(Color.WHITE);
 		
-		//달력추가
-		setCalendar(jpCalendarLeft, lblLeftYear, lblLeftMonth, todayYear+setTime, todayMonth+setTime, 50, 160); //이번달 달력 출력
-		setCalendar(jpCalendarRight, lblRightYear, lblRightMonth, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
+		thisYear = todayYear; //현재 년
+		thisMonth = todayMonth+setTime; //현재 달
+		
+		cal.set(thisYear, thisMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
+		
+		
+		sDayNum = cal.get(Calendar.DAY_OF_WEEK); //1일의 요일 얻어오기
+		endDate = cal.getActualMaximum(Calendar.DATE); //달의 마지막 일 얻기
+		
+		intDateNum = 1; //1일부터 날짜 시작
+		
+		lblYear = new JLabel(thisYear+"년"); //년도 표시 라벨
+		lblYear.setFont(fontNanumGothic12);
+		lblYear.setSize(150, 40);
+		lblYear.setLocation(15, 2);
+		lblMonth = new JLabel(thisMonth+"월"); //달 표시 라벨
+		lblMonth.setFont(fontNanumGothic18);
+		lblMonth.setSize(80, 40);
+		lblMonth.setLocation(65, 0);
+		jpCal.add(lblYear);
+		jpCal.add(lblMonth);
+		
+		for (int i = 0; i<7; i++) { //요일 추가
+			lblday = new JLabel(day[i]); //day[i]로 요일 배열 추가
+			lblday.setFont(fontNanumGothic15);
+			lblday.setSize(100, 40);
+			lblday.setLocation(40*i + 16, 30); //위치 설정
+			jpCal.add(lblday);
+			
+		}
+		
+		dayX = 0; //날짜버튼 x좌표 기본 0으로 설정
+		dayY = 70; //날짜버튼 y좌표 기본 설정
+		
+		for (int i = 1; intDateNum <= endDate; i++) { //intDateNum이 1일부터 마지막일이 될 때까지 반복 
+			
+			if (i<sDayNum) //i가 요일숫자보다 작으면 공백 버튼
+			{
+				btnDay = new JButton("");
+				btnDay.setFont(fontNanumGothic12);
+				btnDay.setBorderPainted(false); //버튼 윤곽선 제거
+				//btnDay.setBackground(new Color(153, 204, 255)); //버튼 색 설정
+				btnDay.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0)); //안쪽 여백 설정
+				btnDay.setBackground(Color.white); //버튼 색 설정
+				btnDay.setSize(40, 40);
+				btnDay.setLocation(dayX, dayY);
+				//lstBtn.add(btnDay);
+				jpCal.add(btnDay);
+				
+				dayX += 40;
+			}
+			else //date값의 버튼 출력 
+			{
+				btnDay = new JButton(intDateNum+"");
+				btnDay.addActionListener(this);
+				btnDay.setFont(fontNanumGothic12);
+				btnDay.setBorderPainted(false); //버튼 윤곽선 제거
+				//btnDay.setBackground(new Color(153, 204, 255)); //버튼 색 설정
+				btnDay.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0)); //안쪽 여백 설정
+				btnDay.setBackground(Color.white); //버튼 색 설정
+				btnDay.setSize(40, 40);
+				btnDay.setLocation(dayX, dayY);
+				
+				if ((i-8)%7 ==0) {
+					btnDay.setForeground(Color.red); //일요일은 빨간색 설정
+				} else if (i%7 ==0) {
+					btnDay.setForeground(Color.blue); //토요일은 파란색 설정
+				} else {
+					btnDay.setForeground(Color.black); //나머지 검정색 설정
+				}
+				
+				//lstBtn.add(btnDay);
+				jpCal.add(btnDay);
+				
+				intDateNum++; //출력할 date 증가
+				dayX += 40; //X좌표 증가로 옆으로 이동
+			}
+			
+			if(i%7 == 0) //i가 7로 나눠지면 다음 줄로 이동
+			{
+				dayY += 50; //Y좌표 증가로 다음 줄로 이동
+				dayX = 0; //X좌표 초기화
+			}
+		
+		}
 		
 		//하단 버튼 판넬
 		jpBtn = new JPanel();
@@ -259,7 +241,7 @@ public class SelectDate_test2 extends JFrame implements ActionListener {
 		btnReselect.setFont(fontNanumGothic18);
 		btnReselect.setSize(230, 60);
 		btnReselect.setLocation(40, 0);
-		//btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
+		btnReselect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnReselect.setBackground(new Color(10,90,150)); //버튼 색 설정
 		btnReselect.setForeground(Color.white);
 		btnReselect.addActionListener(this);
@@ -267,7 +249,7 @@ public class SelectDate_test2 extends JFrame implements ActionListener {
 		btnSelect.setFont(fontNanumGothic18);
 		btnSelect.setSize(230, 60);
 		btnSelect.setLocation(360, 0);
-		//btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
+		btnSelect.setBorderPainted(false); //버튼 윤곽선 제거
 		btnSelect.setBackground(new Color(10,90,150)); //버튼 색 설정
 		btnSelect.setForeground(Color.white);
 		btnSelect.addActionListener(this);
@@ -298,6 +280,7 @@ public class SelectDate_test2 extends JFrame implements ActionListener {
 		add(jpTitle);
 		add(jpSelect);
 		add(jpBtn);
+		add(jpCal);
 		
 	}
 
@@ -312,32 +295,47 @@ public class SelectDate_test2 extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		String objText = e.getActionCommand();
-		
-		//System.out.println(lblRightMonth.getText());
-		//System.out.println(btnLeft.getText());
-		System.out.println(jpCalendarLeft);
+
+
+		System.out.println(lblMonth.getText().substring(0,lblMonth.getText().length()-1));
 		
 		if (obj == btnSelect) {
 			
-		} else if (obj == btnReselect) {
+		} 
+		else if (obj == btnReselect) {
 			tfGo.setText("");
 			tfCome.setText("");
-			selectindex = 0;
-		} else if (obj == btnLeft) { //이전 달 달력 출력
-			//setTime -= 1;
-			//setCalendar(jpCalendarLeft, todayYear+setTime, todayMonth+setTime, 50, 160); 
-			//setCalendar(jpCalendarRight, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
-		} else if (obj == btnRight) {
-			//setTime += 1;
-			//setCalendar(jpCalendarLeft, todayYear+setTime, todayMonth+setTime, 50, 160);
-			//setCalendar(jpCalendarRight, todayYear+setTime, todayMonth+setTime+1, 400, 160); //다음달 달력 출력
+			selectindex  = 0;
+		} else if (obj == btnDay) {
+			System.out.println(btnDay.getText());
+		}
+		
+		else if (obj == btnLeft) { //이전 달 달력 출력
+			lblYear = new JLabel(thisYear + "년");
+			lblMonth = new JLabel(thisMonth-1 + "월");
+			
+			jpCal.add(lblYear);
+			jpCal.add(lblMonth);
+			
+		} else if (obj == btnRight) { //다음 달 출력
+			lblYear = new JLabel(thisYear + "년");
+			lblMonth = new JLabel(thisMonth+1 + "월");
+			
+			jpCal.add(lblYear);
+			jpCal.add(lblMonth);
+			
 		} else {	//일 버튼을 클릭했을 경우
+			
+			lblstringYear = lblYear.getText().substring(0,4);
+			lblstringMonth = lblMonth.getText().substring(0,lblMonth.getText().length()-1);
+			
 			if (selectindex == 0) {
-			tfGo.setText(objText);
-			tfCome.setText("");
-			selectindex++;
+				
+				tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
+				tfCome.setText("");
+				selectindex++;
 			} else if(selectindex == 1) {
-				tfCome.setText(objText);
+				tfCome.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
 				selectindex--;
 			}
 		}
