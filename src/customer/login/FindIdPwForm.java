@@ -35,14 +35,14 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 	private JButton btnFindId;
 	private JLabel lblIdPhoneNum;
 	private JTextField tfIdPhoneNum;
-	private Container jpPwFind;
+	private JPanel jpPwFind;
 	private JLabel lblPwName;
 	private JLabel lblPwPhoneNum;
 	private JTextField tfPwName;
-	private Container tfPwPhoneNum;
+	private JTextField tfPwPhoneNum;
 	private JButton btnFindPw;
 	private JLabel lblId;
-	private Container tfId;
+	private JTextField tfId;
 	private JPanel jpPwTitle;
 	private JLabel lblPwTitle;
 	
@@ -186,7 +186,19 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
 		
+		if(obj == btnFindId) {
+			String name = tfIdName.getText();
+			String idPhoneNum = tfIdPhoneNum.getText();
+			
+			
+		} else if (obj == btnFindPw) {
+			String name = tfPwName.getText();
+			String pwPhoneNum = tfPwPhoneNum.getText();
+			String id = tfId.getText();
+			
+		}
 	}
 
 }
