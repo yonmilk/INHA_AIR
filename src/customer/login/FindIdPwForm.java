@@ -15,6 +15,11 @@ import javax.swing.JTextField;
 
 public class FindIdPwForm extends JFrame implements ActionListener {
 
+	//데이터베이스 관련
+	static String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+	static String dbID="inhaair";
+	static String dbPassword="1234";
+	
 	Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);		// 나눔고딕 9
 	Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 12
 	Font fontNanumGothic15 = new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 15

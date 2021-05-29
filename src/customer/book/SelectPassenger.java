@@ -1,6 +1,5 @@
 package customer.book;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -8,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -88,6 +89,12 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		setLayout(null);
 		
 		setPassenger();
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowOpened(WindowEvent e) {
+				tfAge.requestFocus();
+			}
+		});
 		
 		setVisible(true);
 		

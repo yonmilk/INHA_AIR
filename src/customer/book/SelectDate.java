@@ -106,8 +106,8 @@ public class SelectDate extends JFrame implements ActionListener {
 		//가는날, 오는날
 		jpSelect = new JPanel(); //날짜표시 판매
 		jpSelect.setLayout(null);
-		jpSelect.setSize(300, 100);
-		jpSelect.setLocation(450, 190);
+		jpSelect.setSize(300, 150);
+		jpSelect.setLocation(450, 160);
 		jpSelect.setBackground(Color.white);
 		
 //		lblEx = new JLabel("예) 2002/02/14");
@@ -116,7 +116,7 @@ public class SelectDate extends JFrame implements ActionListener {
 //		lblEx.setLocation(105, 0);
 		
 		lblGo = new JLabel("가는 날"); //가는날 라벨
-		lblGo.setFont(fontNanumGothic15);
+		lblGo.setFont(fontNanumGothic18);
 		lblGo.setSize(150, 35);
 		lblGo.setLocation(15, 15);
 		tfGo = new JTextField(); //가는 날짜 선택 시 확인
@@ -126,13 +126,13 @@ public class SelectDate extends JFrame implements ActionListener {
 		tfGo.setEditable(false);	//입력제한
 		
 		lblCome = new JLabel("오는 날 "); //오는날 라벨
-		lblCome.setFont(fontNanumGothic15);
+		lblCome.setFont(fontNanumGothic18);
 		lblCome.setSize(150, 40);
-		lblCome.setLocation(15, 50);
+		lblCome.setLocation(15, 80);
 		tfCome = new JTextField(); //오는 날짜 선택 시 확인
 		tfCome.setFont(fontNanumGothic15);
 		tfCome.setSize(180, 30);
-		tfCome.setLocation(100, 55);
+		tfCome.setLocation(100, 85);
 		tfCome.setEditable(false);	//입력제한
 		
 		
@@ -239,8 +239,8 @@ public class SelectDate extends JFrame implements ActionListener {
 		//하단 버튼 판넬
 		jpBtn = new JPanel();
 		jpBtn.setLayout(null);
-		jpBtn.setSize(300, 80);
-		jpBtn.setLocation(450, 290);
+		jpBtn.setSize(300, 40);
+		jpBtn.setLocation(450, 310);
 		jpBtn.setBackground(Color.white);
 		
 		//버튼 추가 및 설정
