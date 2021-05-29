@@ -64,6 +64,7 @@ public class SelectDate extends JFrame implements ActionListener {
 	private JPanel jpDay;
 	private int day1;
 	private int day2;
+	private JLabel lblEx;
 	
 	
 
@@ -105,28 +106,37 @@ public class SelectDate extends JFrame implements ActionListener {
 		//가는날, 오는날
 		jpSelect = new JPanel(); //날짜표시 판매
 		jpSelect.setLayout(null);
-		jpSelect.setSize(300, 80);
-		jpSelect.setLocation(450, 200);
+		jpSelect.setSize(300, 100);
+		jpSelect.setLocation(450, 190);
 		jpSelect.setBackground(Color.white);
+		
+//		lblEx = new JLabel("예) 2002/02/14");
+//		lblEx.setFont(fontNanumGothic12);
+//		lblEx.setSize(100, 15);
+//		lblEx.setLocation(105, 0);
 		
 		lblGo = new JLabel("가는 날"); //가는날 라벨
 		lblGo.setFont(fontNanumGothic15);
-		lblGo.setSize(150, 40);
-		lblGo.setLocation(15, 0);
+		lblGo.setSize(150, 35);
+		lblGo.setLocation(15, 15);
 		tfGo = new JTextField(); //가는 날짜 선택 시 확인
 		tfGo.setFont(fontNanumGothic15);
 		tfGo.setSize(180, 30);
-		tfGo.setLocation(100,5);
+		tfGo.setLocation(100,20);
+		tfGo.setEditable(false);	//입력제한
 		
 		lblCome = new JLabel("오는 날 "); //오는날 라벨
 		lblCome.setFont(fontNanumGothic15);
 		lblCome.setSize(150, 40);
-		lblCome.setLocation(15, 35);
+		lblCome.setLocation(15, 50);
 		tfCome = new JTextField(); //오는 날짜 선택 시 확인
 		tfCome.setFont(fontNanumGothic15);
 		tfCome.setSize(180, 30);
-		tfCome.setLocation(100, 40);
+		tfCome.setLocation(100, 55);
+		tfCome.setEditable(false);	//입력제한
 		
+		
+//		jpSelect.add(lblEx);
 		jpSelect.add(lblGo);
 		jpSelect.add(tfGo);
 		jpSelect.add(lblCome);
@@ -372,6 +382,8 @@ public class SelectDate extends JFrame implements ActionListener {
 			
 			lblstringYear = lblYear.getText().substring(0,4);
 			lblstringMonth = lblMonth.getText().substring(0,lblMonth.getText().length()-1);
+			
+			
 			
 			if (objText.isEmpty()) {
 				

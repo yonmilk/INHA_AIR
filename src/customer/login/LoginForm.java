@@ -8,20 +8,33 @@ import java.awt.GridLayout;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
+import com.mysql.cj.protocol.Resultset;
+
+import DataBase.databaseClass;
 import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.start.MainMenuForm;
 
 public class LoginForm extends JFrame implements ActionListener {
+	
+	//데이터베이스 관련
+	static String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+	static String dbID="inhaair";
+	static String dbPassword="1234";
+	
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
@@ -41,9 +54,10 @@ public class LoginForm extends JFrame implements ActionListener {
 	private JPanel jpLogin;
 	private JPanel jpTop, jpCenter, jpBottom;
 	private JLabel lblId, lblPw;
-	private JTextField tfId, tfPw;
+	private JTextField tfId;
+	private JPasswordField pwfPw;
 	private JButton btnLogin, btnFindIdPw, btnSignUp;
-	
+
 	
 	// Forms
 	private MainMenuForm mainMenuForm;
@@ -88,7 +102,6 @@ public class LoginForm extends JFrame implements ActionListener {
 		JLabel login = new JLabel("로그인"); //로그인 라벨
 		login.setFont(fontNanumGothic25);
 		login.setHorizontalAlignment(JLabel.CENTER);
-		//btnClose = new JButton();
 		jpTop.add(login);
 		jpLogin.add(jpTop, BorderLayout.NORTH);
 		
@@ -100,13 +113,13 @@ public class LoginForm extends JFrame implements ActionListener {
 		lblId = new JLabel("아이디"); //아이디 라벨
 		tfId = new JTextField(); //아이디 입력
 		lblPw = new JLabel("비밀번호"); //비밀번호 라벨
-		tfPw = new JTextField(); //비밀번호 입력
+		pwfPw = new JPasswordField(); //비밀번호 입력
 		lblId.setFont(fontNanumGothic15);
 		lblPw.setFont(fontNanumGothic15);
 		tfId.setFont(fontNanumGothic15);
-		tfPw.setFont(fontNanumGothic15);
-				
-				
+		pwfPw.setFont(fontNanumGothic15);
+		
+		
 		btnLogin = new JButton("로그인"); //로그인 버튼
 		btnLogin.setFont(fontNanumGothic16);
 		btnLogin.setBorderPainted(false); //버튼 윤곽선 제거
@@ -115,7 +128,7 @@ public class LoginForm extends JFrame implements ActionListener {
 		jpCenter.add(lblId);
 		jpCenter.add(tfId);
 		jpCenter.add(lblPw);
-		jpCenter.add(tfPw);
+		jpCenter.add(pwfPw);
 		jpCenter.add(btnLogin);
 		jpLogin.add(jpCenter, BorderLayout.CENTER);
 		
@@ -160,21 +173,71 @@ public class LoginForm extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
+//		databaseClass db = new databaseClass();
+//		db.connect();
+		databaseClass.connect(dbURL, dbID, dbPassword);
 		new LoginForm();
 	}
 
 
+	//연우 - 로그인 액션 추가
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
 		if(obj == btnLogin) {
-			mainMenuForm = new MainMenuForm();
-			this.setVisible(false);
+			
+			String id = tfId.getText();
+			String pw = pwfPw.getText();
+			
+			if (id.isEmpty() && pw.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 입력해주세요.");
+			} else if (id.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.");
+			} else if (pw.isEmpty()){
+				JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요.");
+			} else {
+				boolean check = checkIDPW(id, pw);
+				if(check) {
+					//System.out.println("로그인 성공!");
+					mainMenuForm = new MainMenuForm();
+					this.setVisible(false);
+				} else {
+					//System.out.println("로그인 실패!");
+					JOptionPane.showMessageDialog(null, "로그인 실패했습니다.");
+					tfId.setText("");
+					pwfPw.setText("");
+					tfId.requestFocus();
+				}
+			}
+			
 		} else if(obj == btnFindIdPw) {
 			findIdPwForm = new FindIdPwForm();
 		} else if(obj == btnSignUp) {
 			signUpForm = new SignUpForm();
 		}
+	}
+
+	private boolean checkIDPW(String id, String pw) {
+		
+		boolean check = false;
+		
+//		String sql = "SELECT * FROM login WHERE ID = 'test1' AND password='1111'";
+		String sql = "SELECT * FROM login WHERE ID = '" + id + "' AND password='" + pw + "'";
+		ResultSet rs = databaseClass.select(sql);
+		
+		
+		try {
+			if(rs.next()) {	//내용이 있을 때
+				check = true;
+			} else {
+				check = false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		
+		return check;
 	}
 }
