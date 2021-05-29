@@ -296,6 +296,14 @@ public class SelectDate extends JFrame implements ActionListener {
 		cal.set(todayYear, todayMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
 		
 		if (obj == btnSelect) {
+			if (objText.equals("편도 선택")) {
+				System.out.println("편도");
+			}
+			if (objText.equals("왕복 선택")) {
+				System.out.println("왕복");
+			}
+			
+			System.out.println("선택되었습니다.");
 			
 		} 
 		else if (obj == btnReselect) {
@@ -368,6 +376,12 @@ public class SelectDate extends JFrame implements ActionListener {
 			if (objText.isEmpty()) {
 				
 			} else {
+				
+				if(Integer.parseInt(lblstringMonth)<10)
+					lblstringMonth = 0 + lblstringMonth;
+				if(Integer.parseInt(objText)<10)
+					objText = 0 + objText;
+				
 				if (selectindex == 0) {
 					day1 = Integer.parseInt(lblstringYear+lblstringMonth+objText);
 					tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
@@ -381,6 +395,7 @@ public class SelectDate extends JFrame implements ActionListener {
 						btnSelect.setText("왕복 선택");
 						selectindex--;
 					} else {
+						day1 = Integer.parseInt(lblstringYear+lblstringMonth+objText);
 						tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
 					}
 				}

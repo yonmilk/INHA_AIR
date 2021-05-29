@@ -369,6 +369,12 @@ public class SelectDate_test2 extends JFrame implements ActionListener {
 			if (objText.isEmpty()) {
 				
 			} else {
+				
+				if(Integer.parseInt(lblstringMonth)<10)
+					lblstringMonth = 0 + lblstringMonth;
+				if(Integer.parseInt(objText)<10)
+					objText = 0 + objText;
+				
 				if (selectindex == 0) {
 					day1 = Integer.parseInt(lblstringYear+lblstringMonth+objText);
 					tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
@@ -380,9 +386,13 @@ public class SelectDate_test2 extends JFrame implements ActionListener {
 					if(day1<day2) {
 						tfCome.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
 						btnSelect.setText("왕복 선택");
+
 						selectindex--;
 					} else {
+						day1 = Integer.parseInt(lblstringYear+lblstringMonth+objText);
 						tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
+						tfCome.setText("");
+						btnSelect.setText("편도 선택");
 					}
 				}
 			}
