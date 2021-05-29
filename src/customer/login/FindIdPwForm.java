@@ -10,8 +10,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import DataBase.databaseClass;
+import customer.start.MainMenuForm;
 
 public class FindIdPwForm extends JFrame implements ActionListener {
 
@@ -180,6 +184,7 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 
 	
 	public static void main(String[] args) {
+		databaseClass.connect(dbURL, dbID, dbPassword);
 		new FindIdPwForm();
 	}
 	
@@ -190,15 +195,55 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		
 		if(obj == btnFindId) {
 			String name = tfIdName.getText();
-			String idPhoneNum = tfIdPhoneNum.getText();
+			String PhoneNum = tfIdPhoneNum.getText();
+			
+			if (name.isEmpty() || PhoneNum.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "영문이름과 핸드폰번호를 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION); //INFORMATION_MESSAGE, QUESTION_MESSAGE, WARNING_MESSAGE, ERROR_MESSAGE
+			} else if (name.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "영문이름을 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
+			} else if (PhoneNum.isEmpty()){
+				JOptionPane.showMessageDialog(null, "핸드폰번호를 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
+			} else {
+				boolean check = checkNameNum(name, PhoneNum);
+				if(check) {
+					
+				} else {
+					
+				}
+			}
 			
 			
 		} else if (obj == btnFindPw) {
 			String name = tfPwName.getText();
-			String pwPhoneNum = tfPwPhoneNum.getText();
+			String PhoneNum = tfPwPhoneNum.getText();
 			String id = tfId.getText();
 			
+			if (name.isEmpty() || PhoneNum.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "영문이름, 핸드폰번호, 아이디를 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION); //INFORMATION_MESSAGE, QUESTION_MESSAGE, WARNING_MESSAGE, ERROR_MESSAGE
+			} else if (name.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "영문이름을 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
+			} else if (PhoneNum.isEmpty()){
+				JOptionPane.showMessageDialog(null, "핸드폰번호를 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
+			} else if (PhoneNum.isEmpty()){
+				JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
+			} else {
+				boolean check = checkNameNum(name, PhoneNum);
+				if(check) {
+					
+				} else {
+					
+				}
+			}
+			
+			
 		}
+	}
+
+
+	private boolean checkNameNum(String name, String idPhoneNum) {
+		
+		
+		return false;
 	}
 
 }

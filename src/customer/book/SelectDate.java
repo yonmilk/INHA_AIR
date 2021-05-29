@@ -64,9 +64,8 @@ public class SelectDate extends JFrame implements ActionListener {
 	private JPanel jpDay;
 	private int day1;
 	private int day2;
-	private JLabel lblEx;
-	
-	
+	private String objText = "";
+//	private JLabel lblEx;
 
 	public SelectDate() {
 			
@@ -301,8 +300,8 @@ public class SelectDate extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		String objText = e.getActionCommand();
-
+		objText = e.getActionCommand();
+		
 		cal.set(todayYear, todayMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
 		
 		if (obj == btnSelect) {
@@ -320,6 +319,7 @@ public class SelectDate extends JFrame implements ActionListener {
 			tfGo.setText("");
 			tfCome.setText("");
 			selectindex  = 0;
+			
 		} else if (obj == btnDay) {
 			System.out.println(btnDay.getText());
 		}
@@ -383,33 +383,47 @@ public class SelectDate extends JFrame implements ActionListener {
 			lblstringYear = lblYear.getText().substring(0,4);
 			lblstringMonth = lblMonth.getText().substring(0,lblMonth.getText().length()-1);
 			
-			
+
 			
 			if (objText.isEmpty()) {
 				
 			} else {
+				
+				
+				
 				
 				if(Integer.parseInt(lblstringMonth)<10)
 					lblstringMonth = 0 + lblstringMonth;
 				if(Integer.parseInt(objText)<10)
 					objText = 0 + objText;
 				
+				
+				
+				
 				if (selectindex == 0) {
+					
 					day1 = Integer.parseInt(lblstringYear+lblstringMonth+objText);
+					
 					tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
 					tfCome.setText("");
 					btnSelect.setText("편도 선택");
 					selectindex++;
+										
+					
+					
 				} else if(selectindex == 1) {
 					day2 = Integer.parseInt(lblstringYear+lblstringMonth+objText);
 					if(day1<day2) {
 						tfCome.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
 						btnSelect.setText("왕복 선택");
 						selectindex--;
+						
+						
 					} else {
 						day1 = Integer.parseInt(lblstringYear+lblstringMonth+objText);
 						tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
 					}
+					
 				}
 			}
 		}

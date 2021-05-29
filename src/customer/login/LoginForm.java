@@ -76,23 +76,25 @@ public class LoginForm extends JFrame implements ActionListener {
 		Container c = getContentPane();
 		c.setBackground(Color.WHITE);
 		
-		// 로그인 패널
-		jpLogin = new JPanel(new BorderLayout());
-		jpLogin.setSize(400, 500);
-		jpLogin.setLocation(360, 100);
-//		jpLogin.setBorder(new EtchedBorder(EtchedBorder.RAISED));		// 테두리 설정
+
 		
 		// 연우 - 로그인 레이아웃 구성
 		setLogin();
 		
-		// 컴포넌트 붙이기
-		add(jpLogin);
+		
 		
 		setVisible(true);
 	}
 
 	// 연우 - 로그인 레이아웃 구성
 	private void setLogin() {
+		
+		// 로그인 패널
+		jpLogin = new JPanel(new BorderLayout());
+		jpLogin.setSize(400, 500);
+		jpLogin.setLocation(360, 100);
+//		jpLogin.setBorder(new EtchedBorder(EtchedBorder.RAISED));		// 테두리 설정
+		
 		//상단판넬
 		jpTop = new JPanel();
 		jpTop.setBackground(Color.white);
@@ -121,6 +123,7 @@ public class LoginForm extends JFrame implements ActionListener {
 		
 		
 		btnLogin = new JButton("로그인"); //로그인 버튼
+		btnLogin.addActionListener(this);
 		btnLogin.setFont(fontNanumGothic16);
 		btnLogin.setBorderPainted(false); //버튼 윤곽선 제거
 		btnLogin.setBackground(colorLogin); //버튼 색 설정
@@ -168,8 +171,10 @@ public class LoginForm extends JFrame implements ActionListener {
 		east.setBackground(Color.WHITE);
 		jpLogin.add(east, BorderLayout.EAST);
 		
-		// 예원 - 액션 추가
-		btnLogin.addActionListener(this);
+		// 컴포넌트 붙이기
+		add(jpLogin);
+		
+		
 	}
 
 	public static void main(String[] args) {
