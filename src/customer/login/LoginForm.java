@@ -191,20 +191,21 @@ public class LoginForm extends JFrame implements ActionListener {
 			String pw = pwfPw.getText();
 			
 			if (id.isEmpty() && pw.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 입력해주세요.");
+				JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 입력해주세요.", "로그인 실패", JOptionPane.OK_CANCEL_OPTION); //INFORMATION_MESSAGE, QUESTION_MESSAGE, WARNING_MESSAGE, ERROR_MESSAGE
 			} else if (id.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.");
+				JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.", "로그인 실패", JOptionPane.OK_CANCEL_OPTION);
 			} else if (pw.isEmpty()){
-				JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요.");
+				JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요.", "로그인 실패", JOptionPane.OK_CANCEL_OPTION);
 			} else {
 				boolean check = checkIDPW(id, pw);
 				if(check) {
 					//System.out.println("로그인 성공!");
+					JOptionPane.showMessageDialog(null, id + "님 안녕하세요.", "로그인 성공", JOptionPane.INFORMATION_MESSAGE);
 					mainMenuForm = new MainMenuForm();
 					this.setVisible(false);
 				} else {
 					//System.out.println("로그인 실패!");
-					JOptionPane.showMessageDialog(null, "로그인 실패했습니다.");
+					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호를 확인해주세요.", "로그인 실패", JOptionPane.OK_CANCEL_OPTION);
 					tfId.setText("");
 					pwfPw.setText("");
 					tfId.requestFocus();
