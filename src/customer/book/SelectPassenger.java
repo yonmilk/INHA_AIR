@@ -130,16 +130,19 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		btnAdult = new JButton(imgQuestionIcon); //국제선 만 12세 이상, 국내선 만 13세 이상
 		btnAdult.setBorderPainted(false); //버튼 윤곽선 제거
 		btnAdult.setContentAreaFilled(false); //버튼배경 제거
+		btnAdult.addActionListener(this);
 		lblInfant = new JLabel("소아");
 		lblInfant.setFont(fontNanumGothic18);
 		btnInfant = new JButton(imgQuestionIcon); //국제선 만 12세 미만, 국내선 만 13세 미만
 		btnInfant.setBorderPainted(false); //버튼 윤곽선 제거
 		btnInfant.setContentAreaFilled(false); //버튼배경 제거
+		btnInfant.addActionListener(this);
 		lblChild = new JLabel("유아");
 		lblChild.setFont(fontNanumGothic18);
 		btnChild = new JButton(imgQuestionIcon); //만 2세 미만
 		btnChild.setBorderPainted(false); //버튼 윤곽선 제거
 		btnChild.setContentAreaFilled(false); //버튼배경 제거
+		btnChild.addActionListener(this);
 		jpAge.add(lblAdult);
 		jpAge.add(btnAdult);
 		jpAge.add(lblInfant);
@@ -159,32 +162,38 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		btnPlusAdult = new JButton(imgPlusIcon); //성인 인원라벨, +버튼, -버튼
 		btnPlusAdult.setBorderPainted(false); //버튼 윤곽선 제거
 		btnPlusAdult.setContentAreaFilled(false); //버튼배경 제거
+		btnPlusAdult.addActionListener(this);
 		lblNumAdult = new JLabel("0");
 		lblNumAdult.setFont(fontNanumGothic18);
 		lblNumAdult.setHorizontalAlignment(JLabel.CENTER);
 		btnMinusAdult = new JButton(imgMinusIcon);
 		btnMinusAdult.setBorderPainted(false); //버튼 윤곽선 제거
 		btnMinusAdult.setContentAreaFilled(false); //버튼배경 제거
+		btnMinusAdult.addActionListener(this);
 		
 		btnPlusInfant = new JButton(imgPlusIcon); //소아 인원라벨, +버튼, -버튼
 		btnPlusInfant.setBorderPainted(false); //버튼 윤곽선 제거
 		btnPlusInfant.setContentAreaFilled(false); //버튼배경 제거
+		btnPlusInfant.addActionListener(this);
 		lblNumInfant = new JLabel("0");
 		lblNumInfant.setFont(fontNanumGothic18);
 		lblNumInfant.setHorizontalAlignment(JLabel.CENTER);
 		btnMinusInfant = new JButton(imgMinusIcon);
 		btnMinusInfant.setBorderPainted(false); //버튼 윤곽선 제거
 		btnMinusInfant.setContentAreaFilled(false); //버튼배경 제거
+		btnMinusInfant.addActionListener(this);
 		
 		btnPlusChild = new JButton(imgPlusIcon); //유아 인원라벨, +버튼, -버튼
 		btnPlusChild.setBorderPainted(false); //버튼 윤곽선 제거
 		btnPlusChild.setContentAreaFilled(false); //버튼배경 제거
+		btnPlusChild.addActionListener(this);
 		lblNumChild = new JLabel("0");
 		lblNumChild.setFont(fontNanumGothic18);
 		lblNumChild.setHorizontalAlignment(JLabel.CENTER);
 		btnMinusChild = new JButton(imgMinusIcon);
 		btnMinusChild.setBorderPainted(false); //버튼 윤곽선 제거
 		btnMinusChild.setContentAreaFilled(false); //버튼배경 제거
+		btnMinusChild.addActionListener(this);
 		
 		jpNumSelect.add(btnPlusAdult);
 		jpNumSelect.add(lblNumAdult);
@@ -223,6 +232,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		btnCalculate.setBorder(new LineBorder(Color.gray,1));
 		//btnCalculate.setContentAreaFilled(false); //버튼배경 제거
 		btnCalculate.setBackground(Color.white);
+		btnCalculate.addActionListener(this);
 		btnOk = new JButton("확인"); //확인버튼
 		btnOk.setFont(fontNanumGothic15);
 		btnOk.setForeground(Color.white);
@@ -230,6 +240,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		btnOk.setLocation(150, 100);
 		btnOk.setBorderPainted(false); //버튼 윤곽선 제거
 		btnOk.setBackground(new Color(10,90,150));
+		btnOk.addActionListener(this);
 		
 		
 		jpAgeCal.add(lblAgeCal);
@@ -252,6 +263,27 @@ public class SelectPassenger extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		
+		if (obj == btnAdult) { //성인 나이 기준 설명
+			
+		} else if (obj == btnInfant) { //소아 나이 기준 설명
+			
+		} else if (obj == btnChild) { //유아 나이 기준 설명
+			
+		} else if (obj == btnPlusAdult) { //성인라벨 인원 추가
+			
+		} else if (obj == btnMinusAdult) { //성인라벨 인원 감소
+			
+		}
+		
+		//btnAdult(성인), btnChild(유아), btnInfant(소아) 성인-소아-유아
+		//btnCalculate, btnOk
+		//btnMinusAdult, btnMinusChild, btnMinusInfant
+		//btnPlusAdult, btnPlusChild, btnPlusInfant
+		
+		
+		
 		
 	}
 

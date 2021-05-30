@@ -6,6 +6,8 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -195,43 +197,43 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		
 		if(obj == btnFindId) {
 			String name = tfIdName.getText();
-			String PhoneNum = tfIdPhoneNum.getText();
+			String tel = tfIdPhoneNum.getText();
 			
-			if (name.isEmpty() || PhoneNum.isEmpty()) {
+			if (name.isEmpty() || tel.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "영문이름과 핸드폰번호를 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION); //INFORMATION_MESSAGE, QUESTION_MESSAGE, WARNING_MESSAGE, ERROR_MESSAGE
 			} else if (name.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "영문이름을 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
-			} else if (PhoneNum.isEmpty()){
+			} else if (tel.isEmpty()){
 				JOptionPane.showMessageDialog(null, "핸드폰번호를 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
 			} else {
-				boolean check = checkNameNum(name, PhoneNum);
+				boolean check = checkNameNum(name, tel);
 				if(check) {
-					
+					JOptionPane.showMessageDialog(null, "회원님의 아이디는 " + "" + "입니다.", "아이디 찾기 성공", JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					
+					JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
 				}
 			}
 			
 			
 		} else if (obj == btnFindPw) {
 			String name = tfPwName.getText();
-			String PhoneNum = tfPwPhoneNum.getText();
+			String tel = tfPwPhoneNum.getText();
 			String id = tfId.getText();
 			
-			if (name.isEmpty() || PhoneNum.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "영문이름, 핸드폰번호, 아이디를 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION); //INFORMATION_MESSAGE, QUESTION_MESSAGE, WARNING_MESSAGE, ERROR_MESSAGE
+			if (name.isEmpty() || tel.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "영문이름, 핸드폰번호, 아이디를 입력해주세요.", "비밀번호 찾기 실패", JOptionPane.OK_CANCEL_OPTION); //INFORMATION_MESSAGE, QUESTION_MESSAGE, WARNING_MESSAGE, ERROR_MESSAGE
 			} else if (name.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "영문이름을 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
-			} else if (PhoneNum.isEmpty()){
-				JOptionPane.showMessageDialog(null, "핸드폰번호를 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
-			} else if (PhoneNum.isEmpty()){
-				JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
+				JOptionPane.showMessageDialog(null, "영문이름을 입력해주세요.", "비밀번호 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
+			} else if (tel.isEmpty()){
+				JOptionPane.showMessageDialog(null, "핸드폰번호를 입력해주세요.", "비밀번호 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
+			} else if (id.isEmpty()){
+				JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.", "비밀번호 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
 			} else {
-				boolean check = checkNameNum(name, PhoneNum);
+				boolean check = checkNameNumID(name, tel, id);
 				if(check) {
-					
+					JOptionPane.showMessageDialog(null, "회원님의 임시 비밀번호는 " + "" + "입니다.", "비밀번호 찾기 성공", JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					
+					JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.", "비밀번호 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
 				}
 			}
 			
@@ -240,10 +242,48 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 	}
 
 
-	private boolean checkNameNum(String name, String idPhoneNum) {
+	private boolean checkNameNumID(String name, String tel, String id) {
+		boolean check = false;
+		
+//		String sql = "SELECT * FROM login WHERE ID = 'test1' AND password='1111'";
+		String sql = "SELECT * FROM login WHERE nameENG = '" + name + "' AND tel='" + tel + "' AND ID = " + id + "'";
+		ResultSet rs = databaseClass.select(sql);
+		
+		try {
+			if(rs.next()) {	//내용이 있을 때
+				check = true;
+			} else {
+				check = false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		
+		return check;
+	}
+
+
+	private boolean checkNameNum(String name, String tel) {
+		boolean check = false;
+		
+//		String sql = "SELECT * FROM login WHERE ID = 'test1' AND password='1111'";
+		String sql = "SELECT * FROM login WHERE nameENG = '" + name + "' AND tel='" + tel + "'";
+		ResultSet rs = databaseClass.select(sql);
 		
 		
-		return false;
+		try {
+			if(rs.next()) {	//내용이 있을 때
+				check = true;
+			} else {
+				check = false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		
+		return check;
 	}
 
 }
