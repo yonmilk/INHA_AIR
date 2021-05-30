@@ -67,7 +67,8 @@ public class SelectDate_test1 extends JFrame implements ActionListener {
 	private String objText = "";
 	private String oldObjText = "";
 //	private JLabel lblEx;
-	private String btnText = ""; 
+	private String btnText = "";
+private int testDay; 
 
 	public SelectDate_test1() {
 			
@@ -308,6 +309,9 @@ public class SelectDate_test1 extends JFrame implements ActionListener {
 
 		cal.set(todayYear, todayMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
 		
+		
+		
+		
 		if (obj == btnSelect) {
 			if (objText.equals("편도 선택")) {
 				System.out.println("편도");
@@ -423,25 +427,7 @@ public class SelectDate_test1 extends JFrame implements ActionListener {
 					btnSelect.setText("편도 선택");
 					selectindex++;
 					
-					for (int i = 0; i < 42; i++) { //intDateNum이 1일부터 마지막일이 될 때까지 반복
-						
-						btnText = lstBtn.get(i).getText();
-						if (btnText.isEmpty()) {
-							
-						} else  {
-							if(Integer.parseInt(btnText)<10);
-								btnText = 0 + btnText;
-						}
-						
-						if (btnText.equals(objText)) //i의 날짜가 같다면 버튼 색 설정
-						{
-							lstBtn.get(i).setBackground(new Color(153, 204, 255));
-						}
-						else {
-							lstBtn.get(i).setBackground(Color.white);
-						}
-						intDateNum++; //출력할 date 증가
-					}
+					
 					
 				} else if(selectindex == 1) {
 					day2 = Integer.parseInt(lblstringYear+lblstringMonth+objText);
@@ -478,8 +464,33 @@ public class SelectDate_test1 extends JFrame implements ActionListener {
 							intDateNum++; //출력할 date 증가
 						}
 					}
-				} 
+				}
 			}
+		}
+		
+		for (int i = 0; i < 42; i++) { //intDateNum이 1일부터 마지막일이 될 때까지 반복
+			
+			btnText = lstBtn.get(i).getText();
+			
+			if (btnText.isEmpty()) {
+				
+			} else  {
+				if(Integer.parseInt(btnText)<10);
+					btnText = 0 + btnText;
+			}
+			
+			testDay = Integer.parseInt(lblstringYear+lblstringMonth+btnText);
+			
+			
+			if ((Integer.toString(testDay).equals(Integer.toString(day1))) ||
+					(Integer.toString(testDay).equals(Integer.toString(day2))))//i의 날짜가 같다면 버튼 색 설정
+			{
+				lstBtn.get(i).setBackground(new Color(153, 204, 255));
+			}
+			else {
+				lstBtn.get(i).setBackground(Color.white);
+			}
+			intDateNum++; //출력할 date 증가
 		}
 	}
 }
