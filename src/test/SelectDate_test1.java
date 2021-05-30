@@ -62,8 +62,8 @@ public class SelectDate_test1 extends JFrame implements ActionListener {
 	private String lblstringYear;
 	private String lblstringMonth;
 	private JPanel jpDay;
-	private int day1;
-	private int day2;
+	private int day1=0;
+	private int day2=0;
 	private String objText = "";
 	private String oldObjText = "";
 //	private JLabel lblEx;
@@ -482,14 +482,11 @@ private int testDay;
 			testDay = Integer.parseInt(lblstringYear+lblstringMonth+btnText);
 			
 			
-			if ((Integer.toString(testDay).equals(Integer.toString(day1))) ||
-					(Integer.toString(testDay).equals(Integer.toString(day2))))//i의 날짜가 같다면 버튼 색 설정
-			{
+			if ((String.valueOf(testDay).equals(String.valueOf(day1))) ||
+					(String.valueOf(testDay).equals(String.valueOf(day2))))//i의 날짜가 같다면 버튼 색 설정
 				lstBtn.get(i).setBackground(new Color(153, 204, 255));
-			}
-			else {
+			else
 				lstBtn.get(i).setBackground(Color.white);
-			}
 			intDateNum++; //출력할 date 증가
 		}
 	}
