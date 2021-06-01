@@ -41,6 +41,17 @@ public class MainMenuForm extends JFrame implements ActionListener {
 	Color colorLogo = new Color(24, 62, 111);	
 	Color colorBtn = new Color(10,90,150);
 	
+	// ID 값 저장
+	private String id;
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
 	// 컴포넌트
 	private JLabel lblLogo;
 	private JPanel jpMenu;
