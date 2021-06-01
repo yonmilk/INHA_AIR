@@ -272,9 +272,9 @@ public class SelectDate extends JFrame implements ActionListener {
 			btnSelect.setText("날짜 선택");
 		} else {
 			if(comeDay.isEmpty()) {
-				btnSelect.setText("왕복 선택");
-			} else {
 				btnSelect.setText("편도 선택");
+			} else {
+				btnSelect.setText("왕복 선택");
 			}
 		}
 		
@@ -352,6 +352,7 @@ public class SelectDate extends JFrame implements ActionListener {
 					
 					bookForm.setGoDay(goDay);
 					bookForm.setRoundTrip(roundTrip);
+					bookForm.setDate();
 					
 					setVisible(false);
 					
