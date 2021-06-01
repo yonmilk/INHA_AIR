@@ -61,6 +61,47 @@ public class BookForm extends JFrame implements ActionListener {
 	
 	private TicketingRoundTripGoingForm tkRTGoForm;
 	
+	
+	//연우 - 탑승일 값 받아오기
+	private String goDay = "";
+	private String comeDay = "";
+	private int roundTrip = 0;
+	
+	
+	
+	public String getGoDay() {
+		return goDay;
+	}
+
+	public void setGoDay(String goDay) {
+		this.goDay = goDay;
+	}
+
+	public String getComeDay() {
+		return comeDay;
+	}
+
+	public void setComeDay(String comeDay) {
+		this.comeDay = comeDay;
+	}
+
+	public int getRoundTrip() {
+		return roundTrip;
+	}
+
+	public void setRoundTrip(int roundTrip) {
+		this.roundTrip = roundTrip;
+	}
+
+	public void setDate() {
+		//System.out.println(goDay);
+		if (roundTrip == 1) 
+			btnDate.setText(goDay+" ~ "+comeDay);
+		else
+			btnDate.setText(goDay);
+	}
+	
+	
 	// 예원 - 시작 화면
 	public BookForm() {
 		setTitle(title);
@@ -100,6 +141,7 @@ public class BookForm extends JFrame implements ActionListener {
 		// 컴포넌트 붙이기
 		add(btnMainMenu);
 		add(jpBook);
+		
 		
 		
 		setVisible(true);
@@ -167,7 +209,7 @@ public class BookForm extends JFrame implements ActionListener {
 		jpCENTER.setLayout(new GridLayout(3, 2, 20,30));
 		
 		imgDate = new ImageIcon("image/calender.png");
-		lblDate = new JLabel("출발일", imgDate, SwingUtilities.LEFT); //라벨에 이미지 삽입, 위치 주기
+		lblDate = new JLabel("여행일정", imgDate, SwingUtilities.LEFT); //라벨에 이미지 삽입, 위치 주기
 		lblDate.setFont(fontNanumGothic18);
 		btnDate = new JButton("");
 		btnDate.setBackground(Color.white);
@@ -236,7 +278,7 @@ public class BookForm extends JFrame implements ActionListener {
 			this.setVisible(false);
 			
 		} else if(obj == btnDate) {
-			new customer.book.SelectDate();
+			new customer.book.SelectDate(this);
 		} else if(obj == btnPeople) {
 			new customer.book.SelectPassenger();
 		}
