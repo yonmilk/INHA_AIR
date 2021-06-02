@@ -79,7 +79,9 @@ public class TicketingOneWay extends JFrame implements ActionListener {
 //		private ImageIcon imgArrow;
 //		private ImageIcon imgAeroPlane;
 		private Color crMember; //회원 버튼 색
-		private Color crNonMember;// 비회원 버튼 색
+		private Color crNonMember;// 비회원 버튼 
+		
+		
 		
 		Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
 		Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);	// 나눔고딕 18

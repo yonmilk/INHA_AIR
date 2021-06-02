@@ -36,14 +36,55 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 	
 	private JPanel jpSelectedInfo;
 	//--가상의 고객이 선택한 정보
-		private String selctedDepartP = "GMP"; //고객이 선택한 정보 : 
-		private String selctedArriveP = "PUS"; // 출발지 GMP 도착지 PUS (P : place)
-		private String selctedDepartD = "2021.05.15(토)"; //출발 날짜 : 21.0515- 
-		private String selctedArriveD = "2021.06.01(화)";//도착 날짜 : 0601(화)    (D : date)
-		private String Adult = "성인";//성인
-		private int numP = 1;//1명
-		//--
+		private String DepP = " "; //고객이 선택한 정보 : 
+		private String ArrP = " "; // 출발지 GMP 도착지 PUS (P : place)
+		private String GoDay = " "; //출발 날짜 : 21.0515- 
+		private String ComeDay = " ";//도착 날짜 : 0601(화)    (D : date)
+		private int AdultP = 0;//성인
+		private int ChildP = 0;//소아인원
+		private int InfantP = 0;//소아인원
 		
+		public void setDepP(String depP) {
+			DepP = depP;
+		}
+
+
+
+		public void setArrP(String arrP) {
+			ArrP = arrP;
+		}
+
+
+
+		public void setGoDay(String goDay) {
+			GoDay = goDay;
+		}
+
+
+
+		public void setComeDay(String comeDay) {
+			ComeDay = comeDay;
+		}
+
+
+
+		public void setAdultP(int adultP) {
+			AdultP = adultP;
+		}
+
+
+
+		public void setChildP(int childP) {
+			ChildP = childP;
+		}
+
+
+
+		public void setInfantP(int infantP) {
+			InfantP = infantP;
+		}
+
+
 		private JLabel lblDepartP; //고객이 선택한 출발지 정보
 		private JLabel lblArriveP; //         도착지
 		private JLabel lblDepArrD;	//고객이 선택한 출발일 + 도착일
@@ -77,6 +118,8 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 //		private ImageIcon imgAeroPlane;
 		private Color crNext; //다음 버튼 색
 		
+		
+	
 		Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
 		Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);	// 나눔고딕 18
 		Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 18
@@ -129,11 +172,11 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		jpSelectedInfo.setLocation(70,100);
 		jpSelectedInfo.setBackground(crInfo);
 		
-		lblDepartP = new JLabel(selctedDepartP);//고객이 선택한 출발지 정보
+		lblDepartP = new JLabel(DepP);//고객이 선택한 출발지 정보
 		lblDepartP.setFont(fontNanumGothic25);
 		lblDepartP.setBounds(50, -20, 200, 100);
 		
-		lblArriveP = new JLabel(selctedArriveP);//고객이 선택한 도착지 정보
+		lblArriveP = new JLabel(ArrP);//고객이 선택한 도착지 정보
 		lblArriveP.setFont(fontNanumGothic25);
 		lblArriveP.setBounds(190, -20, 200, 100);
 //		
@@ -144,12 +187,13 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		lblArrow.setFont(fontNanumGothic30);
 		lblArrow.setBounds(135, -20, 200, 100);
 
-		lblDepArrD = new JLabel(selctedDepartD + "  ~  " + selctedArriveD ); //왕복 출발일과 도착일 함께 표시
+		lblDepArrD = new JLabel(GoDay + "  ~  " + ComeDay ); //왕복 출발일과 도착일 함께 표시
 		lblDepArrD.setFont(fontNanumGothic18Plain);
 		lblDepArrD.setBounds(295, -20, 300, 100);
 
 		
-		lblPassenger = new JLabel(Adult + " " + numP + "명"); //고객이 선택한 탑승자 정보
+		
+		lblPassenger = new JLabel("    성인  " + AdultP + "명     " +"  |  "+ "    소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
 		lblPassenger.setFont(fontNanumGothic18Plain);
 		lblPassenger.setBounds(640, -20, 500, 100);
 		
