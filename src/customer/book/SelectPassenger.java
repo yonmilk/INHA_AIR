@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -73,16 +74,26 @@ public class SelectPassenger extends JFrame implements ActionListener{
 	private JTextField tfAge;
 	private JButton btnCalculate;
 	private JButton btnOk;
+	private BookForm bookForm;
 	
-	int numAdult = 0;
-	int numInfant = 0;
-	int numChild = 0;
+	private int numAdult = 0;
+	private int numInfant = 0;
+	private int numChild = 0;
+	private int numTotal = 0;
+	private JPanel jpTotal;
+	private JLabel lblTotal;
+	private JLabel lblTotalNum;
 	
 	
-	
-	public SelectPassenger() {
+	public SelectPassenger(BookForm bookForm) {
 		
 		//this.mainForm = mainForm;
+		this.bookForm = bookForm; //bookForm에 대한 정보
+		
+		this.numAdult = bookForm.getNumAdult();
+		this.numInfant = bookForm.getNumInfant();
+		this.numChild = bookForm.getNumChild();
+		this.numTotal = bookForm.getNumTotal();
 		
 		setTitle(title);
 		setSize(width, height);
@@ -99,6 +110,13 @@ public class SelectPassenger extends JFrame implements ActionListener{
 				tfAge.requestFocus();
 			}
 		});
+		
+		
+		lblNumAdult.setText(Integer.toString(numAdult));
+		lblNumInfant.setText(Integer.toString(numInfant));
+		lblNumChild.setText(Integer.toString(numChild));
+		lblTotalNum.setText(numTotal + "명");
+		
 		
 		setVisible(true);
 		
@@ -120,6 +138,23 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		lblTitle.setSize(150, 40);
 		lblTitle.setLocation(0, 10);
 		jpTitle.add(lblTitle);
+		
+		//총인원 패널
+		jpTotal = new JPanel();
+		jpTotal.setLayout(null);
+		jpTotal.setSize(130, 60);
+		jpTotal.setLocation(290, 20);
+		jpTotal.setBackground(Color.white);
+		lblTotal = new JLabel("총인원"); 		//제목라벨
+		lblTotal.setFont(fontNanumGothic20);
+		lblTotal.setSize(150, 40);
+		lblTotal.setLocation(0, 10);
+		lblTotalNum = new JLabel(numTotal + " 명"); 		//제목라벨
+		lblTotalNum.setFont(fontNanumGothic20);
+		lblTotalNum.setSize(150, 40);
+		lblTotalNum.setLocation(70, 10);
+		jpTotal.add(lblTotal);
+		jpTotal.add(lblTotalNum);
 		
 		//연령패널
 		jpAge = new JPanel();
@@ -254,6 +289,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		jpAgeCal.add(btnOk);
 		
 		add(jpTitle);
+		add(jpTotal);
 		add(jpAge);
 		add(jpNumSelect);
 		add(jpAgeCal);
@@ -262,7 +298,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 
 
 	public static void main(String[] args) {
-		new SelectPassenger();
+		//new SelectPassenger();
 	}
 
 	@Override
@@ -277,37 +313,65 @@ public class SelectPassenger extends JFrame implements ActionListener{
 			
 		} else if (obj == btnChild) { //유아 나이 기준 설명
 			
-		} else if (obj == btnPlusAdult) { //성인라벨 인원 추가
-			if(numAdult>0) {
+		}
+		
+		
+		if (numAdult+numInfant<9) {
+			
+			if (obj == btnPlusAdult) { //성인라벨 인원 추가
 				numAdult++;
-			}
-			lblNumAdult.setText(Integer.toString(numAdult));
-		} else if (obj == btnMinusAdult) { //성인라벨 인원 감소
-			if(numAdult<9) {
-				numAdult--;
+				lblNumAdult.setText(Integer.toString(numAdult));
+			}  else if (obj == btnPlusInfant) { //소아라벨 인원추가
+				numInfant++;
+				lblNumInfant.setText(Integer.toString(numInfant));
 			} 
+		}
+		
+		if(numChild<numAdult) {
+			if (obj == btnPlusChild) { //유아라벨 인원추가
+				numChild++;
+				lblNumChild.setText(Integer.toString(numChild));
+			} 	
+		}
+		
+		if (obj == btnMinusAdult) { //성인라벨 인원 감소
+			if (numAdult>0)
+				numAdult--;
 			lblNumAdult.setText(Integer.toString(numAdult));
-		} else if (obj == btnPlusInfant) { //소아라벨 인원추가
-			numInfant++;
+		}
+		else if (obj == btnMinusInfant) { //소아라벨 인원감소
+			if (numInfant>0)
+				numInfant--;
 			lblNumInfant.setText(Integer.toString(numInfant));
-		} else if (obj == btnMinusInfant) { //소아라벨 인원감소
-			numInfant--;
-			lblNumInfant.setText(Integer.toString(numInfant));
-		} else if (obj == btnPlusChild) { //유아라벨 인원추가
-			numChild++;
-			lblNumChild.setText(Integer.toString(numChild));
-		} else if (obj == btnMinusChild) { //유아라벨 인원감소
-			numChild--;
+		}
+		else if (obj == btnMinusChild) { //유아라벨 인원감소
+			if (numChild>0)
+				numChild--;
 			lblNumChild.setText(Integer.toString(numChild));
 		}
 		
-		//btnAdult(성인), btnChild(유아), btnInfant(소아) 성인-소아-유아
-		//btnCalculate, btnOk
-		//btnMinusAdult, btnMinusChild, btnMinusInfant
-		//btnPlusAdult, btnPlusChild, btnPlusInfant
+		if (obj == btnCalculate) {		//나이계산기 버튼 눌렀을 때
+			
+		}
 		
+		numTotal = numAdult + numInfant + numChild;
+		lblTotalNum.setText(numTotal + "명");
 		
-		
+		if (obj == btnOk) { //확인버튼 눌렀을 때
+			int result = JOptionPane.showConfirmDialog(null, "성인 " + numAdult + "명, 소아 " + numInfant + "명, 유아 " + numChild + "명으로 총 " + numTotal + "명이 맞습니까?", "탑승인원 선택", JOptionPane.YES_NO_OPTION);
+			
+			if(result == JOptionPane.YES_OPTION) {
+				
+				bookForm.setNumAdult(numAdult);
+				bookForm.setNumInfant(numInfant);
+				bookForm.setNumChild(numChild);
+				bookForm.setNumTotal(numTotal);
+				bookForm.setPassenger();
+				
+				setVisible(false);
+				
+			}
+		}
 		
 	}
 
