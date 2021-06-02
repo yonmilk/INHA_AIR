@@ -67,8 +67,49 @@ public class BookForm extends JFrame implements ActionListener {
 	private String comeDay = "";
 	private int roundTrip = 0;
 	
+	//연우 - 승객 인원 값 받아오기
+	private int numAdult = 0;
+	private int numInfant = 0;
+	private int numChild = 0;
+	private int numTotal = 0;
 	
 	
+	//승객 인원 값
+	public int getNumTotal() {
+		return numTotal;
+	}
+
+	public void setNumTotal(int numTotal) {
+		this.numTotal = numTotal;
+	}
+
+	
+	public int getNumAdult() {
+		return numAdult;
+	}
+
+	public void setNumAdult(int numAdult) {
+		this.numAdult = numAdult;
+	}
+
+	public int getNumInfant() {
+		return numInfant;
+	}
+
+	public void setNumInfant(int numInfant) {
+		this.numInfant = numInfant;
+	}
+
+	public int getNumChild() {
+		return numChild;
+	}
+
+	public void setNumChild(int numChild) {
+		this.numChild = numChild;
+	}
+
+	
+	//탑승일 값
 	public String getGoDay() {
 		return goDay;
 	}
@@ -93,12 +134,16 @@ public class BookForm extends JFrame implements ActionListener {
 		this.roundTrip = roundTrip;
 	}
 
-	public void setDate() {
+	public void setDate() {	//날짜 값 설정
 		//System.out.println(goDay);
 		if (roundTrip == 1) 
 			btnDate.setText(goDay+" ~ "+comeDay);
 		else
 			btnDate.setText(goDay);
+	}
+	
+	public void setPassenger() {
+		btnPeople.setText("<HTML>성인 "+ numAdult + "명<br>소아 " + numInfant + "명<br>유아 " + numChild + "명<br>총 "+ numTotal + "명</HTML>");
 	}
 	
 	
@@ -264,7 +309,7 @@ public class BookForm extends JFrame implements ActionListener {
 		new BookForm();
 	}
 
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
@@ -272,7 +317,6 @@ public class BookForm extends JFrame implements ActionListener {
 		if(obj == btnMainMenu) {
 			mainMenuForm = new MainMenuForm();
 			this.setVisible(false);
-			
 		} else if(obj == btnSearch) {
 			tkRTGoForm = new TicketingRoundTripGoingForm();
 			this.setVisible(false);
@@ -280,7 +324,19 @@ public class BookForm extends JFrame implements ActionListener {
 		} else if(obj == btnDate) {
 			new customer.book.SelectDate(this);
 		} else if(obj == btnPeople) {
-			new customer.book.SelectPassenger();
+			new customer.book.SelectPassenger(this);
+		} else if (obj == btnDep) {		//연우 - 출발지 선택 버튼 액션 추가
+			
+		} else if (obj == btnSwap) {	//연우 - 출발지 도착지 변경 버튼 액션 추가
+			
+		} else if (obj == btnArr) {		//연우 - 도착지 선택 버튼 액션 추가
+			
 		}
 	}
 }
+
+
+
+
+
+
