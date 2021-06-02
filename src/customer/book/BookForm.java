@@ -326,11 +326,11 @@ public class BookForm extends JFrame implements ActionListener {
 		} else if(obj == btnPeople) {
 			new customer.book.SelectPassenger(this);
 		} else if (obj == btnDep) {		//연우 - 출발지 선택 버튼 액션 추가
-			
+			new customer.book.SelectDep(this);
 		} else if (obj == btnSwap) {	//연우 - 출발지 도착지 변경 버튼 액션 추가
 			
 		} else if (obj == btnArr) {		//연우 - 도착지 선택 버튼 액션 추가
-			
+			new customer.book.SelectArrived(this);
 		}
 	}
 }
