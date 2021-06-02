@@ -26,12 +26,7 @@ public class test2222 {
 				System.out.println("CON");
 				state = conn.createStatement();
 				
-//				String a = "GMP";
-//		        String date = "20200531";
-//		        String b = "CJU";
-//		        
 				String sql;
-//				String a = "GMP";
 				sql = "SELECT * FROM airSchedule";
 				ResultSet rs = state.executeQuery(sql);
 				
@@ -43,7 +38,7 @@ public class test2222 {
 					String fromDate = rs.getString("fromDate");
 					String to = rs.getString("to");
 					String toDate = rs.getString("toDate");
-					System.out.println(scheduleNo + airline + flightCode +"ㅡㅡ"+ from +"ㅡㅡ"+ fromDate + to + toDate );
+					System.out.println(scheduleNo + airline + flightCode + from + fromDate + to + toDate );
 					
 				}
 				
