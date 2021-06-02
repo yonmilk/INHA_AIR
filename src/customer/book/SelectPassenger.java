@@ -74,6 +74,10 @@ public class SelectPassenger extends JFrame implements ActionListener{
 	private JButton btnCalculate;
 	private JButton btnOk;
 	
+	int numAdult = 0;
+	int numInfant = 0;
+	int numChild = 0;
+	
 	
 	
 	public SelectPassenger() {
@@ -194,16 +198,16 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		btnMinusChild.setBorderPainted(false); //버튼 윤곽선 제거
 		btnMinusChild.setContentAreaFilled(false); //버튼배경 제거
 		btnMinusChild.addActionListener(this);
-		
-		jpNumSelect.add(btnPlusAdult);
-		jpNumSelect.add(lblNumAdult);
+
 		jpNumSelect.add(btnMinusAdult);
-		jpNumSelect.add(btnPlusInfant);
-		jpNumSelect.add(lblNumInfant);
+		jpNumSelect.add(lblNumAdult);
+		jpNumSelect.add(btnPlusAdult);
 		jpNumSelect.add(btnMinusInfant);
-		jpNumSelect.add(btnPlusChild);
-		jpNumSelect.add(lblNumChild);
+		jpNumSelect.add(lblNumInfant);
+		jpNumSelect.add(btnPlusInfant);
 		jpNumSelect.add(btnMinusChild);
+		jpNumSelect.add(lblNumChild);
+		jpNumSelect.add(btnPlusChild);
 		
 		//나이계산기 패널  및 확인버튼
 		jpAgeCal = new JPanel();
@@ -265,6 +269,8 @@ public class SelectPassenger extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
+		
+		
 		if (obj == btnAdult) { //성인 나이 기준 설명
 			
 		} else if (obj == btnInfant) { //소아 나이 기준 설명
@@ -272,9 +278,27 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		} else if (obj == btnChild) { //유아 나이 기준 설명
 			
 		} else if (obj == btnPlusAdult) { //성인라벨 인원 추가
-			
+			if(numAdult>0) {
+				numAdult++;
+			}
+			lblNumAdult.setText(Integer.toString(numAdult));
 		} else if (obj == btnMinusAdult) { //성인라벨 인원 감소
-			
+			if(numAdult<9) {
+				numAdult--;
+			} 
+			lblNumAdult.setText(Integer.toString(numAdult));
+		} else if (obj == btnPlusInfant) { //소아라벨 인원추가
+			numInfant++;
+			lblNumInfant.setText(Integer.toString(numInfant));
+		} else if (obj == btnMinusInfant) { //소아라벨 인원감소
+			numInfant--;
+			lblNumInfant.setText(Integer.toString(numInfant));
+		} else if (obj == btnPlusChild) { //유아라벨 인원추가
+			numChild++;
+			lblNumChild.setText(Integer.toString(numChild));
+		} else if (obj == btnMinusChild) { //유아라벨 인원감소
+			numChild--;
+			lblNumChild.setText(Integer.toString(numChild));
 		}
 		
 		//btnAdult(성인), btnChild(유아), btnInfant(소아) 성인-소아-유아
