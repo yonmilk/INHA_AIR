@@ -22,9 +22,9 @@ import javax.swing.border.EtchedBorder;
 import be.main.MainForm;
 import be.menu.MenuBar;
 
-public class SelectHydrateForm extends JFrame implements ActionListener {
+public class SelectBaggageForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
-	private String title = "초과수화물";
+	private String title = "초과수하물";
 	private int width = 700, height = 480;
 	
 	// 폰트
@@ -39,25 +39,25 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 25
 		Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
 	
-	// 초과수화물 가능 개수
+	// 초과수하물 가능 개수
 	private String[] addCount = {"1", "2", "3"};
 	
 	// 컴포넌트
-	private JPanel jpHydrate;
+	private JPanel jpBaggage;
 	private JCheckBox chName;
-	private JLabel lblHydrate, lblFree, lblf23kg, lblAddHydrate, lbla23kg;
-	private JTextField tfFree;					// 무료 수화물 개수
-	private JComboBox<String> cbAddHydrate;		// 초과 수화물 선택
+	private JLabel lblBaggage, lblFree, lblf23kg, lblAddHBaggage, lbla23kg;
+	private JTextField tfFree;					// 무료 수하물 개수
+	private JComboBox<String> cbAddBaggage;		// 초과 수하물 선택
 	private JButton btnOK;
 	
 	// 
-	private InputInformationForm informationF;
+	private ReservationDetailForm informationF;
 	
 	// 승객 이름
 	private String name;
 	
 	
-	public SelectHydrateForm(InputInformationForm informationF, String name) {
+	public SelectBaggageForm(ReservationDetailForm informationF, String name) {
 		this.informationF = informationF;
 		this.name = name;
 		
@@ -72,16 +72,16 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 		
 		
 		// 안내 레이블
-		lblHydrate = new JLabel("초과수화물 선택");
-		lblHydrate.setFont(fontNanumGothic30);
+		lblBaggage = new JLabel("초과수하물 선택");
+		lblBaggage.setFont(fontNanumGothic30);
 //		lblHydrate.setForeground(new Color(10,90,150));
-		lblHydrate.setHorizontalAlignment(JLabel.CENTER);
-		lblHydrate.setSize(680, 40);
-		lblHydrate.setLocation(10, 40);
-		add(lblHydrate);
+		lblBaggage.setHorizontalAlignment(JLabel.CENTER);
+		lblBaggage.setSize(680, 40);
+		lblBaggage.setLocation(10, 40);
+		add(lblBaggage);
 
-		// 초과수화물 선택 패널 생성
-		addHydrate();
+		// 초과수하물 선택 패널 생성
+		addBaggage();
 		
 		
 		// 확인 버튼
@@ -102,14 +102,14 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 
-	// 초과 소화물 선택 패널 생성
-	private void addHydrate() {
+	// 초과 수하물 선택 패널 생성
+	private void addBaggage() {
 		
-		jpHydrate = new JPanel(null);
-		jpHydrate.setSize(645, 200);
-		jpHydrate.setLocation(20, 110);
-		jpHydrate.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-		jpHydrate.setBackground(Color.WHITE);
+		jpBaggage = new JPanel(null);
+		jpBaggage.setSize(645, 200);
+		jpBaggage.setLocation(20, 110);
+		jpBaggage.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+		jpBaggage.setBackground(Color.WHITE);
 		
 		// 이름 체크 박스
 //		String name = "승객1";
@@ -120,12 +120,12 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 		chName.setBackground(Color.WHITE);
 		chName.addActionListener(this);
 		
-		JPanel jpSelectHydrate = new JPanel();
-		jpSelectHydrate.setLayout(new GridLayout(2, 3, 20, 20));
-		jpSelectHydrate.setBorder(new EmptyBorder(20, 5, 20, 5));
-		jpSelectHydrate.setSize(550, 130);
-		jpSelectHydrate.setLocation(40, 55);
-		jpSelectHydrate.setBackground(Color.WHITE);
+		JPanel jpSelectBaggage = new JPanel();
+		jpSelectBaggage.setLayout(new GridLayout(2, 3, 20, 20));
+		jpSelectBaggage.setBorder(new EmptyBorder(20, 5, 20, 5));
+		jpSelectBaggage.setSize(550, 130);
+		jpSelectBaggage.setLocation(40, 55);
+		jpSelectBaggage.setBackground(Color.WHITE);
 		
 		lblFree = new JLabel("무료");
 		lblFree.setFont(fontNanumGothic18);
@@ -140,29 +140,29 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 		tfFree.setEnabled(false);
 		tfFree.setEditable(false);	// textfield 입력 불가 설정
 		
-		lblAddHydrate = new JLabel("초과수화물");
-		lblAddHydrate.setFont(fontNanumGothic18);
-		lblAddHydrate.setEnabled(false);
+		lblAddHBaggage = new JLabel("초과수하물");
+		lblAddHBaggage.setFont(fontNanumGothic18);
+		lblAddHBaggage.setEnabled(false);
 		
 		lbla23kg = new JLabel("23kg x");
 		lbla23kg.setFont(fontNanumGothic18);
 		lbla23kg.setEnabled(false);
 		
-		cbAddHydrate = new JComboBox<String>(addCount);
-		cbAddHydrate.setFont(fontNanumGothic15);
-		cbAddHydrate.setEnabled(false);
+		cbAddBaggage = new JComboBox<String>(addCount);
+		cbAddBaggage.setFont(fontNanumGothic15);
+		cbAddBaggage.setEnabled(false);
 		
-		jpSelectHydrate.add(lblFree);
-		jpSelectHydrate.add(lblf23kg);
-		jpSelectHydrate.add(tfFree);
-		jpSelectHydrate.add(lblAddHydrate);
-		jpSelectHydrate.add(lbla23kg);
-		jpSelectHydrate.add(cbAddHydrate);
+		jpSelectBaggage.add(lblFree);
+		jpSelectBaggage.add(lblf23kg);
+		jpSelectBaggage.add(tfFree);
+		jpSelectBaggage.add(lblAddHBaggage);
+		jpSelectBaggage.add(lbla23kg);
+		jpSelectBaggage.add(cbAddBaggage);
 		
-		jpHydrate.add(chName, BorderLayout.NORTH);
-		jpHydrate.add(jpSelectHydrate);
+		jpBaggage.add(chName, BorderLayout.NORTH);
+		jpBaggage.add(jpSelectBaggage);
 		
-		add(jpHydrate);
+		add(jpBaggage);
 		
 	}
 
@@ -177,7 +177,7 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 		if(obj == btnOK) {
 			
 			if(chName.isSelected()) {
-				String addHydrate = cbAddHydrate.getSelectedItem().toString();
+				String addHydrate = cbAddBaggage.getSelectedItem().toString();
 				
 				informationF.setAddHydrate(addHydrate);
 				
@@ -188,21 +188,21 @@ public class SelectHydrateForm extends JFrame implements ActionListener {
 			
 		} else if(obj == chName) {
 			if(chName.isSelected()) {
-				// 체크박스 체크시 초과수화물 입력 가능
+				// 체크박스 체크시 초과수하물 입력 가능
 				lblFree.setEnabled(true);
 				lblf23kg.setEnabled(true);
 				tfFree.setEnabled(true);
-				lblAddHydrate.setEnabled(true);
+				lblAddHBaggage.setEnabled(true);
 				lbla23kg.setEnabled(true);
-				cbAddHydrate.setEnabled(true);
+				cbAddBaggage.setEnabled(true);
 			} else {
-				// 체크박스 해제시 초과수화물 입력 불가능
+				// 체크박스 해제시 초과수하물 입력 불가능
 				lblFree.setEnabled(false);
 				lblf23kg.setEnabled(false);
 				tfFree.setEnabled(false);
-				lblAddHydrate.setEnabled(false);
+				lblAddHBaggage.setEnabled(false);
 				lbla23kg.setEnabled(false);
-				cbAddHydrate.setEnabled(false);
+				cbAddBaggage.setEnabled(false);
 			}
 		}
 	}

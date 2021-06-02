@@ -28,7 +28,7 @@ import javax.swing.border.EmptyBorder;
 import DataBase.databaseClass;
 import customer.start.MainMenuForm;
 
-public class InputInformationForm extends JFrame implements ActionListener {
+public class ReservationDetailForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
@@ -59,16 +59,15 @@ public class InputInformationForm extends JFrame implements ActionListener {
 	private ButtonGroup bgSex;
 	private JRadioButton rbWoman, rbMan;
 	private JCheckBox cbAgree;
-	private JButton btnNextPayment, btnHydrate, btnSeat;
+	private JButton btnOK, btnBaggage, btnSeat;
 	
 	// Forms
 	private MainMenuForm mainMenuForm;
-	private SelectHydrateForm hydrateFrom;
+	private SelectBaggageForm baggageFrom;
 	private SelectPaymentForm paymentForm;
 	
 	// 데이터 저장용
-	private String reserveNum = "test0001";			// 예매 번호
-	private String scheduleNo = "A12345";	// 항공스케쥴 번호(테스트값)
+	private String reserveNum = "test001010";			// 예매 번호(테스트값)
 	private String ID = "test1";			// 아이디(테스트값)
 	private String nameKOR = "";			// 한글이름
 	private String nameENG = "";			// 영문이름
@@ -78,7 +77,7 @@ public class InputInformationForm extends JFrame implements ActionListener {
 	private String tel = "";				// 연락처
 	private String email = "";				// 이메일
 	private int agree = 0;			// 수신동의
-	private String hydrate = "0";			// 추과수화물 (기본값: 0)
+	private String hydrate = "0";			// 추과수하물 (기본값: 0)
 	public void setAddHydrate(String hydrate) {
 		this.hydrate = hydrate;
 	}
@@ -88,7 +87,7 @@ public class InputInformationForm extends JFrame implements ActionListener {
 	}
 
 	// 예원 - 시작 화면
-	public InputInformationForm() {
+	public ReservationDetailForm() {
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -147,28 +146,28 @@ public class InputInformationForm extends JFrame implements ActionListener {
 		jpBtns.setBackground(Color.WHITE);
 		
 		// 버튼
-		btnHydrate = new JButton("초과수화물");
-		btnHydrate.setFont(fontNanumGothic20);
-		btnHydrate.setBackground(colorBtn);
-		btnHydrate.setForeground(Color.WHITE);
+		btnBaggage = new JButton("초과수하물");
+		btnBaggage.setFont(fontNanumGothic20);
+		btnBaggage.setBackground(colorBtn);
+		btnBaggage.setForeground(Color.WHITE);
 		btnSeat = new JButton("좌석배정");
 		btnSeat.setFont(fontNanumGothic20);
 		btnSeat.setBackground(colorBtn);
 		btnSeat.setForeground(Color.WHITE);
-		btnNextPayment = new JButton("결제수단 선택");
-		btnNextPayment.setFont(fontNanumGothic20);
-		btnNextPayment.setBackground(colorBtn);
-		btnNextPayment.setForeground(Color.WHITE);
+		btnOK = new JButton("입력 완료");
+		btnOK.setFont(fontNanumGothic20);
+		btnOK.setBackground(colorBtn);
+		btnOK.setForeground(Color.WHITE);
 		
 		// 리스너
-		btnHydrate.addActionListener(this);
+		btnBaggage.addActionListener(this);
 		btnSeat.addActionListener(this);
-		btnNextPayment.addActionListener(this);
+		btnOK.addActionListener(this);
 		
 		// 컴포넌트 붙이기
-		jpBtns.add(btnHydrate);
+		jpBtns.add(btnBaggage);
 		jpBtns.add(btnSeat);
-		jpBtns.add(btnNextPayment);
+		jpBtns.add(btnOK);
 		
 		jpSet.add(jpBtns, BorderLayout.SOUTH);
 	}
@@ -317,7 +316,7 @@ public class InputInformationForm extends JFrame implements ActionListener {
 
 
 	public static void main(String[] args) {
-		new InputInformationForm();
+		new ReservationDetailForm();
 	}
 
 
@@ -329,7 +328,7 @@ public class InputInformationForm extends JFrame implements ActionListener {
 			mainMenuForm = new MainMenuForm();
 			this.setVisible(false);
 			
-		} else if(obj == btnNextPayment) {
+		} else if(obj == btnOK) {
 			
 			if(cbAgree.isSelected()) {
 				insertInformationData();
@@ -338,12 +337,12 @@ public class InputInformationForm extends JFrame implements ActionListener {
 //				this.setVisible(false);
 				
 			} else {
-				JOptionPane.showMessageDialog(null, "예약 여정의 정보를 이메일과 SMS로 수신하는 것에 동의해주십시오.", "동의 안내", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "이메일과 SMS 수신 동의해주십시오.", "동의 안내", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
-		} else if(obj == btnHydrate) {
+		} else if(obj == btnBaggage) {
 			nameKOR = tfFamilyNameKor.getText().toString() + tfNameKor.getText().toString();
-			hydrateFrom = new SelectHydrateForm(this, nameKOR);
+			baggageFrom = new SelectBaggageForm(this, nameKOR);
 			
 		} else if(obj == btnSeat) {
 			
@@ -351,9 +350,10 @@ public class InputInformationForm extends JFrame implements ActionListener {
 	}
 
 	private void insertInformationData() {
-//		String sql = "INSERT INTO reservation"
-//				+ "VALUES ('adfsdfs', 'A12345', 'test1', '유저', 'user1', '남', 'm123524', 20000201, '01023459023', 'test@gmail.com', 1, 1, 1)";
-		String sql = "INSERT INTO reservation VALUES ('";
+		// reservationDetail 테이블에 insert 하는 sql문
+		String sql = "INSERT INTO reservationDetail "
+				+ "(reserveNum, nameKOR, nameENG, sex, passport, birth, tel, email, agree, hydrate, seatNum) "
+				+ "VALUES('";
 		
 		nameKOR = tfFamilyNameKor.getText().toString() + tfNameKor.getText().toString();
 		nameENG = tfFamilyNameEng.getText().toString() + tfNameEng.getText().toString();
@@ -372,17 +372,19 @@ public class InputInformationForm extends JFrame implements ActionListener {
 			agree = 1;
 		}
 		
-		sql += reserveNum + "', '" + scheduleNo + "', '" + ID + "', '" + nameKOR + "', '" + nameENG + "', '" + sex + "', '"
-			+ passport + "', " + birth + ", '" + tel + "', '" + email + "', " + agree + ", " + hydrate + ", " + seatNum + ")";
+		sql += reserveNum + "', '" + nameKOR + "', '" + nameENG + "', '" + sex + "', '" + passport + "', '" + birth + "', '"
+			+ tel + "', '" + email + "', " + agree + ", " + hydrate + ", " + seatNum + ")";
 		
-		System.out.println(sql);
+//		System.out.println(sql);
 		
+		// sql문 수행
 		int result = databaseClass.insert(sql);
-		
 		if(result == 1) {
+			// insert 성공 시 결제로 넘어감
 			paymentForm = new SelectPaymentForm(this);
 			this.setVisible(false);
 		} else {
+			// insert 실패시 안내 다이얼로그
 			JOptionPane.showMessageDialog(null, "입력한 정보를 확인해주십시오.", "예매 안내", JOptionPane.WARNING_MESSAGE);
 		}
 	}

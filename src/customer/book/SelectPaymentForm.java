@@ -53,9 +53,9 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	private JButton btnOK;
 	
 	//
-	private InputInformationForm informationF;
+	private ReservationDetailForm informationF;
 	
-	public SelectPaymentForm(InputInformationForm informationF) {
+	public SelectPaymentForm(ReservationDetailForm informationF) {
 		this.informationF = informationF;
 		
 		setTitle(title);

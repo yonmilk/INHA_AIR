@@ -15,7 +15,7 @@ import javax.swing.border.LineBorder;
 
 import be.main.MainForm;
 import be.menu.MenuBar;
-import customer.book.InputInformationForm;
+import customer.book.ReservationDetailForm;
 import customer.start.MainMenuForm;
 
 
@@ -311,7 +311,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			this.setVisible(false);
 			
 		} else if(obj == btnMember) {
-			new InputInformationForm();
+			new ReservationDetailForm();
 			this.setVisible(false);
 		}
 	}
