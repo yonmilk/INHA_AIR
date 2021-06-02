@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -30,7 +31,7 @@ public class SelectDate extends JFrame implements ActionListener {
 
 	//폰트
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
-	Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);	// 나눔고딕 9
+	Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);		// 나눔고딕 9
 	Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 12
 	Font fontNanumGothic15 = new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 15
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
@@ -62,14 +63,26 @@ public class SelectDate extends JFrame implements ActionListener {
 	private String lblstringYear;
 	private String lblstringMonth;
 	private JPanel jpDay;
-	private int day1;
-	private int day2;
+	private String goDay = "";
+	private String comeDay = "";
+	private int roundTrip;
 	private String objText = "";
 //	private JLabel lblEx;
-
-	public SelectDate() {
+	private BookForm bookForm;
+	
+	
+	
+	
+	
+	
+	public SelectDate(BookForm bookForm) {
 			
 		//this.mainForm = mainForm;
+		this.bookForm = bookForm; //bookForm에 대한 정보
+		
+		this.goDay = bookForm.getGoDay();
+		this.comeDay = bookForm.getComeDay();
+		this.roundTrip = bookForm.getRoundTrip();
 		
 		setTitle(title);
 		setSize(width, height);
@@ -81,6 +94,9 @@ public class SelectDate extends JFrame implements ActionListener {
 		
 		
 		setCalendarForm();
+
+		tfGo.setText(goDay);
+		tfCome.setText(comeDay);
 		
 		setVisible(true);
 		
@@ -251,7 +267,17 @@ public class SelectDate extends JFrame implements ActionListener {
 		btnReselect.setBackground(new Color(10,90,150)); //버튼 색 설정
 		btnReselect.setForeground(Color.white);
 		btnReselect.addActionListener(this);
-		btnSelect = new JButton("편도 선택");
+		btnSelect = new JButton("");
+		if (goDay.isEmpty()) {
+			btnSelect.setText("날짜 선택");
+		} else {
+			if(comeDay.isEmpty()) {
+				btnSelect.setText("편도 선택");
+			} else {
+				btnSelect.setText("왕복 선택");
+			}
+		}
+		
 		btnSelect.setFont(fontNanumGothic18);
 		btnSelect.setSize(130, 40);
 		btnSelect.setLocation(150, 0);
@@ -266,16 +292,16 @@ public class SelectDate extends JFrame implements ActionListener {
 		//캘린더 변경 버튼
 		btnLeft = new JButton("<");
 		btnLeft.setFont(fontNanumGothic12);
-		btnLeft.setSize(50, 300);
-		btnLeft.setLocation(5, 150);
+		btnLeft.setSize(50, 250);
+		btnLeft.setLocation(10, 150);
 		btnLeft.setBorderPainted(false);
 		btnLeft.setBackground(Color.white);
 		btnLeft.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0));
 		btnLeft.addActionListener(this);
 		btnRight = new JButton(">");
 		btnRight.setFont(fontNanumGothic12);
-		btnRight.setSize(50, 300);
-		btnRight.setLocation(360, 150);
+		btnRight.setSize(50, 250);
+		btnRight.setLocation(340, 150);
 		btnRight.setBorderPainted(false);
 		btnRight.setBackground(Color.white);
 		btnRight.setBorder(BorderFactory.createEmptyBorder(0 , 0 , 0 , 0));
@@ -293,7 +319,7 @@ public class SelectDate extends JFrame implements ActionListener {
 	
 
 	public static void main(String[] args) {
-		new SelectDate();
+		//new SelectDate();
 	}	
 	
 	
@@ -304,21 +330,70 @@ public class SelectDate extends JFrame implements ActionListener {
 		
 		cal.set(todayYear, todayMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
 		
-		if (obj == btnSelect) {
+		if (obj == btnSelect) 
+		
+		{
+			
+			if (objText.equals("날짜 선택")) {
+				
+				JOptionPane.showMessageDialog(null, "날짜를 선택해주세요.", "탑승일 선택", JOptionPane.OK_CANCEL_OPTION);
+				
+			}
+			
 			if (objText.equals("편도 선택")) {
-				System.out.println("편도");
+				
+				//System.out.print("편도");
+				int result = JOptionPane.showConfirmDialog(null, "가는날 - " + goDay + "으로 편도 선택되었습니다.", "편도 선택", JOptionPane.YES_NO_OPTION);
+				
+				if(result == JOptionPane.YES_OPTION) {
+					
+					goDay = goDay+"";
+					roundTrip = 0;
+					
+					bookForm.setGoDay(goDay);
+					bookForm.setRoundTrip(roundTrip);
+					bookForm.setDate();
+					
+					setVisible(false);
+					
+				}
+				
 			}
 			if (objText.equals("왕복 선택")) {
-				System.out.println("왕복");
+				
+				//System.out.print("왕복");
+				int result = JOptionPane.showConfirmDialog(null, "가는날 - " + goDay + "     오는 날 -" + comeDay + "으로 왕복 선택되었습니다.", "편도 선택", JOptionPane.YES_NO_OPTION);
+				
+				if(result == JOptionPane.YES_OPTION) {
+					
+					//goday comeday roundTrip
+					goDay = goDay+"";
+					comeDay = comeDay+"";
+					roundTrip = 1;
+					
+					bookForm.setGoDay(goDay);
+					bookForm.setComeDay(comeDay);
+					bookForm.setRoundTrip(roundTrip);
+					bookForm.setDate();
+					
+					setVisible(false);
+					
+				}
 			}
 			
-			System.out.println("선택되었습니다.");
+			//System.out.println("선택되었습니다.");
 			
 		} 
+		
+		
+		
 		else if (obj == btnReselect) {
+			
+			btnSelect.setText("날짜 선택");
 			tfGo.setText("");
 			tfCome.setText("");
 			selectindex  = 0;
+			
 			
 		} else if (obj == btnDay) {
 			System.out.println(btnDay.getText());
@@ -402,9 +477,10 @@ public class SelectDate extends JFrame implements ActionListener {
 				
 				if (selectindex == 0) {
 					
-					day1 = Integer.parseInt(lblstringYear+lblstringMonth+objText);
+					goDay = lblstringYear+lblstringMonth+objText;
 					
-					tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
+					//tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
+					tfGo.setText(goDay);
 					tfCome.setText("");
 					btnSelect.setText("편도 선택");
 					selectindex++;
@@ -412,16 +488,18 @@ public class SelectDate extends JFrame implements ActionListener {
 					
 					
 				} else if(selectindex == 1) {
-					day2 = Integer.parseInt(lblstringYear+lblstringMonth+objText);
-					if(day1<day2) {
-						tfCome.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
+					comeDay = lblstringYear+lblstringMonth+objText;
+					if(Integer.parseInt(goDay)<Integer.parseInt(comeDay)) {
+						//tfCome.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
+						tfCome.setText(comeDay);
 						btnSelect.setText("왕복 선택");
 						selectindex--;
 						
 						
 					} else {
-						day1 = Integer.parseInt(lblstringYear+lblstringMonth+objText);
-						tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
+						goDay = lblstringYear+lblstringMonth+objText;
+						//tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
+						tfGo.setText(goDay);
 					}
 					
 				}

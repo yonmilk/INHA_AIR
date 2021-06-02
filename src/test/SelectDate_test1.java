@@ -68,7 +68,7 @@ public class SelectDate_test1 extends JFrame implements ActionListener {
 	private String oldObjText = "";
 //	private JLabel lblEx;
 	private String btnText = "";
-private int testDay; 
+	private int testDay; 
 
 	public SelectDate_test1() {
 			
