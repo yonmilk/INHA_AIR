@@ -164,6 +164,8 @@ public class TicketingOneWay extends JFrame implements ActionListener {
 		// 상단 메뉴바
 //		setUpMenu();
 		
+				setDatabase();
+				
 		crInfo = new Color(240,240,240);//고객이 선택한 정보를 나타내는 바의 색 
 		crClass = new Color(213, 230, 250);//좌석 등급 선택 버튼의 색
 		
@@ -341,6 +343,12 @@ public class TicketingOneWay extends JFrame implements ActionListener {
 //		menubar = new MenuBar();
 //		add(menubar.getPnTOP());
 //	}
+
+
+	private void setDatabase() {
+		
+	}
+
 
 
 	public static void main(String[] args) {
