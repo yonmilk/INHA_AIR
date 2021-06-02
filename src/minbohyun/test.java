@@ -26,9 +26,16 @@ public class test {
 				System.out.println("CON");
 				state = conn.createStatement();
 				
-
+				String DepP = "GMP";
+				String ArrP = "CJU";
+				String GoDay = "20210531";
+				
+				
 				String sql;
-				sql = "SELECT * FROM airSchedule";
+//				sql = "SELECT * FROM airSchedule";
+				sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'";
+				
+				System.out.println(sql);
 				ResultSet rs = state.executeQuery(sql);
 				
 				while (rs.next()) {
@@ -39,10 +46,10 @@ public class test {
 					String fromDate = rs.getString("fromDate");
 					String to = rs.getString("to");
 					String toDate = rs.getString("toDate");
-					if(from.equals("GMP") && to.equals("CJU") && toDate.equals("2021-05-31") ) {
+//					if(from.equals("GMP") && to.equals("CJU") && toDate.equals("2021-05-31") ) {
 					System.out.println(scheduleNo + " " + airline + " " + flightCode + " " +
 							from + " " + fromDate + " " + to + " " + toDate + " \n" + "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-				}
+//				}
 				}
 				//scheduleNo, airline, flightCode, from, fromDate, to, toDate
 				
