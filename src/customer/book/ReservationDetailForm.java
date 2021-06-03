@@ -61,7 +61,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	private ButtonGroup bgSex;
 	private JRadioButton rbWoman, rbMan;
 	private JCheckBox cbAgree;
-	private JButton btnOK, btnBaggage, btnSeat;
+	private JButton btnOK, btnBaggage;//, btnSeat;
 	
 	// Forms
 	private MainMenuForm mainMenuForm;
@@ -76,7 +76,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	private int adult = 0;	// 성인 인원
 	private int child = 0;	// 소아 인원
 	private int infant = 0;	// 유아 인원
-	private String seatType = "";	// 좌석 클래스
+//	private String seatType = "";	// 좌석 클래스
 	private int pay = 0;	// 금액
 	
 	// 입력된 승객 수 카운트
@@ -91,24 +91,24 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	private String tel = "";				// 연락처
 	private String email = "";				// 이메일
 	private int agree = 0;			// 수신동의
-	private String baggageGo = "0";			// 추과수하물 (기본값: 0)
+	private String baggage = "0";			// 추과수하물 (기본값: 0)
 //	private String baggageCOM = "0";			// 추과수하물 (기본값: 0)
 //	public void setAddHydrate(String baggageA, String baggageB ) {
 //		this.baggageGo = baggageA;
 //		this.baggageCOM = baggageB;
 //	}
 	public void setAddHydrate(String baggage) {
-		this.baggageGo = baggage;
+		this.baggage = baggage;
 	}
-	private String GOseatNum = "3";			// 가는날 좌석번호 (기본값: 0)
-	public void setGOSeatNum(String seatNum) {
-		this.GOseatNum = seatNum;
-	}
-	
-	private String COMseatNum = "5";			// 오는날 좌석번호 (기본값: 0)
-	public void setCOMSeatNum(String seatNum) {
-		this.COMseatNum = seatNum;
-	}
+//	private String GOseatNum = "3";			// 가는날 좌석번호 (기본값: 0)
+//	public void setGOSeatNum(String seatNum) {
+//		this.GOseatNum = seatNum;
+//	}
+//	
+//	private String COMseatNum = "5";			// 오는날 좌석번호 (기본값: 0)
+//	public void setCOMSeatNum(String seatNum) {
+//		this.COMseatNum = seatNum;
+//	}
 	
 	
 
@@ -185,7 +185,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 				adult = Integer.parseInt(rs.getString("adult"));
 				child = Integer.parseInt(rs.getString("child"));
 				infant = Integer.parseInt(rs.getString("infant"));
-				seatType = rs.getString("class");
+//				seatType = rs.getString("class");
 				pay = Integer.parseInt(rs.getString("pay"));
 			}
 			
@@ -218,10 +218,10 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		btnBaggage.setFont(fontNanumGothic20);
 		btnBaggage.setBackground(colorBtn);
 		btnBaggage.setForeground(Color.WHITE);
-		btnSeat = new JButton("좌석배정");
-		btnSeat.setFont(fontNanumGothic20);
-		btnSeat.setBackground(colorBtn);
-		btnSeat.setForeground(Color.WHITE);
+//		btnSeat = new JButton("좌석배정");
+//		btnSeat.setFont(fontNanumGothic20);
+//		btnSeat.setBackground(colorBtn);
+//		btnSeat.setForeground(Color.WHITE);
 		btnOK = new JButton(str);
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setBackground(colorBtn);
@@ -229,12 +229,12 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		
 		// 리스너
 		btnBaggage.addActionListener(this);
-		btnSeat.addActionListener(this);
+//		btnSeat.addActionListener(this);
 		btnOK.addActionListener(this);
 		
 		// 컴포넌트 붙이기
 		jpBtns.add(btnBaggage);
-		jpBtns.add(btnSeat);
+//		jpBtns.add(btnSeat);
 		jpBtns.add(btnOK);
 		
 		jpSet.add(jpBtns, BorderLayout.SOUTH);
@@ -411,9 +411,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 			nameKOR = tfFamilyNameKor.getText().toString() + tfNameKor.getText().toString();
 			baggageFrom = new SelectBaggageForm(this, nameKOR);
 			
-		} else if(obj == btnSeat) {
-			
-		}
+		} 
 	}
 
 	
@@ -475,24 +473,24 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 			// 편도인지 왕복인지 확인
 			if(COMscheduleNo == "") {
 				// 편도일 경우
-				if(GOseatNum != "0") {
-					// 동의 하고 좌석도 선택한 경우 정보 insert
+//				if(GOseatNum != "0") {
+//					// 동의 하고 좌석도 선택한 경우 정보 insert
 					// 편도 또는 가느날 정보 insert
 					insertInformationData(GOscheduleNo, 0);
 
-				} else {
-					JOptionPane.showMessageDialog(null, "좌석 배정을 해주십시오.", "좌석배정 안내", JOptionPane.INFORMATION_MESSAGE);
-				}
+//				} else {
+//					JOptionPane.showMessageDialog(null, "좌석 배정을 해주십시오.", "좌석배정 안내", JOptionPane.INFORMATION_MESSAGE);
+//				}
 			} else {
 				// 왕복일 경우
-				if(GOseatNum != "0" && COMseatNum != "0") {
-					// 동의 하고 좌석도 선택한 경우 정보 insert
+//				if(GOseatNum != "0" && COMseatNum != "0") {
+//					// 동의 하고 좌석도 선택한 경우 정보 insert
 					// 가는날 정보 insert
 					insertInformationData(GOscheduleNo, 1);
-					
-				} else {
-					JOptionPane.showMessageDialog(null, "좌석 배정을 해주십시오.", "좌석배정 안내", JOptionPane.INFORMATION_MESSAGE);
-				}
+//					
+//				} else {
+//					JOptionPane.showMessageDialog(null, "좌석 배정을 해주십시오.", "좌석배정 안내", JOptionPane.INFORMATION_MESSAGE);
+//				}
 			}
 			
 
@@ -523,7 +521,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		
 		// reservationDetail 테이블에 insert 하는 sql문
 		String sql = "INSERT INTO reservationDetail "
-				+ "(reserveNum, secheduleNum, nameKOR, nameENG, sex, passport, birth, tel, email, agree, baggage, seatNum) "
+				+ "(reserveNum, secheduleNum, nameKOR, nameENG, sex, passport, birth, tel, email, agree, baggage) "
 				+ "VALUES('";
 		
 		nameKOR = tfFamilyNameKor.getText().toString() + tfNameKor.getText().toString();
@@ -543,16 +541,9 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 			agree = 1;
 		}
 		
-		String baggage = baggageGo;
-		String seatNum = GOseatNum;
-		
-		if(flag == 1) {
-//			baggage = baggageCOM;
-			seatNum = COMseatNum;
-		}
 		
 		sql += reserveNum + "', '" + schedule + "', '" + nameKOR + "', '" + nameENG + "', '" + sex + "', '" + passport + "', '" + birth + "', '"
-			+ tel + "', '" + email + "', " + agree + ", " + baggage + ", " + seatNum + ")";
+			+ tel + "', '" + email + "', " + agree + ", " + baggage + ")";
 		
 		System.out.println(sql);
 		
@@ -616,12 +607,12 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		int baggageAddPay = 0;
 		if(COMscheduleNo == "0") {
 			// 편도일 경우
-			baggageAddPay = (Integer.parseInt(baggageGo) *  50000);
+			baggageAddPay = (Integer.parseInt(baggage) *  50000);
 		}
 		else {
 			// 왕복일 경우
 			// 수하물 가격 2배
-			baggageAddPay = (Integer.parseInt(baggageGo) *  50000) * 2;
+			baggageAddPay = (Integer.parseInt(baggage) *  50000) * 2;
 		}
 		
 		pay += baggageAddPay;
@@ -648,10 +639,10 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		tel = "";
 		email = "";
 		agree = 0;
-		baggageGo = "0";
+		baggage = "0";
 //		baggageCOM = "0";
-		GOseatNum = "0";
-		COMseatNum = "0";
+//		GOseatNum = "0";
+//		COMseatNum = "0";
 		
 		// textField 초기화
 		tfFamilyNameKor.setText("");
