@@ -9,6 +9,8 @@ import java.awt.Image;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -52,7 +54,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	
 	// 컴포넌트
 	private JPanel jpInputInfor, jpBtns;
-	private JLabel lblFamilyNameKor, lblNameKor, lblFamilyNameEng, lblNameEng, 
+	private JLabel lblInformation, lblFamilyNameKor, lblNameKor, lblFamilyNameEng, lblNameEng, 
 					lblSex, lblPassport, lblTel, lblEmail, lblBirth;
 	private JTextField tfFamilyNameKor, tfNameKor, tfFamilyNameEng, tfNameEng,
 					tfPassport, tfTel, tfEmail, tfBirth;
@@ -66,9 +68,17 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	private SelectBaggageForm baggageFrom;
 	private SelectPaymentForm paymentForm;
 	
-	// 데이터 저장용
+	// 예매 정보 
 	private String reserveNum = "test001010";			// 예매 번호(테스트값)
-	private String ID = "test1";			// 아이디(테스트값)
+	private int people = 0; // 총 인원
+	private int adult = 0;	// 성인 인원 - 데이터베이스로 추출
+	private int child = 0;	// 소아 인원
+	private int infant = 0;	// 유아 인원
+	
+	// 입력된 승객 수 카운트
+	private int count = 0;
+	
+	// 데이터 저장용
 	private String nameKOR = "";			// 한글이름
 	private String nameENG = "";			// 영문이름
 	private String sex = "";				// 성별(남 또는 여)
@@ -85,9 +95,20 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	public void setSeatNum(String seatNum) {
 		this.seatNum = seatNum;
 	}
+	
+	
 
 	// 예원 - 시작 화면
-	public ReservationDetailForm() {
+	public ReservationDetailForm(String reserveNum) {
+		this.reserveNum = reserveNum;
+		
+		// DB 정보 - 테스트 소스
+		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbID="inhaair";
+		String dbPassword="1234";
+		// 데이터베이스 연결 - 테스트 소스
+		databaseClass.connect(dbURL, dbID, dbPassword);
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -116,6 +137,9 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		jpSet.setLocation(50, 90);
 		jpSet.setBackground(Color.WHITE);
 		
+		// 승객 수 받아오기
+		countPeople();
+		
 		// 정보 입력 레이아웃
 		setInput();
 		
@@ -131,13 +155,31 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		
 		setVisible(true);
 		
-		// DB 정보 - 테스트 소스
-		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
-		String dbID="inhaair";
-		String dbPassword="1234";
-		// 데이터베이스 연결 - 테스트 소스
-		databaseClass.connect(dbURL, dbID, dbPassword);
 	}
+
+	// 승객 수 받아오기
+	private void countPeople() {
+		// 승객 수 받아오기
+		String sql = "SELECT adult, child, infant FROM reservation WHERE reserveNum = '" + reserveNum + "'";
+		System.out.println(sql);
+		
+		ResultSet rs = databaseClass.select(sql);
+		try {
+			while(rs.next()) {
+				adult = Integer.parseInt(rs.getString("adult"));
+				child = Integer.parseInt(rs.getString("child"));
+				infant = Integer.parseInt(rs.getString("infant"));
+			}
+			
+			people = adult + child + infant;
+			System.out.println(people);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
 
 	// 버튼 레이아웃
 	private void setBtns() {
@@ -154,7 +196,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		btnSeat.setFont(fontNanumGothic20);
 		btnSeat.setBackground(colorBtn);
 		btnSeat.setForeground(Color.WHITE);
-		btnOK = new JButton("입력 완료");
+		btnOK = new JButton("다음 승객 입력하기");
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setBackground(colorBtn);
 		btnOK.setForeground(Color.WHITE);
@@ -180,7 +222,13 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		jpInputInfor.setBackground(Color.WHITE);
 		
 		// 라벨
-		JLabel lblInformation = new JLabel("예매 정보 입력");
+		String label = "";
+		if(people > 1) {
+			label = "승객1 정보 입력";
+		} else {
+			label = "승객 정보 입력";
+		}
+		lblInformation = new JLabel(label);
 		lblInformation.setFont(fontNanumGothic25);
 		
 		// 한글 이름 라벨
@@ -316,7 +364,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 
 
 	public static void main(String[] args) {
-		new ReservationDetailForm();
+		new ReservationDetailForm("test001010");
 	}
 
 
@@ -325,17 +373,65 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		
 		if(obj == btnMainMenu) {
-			mainMenuForm = new MainMenuForm();
-			this.setVisible(false);
+			
+			// 정보 입력된 승객이 있는지 확인
+			String sql = "SELECT COUNT(*) FROM reservationDetail WHERE reserveNum = '" + reserveNum + "'";
+			ResultSet rs = databaseClass.select(sql);
+			
+			int rouCount = 0;
+			try {
+				while(rs.next()) {
+					rouCount = rs.getInt(1);
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			System.out.println(rouCount);
+			
+			int resdel = 0;
+			
+			if(rouCount == 0) {
+				// 정보 입력된 승객이 없으면 
+				
+				// reservation 삭제
+				resdel = delReservation();
+				
+				// 첫화면으로 이동
+				mainMenuForm = new MainMenuForm();
+				this.setVisible(false);
+				
+			} else {
+				// 정보 입력된 승객이 있으면 승객 정보 삭제 
+				sql = "DELETE FROM reservationDetail WHERE reserveNum = '" + reserveNum + "'";
+				System.out.println(sql);
+				
+				int result = databaseClass.delete(sql);
+				
+				if(result == 1) {
+					// reservation 삭제
+					resdel = delReservation();
+					
+					// 첫 화면으로 
+					mainMenuForm = new MainMenuForm();
+					this.setVisible(false);
+				} else {
+					// 삭제 실패시 다이얼로그 띄움
+					JOptionPane.showMessageDialog(null, "첫 화면으로 이동할 수 없습니다.", "오류 안내", JOptionPane.WARNING_MESSAGE);
+				}
+			}
 			
 		} else if(obj == btnOK) {
 			
 			if(cbAgree.isSelected()) {
-				insertInformationData();
-				
-//				paymentForm = new SelectPaymentForm(this);
-//				this.setVisible(false);
-				
+				if(seatNum != "0") {
+					// 동의 하고 좌석도 선택한 경우 정보 insert
+					insertInformationData();
+				} else {
+					JOptionPane.showMessageDialog(null, "좌석 배정을 해주십시오.", "좌석배정 안내", JOptionPane.INFORMATION_MESSAGE);
+				}
+
 			} else {
 				JOptionPane.showMessageDialog(null, "이메일과 SMS 수신 동의해주십시오.", "동의 안내", JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -349,6 +445,22 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		}
 	}
 
+	
+	// reservation 테이블에서 해당 예약 삭제
+	private int delReservation() {
+		int resdel = 0;
+		
+		String sql = "DELETE FROM reservation WHERE reserveNum = '" + reserveNum + "'";
+		System.out.println(sql);
+		
+		resdel = databaseClass.delete(sql);
+		
+		return resdel;
+		
+	}
+
+
+	// 정보 insert
 	private void insertInformationData() {
 		// reservationDetail 테이블에 insert 하는 sql문
 		String sql = "INSERT INTO reservationDetail "
@@ -380,12 +492,53 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		// sql문 수행
 		int result = databaseClass.insert(sql);
 		if(result == 1) {
-			// insert 성공 시 결제로 넘어감
-			paymentForm = new SelectPaymentForm(this);
-			this.setVisible(false);
+			if(count == people) {
+				// insert 성공 시 결제로 넘어감
+				paymentForm = new SelectPaymentForm(this);
+				this.setVisible(false);
+			} else {
+				count++;
+				
+				// 라벨 변경
+				lblInformation.setText("승객" + (count+1) + " 정보 입력");
+				
+				// 입력된 값 다 지우기
+				tfReset();
+				
+				if(count == people) {
+					btnOK.setText("결제 하기");
+				}
+			}
 		} else {
 			// insert 실패시 안내 다이얼로그
 			JOptionPane.showMessageDialog(null, "입력한 정보를 확인해주십시오.", "예매 안내", JOptionPane.WARNING_MESSAGE);
 		}
+	}
+
+
+	// 입력된 값 다 지우기
+	private void tfReset() {
+		// 변수 초기화
+		nameKOR = "";
+		nameENG = "";
+		sex = "";
+		passport = "";
+		birth = "";
+		tel = "";
+		email = "";
+		agree = 0;
+		hydrate = "0";
+		seatNum = "0";
+		
+		// textField 초기화
+		tfFamilyNameKor.setText("");
+		tfNameKor.setText("");
+		tfFamilyNameEng.setText("");
+		tfNameEng.setText("");
+		tfPassport.setText("");
+		tfTel.setText("");
+		tfEmail.setText("");
+		tfBirth.setText("");
+		cbAgree.setSelected(false);
 	}
 }

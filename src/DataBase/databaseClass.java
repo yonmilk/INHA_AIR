@@ -92,6 +92,22 @@ public class databaseClass {
 		return rs;
 	}
 	
+	//
+	// DELETE
+	//
+	public static int delete(String sql) {
+		// 쿼리 수행
+		int rs = 0;
+				
+		try {
+			rs = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return rs;
+	}
+	
 	
 	
 	public static void main(String[] args) {

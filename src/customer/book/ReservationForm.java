@@ -220,7 +220,7 @@ public class ReservationForm extends JFrame implements ActionListener {
 			if(str == "입력 완료") {
 				
 			}else {
-				informationForm = new ReservationDetailForm();
+//				informationForm = new ReservationDetailForm(reserveNum);
 			}
 		}
 	}
