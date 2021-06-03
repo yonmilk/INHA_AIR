@@ -311,7 +311,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			this.setVisible(false);
 			
 		} else if(obj == btnMember) {
-			new ReservationDetailForm();
+//			new ReservationDetailForm();
 			this.setVisible(false);
 		}
 	}
