@@ -35,101 +35,123 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 	Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
 	
 	private JPanel jpSelectedInfo;
+	
+	
+	//연우 - 예매관련 정보들 불러오기
+	//탑승일 값
+	private String goDay = "";		//가는날
+	private String comeDay = "";	//오는날
+	private int roundTrip = 0;		//편도와 왕복 (편도 0, 왕복 1)
+	//승객 인원 값
+	private int numAdult = 0;		//성인 수
+	private int numInfant = 0;		//소아 수
+	private int numChild = 0;		//유아 수
+	private int numTotal = 0;		//총 인원 수
+	//출발지 값
+	private String SelectDep;		//선택 출발지
+	private String SelectDepCode;	//선택 출발지 코드
+	//도착지 값
+	private String SelectArr;		//선택 도착지
+	private String SelectArrCode;	//선택 도착지 코드
+	
+	
+	
 	//--가상의 고객이 선택한 정보
-		private String DepP = " "; //고객이 선택한 정보 : 
-		private String ArrP = " "; // 출발지 GMP 도착지 PUS (P : place)
-		private String GoDay = " "; //출발 날짜 : 21.0515- 
-		private String ComeDay = " ";//도착 날짜 : 0601(화)    (D : date)
-		private int AdultP = 0;//성인
-		private int ChildP = 0;//소아인원
-		private int InfantP = 0;//소아인원
-		
-		public void setDepP(String depP) {
-			DepP = depP;
-		}
+	/*
+	private String DepP = " "; //고객이 선택한 정보 : 
+	private String ArrP = " "; // 출발지 GMP 도착지 PUS (P : place)
+	private String GoDay = " "; //출발 날짜 : 21.0515- 
+	private String ComeDay = " ";//도착 날짜 : 0601(화)    (D : date)
+	private int AdultP = 0;//성인
+	private int ChildP = 0;//소아인원
+	private int InfantP = 0;//소아인원
+	
+	public void setDepP(String depP) {
+		DepP = depP;
+	}
 
 
 
-		public void setArrP(String arrP) {
-			ArrP = arrP;
-		}
+	public void setArrP(String arrP) {
+		ArrP = arrP;
+	}
 
 
 
-		public void setGoDay(String goDay) {
-			GoDay = goDay;
-		}
+	public void setGoDay(String goDay) {
+		GoDay = goDay;
+	}
 
 
 
-		public void setComeDay(String comeDay) {
-			ComeDay = comeDay;
-		}
+	public void setComeDay(String comeDay) {
+		ComeDay = comeDay;
+	}
 
 
 
-		public void setAdultP(int adultP) {
-			AdultP = adultP;
-		}
+	public void setAdultP(int adultP) {
+		AdultP = adultP;
+	}
 
 
 
-		public void setChildP(int childP) {
-			ChildP = childP;
-		}
+	public void setChildP(int childP) {
+		ChildP = childP;
+	}
 
 
 
-		public void setInfantP(int infantP) {
-			InfantP = infantP;
-		}
+	public void setInfantP(int infantP) {
+		InfantP = infantP;
+	}
+	*/
 
-
-		private JLabel lblDepartP; //고객이 선택한 출발지 정보
-		private JLabel lblArriveP; //         도착지
-		private JLabel lblDepArrD;	//고객이 선택한 출발일 + 도착일
-		private JLabel lblArrow; //왕복 화살표
-		private JLabel lblAdult; //성인임을 나타냄 유아인 경우 children
-		private JLabel lblNumP; //인원 수 
-		private JLabel lblPassenger;// 탑승 인원 정보 (성인인지 유아인지의 정보 + 인원수)
-		
-		private JPanel jpFlight1; // 시간 선택시 비행기1
-		private JPanel jpFlight2; // 비행기 2
-		private JPanel jpFlight3; // 비행기 3
-		
-		private JButton btnFir1; //비행기 1의 일등석. 퍼스트석
-		private JButton btnBns1;//비행기 1의 비즈니스석
-		private JButton btnEco1;// 비행기 1의 이코노미석
-		
-		private JButton btnEco2; //비행기 2의 이코노미
-		private JButton btnBns2; //       비즈니스
-		private JButton btnFir2;// 		퍼스트석
-		
-		private JButton btnEco3;//비행기 3의 이코노미
-		private JButton btnBns3; //      비즈니스
-		private JButton btnFir3; //      퍼스트
-		
-		private Color crInfo; //고객이 선택한 정보를 나타내는 바의 색 
-		private Color crClass;//좌석 등급 버튼 색
-		private JPanel jpTotalPay; // 예상 결제금액 + 버튼 나타내는 패널
-		private Component lblTotalPay; //"예상결제금액"문구 나타내는 라벨
-		private JButton btnNext; //다음(왕복 오는 편 선택창으로 가는) 버튼
+	private JLabel lblDepartP; //고객이 선택한 출발지 정보
+	private JLabel lblArriveP; //         도착지
+	private JLabel lblDepArrD;	//고객이 선택한 출발일 + 도착일
+	private JLabel lblArrow; //왕복 화살표
+	private JLabel lblAdult; //성인임을 나타냄 유아인 경우 children
+	private JLabel lblNumP; //인원 수 
+	private JLabel lblPassenger;// 탑승 인원 정보 (성인인지 유아인지의 정보 + 인원수)
+	
+	private JPanel jpFlight1; // 시간 선택시 비행기1
+	private JPanel jpFlight2; // 비행기 2
+	private JPanel jpFlight3; // 비행기 3
+	
+	private JButton btnFir1; //비행기 1의 일등석. 퍼스트석
+	private JButton btnBns1;//비행기 1의 비즈니스석
+	private JButton btnEco1;// 비행기 1의 이코노미석
+	
+	private JButton btnEco2; //비행기 2의 이코노미
+	private JButton btnBns2; //       비즈니스
+	private JButton btnFir2;// 		퍼스트석
+	
+	private JButton btnEco3;//비행기 3의 이코노미
+	private JButton btnBns3; //      비즈니스
+	private JButton btnFir3; //      퍼스트
+	
+	private Color crInfo; //고객이 선택한 정보를 나타내는 바의 색 
+	private Color crClass;//좌석 등급 버튼 색
+	private JPanel jpTotalPay; // 예상 결제금액 + 버튼 나타내는 패널
+	private Component lblTotalPay; //"예상결제금액"문구 나타내는 라벨
+	private JButton btnNext; //다음(왕복 오는 편 선택창으로 가는) 버튼
 //		private ImageIcon imgArrow;
 //		private ImageIcon imgAeroPlane;
-		private Color crNext; //다음 버튼 색
-		
-		
+	private Color crNext; //다음 버튼 색
 	
-		Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
-		Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);	// 나눔고딕 18
-		Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 18
-		Font fontNanumGothic15= new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 18
-		Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
-		Font fontNanumGothic18Plain = new Font("NanumGothic", Font.PLAIN, 18);	// 나눔고딕 18
-		Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
-		Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
-		Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
-		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 25
+	
+
+	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
+	Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);	// 나눔고딕 18
+	Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 18
+	Font fontNanumGothic15= new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 18
+	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
+	Font fontNanumGothic18Plain = new Font("NanumGothic", Font.PLAIN, 18);	// 나눔고딕 18
+	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
+	Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
+	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
+	Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 25
 		
 
 	public TicketingRoundTripGoingForm() {
@@ -172,11 +194,13 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		jpSelectedInfo.setLocation(70,100);
 		jpSelectedInfo.setBackground(crInfo);
 		
-		lblDepartP = new JLabel(DepP);//고객이 선택한 출발지 정보
+		//lblDepartP = new JLabel(DepP);//고객이 선택한 출발지 정보
+		lblDepartP = new JLabel(SelectDep);//고객이 선택한 출발지 정보
 		lblDepartP.setFont(fontNanumGothic25);
 		lblDepartP.setBounds(50, -20, 200, 100);
 		
-		lblArriveP = new JLabel(ArrP);//고객이 선택한 도착지 정보
+		//lblArriveP = new JLabel(ArrP);//고객이 선택한 도착지 정보
+		lblArriveP = new JLabel(SelectArr);//고객이 선택한 도착지 정보
 		lblArriveP.setFont(fontNanumGothic25);
 		lblArriveP.setBounds(190, -20, 200, 100);
 //		
@@ -187,13 +211,15 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		lblArrow.setFont(fontNanumGothic30);
 		lblArrow.setBounds(135, -20, 200, 100);
 
-		lblDepArrD = new JLabel(GoDay + "  ~  " + ComeDay ); //왕복 출발일과 도착일 함께 표시
+//		lblDepArrD = new JLabel(GoDay + "  ~  " + ComeDay ); //왕복 출발일과 도착일 함께 표시
+		lblDepArrD = new JLabel(goDay + "  ~  " + comeDay ); //왕복 출발일과 도착일 함께 표시
 		lblDepArrD.setFont(fontNanumGothic18Plain);
 		lblDepArrD.setBounds(295, -20, 300, 100);
 
 		
 		
-		lblPassenger = new JLabel("    성인  " + AdultP + "명     " +"  |  "+ "    소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
+//		lblPassenger = new JLabel("    성인  " + AdultP + "명     " +"  |  "+ "    소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
+		lblPassenger = new JLabel("    성인  " + numAdult + "명     " +"  |  "+ "    소아  "+ numChild + "명"); //고객이 선택한 탑승자 정보
 		lblPassenger.setFont(fontNanumGothic18Plain);
 		lblPassenger.setBounds(640, -20, 500, 100);
 		

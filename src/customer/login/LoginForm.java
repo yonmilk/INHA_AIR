@@ -207,6 +207,7 @@ public class LoginForm extends JFrame implements ActionListener {
 					//System.out.println("로그인 성공!");
 					JOptionPane.showMessageDialog(null, id + "님 안녕하세요.", "로그인 성공", JOptionPane.INFORMATION_MESSAGE);
 					mainMenuForm = new MainMenuForm();
+					mainMenuForm.setId(id);
 					this.setVisible(false);
 				} else {
 					//System.out.println("로그인 실패!");

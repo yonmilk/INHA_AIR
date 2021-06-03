@@ -40,7 +40,7 @@ public class BookForm extends JFrame implements ActionListener {
 	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 	
 	// 색상
-	Color colorLogo = new Color(24, 62, 111);	
+	Color colorLogo = new Color(24, 62, 111);
 	Color colorBtn = new Color(10,90,150);
 	
 	// 컴포넌트
@@ -72,6 +72,58 @@ public class BookForm extends JFrame implements ActionListener {
 	private int numInfant = 0;
 	private int numChild = 0;
 	private int numTotal = 0;
+	
+	//연우 - 출발지 값 받아오기
+	private String SelectDep;
+	private String SelectDepCode;
+	
+	//연우 - 도착지 값 받아오기
+	private String SelectArr;
+	private String SelectArrCode;
+	
+	//도착지 값 받아오기
+	public String getSelectArr() {
+		return SelectArr;
+	}
+
+	public void setSelectArr(String selectArr) {
+		SelectArr = selectArr;
+	}
+
+	public String getSelectArrCode() {
+		return SelectArrCode;
+	}
+
+	public void setSelectArrCode(String selectArrCode) {
+		SelectArrCode = selectArrCode;
+	}
+	
+	public void setArr() {
+		//btnArr.setText(SelectArr);
+		btnArr.setText(SelectArrCode);
+	}
+
+	//출발지 값 받아오기
+	public String getSelectDep() {
+		return SelectDep;
+	}
+
+	public void setSelectDep(String selectDep) {
+		SelectDep = selectDep;
+	}
+
+	public String getSelectDepCode() {
+		return SelectDepCode;
+	}
+
+	public void setSelectDepCode(String selectDepCode) {
+		SelectDepCode = selectDepCode;
+	}
+
+	public void setDep() {
+		//btnDep.setText(SelectDep);
+		btnDep.setText(SelectDepCode);
+	}
 	
 	
 	//승객 인원 값
