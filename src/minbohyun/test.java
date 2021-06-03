@@ -25,34 +25,6 @@ public class test {
 				System.out.println("연결");
 				state = conn.createStatement();
 				
-				String DepP = "GMP";
-				String ArrP = "CJU";
-				String GoDay = "20210531";
-				
-				
-				String sql;
-//				sql = "SELECT * FROM airSchedule";
-				sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'";
-				
-//				System.out.println(sql);
-				ResultSet rs = state.executeQuery(sql);
-				
-				while (rs.next()) {
-					String scheduleNo = rs.getString("scheduleNo");
-					String airline = rs.getString("airline");
-					String flightCode = rs.getString("flightCode");
-					String from = rs.getString("from");
-					String fromDate = rs.getString("fromDate");
-					String to = rs.getString("to");
-					String toDate = rs.getString("toDate");
-					if(from.equals("GMP") && to.equals("CJU") && toDate.equals("20210531") ) {
-					System.out.println(scheduleNo + " " + airline + " " + flightCode + " " +
-							from + " " + fromDate + " " + to + " " + toDate + " \n" + "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-				}
-				}
-				//scheduleNo, airline, flightCode, from, fromDate, to, toDate
-				
-				rs.close();
 				state.close();
 				conn.close();
 	            
