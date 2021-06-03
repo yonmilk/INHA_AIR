@@ -45,9 +45,9 @@ public class SelectBaggageForm extends JFrame implements ActionListener {
 	// 컴포넌트
 	private JPanel jpBaggage;
 	private JCheckBox chName;
-	private JLabel lblBaggage, lblFree, lblf23kg, lblAddHBaggage, lbla23kg;
+	private JLabel lblBaggage, lblFree, lblf10kg, lblAddHBaggage, lbla10kga, lbla10kgb;
 	private JTextField tfFree;					// 무료 수하물 개수
-	private JComboBox<String> cbAddBaggage;		// 초과 수하물 선택
+	private JComboBox<String> cbAddBaggagea, cbAddBaggageb;		// 초과 수하물 선택
 	private JButton btnOK;
 	
 	// 
@@ -121,7 +121,8 @@ public class SelectBaggageForm extends JFrame implements ActionListener {
 		chName.addActionListener(this);
 		
 		JPanel jpSelectBaggage = new JPanel();
-		jpSelectBaggage.setLayout(new GridLayout(2, 3, 20, 20));
+//		jpSelectBaggage.setLayout(new GridLayout(3, 3, 10, 10));
+		jpSelectBaggage.setLayout(new GridLayout(2, 3, 10, 10));
 		jpSelectBaggage.setBorder(new EmptyBorder(20, 5, 20, 5));
 		jpSelectBaggage.setSize(550, 130);
 		jpSelectBaggage.setLocation(40, 55);
@@ -131,9 +132,9 @@ public class SelectBaggageForm extends JFrame implements ActionListener {
 		lblFree.setFont(fontNanumGothic18);
 		lblFree.setEnabled(false);
 		
-		lblf23kg = new JLabel("23kg x");
-		lblf23kg.setFont(fontNanumGothic18);
-		lblf23kg.setEnabled(false);
+		lblf10kg = new JLabel("10kg x");
+		lblf10kg.setFont(fontNanumGothic18);
+		lblf10kg.setEnabled(false);
 		
 		tfFree = new JTextField("1", 20);
 		tfFree.setFont(fontNanumGothic15);
@@ -144,20 +145,30 @@ public class SelectBaggageForm extends JFrame implements ActionListener {
 		lblAddHBaggage.setFont(fontNanumGothic18);
 		lblAddHBaggage.setEnabled(false);
 		
-		lbla23kg = new JLabel("23kg x");
-		lbla23kg.setFont(fontNanumGothic18);
-		lbla23kg.setEnabled(false);
+		lbla10kga = new JLabel("10kg x");
+		lbla10kga.setFont(fontNanumGothic18);
+		lbla10kga.setEnabled(false);
 		
-		cbAddBaggage = new JComboBox<String>(addCount);
-		cbAddBaggage.setFont(fontNanumGothic15);
-		cbAddBaggage.setEnabled(false);
+		cbAddBaggagea = new JComboBox<String>(addCount);
+		cbAddBaggagea.setFont(fontNanumGothic15);
+		cbAddBaggagea.setEnabled(false);
+		
+		lbla10kgb = new JLabel("10kg x");
+		lbla10kgb.setFont(fontNanumGothic18);
+		lbla10kgb.setEnabled(false);
+		
+		cbAddBaggageb = new JComboBox<String>(addCount);
+		cbAddBaggageb.setFont(fontNanumGothic15);
+		cbAddBaggageb.setEnabled(false);
 		
 		jpSelectBaggage.add(lblFree);
-		jpSelectBaggage.add(lblf23kg);
+		jpSelectBaggage.add(lblf10kg);
 		jpSelectBaggage.add(tfFree);
 		jpSelectBaggage.add(lblAddHBaggage);
-		jpSelectBaggage.add(lbla23kg);
-		jpSelectBaggage.add(cbAddBaggage);
+		jpSelectBaggage.add(lbla10kga);
+		jpSelectBaggage.add(cbAddBaggagea);
+//		jpSelectBaggage.add(lbla10kgb);
+//		jpSelectBaggage.add(cbAddBaggageb);
 		
 		jpBaggage.add(chName, BorderLayout.NORTH);
 		jpBaggage.add(jpSelectBaggage);
@@ -177,11 +188,12 @@ public class SelectBaggageForm extends JFrame implements ActionListener {
 		if(obj == btnOK) {
 			
 			if(chName.isSelected()) {
-				String addHydrate = cbAddBaggage.getSelectedItem().toString();
+				String addHydrateA = cbAddBaggagea.getSelectedItem().toString();
+//				String addHydrateB = cbAddBaggageb.getSelectedItem().toString();
 				
-				informationF.setAddHydrate(addHydrate);
+//				informationF.setAddHydrate(addHydrateA, addHydrateB);
+				informationF.setAddHydrate(addHydrateA);
 				
-				System.out.println(addHydrate);
 			}
 
 			this.setVisible(false);		// 창 종료
@@ -190,19 +202,23 @@ public class SelectBaggageForm extends JFrame implements ActionListener {
 			if(chName.isSelected()) {
 				// 체크박스 체크시 초과수하물 입력 가능
 				lblFree.setEnabled(true);
-				lblf23kg.setEnabled(true);
+				lblf10kg.setEnabled(true);
 				tfFree.setEnabled(true);
 				lblAddHBaggage.setEnabled(true);
-				lbla23kg.setEnabled(true);
-				cbAddBaggage.setEnabled(true);
+				lbla10kga.setEnabled(true);
+				cbAddBaggagea.setEnabled(true);
+				lbla10kgb.setEnabled(true);
+				cbAddBaggageb.setEnabled(true);
 			} else {
 				// 체크박스 해제시 초과수하물 입력 불가능
 				lblFree.setEnabled(false);
-				lblf23kg.setEnabled(false);
+				lblf10kg.setEnabled(false);
 				tfFree.setEnabled(false);
 				lblAddHBaggage.setEnabled(false);
-				lbla23kg.setEnabled(false);
-				cbAddBaggage.setEnabled(false);
+				lbla10kga.setEnabled(false);
+				cbAddBaggagea.setEnabled(false);
+				lbla10kgb.setEnabled(false);
+				cbAddBaggagea.setEnabled(false);
 			}
 		}
 	}
