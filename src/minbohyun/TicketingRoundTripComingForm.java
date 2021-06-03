@@ -15,7 +15,7 @@ import javax.swing.border.LineBorder;
 
 import be.main.MainForm;
 import be.menu.MenuBar;
-import customer.book.ReservationDetailForm;
+//import customer.book.ReservationDetailForm;
 import customer.start.MainMenuForm;
 
 

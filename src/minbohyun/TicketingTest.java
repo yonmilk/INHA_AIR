@@ -142,6 +142,15 @@ public class TicketingTest extends JFrame implements ActionListener {
 		private JLabel lblDepP;
 		private JLabel lblArrP;
 		private JLabel lblDate;
+		private String scheduleNo;
+		private String airline;
+		private String flightCode;
+		private String from;
+		private String fromDate;
+		private String to;
+		private String toDate;
+		private String fromTime;
+		private String toTime;
 
 	public TicketingTest() {
 		setTitle(title);
@@ -368,8 +377,8 @@ public class TicketingTest extends JFrame implements ActionListener {
 					state = conn.createStatement();
 					//----------
 					String DepP = "GMP";
-					String ArrP = "CJU";
-					String GoDay = "20210907";
+					String ArrP = "PUS";
+					String GoDay = "20210531";
 					//----------
 					
 					String sql;
@@ -377,15 +386,18 @@ public class TicketingTest extends JFrame implements ActionListener {
 					
 					ResultSet rs = state.executeQuery(sql);
 					while (rs.next()) {
-						String scheduleNo = rs.getString("scheduleNo");
-						String airline = rs.getString("airline");
-						String flightCode = rs.getString("flightCode");
-						String from = rs.getString("from");
-						String fromDate = rs.getString("fromDate");
-						String to = rs.getString("to");
-						String toDate = rs.getString("toDate");
-						String fromTime = rs.getString("fromTime");
-						String toTime = rs.getString("toTime");
+						scheduleNo = rs.getString("scheduleNo");
+						airline = rs.getString("airline");
+						flightCode = rs.getString("flightCode");
+						from = rs.getString("from");
+						fromDate = rs.getString("fromDate");
+						to = rs.getString("to");
+						toDate = rs.getString("toDate");
+						fromTime = rs.getString("fromTime");
+						toTime = rs.getString("toTime");
+						
+					
+					
 						System.out.println(scheduleNo + " " + airline + " " + flightCode + " " +
 								from + " " + fromDate + " " + to + " " + toDate + " \n" + "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
 						
@@ -400,11 +412,12 @@ public class TicketingTest extends JFrame implements ActionListener {
 						lblDate = new JLabel(fromDate + " ~ " + toDate);
 						lblDate.setFont(fontNanumGothic18Plain);
 						lblDate.setBounds(300, -20, 400, 100);
-						
+		    
 						
 //						lblFliCo = new JLabel(flightCode);
 //						lblFliCo.setFont(fontNanumGothic20);
 //						lblFliCo.setBounds(10, 10, 300, 40);
+						
 						
 						
 						jpSelectedInfo.add(lblDepP);
@@ -414,7 +427,12 @@ public class TicketingTest extends JFrame implements ActionListener {
 //						jpFlight1.add(lblFliCo);
 					
 					//해야되는것 3개만뜨게.....
+					
 					}
+					
+					
+					
+					
 					
 					rs.close();
 					state.close();
