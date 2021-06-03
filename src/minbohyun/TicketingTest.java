@@ -89,14 +89,14 @@ public class TicketingTest extends JFrame implements ActionListener {
 		InfantP = infantP;
 	}
 //		
-		
-		private JLabel lblDepartP; //고객이 선택한 출발지 정보
-		private JLabel lblArriveP; //         도착지
-		private JLabel lblDepartD;//고객이 선택한 출발일 정보
+//		
+////		private JLabel lblDepartP; //고객이 선택한 출발지 정보
+//		private JLabel lblArriveP; //         도착지
+//		private JLabel lblDepartD;//고객이 선택한 출발일 정보
 		
 		private JLabel lblArrow; //왕복 화살표
-		private JLabel lblAdult; //성인임을 나타냄 유아인 경우 children
-		private JLabel lblNumP; //인원 수 
+//		private JLabel lblAdult; //성인임을 나타냄 유아인 경우 children
+//		private JLabel lblNumP; //인원 수 
 		private JLabel lblPassenger;// 탑승 인원 정보 (성인인지 유아인지의 정보 + 인원수)
 		
 		private JPanel jpFlight1; // 시간 선택시 비행기1
@@ -139,6 +139,18 @@ public class TicketingTest extends JFrame implements ActionListener {
 		Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 30
 		private JLabel lblFliCo;
+		private JLabel lblDepP;
+		private JLabel lblArrP;
+		private JLabel lblDate;
+		private String scheduleNo;
+		private String airline;
+		private String flightCode;
+		private String from;
+		private String fromDate;
+		private String to;
+		private String toDate;
+		private String fromTime;
+		private String toTime;
 
 	public TicketingTest() {
 		setTitle(title);
@@ -182,16 +194,16 @@ public class TicketingTest extends JFrame implements ActionListener {
 		jpSelectedInfo.setLayout(null);
 		jpSelectedInfo.setSize(1000,60);
 		jpSelectedInfo.setLocation(70,100);
-		jpSelectedInfo.setBackground(crInfo);
+		jpSelectedInfo.setBackground(Color.GREEN);
 		
-		lblDepartP = new JLabel(DepP);//고객이 선택한 출발지 정보
-		lblDepartP.setFont(fontNanumGothic25);
-		lblDepartP.setBounds(50, -20, 200, 100);
-		
-		lblArriveP = new JLabel(ArrP);//고객이 선택한 도착지 정보
-		lblArriveP.setFont(fontNanumGothic25);
-		lblArriveP.setBounds(190, -20, 200, 100);
+//		lblDepartP = new JLabel(DepP);//고객이 선택한 출발지 정보
+//		lblDepartP.setFont(fontNanumGothic25);
+//		lblDepartP.setBounds(50, -20, 200, 100);
 //		
+//		lblArriveP = new JLabel(ArrP);//고객이 선택한 도착지 정보
+//		lblArriveP.setFont(fontNanumGothic25);
+//		lblArriveP.setBounds(190, -20, 200, 100);
+////		
 //		imgAeroPlane = new ImageIcon("images/aeroplane.png");
 //		imgArrow = new ImageIcon("images/arrow.png");
 		
@@ -199,14 +211,14 @@ public class TicketingTest extends JFrame implements ActionListener {
 		lblArrow.setFont(fontNanumGothic18);
 		lblArrow.setBounds(135, -20, 200, 100);
 
-		lblDepartD = new JLabel(GoDay); //편도라서 출발일만 표시
-		lblDepartD.setFont(fontNanumGothic18Plain);
-		lblDepartD.setBounds(295, -20, 300, 100);
+//		lblDepartD = new JLabel(GoDay); //편도라서 출발일만 표시
+//		lblDepartD.setFont(fontNanumGothic18Plain);
+//		lblDepartD.setBounds(295, -20, 300, 100);
 
 		
 		lblPassenger = new JLabel("    성인  " + AdultP + "명     " +"  |  "+ "    소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
 		lblPassenger.setFont(fontNanumGothic18Plain);
-		lblPassenger.setBounds(490, -20, 500, 100);
+		lblPassenger.setBounds(600, -20, 500, 100);
 		
 		jpFlight1 = new JPanel(); //3개의 시간표 중 선택 1
 		jpFlight1.setLayout(null);
@@ -280,10 +292,10 @@ public class TicketingTest extends JFrame implements ActionListener {
 		btnFir3.setLocation(820,0);
 		btnFir3.setBackground(crClass);
 		
-		jpSelectedInfo.add(lblDepartP); // 상단의 고객이 선택한 정보를 나타내는 바에 출발지 추가
-		jpSelectedInfo.add(lblArriveP);// 도착지 추가
+//		jpSelectedInfo.add(lblDepartP); // 상단의 고객이 선택한 정보를 나타내는 바에 출발지 추가
+//		jpSelectedInfo.add(lblArriveP);// 도착지 추가
 		jpSelectedInfo.add(lblArrow); // 화살표
-		jpSelectedInfo.add(lblDepartD); //출발날짜 
+//		jpSelectedInfo.add(lblDepartD); //출발날짜 
 		jpSelectedInfo.add(lblPassenger); //탑승 인원 정보(성인인지 유아인지 + 인원수)
 		
 		jpTotalPay = new JPanel();//예상 결제 금액 + 버튼 라벨나타내는 패널
@@ -363,32 +375,64 @@ public class TicketingTest extends JFrame implements ActionListener {
 					Class.forName(driver);
 					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 					state = conn.createStatement();
-					
+					//----------
 					String DepP = "GMP";
-					String ArrP = "CJU";
+					String ArrP = "PUS";
 					String GoDay = "20210531";
+					//----------
+					
 					String sql;
 					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'";
 					
 					ResultSet rs = state.executeQuery(sql);
 					while (rs.next()) {
-						String scheduleNo = rs.getString("scheduleNo");
-						String airline = rs.getString("airline");
-						String flightCode = rs.getString("flightCode");
-						String from = rs.getString("from");
-						String fromDate = rs.getString("fromDate");
-						String to = rs.getString("to");
-						String toDate = rs.getString("toDate");
-//						System.out.println(scheduleNo + " " + airline + " " + flightCode + " " +
-//								from + " " + fromDate + " " + to + " " + toDate + " \n" + "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+						scheduleNo = rs.getString("scheduleNo");
+						airline = rs.getString("airline");
+						flightCode = rs.getString("flightCode");
+						from = rs.getString("from");
+						fromDate = rs.getString("fromDate");
+						to = rs.getString("to");
+						toDate = rs.getString("toDate");
+						fromTime = rs.getString("fromTime");
+						toTime = rs.getString("toTime");
 						
-						lblFliCo = new JLabel(flightCode);//고객이 선택한 도착지 정보
-						lblFliCo.setFont(fontNanumGothic20);
-						lblFliCo.setBounds(10, 10, 300, 40);
-						jpFlight1.add(lblFliCo);
+					
+					
+						System.out.println(scheduleNo + " " + airline + " " + flightCode + " " +
+								from + " " + fromDate + " " + to + " " + toDate + " \n" + "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+						
+						lblDepP = new JLabel(from);
+						lblDepP.setFont(fontNanumGothic25);
+						lblDepP.setBounds(50, -20, 200, 100);
+						
+						lblArrP = new JLabel(to);
+						lblArrP.setFont(fontNanumGothic25);
+						lblArrP.setBounds(180, -20, 200, 100);
+						
+						lblDate = new JLabel(fromDate + " ~ " + toDate);
+						lblDate.setFont(fontNanumGothic18Plain);
+						lblDate.setBounds(300, -20, 400, 100);
+		    
+						
+//						lblFliCo = new JLabel(flightCode);
+//						lblFliCo.setFont(fontNanumGothic20);
+//						lblFliCo.setBounds(10, 10, 300, 40);
+						
+						
+						
+						jpSelectedInfo.add(lblDepP);
+						jpSelectedInfo.add(lblArrP);
+						jpSelectedInfo.add(lblDate);
+						
+//						jpFlight1.add(lblFliCo);
 					
 					//해야되는것 3개만뜨게.....
+					
 					}
+					
+					
+					
+					
 					
 					rs.close();
 					state.close();

@@ -22,7 +22,7 @@ public class test {
 	    try{
 				Class.forName(driver);
 				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-//				System.out.println("CON");
+				System.out.println("연결");
 				state = conn.createStatement();
 				
 				String DepP = "GMP";
@@ -45,10 +45,10 @@ public class test {
 					String fromDate = rs.getString("fromDate");
 					String to = rs.getString("to");
 					String toDate = rs.getString("toDate");
-//					if(from.equals("GMP") && to.equals("CJU") && toDate.equals("2021-05-31") ) {
+					if(from.equals("GMP") && to.equals("CJU") && toDate.equals("20210531") ) {
 					System.out.println(scheduleNo + " " + airline + " " + flightCode + " " +
 							from + " " + fromDate + " " + to + " " + toDate + " \n" + "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-//				}
+				}
 				}
 				//scheduleNo, airline, flightCode, from, fromDate, to, toDate
 				
