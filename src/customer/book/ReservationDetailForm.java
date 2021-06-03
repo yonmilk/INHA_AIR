@@ -68,12 +68,16 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	private SelectBaggageForm baggageFrom;
 	private SelectPaymentForm paymentForm;
 	
-	// 예매 정보 
+	// 예매 정보 - reserveNum을 이용해 reservation 테이블에서 가져옴
 	private String reserveNum = "test001010";			// 예매 번호(테스트값)
+	private String GOscheduleNo = "";
+	private String COMscheduleNo = "";
 	private int people = 0; // 총 인원
-	private int adult = 0;	// 성인 인원 - 데이터베이스로 추출
+	private int adult = 0;	// 성인 인원
 	private int child = 0;	// 소아 인원
 	private int infant = 0;	// 유아 인원
+	private String seatType = "";	// 좌석 클래스
+	private int pay = 0;	// 금액
 	
 	// 입력된 승객 수 카운트
 	private int count = 0;
@@ -87,13 +91,23 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	private String tel = "";				// 연락처
 	private String email = "";				// 이메일
 	private int agree = 0;			// 수신동의
-	private String hydrate = "0";			// 추과수하물 (기본값: 0)
-	public void setAddHydrate(String hydrate) {
-		this.hydrate = hydrate;
+	private String baggageGo = "0";			// 추과수하물 (기본값: 0)
+//	private String baggageCOM = "0";			// 추과수하물 (기본값: 0)
+//	public void setAddHydrate(String baggageA, String baggageB ) {
+//		this.baggageGo = baggageA;
+//		this.baggageCOM = baggageB;
+//	}
+	public void setAddHydrate(String baggage) {
+		this.baggageGo = baggage;
 	}
-	private String seatNum = "0";			// 좌석번호 (기본값: 0)
-	public void setSeatNum(String seatNum) {
-		this.seatNum = seatNum;
+	private String GOseatNum = "3";			// 가는날 좌석번호 (기본값: 0)
+	public void setGOSeatNum(String seatNum) {
+		this.GOseatNum = seatNum;
+	}
+	
+	private String COMseatNum = "5";			// 오는날 좌석번호 (기본값: 0)
+	public void setCOMSeatNum(String seatNum) {
+		this.COMseatNum = seatNum;
 	}
 	
 	
@@ -137,8 +151,8 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		jpSet.setLocation(50, 90);
 		jpSet.setBackground(Color.WHITE);
 		
-		// 승객 수 받아오기
-		countPeople();
+		// 선택한 항공편 정보 받아오기
+		selectReserve();
 		
 		// 정보 입력 레이아웃
 		setInput();
@@ -157,22 +171,27 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		
 	}
 
-	// 승객 수 받아오기
-	private void countPeople() {
-		// 승객 수 받아오기
-		String sql = "SELECT adult, child, infant FROM reservation WHERE reserveNum = '" + reserveNum + "'";
+	// 선택한 항공편 정보 받아오기
+	private void selectReserve() {
+		// 선택한 항공편 정보 받아오기
+		String sql = "SELECT * FROM reservation WHERE reserveNum = '" + reserveNum + "'";
 		System.out.println(sql);
 		
 		ResultSet rs = databaseClass.select(sql);
 		try {
 			while(rs.next()) {
+				GOscheduleNo = rs.getString("GOscheduleNo");
+				COMscheduleNo = rs.getString("COMscheduleNo");
 				adult = Integer.parseInt(rs.getString("adult"));
 				child = Integer.parseInt(rs.getString("child"));
 				infant = Integer.parseInt(rs.getString("infant"));
+				seatType = rs.getString("class");
+				pay = Integer.parseInt(rs.getString("pay"));
 			}
 			
 			people = adult + child + infant;
-			System.out.println(people);
+//			System.out.println(people);
+//			System.out.println(GOscheduleNo + ", " + COMscheduleNo + ", " + pay);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -183,6 +202,13 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 
 	// 버튼 레이아웃
 	private void setBtns() {
+		String str = "";
+		if( people > 1) {
+			str = "다음 승객 입력하기";
+		} else {
+			str = "결제하기";
+		}
+		
 		
 		jpBtns = new JPanel(new GridLayout(1, 3, 10, 10));
 		jpBtns.setBackground(Color.WHITE);
@@ -196,7 +222,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		btnSeat.setFont(fontNanumGothic20);
 		btnSeat.setBackground(colorBtn);
 		btnSeat.setForeground(Color.WHITE);
-		btnOK = new JButton("다음 승객 입력하기");
+		btnOK = new JButton(str);
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setBackground(colorBtn);
 		btnOK.setForeground(Color.WHITE);
@@ -374,67 +400,12 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		
 		if(obj == btnMainMenu) {
 			
-			// 정보 입력된 승객이 있는지 확인
-			String sql = "SELECT COUNT(*) FROM reservationDetail WHERE reserveNum = '" + reserveNum + "'";
-			ResultSet rs = databaseClass.select(sql);
-			
-			int rouCount = 0;
-			try {
-				while(rs.next()) {
-					rouCount = rs.getInt(1);
-				}
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			System.out.println(rouCount);
-			
-			int resdel = 0;
-			
-			if(rouCount == 0) {
-				// 정보 입력된 승객이 없으면 
-				
-				// reservation 삭제
-				resdel = delReservation();
-				
-				// 첫화면으로 이동
-				mainMenuForm = new MainMenuForm();
-				this.setVisible(false);
-				
-			} else {
-				// 정보 입력된 승객이 있으면 승객 정보 삭제 
-				sql = "DELETE FROM reservationDetail WHERE reserveNum = '" + reserveNum + "'";
-				System.out.println(sql);
-				
-				int result = databaseClass.delete(sql);
-				
-				if(result == 1) {
-					// reservation 삭제
-					resdel = delReservation();
-					
-					// 첫 화면으로 
-					mainMenuForm = new MainMenuForm();
-					this.setVisible(false);
-				} else {
-					// 삭제 실패시 다이얼로그 띄움
-					JOptionPane.showMessageDialog(null, "첫 화면으로 이동할 수 없습니다.", "오류 안내", JOptionPane.WARNING_MESSAGE);
-				}
-			}
+			clickMain();
 			
 		} else if(obj == btnOK) {
 			
-			if(cbAgree.isSelected()) {
-				if(seatNum != "0") {
-					// 동의 하고 좌석도 선택한 경우 정보 insert
-					insertInformationData();
-				} else {
-					JOptionPane.showMessageDialog(null, "좌석 배정을 해주십시오.", "좌석배정 안내", JOptionPane.INFORMATION_MESSAGE);
-				}
-
-			} else {
-				JOptionPane.showMessageDialog(null, "이메일과 SMS 수신 동의해주십시오.", "동의 안내", JOptionPane.INFORMATION_MESSAGE);
-			}
+			clickOK();
+			
 			
 		} else if(obj == btnBaggage) {
 			nameKOR = tfFamilyNameKor.getText().toString() + tfNameKor.getText().toString();
@@ -446,6 +417,93 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	}
 
 	
+	private void clickMain() {
+		// 정보 입력된 승객이 있는지 확인
+		String sql = "SELECT COUNT(*) FROM reservationDetail WHERE reserveNum = '" + reserveNum + "'";
+		ResultSet rs = databaseClass.select(sql);
+					
+		int rouCount = 0;
+		try {
+			while(rs.next()) {
+			rouCount = rs.getInt(1);
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+					
+		System.out.println(rouCount);
+		
+		int resdel = 0;
+		
+		if(rouCount == 0) {
+			// 정보 입력된 승객이 없으면 
+			
+			// reservation 삭제
+			resdel = delReservation();
+			
+			// 첫화면으로 이동
+			mainMenuForm = new MainMenuForm();
+			this.setVisible(false);
+						
+		} else {
+			// 정보 입력된 승객이 있으면 승객 정보 삭제 
+			sql = "DELETE FROM reservationDetail WHERE reserveNum = '" + reserveNum + "'";
+			System.out.println(sql);
+						
+			int result = databaseClass.delete(sql);
+			
+			if(result == 1) {
+				// reservation 삭제
+				resdel = delReservation();
+							
+				// 첫 화면으로 
+				mainMenuForm = new MainMenuForm();
+				this.setVisible(false);
+			} else {
+				// 삭제 실패시 다이얼로그 띄움
+				JOptionPane.showMessageDialog(null, "첫 화면으로 이동할 수 없습니다.", "오류 안내", JOptionPane.WARNING_MESSAGE);
+			}
+		}
+					
+	}
+
+
+
+	private void clickOK() {
+		if(cbAgree.isSelected()) {
+			// 편도인지 왕복인지 확인
+			if(COMscheduleNo == "") {
+				// 편도일 경우
+				if(GOseatNum != "0") {
+					// 동의 하고 좌석도 선택한 경우 정보 insert
+					// 편도 또는 가느날 정보 insert
+					insertInformationData(GOscheduleNo, 0);
+
+				} else {
+					JOptionPane.showMessageDialog(null, "좌석 배정을 해주십시오.", "좌석배정 안내", JOptionPane.INFORMATION_MESSAGE);
+				}
+			} else {
+				// 왕복일 경우
+				if(GOseatNum != "0" && COMseatNum != "0") {
+					// 동의 하고 좌석도 선택한 경우 정보 insert
+					// 가는날 정보 insert
+					insertInformationData(GOscheduleNo, 1);
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "좌석 배정을 해주십시오.", "좌석배정 안내", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+			
+
+		} else {
+			JOptionPane.showMessageDialog(null, "이메일과 SMS 수신 동의해주십시오.", "동의 안내", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+	}
+
+
+
 	// reservation 테이블에서 해당 예약 삭제
 	private int delReservation() {
 		int resdel = 0;
@@ -461,10 +519,11 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 
 
 	// 정보 insert
-	private void insertInformationData() {
+	private void insertInformationData(String schedule, int flag) {
+		
 		// reservationDetail 테이블에 insert 하는 sql문
 		String sql = "INSERT INTO reservationDetail "
-				+ "(reserveNum, nameKOR, nameENG, sex, passport, birth, tel, email, agree, hydrate, seatNum) "
+				+ "(reserveNum, secheduleNum, nameKOR, nameENG, sex, passport, birth, tel, email, agree, baggage, seatNum) "
 				+ "VALUES('";
 		
 		nameKOR = tfFamilyNameKor.getText().toString() + tfNameKor.getText().toString();
@@ -484,36 +543,98 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 			agree = 1;
 		}
 		
-		sql += reserveNum + "', '" + nameKOR + "', '" + nameENG + "', '" + sex + "', '" + passport + "', '" + birth + "', '"
-			+ tel + "', '" + email + "', " + agree + ", " + hydrate + ", " + seatNum + ")";
+		String baggage = baggageGo;
+		String seatNum = GOseatNum;
 		
-//		System.out.println(sql);
+		if(flag == 1) {
+//			baggage = baggageCOM;
+			seatNum = COMseatNum;
+		}
+		
+		sql += reserveNum + "', '" + schedule + "', '" + nameKOR + "', '" + nameENG + "', '" + sex + "', '" + passport + "', '" + birth + "', '"
+			+ tel + "', '" + email + "', " + agree + ", " + baggage + ", " + seatNum + ")";
+		
+		System.out.println(sql);
 		
 		// sql문 수행
 		int result = databaseClass.insert(sql);
 		if(result == 1) {
-			if(count == people) {
-				// insert 성공 시 결제로 넘어감
-				paymentForm = new SelectPaymentForm(this);
-				this.setVisible(false);
-			} else {
+			
+			if(flag == 1) {
+				// 오는날 정보 insert
+				insertInformationData(COMscheduleNo, 0);
+			}
+			else {
+				
 				count++;
 				
-				// 라벨 변경
-				lblInformation.setText("승객" + (count+1) + " 정보 입력");
-				
-				// 입력된 값 다 지우기
-				tfReset();
-				
-				if(count == people) {
-					btnOK.setText("결제 하기");
-				}
+				// 다음 승객 있는지 확인해서 결제로 넘어가기
+				goNext();
 			}
+			
+			
 		} else {
 			// insert 실패시 안내 다이얼로그
 			JOptionPane.showMessageDialog(null, "입력한 정보를 확인해주십시오.", "예매 안내", JOptionPane.WARNING_MESSAGE);
 		}
 	}
+
+
+	private void goNext() {
+		
+		if(count == people) {
+			// insert 성공 시 결제로 넘어감
+			
+			// 추가수하물 만큼 가격 추가하기
+			int rs = upPay();
+			
+			if(rs == 1) {
+				paymentForm = new SelectPaymentForm(this);
+				this.setVisible(false);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "다시 시도해주세요.", "오류 안내", JOptionPane.WARNING_MESSAGE);
+			}
+			
+		} else {
+			// 라벨 변경
+			lblInformation.setText("승객" + (count+1) + " 정보 입력");
+			
+			// 입력된 값 다 지우기
+			tfReset();
+			
+			if((count+1) == people) {
+				btnOK.setText("결제 하기");
+			}
+		}
+	}
+
+
+	// 금액 update
+	private int upPay() {
+		
+		int baggageAddPay = 0;
+		if(COMscheduleNo == "0") {
+			// 편도일 경우
+			baggageAddPay = (Integer.parseInt(baggageGo) *  50000);
+		}
+		else {
+			// 왕복일 경우
+			// 수하물 가격 2배
+			baggageAddPay = (Integer.parseInt(baggageGo) *  50000) * 2;
+		}
+		
+		pay += baggageAddPay;
+		
+		// reservation 에 가격 업데이트
+		String sql = "UPDATE reservation SET pay=" + pay + " WHERE reserveNum='" + reserveNum + "'";
+		
+		int rs = databaseClass.update(sql);
+		
+		return rs;
+		
+	}
+
 
 
 	// 입력된 값 다 지우기
@@ -527,8 +648,10 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		tel = "";
 		email = "";
 		agree = 0;
-		hydrate = "0";
-		seatNum = "0";
+		baggageGo = "0";
+//		baggageCOM = "0";
+		GOseatNum = "0";
+		COMseatNum = "0";
 		
 		// textField 초기화
 		tfFamilyNameKor.setText("");
