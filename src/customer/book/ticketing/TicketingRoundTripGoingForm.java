@@ -221,7 +221,7 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 
 		
 		
-		lblPassenger = new JLabel("    성인  " + AdultP + "명     " +"  |  "+ "    소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
+		lblPassenger = new JLabel("    성인  " + AdultP + "명   " +"  |  "+ "  소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
 		lblPassenger.setFont(fontNanumGothic18Plain);
 		lblPassenger.setBounds(640, -20, 500, 100);
 		
@@ -381,7 +381,7 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		lblArrP.setFont(fontNanumGothic25);
 		lblArrP.setBounds(180, -20, 200, 100);
 		
-		lblDate = new JLabel(fromDate + " ~ " + toDate);
+		lblDate = new JLabel("<html>"+fromDate + "&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;" + toDate+"</html>");
 		lblDate.setFont(fontNanumGothic18Plain);
 		lblDate.setBounds(300, -20, 400, 100);
 
@@ -431,7 +431,7 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 					Class.forName(driver);
 					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 					state = conn.createStatement();
-					System.out.println("oo");
+//					System.out.println("oo");
 					
 					String SelectedFliCo = "IH8985";
 					//----------
@@ -445,11 +445,9 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 						prestigeClass = rs.getString("prestigeClass");
 						firstClass = rs.getString("firstClass");
 							
-						System.out.println(economyClass + " " + prestigeClass + " " +
-								firstClass + "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+//						System.out.println(economyClass + " " + prestigeClass + " " +
+//								firstClass + "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
 					}
-						
-					
 					rs.close();
 					state.close();
 					conn.close();
@@ -468,12 +466,6 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 				} catch (SQLException ex2) {
 				}
 			}
-			
-			
-			
-			
-			
-			
 		    try{
 			Class.forName(driver);
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
@@ -499,8 +491,6 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 						to = rs.getString("to");
 						toDate = rs.getString("toDate");
 						fromTime = rs.getString("fromTime");
-						
-						
 					}
 						
 //					rs.close();
@@ -520,16 +510,10 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 				} catch (SQLException ex2) {
 				}
 			}
-		    		
 	}
-
-
-
 	public static void main(String[] args) {
 		new TicketingRoundTripGoingForm();
 	}
-
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
@@ -545,4 +529,3 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		}
 	}
 }
-
