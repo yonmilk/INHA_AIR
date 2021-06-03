@@ -25,6 +25,7 @@ public class success {
 				Class.forName(driver);
 				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 				state = conn.createStatement();
+				System.out.println("oo");
 				
 				String DepP = "GMP";
 				String ArrP = "CJU";
@@ -48,6 +49,7 @@ public class success {
 				rs.close();
 				state.close();
 				conn.close();
+				
 	    }
 	    catch (Exception e) {
 		}finally {
