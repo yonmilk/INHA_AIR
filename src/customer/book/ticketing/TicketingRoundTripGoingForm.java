@@ -200,26 +200,9 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		jpSelectedInfo.setLocation(70,100);
 		jpSelectedInfo.setBackground(crInfo);
 		
-//		lblDepartP = new JLabel(DepP);//고객이 선택한 출발지 정보
-//		lblDepartP.setFont(fontNanumGothic25);
-//		lblDepartP.setBounds(50, -20, 200, 100);
-//		
-//		lblArriveP = new JLabel(ArrP);//고객이 선택한 도착지 정보
-//		lblArriveP.setFont(fontNanumGothic25);
-//		lblArriveP.setBounds(190, -20, 200, 100);
-		
-//		imgAeroPlane = new ImageIcon("images/aeroplane.png");
-//		imgArrow = new ImageIcon("images/arrow.png");
-		
 		lblArrow = new JLabel("→"); //문자로 넣을지 그림으로 넣을지 ..
 		lblArrow.setFont(fontNanumGothic30);
 		lblArrow.setBounds(135, -20, 200, 100);
-
-//		lblDepArrD = new JLabel(GoDay + "  ~  " + ComeDay ); //왕복 출발일과 도착일 함께 표시
-//		lblDepArrD.setFont(fontNanumGothic18Plain);
-//		lblDepArrD.setBounds(295, -20, 300, 100);
-
-		
 		
 		lblPassenger = new JLabel("    성인  " + AdultP + "명   " +"  |  "+ "  소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
 		lblPassenger.setFont(fontNanumGothic18Plain);
@@ -245,10 +228,7 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		
 		
 		
-//		jpSelectedInfo.add(lblDepartP); // 상단의 고객이 선택한 정보를 나타내는 바에 출발지 추가
-//		jpSelectedInfo.add(lblArriveP);// 도착지 추가
 		jpSelectedInfo.add(lblArrow); // 화살표
-//		jpSelectedInfo.add(lblDepArrD); //출발 ~ 도착 날짜 추가 // 왕복이기 때문에 이렇게 표시
 		jpSelectedInfo.add(lblPassenger); //탑승 인원 정보(성인인지 유아인지 + 인원수)
 		
 		jpTotalPay = new JPanel();//예상 결제 금액 + 버튼 라벨나타내는 패널
@@ -274,7 +254,6 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		
 		
 		jpTotalPay.add(lblTotalPay);
-//		jpTotalPay.add(lblPayment);
 		jpTotalPay.add(btnNext);
 		
 		add(jpSelectedInfo);
@@ -295,7 +274,6 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		
 		eco1 = new JLabel("<html>" + "이코노미 클래스 "+ "<br>" +economyClass +" 원"+ "</html>");
 		eco1.setFont(fontNanumGothic18);
-//		eco1.setBounds(0, 30, 150, 50);
 		eco1.setHorizontalAlignment(JLabel.CENTER);
 		btnEco1.add(eco1);
 		
@@ -319,7 +297,6 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		
 		pres1 = new JLabel("<html>" + "프레스티지 클래스 "+ "<br>" +prestigeClass +" 원"+ "</html>");
 		pres1.setFont(fontNanumGothic18);
-//		pres1.setBounds(10, 30, 200, 50);
 		pres1.setHorizontalAlignment(JLabel.CENTER);
 		btnPres1.add(pres1);
 		
@@ -344,7 +321,6 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		
 		fir1 = new JLabel("<html>" + "퍼스트 클래스 "+ "<br>" +firstClass +" 원"+ "</html>");
 		fir1.setFont(fontNanumGothic18);
-//		fir1.setBounds(10, 30, 200, 50);
 		fir1.setHorizontalAlignment(JLabel.CENTER);
 		
 		btnFir1.add(fir1);
@@ -389,34 +365,19 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		lblFliCo.setFont(fontNanumGothic25);
 		lblFliCo.setBounds(40, 3, 100, 100);
 		
-//		lblTime = new JLabel("출발"+ fromTime.substring(0, 5)+"   -  "+" 도착 "+toTime);
 		lblTime = new JLabel("<html>"+"&nbsp; &nbsp; &nbsp; "+fromDate+"<br>"+"출발 "+ fromTime.substring(0, 5)+"   -  "+" 도착 "+toTime+"</html>");
 		lblTime.setFont(fontNanumGothic18Plain);
 		lblTime.setBounds(180, 3, 300, 100);
-		
-//		lblFromT = new JLabel(fromTime.substring(0, 5));
-//		lblFromT.setFont(fontNanumGothic20);
-//		lblFromT.setBounds(140, 3, 200, 100);
-//		
-//		lblToT = new JLabel(toTime.substring(0, 5));
-//		lblToT.setFont(fontNanumGothic20);
-//		lblToT.setBounds(440, 3, 200, 100);
-		
-	
 		
 		jpSelectedInfo.add(lblDepP);
 		jpSelectedInfo.add(lblArrP);
 		jpSelectedInfo.add(lblDate);
 		
-		
-
 		jpFlight1.add(lblFliCo);
 		jpFlight1.add(lblTime);
 		
 		setVisible(true);
 	}
-
-
 
 	private void Find() {
 		String driver = "com.mysql.cj.jdbc.Driver"; //드라이버
@@ -434,7 +395,6 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 //					System.out.println("oo");
 					
 					String SelectedFliCo = "IH8985";
-					//----------
 					
 					String sql;
 					sql = "SELECT * FROM airPrice WHERE `flightCode` = '"+ SelectedFliCo +"' ";
@@ -471,20 +431,16 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 			state = conn.createStatement();	
 					
-					//----------
 					String DepP = "GMP";
 					String ArrP = "CJU";
 					String GoDay = "20210531";
 				
-					//----------
-					
 					String sql;
 					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'";
 					
 					ResultSet rs = state.executeQuery(sql);
 					while (rs.next()) {
 						scheduleNo = rs.getString("scheduleNo");
-//						airline = rs.getString("airline");
 						flightCode = rs.getString("flightCode");
 						from = rs.getString("from");
 						fromDate = rs.getString("fromDate");
