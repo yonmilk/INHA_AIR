@@ -3,6 +3,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
@@ -34,6 +37,8 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	
 	// 예원 - 색상
 	Color colorLogo = new Color(24, 62, 111);
+	Color colorBtn = new Color(10,90,150);
+	Color colorGrayBtn = new Color(150,150,150);
 	// 예원 - 폰트
 	Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
 	
@@ -53,10 +58,10 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	private JButton btnOK;
 	
 	//
-	private ReservationDetailForm informationF;
+//	private ReservationDetailForm informationF;
 	
-	public SelectPaymentForm(ReservationDetailForm informationF) {
-		this.informationF = informationF;
+	public SelectPaymentForm() {
+//		this.informationF = informationF;
 		
 		setTitle(title);
 		setSize(width, height);
@@ -117,25 +122,44 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		jpLbl.add(lblPyment);
 		
 		// 결제 수단 버튼 그룹
-		setBtnGroup();
+//		setBtnGroup();
 		
 		// 결제하기 버튼 부분
-		jpBtn = new JPanel(null);
+		jpBtn = new JPanel(new GridLayout(1, 2, 30, 30));
+		jpBtn.setBorder(new EmptyBorder(30, 50, 30, 50));
 //		jpBtn = new JPanel();
-		jpBtn.setSize(1100, 200);
+		jpBtn.setSize(1100, 100);
 		jpBtn.setLocation(0, 520);
 		jpBtn.setBackground(Color.WHITE);
+		
+		btnCash = new JButton("무통장 입금");
+		btnCash.addActionListener(this);
+		btnCash.setFont(fontNanumGothic20);
+		btnCash.setVerticalAlignment(SwingConstants.CENTER);
+		btnCash.setBackground(colorGrayBtn);
+		btnCash.setForeground(Color.WHITE);
+		btnCash.setBorderPainted(false);
+		jpBtn.add(btnCash);
+		
+		btnCard = new JButton("카드 결제");
+		btnCard.addActionListener(this);
+		btnCard.setFont(fontNanumGothic20);
+		btnCard.setVerticalAlignment(SwingConstants.CENTER);
+		btnCard.setBackground(colorBtn);
+		btnCard.setForeground(Color.WHITE);
+		btnCard.setBorderPainted(false);
+		jpBtn.add(btnCard);
 
-		btnOK = new JButton("결제하기");
-		btnOK.addActionListener(this);
-		btnOK.setFont(fontNanumGothic20);
-		btnOK.setBackground(new Color(10,90,150));
-		btnOK.setForeground(Color.WHITE);
-		btnOK.setBorderPainted(false);
-		btnOK.setSize(250, 40);
-		btnOK.setLocation(425, 20);
-		btnOK.setHorizontalAlignment(JButton.CENTER);
-		jpBtn.add(btnOK);
+//		btnOK = new JButton("결제하기");
+//		btnOK.addActionListener(this);
+//		btnOK.setFont(fontNanumGothic20);
+//		btnOK.setBackground(new Color(10,90,150));
+//		btnOK.setForeground(Color.WHITE);
+//		btnOK.setBorderPainted(false);
+////		btnOK.setSize(250, 40);
+////		btnOK.setLocation(425, 20);
+//		btnOK.setHorizontalAlignment(JButton.CENTER);
+//		jpBtn.add(btnOK);
 		
 		jpPayment.add(jpLbl);
 		jpPayment.add(jpBtn);
@@ -176,6 +200,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 
 
 	public static void main(String[] args) {
+		new SelectPaymentForm();
 	}
 
 

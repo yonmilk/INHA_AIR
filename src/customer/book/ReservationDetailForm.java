@@ -580,7 +580,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 			int rs = upPay();
 			
 			if(rs == 1) {
-				paymentForm = new SelectPaymentForm(this);
+				paymentForm = new SelectPaymentForm();
 				this.setVisible(false);
 			}
 			else {
