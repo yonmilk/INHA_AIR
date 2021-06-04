@@ -54,43 +54,30 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 			DepP = depP;
 		}
 
-
-
 		public void setArrP(String arrP) {
 			ArrP = arrP;
 		}
-
-
 
 		public void setGoDay(String goDay) {
 			GoDay = goDay;
 		}
 
-
-
 		public void setComeDay(String comeDay) {
 			ComeDay = comeDay;
 		}
-
-
 
 		public void setAdultP(int adultP) {
 			AdultP = adultP;
 		}
 
-
-
 		public void setChildP(int childP) {
 			ChildP = childP;
 		}
 
-
-
 		public void setInfantP(int infantP) {
 			InfantP = infantP;
 		}
-
-//
+		
 //		private JLabel lblDepartP; //고객이 선택한 출발지 정보
 //		private JLabel lblArriveP; //         도착지
 //		private JLabel lblDepArrD;	//고객이 선택한 출발일 + 도착일
@@ -357,7 +344,8 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		lblArrP.setFont(fontNanumGothic25);
 		lblArrP.setBounds(180, -20, 200, 100);
 		
-		lblDate = new JLabel("<html>"+fromDate + "&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;" + toDate+"</html>");
+//		lblDate = new JLabel("<html>"+fromDate + "&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;" + toDate+"</html>");
+		lblDate = new JLabel("<html>"+GoDay + "&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;" + ComeDay+"</html>");
 		lblDate.setFont(fontNanumGothic18Plain);
 		lblDate.setBounds(300, -20, 400, 100);
 
