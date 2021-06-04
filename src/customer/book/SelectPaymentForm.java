@@ -23,6 +23,7 @@ import javax.swing.border.TitledBorder;
 import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.start.MainMenuForm;
+import jdk.tools.jlink.resources.jlink;
 
 public class SelectPaymentForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
@@ -52,10 +53,14 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	
 	// 결제 부분
 	private JPanel jpPayment, jpLbl, jpBtn;
-	private JLabel lblPyment;
+	private JLabel lblGo, lblCom, lblGoDate, lblComDate, lblAdult, lblChild, lblInfant, lblBaggage, lblPay;
 	private ButtonGroup bgPayment;		// 결제수단 버튼 그룹
 	private JButton btnCash, btnCard;	// 결제수단 - 무통장입금, 카드결제
 	private JButton btnOK;
+	
+	// 데이터 저장
+	private String reserveNum = "test001010";			// 예매 번호(테스트값)
+	
 	
 	//
 //	private ReservationDetailForm informationF;
@@ -108,18 +113,15 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		
 		// 라벨 부분
 		jpLbl = new JPanel(null);
+//		jpLbl = new JPanel(new GridLayout(3, 1, 5, 5));
 		jpLbl.setSize(1000, 500);
 		jpLbl.setLocation(50, 10);
 //		jpLbl.setBorder(new LineBorder(new Color(10,90,150), 1));
 		jpLbl.setBorder(new EtchedBorder(EtchedBorder.RAISED));		// 테두리 설정
-		jpLbl.setBackground(Color.WHITE);
+//		jpLbl.setBackground(Color.WHITE);
 		
-		lblPyment = new JLabel("결제수단 선택");
-		lblPyment.setFont(fontNanumGothic30);
-		lblPyment.setHorizontalAlignment(JLabel.CENTER);
-		lblPyment.setSize(1000, 50);
-		lblPyment.setLocation(10, 100);
-		jpLbl.add(lblPyment);
+		// 예매 확인 내용 표시
+		setCheck();
 		
 		// 결제 수단 버튼 그룹
 //		setBtnGroup();
@@ -166,6 +168,84 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		
 		add(jpPayment);
 	}
+
+	// 예매 확인 내역 표시
+	private void setCheck() {
+		// 예매확인 라벨
+		JLabel lblTitle = new JLabel("예매 확인");
+		lblTitle.setFont(fontNanumGothic30);
+		lblTitle.setHorizontalAlignment(JLabel.LEFT);
+		lblTitle.setSize(300, 50);
+		lblTitle.setLocation(10, 10);
+		
+		// 예매 내역 표시 패널
+		JPanel jpCheck = new JPanel(new GridLayout(4, 2, 10, 10));
+		jpCheck.setBorder(new EmptyBorder(0, 10, 100, 0));
+		jpCheck.setSize(800, 300);
+		jpCheck.setLocation(10, 70);
+		jpCheck.setBackground(colorGrayBtn);
+		
+		JLabel lblTrips = new JLabel("여행일정");
+		lblTrips.setFont(fontNanumGothic25);
+		lblTrips.setHorizontalAlignment(JLabel.RIGHT);
+		
+		lblGo = new JLabel("김포 -> 제주" + " 2020.05.01 12:00:00 ~ 2020.05.01 12:00:00");
+		lblGo.setFont(fontNanumGothic22);
+//		lblGo.setHorizontalAlignment(JLabel.LEFT);
+		
+		lblGoDate = new JLabel("2020.05.01 12:00:00 ~ 2020.05.01 12:00:00");
+		lblGoDate.setFont(fontNanumGothic22);
+
+		JLabel lblNull = new JLabel("");
+		
+		lblCom = new JLabel("제주 -> 김포" + " 2020.05.01 12:00:00 ~ 2020.05.01 12:00:00");
+		lblCom.setFont(fontNanumGothic22);
+		
+		lblComDate = new JLabel("2020.05.01 12:00:00 ~ 2020.05.01 12:00:00");
+		lblComDate.setFont(fontNanumGothic22);
+		
+		JLabel lblPeople = new JLabel("승객");
+		lblPeople.setFont(fontNanumGothic25);
+		lblPeople.setHorizontalAlignment(JLabel.RIGHT);
+		
+		lblAdult = new JLabel("승객 1명  " + "소아 1명  " + "유아 0명");
+		lblAdult.setFont(fontNanumGothic22);
+
+		lblChild = new JLabel("소아 1명");
+		lblChild.setFont(fontNanumGothic22);
+		
+		lblInfant = new JLabel("유아 0명");
+		lblInfant.setFont(fontNanumGothic22);
+		
+		JLabel lblAddBaggage = new JLabel("초과수하물");
+		lblAddBaggage.setFont(fontNanumGothic25);
+		lblAddBaggage.setHorizontalAlignment(JLabel.RIGHT);
+		
+		JLabel lbl10kg = new JLabel("10kg x " + "2개");
+		lbl10kg.setFont(fontNanumGothic22);
+		
+		lblBaggage = new JLabel("2개");
+		lblBaggage.setFont(fontNanumGothic22);
+		
+		jpCheck.add(lblTrips);
+		jpCheck.add(lblGo);
+//		jpCheck.add(lblGoDate);
+		jpCheck.add(lblNull);
+		jpCheck.add(lblCom);
+//		jpCheck.add(lblComDate);
+		jpCheck.add(lblPeople);
+		jpCheck.add(lblAdult);
+//		jpCheck.add(lblChild);
+//		jpCheck.add(lblInfant);
+		jpCheck.add(lblAddBaggage);
+		jpCheck.add(lbl10kg);
+//		jpCheck.add(lblBaggage);
+		
+		
+		jpLbl.add(lblTitle);
+		jpLbl.add(jpCheck);
+	}
+
 
 	// 결제 수단 버튼 그룹
 	private void setBtnGroup() {
