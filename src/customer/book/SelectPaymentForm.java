@@ -23,7 +23,6 @@ import javax.swing.border.TitledBorder;
 import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.start.MainMenuForm;
-import jdk.tools.jlink.resources.jlink;
 
 public class SelectPaymentForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
