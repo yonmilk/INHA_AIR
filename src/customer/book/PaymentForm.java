@@ -39,7 +39,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
 	Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
 	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
-	Font fontNanumGothic30 = new Font("NanumGothic", Font.PLAIN, 30);	// 나눔고딕 25
+	Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 30
 	
 	// 결제 부분
 	private JPanel jpPayment, jpLbl, jpBtn;

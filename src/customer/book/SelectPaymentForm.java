@@ -13,6 +13,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -20,6 +21,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import DataBase.databaseClass;
 import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.start.MainMenuForm;
@@ -67,6 +69,13 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	public SelectPaymentForm() {
 //		this.informationF = informationF;
 		
+		// DB 정보 - 테스트 소스
+		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbID="inhaair";
+		String dbPassword="1234";
+		// 데이터베이스 연결 - 테스트 소스
+		databaseClass.connect(dbURL, dbID, dbPassword);
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -108,22 +117,16 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		jpPayment.setSize(1100, 635);
 		jpPayment.setLocation(3, 90);
 		jpPayment.setBackground(Color.WHITE);
-//		jpPayment.setBackground(Color.yellow);
 		
 		// 라벨 부분
 		jpLbl = new JPanel(null);
-//		jpLbl = new JPanel(new GridLayout(3, 1, 5, 5));
 		jpLbl.setSize(1000, 500);
 		jpLbl.setLocation(50, 10);
-//		jpLbl.setBorder(new LineBorder(new Color(10,90,150), 1));
 		jpLbl.setBorder(new EtchedBorder(EtchedBorder.RAISED));		// 테두리 설정
-//		jpLbl.setBackground(Color.WHITE);
+		jpLbl.setBackground(Color.WHITE);
 		
 		// 예매 확인 내용 표시
 		setCheck();
-		
-		// 결제 수단 버튼 그룹
-//		setBtnGroup();
 		
 		// 결제하기 버튼 부분
 		jpBtn = new JPanel(new GridLayout(1, 2, 30, 30));
@@ -151,17 +154,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		btnCard.setBorderPainted(false);
 		jpBtn.add(btnCard);
 
-//		btnOK = new JButton("결제하기");
-//		btnOK.addActionListener(this);
-//		btnOK.setFont(fontNanumGothic20);
-//		btnOK.setBackground(new Color(10,90,150));
-//		btnOK.setForeground(Color.WHITE);
-//		btnOK.setBorderPainted(false);
-////		btnOK.setSize(250, 40);
-////		btnOK.setLocation(425, 20);
-//		btnOK.setHorizontalAlignment(JButton.CENTER);
-//		jpBtn.add(btnOK);
-		
 		jpPayment.add(jpLbl);
 		jpPayment.add(jpBtn);
 		
@@ -174,30 +166,29 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		JLabel lblTitle = new JLabel("예매 확인");
 		lblTitle.setFont(fontNanumGothic30);
 		lblTitle.setHorizontalAlignment(JLabel.LEFT);
-		lblTitle.setSize(300, 50);
-		lblTitle.setLocation(10, 10);
+		lblTitle.setSize(900, 50);
+		lblTitle.setLocation(50, 20);
 		
 		// 예매 내역 표시 패널
 		JPanel jpCheck = new JPanel(new GridLayout(4, 2, 10, 10));
 		jpCheck.setBorder(new EmptyBorder(0, 10, 100, 0));
-		jpCheck.setSize(800, 300);
-		jpCheck.setLocation(10, 70);
-		jpCheck.setBackground(colorGrayBtn);
+		jpCheck.setSize(900, 300);
+		jpCheck.setLocation(50, 100);
+		jpCheck.setBackground(Color.WHITE);
 		
 		JLabel lblTrips = new JLabel("여행일정");
 		lblTrips.setFont(fontNanumGothic25);
 		lblTrips.setHorizontalAlignment(JLabel.RIGHT);
 		
-		lblGo = new JLabel("김포 -> 제주" + " 2020.05.01 12:00:00 ~ 2020.05.01 12:00:00");
+		lblGo = new JLabel("김포 -> 제주");
 		lblGo.setFont(fontNanumGothic22);
-//		lblGo.setHorizontalAlignment(JLabel.LEFT);
 		
 		lblGoDate = new JLabel("2020.05.01 12:00:00 ~ 2020.05.01 12:00:00");
 		lblGoDate.setFont(fontNanumGothic22);
 
 		JLabel lblNull = new JLabel("");
 		
-		lblCom = new JLabel("제주 -> 김포" + " 2020.05.01 12:00:00 ~ 2020.05.01 12:00:00");
+		lblCom = new JLabel("제주 -> 김포");
 		lblCom.setFont(fontNanumGothic22);
 		
 		lblComDate = new JLabel("2020.05.01 12:00:00 ~ 2020.05.01 12:00:00");
@@ -207,7 +198,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		lblPeople.setFont(fontNanumGothic25);
 		lblPeople.setHorizontalAlignment(JLabel.RIGHT);
 		
-		lblAdult = new JLabel("승객 1명  " + "소아 1명  " + "유아 0명");
+		lblAdult = new JLabel("승객 1명");
 		lblAdult.setFont(fontNanumGothic22);
 
 		lblChild = new JLabel("소아 1명");
@@ -220,25 +211,11 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		lblAddBaggage.setFont(fontNanumGothic25);
 		lblAddBaggage.setHorizontalAlignment(JLabel.RIGHT);
 		
-		JLabel lbl10kg = new JLabel("10kg x " + "2개");
+		JLabel lbl10kg = new JLabel("10kg x ");
 		lbl10kg.setFont(fontNanumGothic22);
 		
 		lblBaggage = new JLabel("2개");
 		lblBaggage.setFont(fontNanumGothic22);
-		
-		jpCheck.add(lblTrips);
-		jpCheck.add(lblGo);
-//		jpCheck.add(lblGoDate);
-		jpCheck.add(lblNull);
-		jpCheck.add(lblCom);
-//		jpCheck.add(lblComDate);
-		jpCheck.add(lblPeople);
-		jpCheck.add(lblAdult);
-//		jpCheck.add(lblChild);
-//		jpCheck.add(lblInfant);
-		jpCheck.add(lblAddBaggage);
-		jpCheck.add(lbl10kg);
-//		jpCheck.add(lblBaggage);
 		
 		
 		jpLbl.add(lblTitle);
@@ -291,9 +268,31 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 			mainMenuForm = new MainMenuForm();
 			this.setVisible(false);
 			
-		} else if(obj == btnOK) {
+		} else if(obj == btnCard) {
+			payment("card");
+			
+			
+//			paymentForm = new PaymentForm();
+//			this.setVisible(false);
+		} else if(obj == btnCash) {
+			payment("cash");
+			
+		}
+	}
+
+	private void payment(String type) {
+		String sql = "INSERT INTO payment(reserveNum, payable, pay) VALUES('" + reserveNum + "', '" + type + "', " + 
+				"( SELECT pay FROM reservation WHERE reserveNum='" + reserveNum + "'))";
+		
+//		System.out.println(sql);
+		
+		int rs = databaseClass.insert(sql);
+		
+		if(rs == 1) {
 			paymentForm = new PaymentForm();
 			this.setVisible(false);
+		} else {
+			JOptionPane.showMessageDialog(null, "결제 실패했습니다.", "결제 실패", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 }
