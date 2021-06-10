@@ -82,7 +82,45 @@ public class TicketingRoundTripComingForm3 extends JFrame implements ActionListe
 	public String getReserveNum() {
 		return reserveNum;
 	}
-		
+	
+	public String getFlightCode(String flightCode) {
+		return flightCode;
+	}
+	
+	public String getSheduleNo(String scheduleNo) {
+		return scheduleNo;
+	}
+	public String getfromTime(String fromTime) {
+		return fromTime;
+	}
+	public String getToTime(String toTime ) {
+		return toTime;
+	}
+	public String getFromDate(String fromDate ) {
+		return fromDate;
+	}
+	public String getToDate(String toDate ) {
+		return toDate;
+	}
+	public String getDepP(String DepP) {
+		return DepP;
+	}
+	public String getArrP(String ArrP) {
+		return ArrP;
+	}
+	public String getAdultP(String AdultP) {
+		return AdultP;
+	}
+	public String getChildP(String ChildP) {
+		return ChildP;
+	}
+	public String getInfantP(String InfantP) {
+		return InfantP;
+	}
+	public String getTotalPay(String InfantP) {
+		return InfantP;
+	}
+	
 //		private JLabel lblDepartP; //고객이 선택한 출발지 정보
 //		private JLabel lblArriveP; //         도착지
 //		private JLabel lblDepArrD;	//고객이 선택한 출발일 + 도착일
@@ -180,7 +218,9 @@ public class TicketingRoundTripComingForm3 extends JFrame implements ActionListe
 		String GOsheduleNo ;
 		String COMsheduleNo;
 		private TicketingRoundTripGoingForm3 rt1;
-		private String reserveNum; 
+		private String reserveNum;
+		private String airportD;
+		private String airportA; 
 		
 		
 	public TicketingRoundTripComingForm3() {
@@ -483,13 +523,14 @@ public class TicketingRoundTripComingForm3 extends JFrame implements ActionListe
 		lblTime.setFont(fontNanumGothic18Plain);
 		lblTime.setBounds(500, 0, 300, 100);
 		
-		lblDepP2 = new JLabel(from);
+		lblDepP2 = new JLabel(airportD);
 		lblDepP2.setFont(fontNanumGothic30);
-		lblDepP2.setBounds(400, 0, 200, 100);
+		lblDepP2.setBounds(350, 0, 200, 100);
 		
-		lblArrP2 = new JLabel(to);
+		lblArrP2 = new JLabel(airportA);
 		lblArrP2.setFont(fontNanumGothic30);
-		lblArrP2.setBounds(750, 0, 200, 100);
+		lblArrP2.setBounds(780, 0, 200, 100);
+		
 		
 		jpSelectedInfo.add(lblDepP);
 		jpSelectedInfo.add(lblArrP);
@@ -516,7 +557,82 @@ public class TicketingRoundTripComingForm3 extends JFrame implements ActionListe
 			
 		    Connection conn = null; 
 			Statement state = null; 
+			try{
+				Class.forName(driver);
+				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+				state = conn.createStatement();
+//				System.out.println("oo");
+				
+				String DepP = "GMP";
+//				String ArrP = "GMP";
+				
+				String sql;
+				sql = "SELECT * FROM airport WHERE `code` = '"+ DepP +"' ";
+				
+				ResultSet rs = state.executeQuery(sql);
+				while (rs.next()) {
+					airportD = rs.getString("airport");
+						
+//					System.out.println(airportD);
+					
+//					DepAP = airportD;
+				}
+				rs.close();
+				state.close();
+				conn.close();
+				
+	    }
+	    catch (Exception e) {
+		}finally {
+			try {
+				if(state!=null) 
+					state.close();
+			}catch (SQLException ex1) {
+			}
+			try {
+				if(conn!=null)
+					conn.close();
+			} catch (SQLException ex2) {
+			}
+		}
 			
+			try{
+				Class.forName(driver);
+				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+				state = conn.createStatement();
+//				System.out.println("oo");
+				
+				String ArrP = "CJU";
+				
+				String sql;
+				sql = "SELECT * FROM airport WHERE `code` = '"+ ArrP +"' ";
+				
+				ResultSet rs = state.executeQuery(sql);
+				while (rs.next()) {
+					airportA = rs.getString("airport");
+						
+//					System.out.println(airportA);
+					
+//					ArrAP = airportA;
+				}
+				rs.close();
+				state.close();
+				conn.close();
+				
+	    }
+	    catch (Exception e) {
+		}finally {
+			try {
+				if(state!=null) 
+					state.close();
+			}catch (SQLException ex1) {
+			}
+			try {
+				if(conn!=null)
+					conn.close();
+			} catch (SQLException ex2) {
+			}
+		}	
 			 try{
 					Class.forName(driver);
 					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);

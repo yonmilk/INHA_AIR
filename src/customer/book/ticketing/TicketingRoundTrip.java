@@ -1,4 +1,4 @@
-package customer.book.ticketing;
+ package customer.book.ticketing;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -6,8 +6,6 @@ import java.awt.Font;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -27,7 +25,7 @@ import customer.start.MainMenuForm;
 //import sun.awt.www.content.image.jpeg;
 
 
-public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListener{
+public class TicketingRoundTrip extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
@@ -45,13 +43,10 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 	
 	private JPanel jpSelectedInfo;
 	//--가상의 고객이 선택한 정보
-		String DepP = "CJU";
-		String ArrP = "GMP";
-		String GoDay = "20210531";
 //		private String DepP = " "; //고객이 선택한 정보 : 
 //		private String ArrP = " "; // 출발지 GMP 도착지 PUS (P : place)
 //		private String GoDay = " "; //출발 날짜 : 21.0515- 
-		private String ComeDay = "20210609";//도착 날짜 : 0601(화)    (D : date)
+//		private String ComeDay = " ";//도착 날짜 : 0601(화)    (D : date)
 		private int AdultP = 0;//성인
 		private int ChildP = 0;//소아인원
 		private int InfantP = 0;//소아인원
@@ -83,17 +78,6 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		public void setInfantP(int infantP) {
 			InfantP = infantP;
 		}
-//		
-		
-		
-		public String getGOscheduleNo() {
-			return GOscheduleNo;
-		}
-		
-		public void setGOscheduleNo(String GOscheduleNo) {
-			GOscheduleNo = this.GOscheduleNo;
-		}
-		
 		
 //		private JLabel lblDepartP; //고객이 선택한 출발지 정보
 //		private JLabel lblArriveP; //         도착지
@@ -107,29 +91,13 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		private JPanel jpFlight2; // 비행기 2
 		private JPanel jpFlight3; // 비행기 3
 		
-//		private JPanel btnFir1; //비행기 1의 일등석. 퍼스트석
-//		private JPanel btnPres1;//비행기 1의 비즈니스석
-//		private JPanel btnEco1;// 비행기 1의 이코노미석
-//		
-//		private JPanel btnEco2; //비행기 2의 이코노미
-//		private JPanel btnPres2; //       비즈니스
-//		private JPanel btnFir2;// 		퍼스트석
-//		
-//		private JPanel btnEco3;//비행기 3의 이코노미
-//		private JPanel btnPres3; //      비즈니스
-//		private JPanel btnFir3; //      퍼스트
-//		
 		private Color crInfo; //고객이 선택한 정보를 나타내는 바의 색 
 		private Color crClass;//좌석 등급 버튼 색
 		private JPanel jpTotalPay; // 예상 결제금액 + 버튼 나타내는 패널
 		private Component lblTotalPay; //"예상결제금액"문구 나타내는 라벨
 		private JButton btnNext; //다음(왕복 오는 편 선택창으로 가는) 버튼
-//		private ImageIcon imgArrow;
-//		private ImageIcon imgAeroPlane;
 		private Color crNext; //다음 버튼 색
 		
-		
-	
 		Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
 		Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);	// 나눔고딕 18
 		Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 18
@@ -142,6 +110,13 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 25
 		Font fontNanumGothic25Plain = new Font("NanumGothic", Font.PLAIN, 25);	// 나눔고딕 25
 	
+		String DepP = "CJU";
+		String ArrP = "GMP";
+		String GoDay = "20210531";
+		String ComeDay = "20210531";
+		
+//		String fullDate = GoDay.substring(0, 4) + " - " + GoDay.substring(4, 2);
+		
 		private JLabel lblDepP;
 		private JLabel lblArrP;
 		private JLabel lblGoComeDate;
@@ -169,35 +144,22 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		private JLabel lblArrP2;
 		private JLabel lblEcon;
 		private JLabel lblEconPr;
-		private int economy = 0;
+		private String economy;
 		private JButton btnEcon;
 		private Color crSelect;
 		private Component lblPres;
 		private Component lblPresPr;
 		private Component btnPres;
-		private int prestige = 0;
+		private String prestige;
 		private Component lblFirs;
 		private Component lblFirsPr;
 		private Component btnFirs;
-		private int first = 0;
-		private String code;
+		private String first;
 		private String airportD;
-		private String DepAP;
-		private String ArrAP;
 		private String airportA;
-		private JLabel lblTotal;
-		private String GOscheduleNo;
-		private String pay = " ";
-//		private String fullDate;
-//		private String yearG;
-//		private String monthG;
-//		private String dayG;
-//		private String yearC;
-//		private String monthC;
-//		private String dayC;
-//		
 		
-	public TicketingRoundTripGoingForm3() {
+		
+	public TicketingRoundTrip() {
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -232,15 +194,13 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		crSelect = new Color(120,180,250);
 		crNext = new Color(10,90,150); //다음 버튼 색깔
 		
-		Find();
-		
 		jpSelectedInfo = new JPanel(); //고객이 선택한 정보를 표시하는 바
 		jpSelectedInfo.setLayout(null);
 		jpSelectedInfo.setSize(1000,60);
 		jpSelectedInfo.setLocation(70,100);
 		jpSelectedInfo.setBackground(crInfo);
 		
-		lblArrow = new JLabel("→"); //문자로 넣을지 그림으로 넣을지 ..
+		lblArrow = new JLabel("→"); 
 		lblArrow.setFont(fontNanumGothic30);
 		lblArrow.setBounds(135, -20, 200, 100);
 		
@@ -272,8 +232,6 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		jpFlight3.setLocation(70,490);
 		jpFlight3.setBackground(crInfo);
 		
-		
-		
 		jpSelectedInfo.add(lblArrow); // 화살표
 		jpSelectedInfo.add(lblPassenger); //탑승 인원 정보(성인인지 유아인지 + 인원수)
 		
@@ -284,14 +242,10 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		jpTotalPay.setBackground(Color.white);
 		jpTotalPay.setBorder(new LineBorder(Color.black,1));
 		
-		lblTotalPay = new JLabel("예상 결제 금액" + pay + "원"); // "예상 결제 금액" 라벨
+		lblTotalPay = new JLabel("예상 결제 금액"); // "예상 결제 금액" 라벨
 		lblTotalPay.setFont(fontNanumGothic20);
-		lblTotalPay.setBounds(50,0,800,100);
-//		
-//		lblTotal = new JLabel(economyClass + " 원");
-//		lblTotal.setFont(fontNanumGothic30);
-//		lblTotal.setBounds(250,0,300,100);
-
+		lblTotalPay.setBounds(50,0,200,100);
+		
 		btnNext = new JButton("다음"); // 회원 진행 버튼
 		btnNext.setFont(fontNanumGothic20);
 		btnNext.setBackground(crNext);
@@ -299,10 +253,8 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		btnNext.setBounds(905, 0, 200, 100);
 		btnNext.addActionListener(this);
 		
-		
 		jpTotalPay.add(lblTotalPay);
 		jpTotalPay.add(btnNext);
-//		jpTotalPay.add(lblTotal);
 		
 		add(jpSelectedInfo);
 		add(jpFlightTOP);
@@ -313,90 +265,7 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		
 		add(jpTotalPay);
 		
-		
-		
-//		btnEco1 = new JPanel();//비행기 1의 이코노미 좌석 
-//		btnEco1.setLayout(new BorderLayout());
-//		btnEco1.setSize(180,110);
-//		btnEco1.setLocation(458,0);
-//		btnEco1.setBackground(crClass);
-//		
-//		eco1 = new JLabel("<html>" + "이코노미 클래스 "+ "<br>" +economyClass +" 원"+ "</html>");
-//		eco1.setFont(fontNanumGothic18);
-//		eco1.setHorizontalAlignment(JLabel.CENTER);
-//		btnEco1.add(eco1);
-//		
-//		btnEco2 = new JPanel(); //비행기 2의 이코노미 좌석
-//		btnEco2.setLayout(null);
-//		btnEco2.setSize(180,110);
-//		btnEco2.setLocation(458,0);
-//		btnEco2.setBackground(crClass);
-//		
-//		btnEco3 = new JPanel(); //비행기 3의 이코노미 좌석
-//		btnEco3.setLayout(null);
-//		btnEco3.setSize(180,110);
-//		btnEco3.setLocation(458,0);
-//		btnEco3.setBackground(crClass);
-//		
-//		btnPres1 = new JPanel();//비행기 1의 비즈니스 좌석
-//		btnPres1.setLayout(new BorderLayout());
-//		btnPres1.setSize(180,110);
-//		btnPres1.setLocation(639,0);
-//		btnPres1.setBackground(crClass);
-//		
-//		pres1 = new JLabel("<html>" + "프레스티지 클래스 "+ "<br>" +prestigeClass +" 원"+ "</html>");
-//		pres1.setFont(fontNanumGothic18);
-//		pres1.setHorizontalAlignment(JLabel.CENTER);
-//		btnPres1.add(pres1);
-//		
-//		
-//		btnPres2 = new JPanel();// 비행기 2의 비즈니스 좌석
-//		btnPres2.setLayout(null);
-//		btnPres2.setSize(180,110);
-//		btnPres2.setLocation(639,0);
-//		btnPres2.setBackground(crClass);
-//		
-//		btnPres3 = new JPanel();// 비행기 3의 비즈니스 좌석
-//		btnPres3.setLayout(null);
-//		btnPres3.setSize(180,110);
-//		btnPres3.setLocation(639,0);
-//		btnPres3.setBackground(crClass);
-//		
-//		btnFir1 = new JPanel(); // 비행기1 의 퍼스트 좌석
-//		btnFir1.setLayout(new BorderLayout());
-//		btnFir1.setSize(180,110);
-//		btnFir1.setLocation(820,0);
-//		btnFir1.setBackground(crClass);
-//		
-//		fir1 = new JLabel("<html>" + "퍼스트 클래스 "+ "<br>" +firstClass +" 원"+ "</html>");
-//		fir1.setFont(fontNanumGothic18);
-//		fir1.setHorizontalAlignment(JLabel.CENTER);
-//		
-//		btnFir1.add(fir1);
-//		
-//		btnFir2 = new JPanel(); // 비행기 2의 퍼스트 좌석
-//		btnFir2.setLayout(null);
-//		btnFir2.setSize(180,110);
-//		btnFir2.setLocation(820,0);
-//		btnFir2.setBackground(crClass);
-//		
-//		btnFir3 = new JPanel();// 비행기 3의 퍼스트 좌석
-//		btnFir3.setLayout(null);
-//		btnFir3.setSize(180,110);
-//		btnFir3.setLocation(820,0);
-//		btnFir3.setBackground(crClass);
-//		
-//		
-//		jpFlight2.add(btnEco2);
-//		jpFlight3.add(btnEco3);
-//		
-//		jpFlight1.add(btnPres1);
-//		jpFlight2.add(btnPres2);
-//		jpFlight3.add(btnPres3);
-//		
-//		jpFlight1.add(btnFir1);
-//		jpFlight2.add(btnFir2);
-//		jpFlight3.add(btnFir3);
+		Find();
 		
 		lblEcon = new JLabel("이코노미 클래스");
 		lblEcon.setFont(fontNanumGothic25);
@@ -411,13 +280,13 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		btnEcon.setBounds(810, 20,100, 30);
 		btnEcon.setBackground(crSelect);
 		btnEcon.setForeground(Color.white);
-		btnEcon.addActionListener(this);
-		btnEcon.addActionListener(this);
 		
 		
 		jpFlight1.add(lblEcon);
 		jpFlight1.add(lblEconPr);
 		jpFlight1.add(btnEcon);
+		
+		
 		
 		lblPres = new JLabel("프레스티지 클래스");
 		lblPres.setFont(fontNanumGothic25);
@@ -460,22 +329,12 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		lblDepP.setFont(fontNanumGothic25);
 		lblDepP.setBounds(50, -20, 200, 100);
 		
-//		lblArrP = new JLabel(to);
-//		lblArrP.setFont(fontNanumGothic25);
-//		lblArrP.setBounds(180, -20, 200, 100);
-//		
-//		yearG = GoDay.substring(0, 4);
-//		monthG = GoDay.substring(5, 2);
-//		dayG = GoDay.substring(7, 2);
-//		
-//		yearC = ComeDay.substring(0, 4);
-//		monthC = ComeDay.substring(5, 2);
-//		dayC = ComeDay.substring(7, 2);
+		lblArrP = new JLabel(to);
+		lblArrP.setFont(fontNanumGothic25);
+		lblArrP.setBounds(180, -20, 200, 100);
 		
-		
-//		fullDate =yearG + "-" + monthG + "-" + dayG + "   ~   " + yearC + "-" + monthC + "-" + dayC  ;
-		lblGoComeDate = new JLabel(GoDay +" ~ " + ComeDay);
-//		lblGoComeDate = new JLabel(fullDate);
+//		lblDate = new JLabel("<html>"+fromDate + "&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;" + toDate+"</html>");
+		lblGoComeDate = new JLabel(GoDay + "~" + ComeDay);
 		lblGoComeDate.setFont(fontNanumGothic18Plain);
 		lblGoComeDate.setBounds(300, -20, 400, 100);
 
@@ -490,7 +349,7 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		
 		lblTime = new JLabel("출발 "+ fromTime.substring(0, 5)+"   -  "+" 도착 "+toTime.substring(0, 5));
 		lblTime.setFont(fontNanumGothic18Plain);
-		lblTime.setBounds(550, 0, 350, 100);
+		lblTime.setBounds(500, 0, 300, 100);
 		
 		lblDepP2 = new JLabel(airportD);
 		lblDepP2.setFont(fontNanumGothic30);
@@ -499,6 +358,7 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 		lblArrP2 = new JLabel(airportA);
 		lblArrP2.setFont(fontNanumGothic30);
 		lblArrP2.setBounds(780, 0, 200, 100);
+		
 		
 		jpSelectedInfo.add(lblDepP);
 		jpSelectedInfo.add(lblArrP);
@@ -521,7 +381,6 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 			
 		    Connection conn = null; 
 			Statement state = null; 
-			
 			try{
 				Class.forName(driver);
 				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
@@ -598,7 +457,7 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 			} catch (SQLException ex2) {
 			}
 		}
-			
+		
 			 try{
 					Class.forName(driver);
 					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
@@ -637,7 +496,6 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 				} catch (SQLException ex2) {
 				}
 			}
-			 
 		    try{
 			Class.forName(driver);
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
@@ -646,7 +504,7 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 					
 				
 					String sql;
-					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'";
+					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'and toDate = " + ComeDay +"";
 					
 					ResultSet rs = state.executeQuery(sql);
 					while (rs.next()) {
@@ -660,9 +518,6 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 						to = rs.getString("to");
 						toDate = rs.getString("toDate");
 						toTime = rs.getString("toTime");
-						
-						GOscheduleNo = scheduleNo;
-						
 					}
 						
 //					rs.close();
@@ -684,7 +539,7 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 			}
 	}
 	public static void main(String[] args) {
-		new TicketingRoundTripGoingForm3();
+		new TicketingRoundTrip();
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -699,15 +554,5 @@ public class TicketingRoundTripGoingForm3 extends JFrame implements ActionListen
 			tkRTComForm= new TicketingRoundTripComingForm2();
 			this.setVisible(false);
 		}
-		
-		else if(obj == btnEcon) {
-//			jpTotalPay.add(lblTotal);
-//			System.out.println("111111");
-			pay = economyClass;
-			
-		}
-		
 	}
-
-	
 }

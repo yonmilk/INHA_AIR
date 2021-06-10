@@ -76,7 +76,9 @@ public class TicketingRoundTripComingForm2 extends JFrame implements ActionListe
 	public void setInfantP(int infantP) {
 		InfantP = infantP;
 	}
-		
+	
+	
+	
 //		private JLabel lblDepartP; //고객이 선택한 출발지 정보
 //		private JLabel lblArriveP; //         도착지
 //		private JLabel lblDepArrD;	//고객이 선택한 출발일 + 도착일
