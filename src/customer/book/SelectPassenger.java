@@ -371,19 +371,26 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 		lblTotalNum.setText(numTotal + "명");
 		
 		if (obj == btnOk) { //확인버튼 눌렀을 때
-			int result = JOptionPane.showConfirmDialog(null, "성인 " + numAdult + "명, 소아 " + numInfant + "명, 유아 " + numChild + "명으로 총 " + numTotal + "명이 맞습니까?", "탑승인원 선택", JOptionPane.YES_NO_OPTION);
 			
-			if(result == JOptionPane.YES_OPTION) {
+			if (numTotal > 0) {
+				int result = JOptionPane.showConfirmDialog(null, "성인 " + numAdult + "명, 소아 " + numInfant + "명, 유아 " + numChild + "명으로 총 " + numTotal + "명이 맞습니까?", "탑승인원 선택", JOptionPane.YES_NO_OPTION);
 				
-				bookForm.setNumAdult(numAdult);
-				bookForm.setNumInfant(numInfant);
-				bookForm.setNumChild(numChild);
-				bookForm.setNumTotal(numTotal);
-				bookForm.setPassenger();
-				
-				setVisible(false);
-				
+				if(result == JOptionPane.YES_OPTION) {
+					
+					bookForm.setNumAdult(numAdult);
+					bookForm.setNumInfant(numInfant);
+					bookForm.setNumChild(numChild);
+					bookForm.setNumTotal(numTotal);
+					bookForm.setPassenger();
+					
+					setVisible(false);
+					
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "1명 이상으로 선택해주세요", "인원선택", JOptionPane.OK_CANCEL_OPTION);
 			}
+			
+			
 		}
 		
 	}

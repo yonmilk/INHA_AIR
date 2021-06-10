@@ -51,8 +51,8 @@ public class SelectArrived extends JFrame implements ActionListener{
 	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
 	
 //	private Vector<String> lstCountryCity = new Vector<String>();
-	private String SelectArr;
-	private String SelectArrCode;
+	private String SelectArr = "";
+	private String SelectArrCode = "";
 //	private String SelectContinet;
 //	private String SelectCountry;
 //	private String SelectCity;
@@ -130,7 +130,7 @@ public class SelectArrived extends JFrame implements ActionListener{
 		
 		//테이블 수정 불가능하게 설정
 		model = new DefaultTableModel(colNames, 0) {
-			public boolean isCellEditable(int row, int column) {
+			public boolean CellEditable(int row, int column) {
 				return false;
 			}
 		};

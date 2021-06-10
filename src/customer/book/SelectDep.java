@@ -60,8 +60,8 @@ public class SelectDep extends JFrame implements ActionListener {
 	
 //	String [] lstContinet = {"북아메리카", "아시아", "오세아니아", "유럽"};
 //	private Vector<String> lstCountryCity = new Vector<String>();
-	private String SelectDep;
-	private String SelectDepCode;
+	private String SelectDep = "";
+	private String SelectDepCode = "";
 //	private String SelectContinet;
 //	private String SelectCountry;
 //	private String SelectCity;
@@ -141,7 +141,7 @@ public class SelectDep extends JFrame implements ActionListener {
 		
 		//테이블 수정 불가능하게 설정
 		model = new DefaultTableModel(colNames, 0) {
-			public boolean isCellEditable(int row, int column) {
+			public boolean CellEditable(int row, int column) {
 				return false;
 			}
 		};
