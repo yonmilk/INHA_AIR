@@ -259,7 +259,7 @@ public class BookForm extends JFrame implements ActionListener {
 		jpDep.setSize(200, 300);
 		jpDep.setLocation(10, 100);
 		
-		lblDep = new JLabel("출발", SwingUtilities.CENTER);
+		lblDep = new JLabel("출발");
 		lblDep.setFont(fontNanumGothic25);
 		lblDep.setSize(150, 35);
 		lblDep.setLocation(25, 15);
@@ -300,7 +300,7 @@ public class BookForm extends JFrame implements ActionListener {
 		jpArr.setBackground(Color.white);
 		jpArr.setSize(200, 300);
 		jpArr.setLocation(300, 100);
-		lblArr = new JLabel("도착", SwingUtilities.CENTER);
+		lblArr = new JLabel("도착");
 		lblArr.setFont(fontNanumGothic25);
 		lblArr.setSize(150, 35);
 		lblArr.setLocation(25, 15);
