@@ -20,9 +20,16 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import DataBase.databaseClass;
 import customer.start.MainMenuForm;
@@ -51,8 +58,8 @@ public class SelectDep extends JFrame implements ActionListener {
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 25
 	Font fontArial = new Font("Arial", Font.PLAIN, 12);					// 영어
 	
-	//String [] lstContinet = {"북아메리카", "아시아", "오세아니아", "유럽"};
-	private Vector<String> lstCountryCity = new Vector<String>();
+//	String [] lstContinet = {"북아메리카", "아시아", "오세아니아", "유럽"};
+//	private Vector<String> lstCountryCity = new Vector<String>();
 	private String SelectDep;
 	private String SelectDepCode;
 //	private String SelectContinet;
@@ -66,14 +73,13 @@ public class SelectDep extends JFrame implements ActionListener {
 	private BookForm bookForm;
 	private JPanel jpTitle;
 	private JLabel lblTitle;
-	private JList<String> jlstContinet;
-	private JList<String> jlstCountryCity;
 	private JScrollPane scrollPane;
 	private JPanel jpList;
 	
+	private JTable jtCountryList;
 	
-	private int countryIndex = 0;
 	private JButton btnSelect;
+	private DefaultTableModel model;
 	
 	
 	public SelectDep(BookForm bookForm) {
@@ -131,17 +137,28 @@ public class SelectDep extends JFrame implements ActionListener {
 		
 		//나라(지역) 리스트
 		
+		String[] colNames = {"지역", "나라", "공항", "공항코드"};
 		
-		String sql = "SELECT continent, code, country, city FROM airport ORDER BY continent, country";
+		//테이블 수정 불가능하게 설정
+		model = new DefaultTableModel(colNames, 0) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
+		String[][] rows;
+		
+		String sql = "SELECT continent, country, city, code FROM airport ORDER BY continent, country";
 		ResultSet rs = databaseClass.select(sql);
-
-		
 		
 		try {
 			while(rs.next()) {
+				
+				model.addRow(new Object[] {rs.getString("continent"), rs.getString("country"),
+						rs.getString("city"), rs.getString("code")});
+				
 				//System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "/" + rs.getString(3));
-				//lstCountryCity.add("<HTML>"+ rs.getString(1) +"\t\t"+rs.getString(2)  + "\t"+ rs.getString(3)+ "/" + rs.getString(4)  + "</HTML>");	
-				lstCountryCity.add(rs.getString(1) +"    "+rs.getString(2)  + "     "+ rs.getString(3)+ "/" + rs.getString(4));		
+				//lstCountryCity.add(rs.getString(1) +"    "+rs.getString(2)  + "     "+ rs.getString(3)+ "/" + rs.getString(4));
 			}
 		} catch (SQLException e) {
 			//System.out.println("SQL문을 다시 확인해주세요");
@@ -149,39 +166,28 @@ public class SelectDep extends JFrame implements ActionListener {
 		}
 		
 		
-		for ( int i = 0; i < lstCountryCity.size(); i++)
-			//System.out.println(lstCountryCity.get(i));
+		jtCountryList = new JTable(model);
+		jtCountryList.setLayout(null);
+//		jtCountryList.setSize(698, 348);
+//		jtCountryList.setLocation(1, 1);
+		jtCountryList.getTableHeader().setBackground(Color.white);
+		jtCountryList.getTableHeader().setReorderingAllowed(false); // 컬럼 이동 불가
+		TableRowSorter<TableModel> tablesorter = new TableRowSorter<TableModel>(jtCountryList.getModel()); // 정렬기능
+		jtCountryList.setRowSorter(tablesorter);
+		jtCountryList.setShowVerticalLines(false); // 수직 라인 안보이게 처리
+		jtCountryList.setFont(fontNanumGothic15);
+		jtCountryList.getTableHeader().setBackground(new Color(10,90,150)); // 헤더 배경색 
+		jtCountryList.getTableHeader().setForeground(new Color(0XFFFFFF)); //헤더 글자색
 		
-		
-//		scrollPane = new JScrollPane(jlstContinet, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);		
-//		scrollPane.setLayout(null);
-//		scrollPane.setSize(20, 30);
-//		scrollPane.setLocation(1, 1);
-//		scrollPane.setBackground(Color.white);
-//		scrollPane.setFont(fontNanumGothic18);
-//		jpList.add(scrollPane);
-		
-		//jlstContinet = new JList<String>(lstContinet);
-		jlstContinet = new JList<String>(lstCountryCity);		
-		jlstContinet.setLayout(null);
-		jlstContinet.setSize(698, 348);
-		jlstContinet.setLocation(1, 1);
-		jlstContinet.setBackground(Color.white);
-		jlstContinet.setFont(fontNanumGothic18);
-		jpList.add(jlstContinet);
-//		jpList.add(new JScrollPane(jlstContinet));
-		
-		
-		
-		//도시 스크롤 리스트
-//		jlstCountryCity = new JList<String>(lstCountryCity);
-//		jlstCountryCity.setLayout(null);
-//		jlstCountryCity.setSize(359, 398);
-//		jlstCountryCity.setLocation(340, 1);
-//		jlstCountryCity.setBackground(Color.white);
-//		jlstCountryCity.setFont(fontNanumGothic18);
-//		jpList.add(jlstCountryCity);
-		//jpList.add(new JScrollPane(jlstCountryCity));
+		// ScrollPane
+		scrollPane = new JScrollPane(jtCountryList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(1, 1, 698, 348);
+		scrollPane.setBackground(Color.WHITE);
+		add(scrollPane);
+		scrollPane.setForeground(new Color(0X2A6049));
+		scrollPane.getViewport().setBackground(Color.WHITE);//테이블 백그라운드 배경색
+		jpList.add(scrollPane);
 		
 		
 		btnSelect = new JButton("출발지 선택");
@@ -204,24 +210,21 @@ public class SelectDep extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
-		
+	
 		if (obj == btnSelect) {
 			
-			SelectDep = jlstContinet.getSelectedValue();
-			//System.out.println(SelectDep);
+			int row = jtCountryList.getSelectedRow();
+			if (row<0) return;			//선택된 행이 없으면 되돌리기
 			
-			//영어만 남게 하기
-			Pattern nonValidPattern = Pattern.compile("[a-zA-Z]");
-			Matcher matcher = nonValidPattern.matcher(SelectDep);
-			SelectDepCode = ""; 
-			  
-			while (matcher.find()) {
-				SelectDepCode += matcher.group(); 
-			}
-			//System.out.println(SelectCode);
+			//int col = jtCountryList.getSelectedColumn();
+//			System.out.println(row);
+//			System.out.println(col);
+//			System.out.println(jtCountryList.getValueAt(row, col));
+			
+			SelectDep = String.valueOf(jtCountryList.getValueAt(row, 2));
+			SelectDepCode = String.valueOf(jtCountryList.getValueAt(row, 3));
 			
 			int result = JOptionPane.showConfirmDialog(null, "출발지 " + SelectDep + "으로 선택되었습니다.", "출발지 선택", JOptionPane.YES_NO_OPTION);
-			
 			if(result == JOptionPane.YES_OPTION) {
 		
 				bookForm.setSelectDep(SelectDep);
@@ -229,9 +232,9 @@ public class SelectDep extends JFrame implements ActionListener {
 				bookForm.setDep();
 				
 				setVisible(false);
-				
 			}
 		}
+		
 	}
 
 }

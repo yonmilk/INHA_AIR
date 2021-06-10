@@ -7,20 +7,24 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.text.NumberFormatter;
 
 //연우 - 승객선택
-public class SelectPassenger extends JFrame implements ActionListener{
+public class SelectPassenger extends JFrame implements ActionListener, KeyListener{
 
 	// Title 및 사이즈 설정
 	private String title = "승객 선택";
@@ -49,6 +53,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 	private Image imgMinus = minusIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 	private ImageIcon imgMinusIcon = new ImageIcon(imgMinus);
 	
+	
 	private JPanel jpTitle;
 	private JLabel lblTitle;
 	private JPanel jpAge;
@@ -71,7 +76,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 	private JLabel lblNumChild;
 	private JLabel lblAgeCal;
 	private JLabel lblAgeGuide;
-	private JTextField tfAge;
+	private JFormattedTextField tfAge;
 	private JButton btnCalculate;
 	private JButton btnOk;
 	private BookForm bookForm;
@@ -83,6 +88,8 @@ public class SelectPassenger extends JFrame implements ActionListener{
 	private JPanel jpTotal;
 	private JLabel lblTotal;
 	private JLabel lblTotalNum;
+	
+	private int birthday;
 	
 	
 	public SelectPassenger(BookForm bookForm) {
@@ -138,6 +145,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		lblTitle.setSize(150, 40);
 		lblTitle.setLocation(0, 10);
 		jpTitle.add(lblTitle);
+		
 		
 		//총인원 패널
 		jpTotal = new JPanel();
@@ -260,7 +268,8 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		lblAgeGuide.setSize(150, 40);
 		lblAgeGuide.setLocation(10, 20);
 		lblAgeGuide.setForeground(Color.gray);
-		tfAge = new JTextField(); //생년월일 입력 필드
+		tfAge = new JFormattedTextField(new NumberFormatter()); //생년월일 입력 필드
+		tfAge.addKeyListener(this);
 		tfAge.setFont(fontNanumGothic12);
 		tfAge.setSize(300, 30);
 		tfAge.setLocation(10, 50);
@@ -308,11 +317,11 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		
 		
 		if (obj == btnAdult) { //성인 나이 기준 설명
-			
+			JOptionPane.showMessageDialog(null, "국제선 만 12세 이상, 국내선 만 13세 이상", "성인나이", JOptionPane.OK_CANCEL_OPTION);
 		} else if (obj == btnInfant) { //소아 나이 기준 설명
-			
+			JOptionPane.showMessageDialog(null, "국제선 만 12세 미만, 국내선 만 13세 미만", "소아나이", JOptionPane.OK_CANCEL_OPTION);
 		} else if (obj == btnChild) { //유아 나이 기준 설명
-			
+			JOptionPane.showMessageDialog(null, "2세 미만", "유아나이", JOptionPane.OK_CANCEL_OPTION);
 		}
 		
 		
@@ -352,6 +361,10 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		
 		if (obj == btnCalculate) {		//나이계산기 버튼 눌렀을 때
 			
+			
+			JOptionPane.showMessageDialog(null, "나이는 ", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+			
+			
 		}
 		
 		numTotal = numAdult + numInfant + numChild;
@@ -372,6 +385,46 @@ public class SelectPassenger extends JFrame implements ActionListener{
 				
 			}
 		}
+		
+	}
+
+
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		if (tfAge.getText().length() >= 6) {
+			e.consume();
+		}
+	}
+
+
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+			String text = tfAge.getText().substring(0, tfAge.getText().length() - 1); 	            //tfAge의 글자를 끝에 하나를 자르는 substring 함수
+			tfAge.setText(text);
+		}
+		
+		try {
+			String keyText = KeyEvent.getKeyText(e.getKeyCode());
+			//System.out.println(keyText);
+			Integer.parseInt(keyText);
+			
+		} catch (NumberFormatException | NullPointerException ex) {
+			e.consume();
+		}
+	}
+
+
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 

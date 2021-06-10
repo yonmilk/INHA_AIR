@@ -100,7 +100,7 @@ public class BookForm extends JFrame implements ActionListener {
 	
 	public void setArr() {
 		//btnArr.setText(SelectArr);
-		btnArr.setText(SelectArrCode);
+		btnArr.setText(SelectArr);
 	}
 
 	//출발지 값 받아오기
@@ -122,7 +122,7 @@ public class BookForm extends JFrame implements ActionListener {
 
 	public void setDep() {
 		//btnDep.setText(SelectDep);
-		btnDep.setText(SelectDepCode);
+		btnDep.setText(SelectDep);
 	}
 	
 	
