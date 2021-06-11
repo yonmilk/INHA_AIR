@@ -198,7 +198,7 @@ public class BookForm extends JFrame implements ActionListener {
 	}
 	
 	public void setPassenger() {
-		btnPeople.setText("<HTML>성인 "+ numAdult + "명<br>소아 " + numInfant + "명<br>유아 " + numChild + "명<br>총 "+ numTotal + "명</HTML>");
+		btnPeople.setText("<HTML>성인 "+ numAdult + "명 / 소아 " + numInfant + "명<br>유아 " + numChild + "명 / 총 "+ numTotal + "명</HTML>");
 	}
 	
 	
@@ -250,24 +250,24 @@ public class BookForm extends JFrame implements ActionListener {
 		//출발지 도착지
 		jpCountry = new JPanel();
 		jpCountry.setLayout(null);
-		jpCountry.setBackground(Color.white);
-		jpCountry.setSize(510, 400);
-		jpCountry.setLocation(0, 0);
+		jpCountry.setBackground(Color.green);
+		jpCountry.setSize(500, 200);
+		jpCountry.setLocation(250, 50);
 		jpDep = new JPanel();
 		jpDep.setBackground(Color.white);
 		jpDep.setLayout(null);
-		jpDep.setSize(200, 300);
-		jpDep.setLocation(10, 100);
+		jpDep.setSize(200, 200);
+		jpDep.setLocation(0, 0);
 		
 		lblDep = new JLabel("출발");
 		lblDep.setFont(fontNanumGothic25);
 		lblDep.setSize(150, 35);
-		lblDep.setLocation(25, 15);
+		lblDep.setLocation(75, 0);
 		btnDep = new JButton();
 		//btnDep.setText("<HTML><body><h2><center>From</center></h2></body></HTML>");
 		btnDep.setLayout(null);
 		btnDep.setSize(150, 100);
-		btnDep.setLocation(25, 90);
+		btnDep.setLocation(25, 40);
 		btnDep.setText("<HTML><body style ='text-align:center;'>From<br>출발지</body></HTML>");
 		btnDep.setFont(fontNanumGothic20);
 		btnDep.setBackground(Color.white);
@@ -280,15 +280,15 @@ public class BookForm extends JFrame implements ActionListener {
 		jpSwap = new JPanel();
 		jpSwap.setBackground(Color.white);
 		jpSwap.setLayout(null);
-		jpSwap.setSize(100, 300);
-		jpSwap.setLocation(210, 100);
+		jpSwap.setSize(100, 200);
+		jpSwap.setLocation(200, 0);
 		Image img = new ImageIcon("imgs/swap.png").getImage();
 		Image changeimg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imgSwap = new ImageIcon(changeimg);
 		btnSwap = new JButton(imgSwap);
 		btnSwap.setLayout(null);
 		btnSwap.setSize(100, 100);
-		btnSwap.setLocation(0, 90);
+		btnSwap.setLocation(0, 40);
 		btnSwap.setBorderPainted(false);
 		btnSwap.setBackground(Color.white);
 		btnSwap.addActionListener(this);
@@ -298,18 +298,18 @@ public class BookForm extends JFrame implements ActionListener {
 		jpArr = new JPanel();
 		jpArr.setLayout(null);
 		jpArr.setBackground(Color.white);
-		jpArr.setSize(200, 300);
-		jpArr.setLocation(300, 100);
+		jpArr.setSize(200, 200);
+		jpArr.setLocation(300, 0);
 		lblArr = new JLabel("도착");
 		lblArr.setFont(fontNanumGothic25);
 		lblArr.setSize(150, 35);
-		lblArr.setLocation(25, 15);
+		lblArr.setLocation(75, 0);
 		btnArr = new JButton();
 		btnArr.setLayout(null);
 		//btnArr.setText("<HTML><body><h2><center>To</center></h2></body></HTML>");
 		btnArr.setText("<HTML><body style = 'text-align:center;'>To<br>도착지</body></HTML>");
 		btnArr.setSize(150, 100);
-		btnArr.setLocation(25, 90);
+		btnArr.setLocation(25, 40);
 		btnArr.setFont(fontNanumGothic20);
 		btnArr.setBackground(Color.white);
 		//btnArr.setBorderPainted(false);
@@ -326,32 +326,32 @@ public class BookForm extends JFrame implements ActionListener {
 		jpCalNum = new JPanel();
 		jpCalNum.setBackground(Color.white);
 		jpCalNum.setLayout(null);
-		jpCalNum.setSize(510, 400);
-		jpCalNum.setLocation(510, 0);
+		jpCalNum.setSize(500, 180);
+		jpCalNum.setLocation(250, 250);
 		
 		imgDate = new ImageIcon("image/calender.png");
 		lblDate = new JLabel("여행일정", imgDate, SwingUtilities.LEFT); //라벨에 이미지 삽입, 위치 주기
 		lblDate.setSize(150, 35);
-		lblDate.setLocation(50, 100);
+		lblDate.setLocation(20, 15);
 		lblDate.setFont(fontNanumGothic25);
 		btnDate = new JButton("");
 		btnDate.setBackground(Color.white);
 		btnDate.addActionListener(this);
-		btnDate.setSize(270, 100);
-		btnDate.setLocation(180, 70);
+		btnDate.setSize(300, 60);
+		btnDate.setLocation(180, 0);
 		btnDate.setFont(fontNanumGothic15);
 		
 		
 		imgPeople = new ImageIcon("image/people.png");
 		lblPeople = new JLabel("탑승인원", imgPeople, SwingUtilities.LEFT);
 		lblPeople.setSize(150, 35);
-		lblPeople.setLocation(50, 260);
+		lblPeople.setLocation(20, 110);
 		lblPeople.setFont(fontNanumGothic25);
 		btnPeople = new JButton("");
 		btnPeople.setBackground(Color.white);
 		btnPeople.addActionListener(this);
-		btnPeople.setSize(270, 100);
-		btnPeople.setLocation(180, 230);
+		btnPeople.setSize(300, 60);
+		btnPeople.setLocation(180, 100);
 		btnPeople.setFont(fontNanumGothic15);
 		
 		
@@ -376,8 +376,8 @@ public class BookForm extends JFrame implements ActionListener {
 //					btnSearch.setBackground(new Color(135,206,250)); //버튼 배경색 RGB코드값으로 주기
 //					btnSearch.setBackground(new Color(153, 204, 255)); //버튼 배경색 RGB코드값으로 주기
 		btnSearch.setBackground(new Color(10,90,150)); //버튼 배경색 RGB코드값으로 주기
-		btnSearch.setSize(300, 80);
-		btnSearch.setLocation(350, 420);
+		btnSearch.setSize(250, 50);
+		btnSearch.setLocation(370, 480);
 		btnSearch.setForeground(Color.white); //버튼 폰트 색 변경
 		btnSearch.setPreferredSize(new Dimension(300, 35));
 		btnSearch.setBorderPainted(false); //버튼 윤곽선 제거
