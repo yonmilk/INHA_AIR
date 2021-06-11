@@ -2,6 +2,7 @@ package customer.flightSchedule;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +33,9 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		
 	// Forms
 	private MainMenuForm mainMenuForm;
+	
+	// 항공편 조회
+	private JPanel jpSchedule, jpSearch, jpTable;
 	
 	// 예원 - 시작 화면
 	public FlightStatusForm() {
@@ -72,8 +76,28 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 
 	// 예매 조회창
 	private void setFindTrips() {
-		// TODO Auto-generated method stub
+		jpSchedule = new JPanel(null);
+		jpSchedule.setSize(1100, 635);
+		jpSchedule.setLocation(3, 90);
+//		jpSchedule.setBackground(Color.WHITE);
 		
+		// 검색 조건 선택
+		jpSearch = new JPanel(new GridLayout(1, 5, 5, 5));
+		jpSearch.setSize(1090, 100);
+		jpSearch.setLocation(5, 5);
+		jpSearch.setBackground(Color.BLUE);
+		jpSchedule.add(jpSearch);
+		
+		
+		// 검색 결과 테이블
+		jpTable = new JPanel();
+		jpTable.setSize(1090, 520);
+		jpTable.setLocation(5, 110);
+		jpTable.setBackground(Color.ORANGE);
+		jpSchedule.add(jpTable);
+		
+		
+		add(jpSchedule);
 	}
 
 	public static void main(String[] args) {

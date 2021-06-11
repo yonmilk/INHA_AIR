@@ -17,6 +17,7 @@ import javax.swing.border.TitledBorder;
 
 import be.main.MainForm;
 import be.menu.MenuBar;
+import customer.findTrips.FindTripsForm;
 import customer.start.MainMenuForm;
 
 public class PaymentForm extends JFrame implements ActionListener {
@@ -28,6 +29,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 	private JButton btnMainMenu;
 	// 예원 - Forms
 	private MainMenuForm mainMenuForm;
+	private FindTripsForm findTripsForm;
 	
 	// 예원 - 색상
 	Color colorLogo = new Color(24, 62, 111);
@@ -111,6 +113,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 		jpBtn.setBackground(Color.WHITE);
 		
 		btnOK = new JButton("첫화면으로 이동");
+		btnOK.addActionListener(this);
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setBackground(new Color(10,90,150));
 		btnOK.setForeground(Color.WHITE);
@@ -121,6 +124,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 		jpBtn.add(btnOK);
 		
 		btnCheckRes = new JButton("예약 확인페이지로 이동");
+		btnCheckRes.addActionListener(this);
 		btnCheckRes.setFont(fontNanumGothic20);
 		btnCheckRes.setBackground(new Color(150,150,150));
 		btnCheckRes.setForeground(Color.WHITE);
@@ -145,10 +149,13 @@ public class PaymentForm extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
-		if(obj == btnMainMenu) {
+		if(obj == btnMainMenu || obj == btnOK) {
 			mainMenuForm = new MainMenuForm();
 			this.setVisible(false);
 			
+		} else if(obj == btnCheckRes) {
+			findTripsForm = new FindTripsForm();
+			this.setVisible(false);
 		}
 	}
 }

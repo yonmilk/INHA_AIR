@@ -260,9 +260,9 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		// 한글 이름 라벨
 		JPanel jpLblNameKor = new JPanel(new GridLayout(1, 2, 10, 10));
 		jpLblNameKor.setBackground(Color.WHITE);
-		lblFamilyNameKor = new JLabel("한글 성");
+		lblFamilyNameKor = new JLabel("한글 성 (예: 이)");
 		lblFamilyNameKor.setFont(fontNanumGothic15);
-		lblNameKor = new JLabel("한글 이름");
+		lblNameKor = new JLabel("한글 이름 (예: 은선)");
 		lblNameKor.setFont(fontNanumGothic15);
 		jpLblNameKor.add(lblFamilyNameKor);
 		jpLblNameKor.add(lblNameKor);
@@ -272,19 +272,19 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		jpTfNameKor.setBackground(Color.WHITE);
 		tfFamilyNameKor = new JTextField(20);
 		tfFamilyNameKor.setFont(fontNanumGothicP15);
-		tfFamilyNameKor.setText("예: 이");
+//		tfFamilyNameKor.setText("예: 이");
 		tfNameKor = new JTextField(20);
 		tfNameKor.setFont(fontNanumGothicP15);
-		tfNameKor.setText("예: 은선");
+//		tfNameKor.setText("예: 은선");
 		jpTfNameKor.add(tfFamilyNameKor);
 		jpTfNameKor.add(tfNameKor);
 		
 		// 영문 이름 라벨
 		JPanel jpLblNameEng = new JPanel(new GridLayout(1, 2, 10, 10));
 		jpLblNameEng.setBackground(Color.WHITE);
-		lblFamilyNameEng = new JLabel("영문 성");
+		lblFamilyNameEng = new JLabel("영문 성 (예: LEE)");
 		lblFamilyNameEng.setFont(fontNanumGothic15);
-		lblNameEng = new JLabel("영문 이름");
+		lblNameEng = new JLabel("영문 이름 (예: EUNSEON)");
 		lblNameEng.setFont(fontNanumGothic15);
 		jpLblNameEng.add(lblFamilyNameEng);
 		jpLblNameEng.add(lblNameEng);
@@ -294,10 +294,10 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		jpTfNameEng.setBackground(Color.WHITE);
 		tfFamilyNameEng = new JTextField(20);
 		tfFamilyNameEng.setFont(fontNanumGothicP15);
-		tfFamilyNameEng.setText("예: LEE");
+//		tfFamilyNameEng.setText("예: LEE");
 		tfNameEng = new JTextField(20);
 		tfNameEng.setFont(fontNanumGothicP15);
-		tfNameEng.setText("예: EUNSEON");
+//		tfNameEng.setText("예: EUNSEON");
 		jpTfNameEng.add(tfFamilyNameEng);
 		jpTfNameEng.add(tfNameEng);
 		
@@ -323,9 +323,9 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		// 여권번호/생년월일 라벨
 		JPanel jpLblPss = new JPanel(new GridLayout(1, 2, 10, 10));
 		jpLblPss.setBackground(Color.WHITE);
-		lblPassport = new JLabel("여권 번호");
+		lblPassport = new JLabel("여권 번호 (예: M46910832)");
 		lblPassport.setFont(fontNanumGothic15);
-		lblBirth = new JLabel("생년월일");
+		lblBirth = new JLabel("생년월일 (예: 20010414)");
 		lblBirth.setFont(fontNanumGothic15);
 		jpLblPss.add(lblPassport);
 		jpLblPss.add(lblBirth);
@@ -335,19 +335,19 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		jpTfPss.setBackground(Color.WHITE);
 		tfPassport = new JTextField(20);
 		tfPassport.setFont(fontNanumGothicP15);
-		tfPassport.setText("예: M46910832");
+//		tfPassport.setText("예: M46910832");
 		tfBirth = new JTextField(20);
 		tfBirth.setFont(fontNanumGothicP15);
-		tfBirth.setText("예: 20010414");
+//		tfBirth.setText("예: 20010414");
 		jpTfPss.add(tfPassport);
 		jpTfPss.add(tfBirth);
 		
 		// 연락처 라벨
 		JPanel jpLblTel = new JPanel(new GridLayout(1, 2, 10, 10));
 		jpLblTel.setBackground(Color.WHITE);
-		lblTel = new JLabel("연락처");
+		lblTel = new JLabel("연락처 (예: 01092032796)");
 		lblTel.setFont(fontNanumGothic15);
-		lblEmail = new JLabel("이메일");
+		lblEmail = new JLabel("이메일 (예: oow214@gmail.com)");
 		lblEmail.setFont(fontNanumGothic15);
 		jpLblTel.add(lblTel);
 		jpLblTel.add(lblEmail);
@@ -357,10 +357,10 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		jptfTel.setBackground(Color.WHITE);
 		tfTel = new JTextField(20);
 		tfTel.setFont(fontNanumGothicP15);
-		tfTel.setText("예: 01092032769");
+//		tfTel.setText("예: 01092032769");
 		tfEmail = new JTextField(20);
 		tfEmail.setFont(fontNanumGothicP15);
-		tfEmail.setText("예: oow214@gmail.com");
+//		tfEmail.setText("예: oow214@gmail.com");
 		jptfTel.add(tfTel);
 		jptfTel.add(tfEmail);
 		
@@ -521,7 +521,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		
 		// reservationDetail 테이블에 insert 하는 sql문
 		String sql = "INSERT INTO reservationDetail "
-				+ "(reserveNum, secheduleNum, nameKOR, nameENG, sex, passport, birth, tel, email, agree, baggage) "
+				+ "(reserveNum, secheduleNo, nameKOR, nameENG, sex, passport, birth, tel, email, agree, baggage) "
 				+ "VALUES('";
 		
 		nameKOR = tfFamilyNameKor.getText().toString() + tfNameKor.getText().toString();
@@ -580,7 +580,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 			int rs = upPay();
 			
 			if(rs == 1) {
-				paymentForm = new SelectPaymentForm();
+				paymentForm = new SelectPaymentForm(reserveNum);
 				this.setVisible(false);
 			}
 			else {

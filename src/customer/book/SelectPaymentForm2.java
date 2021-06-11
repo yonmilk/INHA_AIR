@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -29,7 +28,7 @@ import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.start.MainMenuForm;
 
-public class SelectPaymentForm extends JFrame implements ActionListener {
+public class SelectPaymentForm2 extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
@@ -58,32 +57,26 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	
 	// 결제 부분
 	private JPanel jpPayment, jpLbl, jpBtn;
-	private JLabel lblReserveNum, lblGo, lblCom, lblPeople, lblPay;
-	private ButtonGroup bgPayment;
-	private JRadioButton rbCash, rbCard;
+	private JLabel lblGo, lblCom, lblGoDate, lblComDate, lblAdult, lblChild, lblInfant, lblBaggage, lblPay;
+	private ButtonGroup bgPayment;		// 결제수단 버튼 그룹
 	private JButton btnCancle, btnOK;	// 취소, 결제 버튼
 	
-	// 데이터 정보
+	// 데이터 저장
 	private String reserveNum = "test001010";			// 예매 번호(테스트값)
-	private String GOscheduleNo = "";
-	private String COMscheduleNo = "";
-	private String GoData = "";
-	private String ComData = "";
-	private int adult = 0;	// 성인 인원
-	private int child = 0;	// 소아 인원
-	private int infant = 0;	// 유아 인원
-	private int pay = 0;	// 금액
 	
-
-	public SelectPaymentForm(String reserveNum) {
-		this.reserveNum = reserveNum;
+	
+	//
+//	private ReservationDetailForm informationF;
+	
+	public SelectPaymentForm2() {
+//		this.informationF = informationF;
 		
-//		// DB 정보 - 테스트 소스
-//		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
-//		String dbID="inhaair";
-//		String dbPassword="1234";
-//		// 데이터베이스 연결 - 테스트 소스
-//		databaseClass.connect(dbURL, dbID, dbPassword);
+		// DB 정보 - 테스트 소스
+		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbID="inhaair";
+		String dbPassword="1234";
+		// 데이터베이스 연결 - 테스트 소스
+		databaseClass.connect(dbURL, dbID, dbPassword);
 		
 		setTitle(title);
 		setSize(width, height);
@@ -110,9 +103,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		// 예원 - 리스너
 		btnMainMenu.addActionListener(this);
 		
-		// 데이터베이스에서 값 가져옴
-		setDB();
-		
 		// 예원 - 컴포넌트 붙이기
 		add(btnMainMenu);
 		
@@ -120,86 +110,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		setPayment();
 		
 		setVisible(true);
-	}
-
-
-	// 데이터정보 select
-	private void setDB() {
-		
-		// 인원, 스케쥴번호, 가격
-		String sqlReservation = "SELECT  GOscheduleNo, COMscheduleNo, adult, child, infant, pay "
-				+ "FROM reservation "
-				+ "WHERE reserveNum='" + reserveNum + "'";
-		
-		ResultSet rs1 = databaseClass.select(sqlReservation);
-		try {
-			while(rs1.next()) {
-				GOscheduleNo = rs1.getString("GOscheduleNo");
-				COMscheduleNo = rs1.getString("COMscheduleNo");
-				adult = Integer.parseInt(rs1.getString("adult"));
-				child = Integer.parseInt(rs1.getString("child"));
-				infant = Integer.parseInt(rs1.getString("infant"));
-				pay = Integer.parseInt(rs1.getString("pay"));
-			}
-		} catch (NumberFormatException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// GoData
-		String sqlGo = "SELECT flightCode, `from`, fromDate, `to`, toDate "
-				+ "FROM inhaair.airSchedule "
-				+ "WHERE scheduleNo='" + GOscheduleNo + "'";
-		
-		ResultSet rs2 = databaseClass.select(sqlGo);
-		
-		String flightCode = "";
-		String from = "";
-		String fromDate = "";
-		String to = "";
-		String toDate = "";
-		try {
-			while(rs2.next()) {
-				flightCode = rs2.getString("flightCode");
-				from = rs2.getString("from");
-				fromDate = rs2.getString("fromDate");
-				to = rs2.getString("to");
-				toDate = rs2.getString("toDate");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		GoData = "편명 " + flightCode + "   |   " + from + " -> " + to + "   |   " + fromDate + " ~ " + toDate;
-		
-		
-		// ComData
-		String sqlCom = "SELECT flightCode, `from`, fromDate, `to`, toDate "
-				+ "FROM inhaair.airSchedule "
-				+ "WHERE scheduleNo='" + COMscheduleNo + "'";
-		
-		ResultSet rs3 = databaseClass.select(sqlCom);
-		
-		flightCode = "";
-		from = "";
-		fromDate = "";
-		to = "";
-		toDate = "";
-		try {
-			while(rs3.next()) {
-				flightCode = rs3.getString("flightCode");
-				from = rs3.getString("from");
-				fromDate = rs3.getString("fromDate");
-				to = rs3.getString("to");
-				toDate = rs3.getString("toDate");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		ComData = "편명 " + flightCode + "   |   " + from + " -> " + to + "   |   " + fromDate + " ~ " + toDate;
 	}
 
 
@@ -256,87 +166,66 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	private void setCheck() {
 		// 예매확인 라벨
 		JLabel lblTitle = new JLabel("예매 확인");
-		lblTitle.setFont(fontNanumGothic25);
+		lblTitle.setFont(fontNanumGothic30);
 		lblTitle.setHorizontalAlignment(JLabel.LEFT);
 		lblTitle.setSize(900, 50);
 		lblTitle.setLocation(50, 20);
-//		lblTitle.setOpaque(true);
-//		lblTitle.setBackground(new Color(230,240,250));
 		
 		// 예매 내역 표시 패널
-		JPanel jpCheck = new JPanel(new GridLayout(7, 1, 10, 10));
-		jpCheck.setBorder(new EmptyBorder(10, 10, 10, 10));
+		JPanel jpCheck = new JPanel(new GridLayout(6, 1, 10, 10));
+		jpCheck.setBorder(new EmptyBorder(0, 10, 10, 0));
 		jpCheck.setSize(900, 400);
 		jpCheck.setLocation(50, 80);
-		jpCheck.setBackground(Color.WHITE);
+//		jpCheck.setBackground(Color.WHITE);
 		
-		// 예매 번호, 인원 수
-		JPanel jpReserveInfo1 = new JPanel(new GridLayout(1, 4, 5, 5));
-		jpReserveInfo1.setBackground(Color.WHITE);
-		JLabel lbl1 = new JLabel("예매번호");
-		lbl1.setFont(fontNanumGothic18);
-		lblReserveNum = new JLabel(reserveNum);
+		// 예매 번호
+		JPanel jpReserveNum = new JPanel(new GridLayout(1, 2, 5, 5));
+		jpReserveNum.setBackground(Color.WHITE);
+		JLabel lblReserveNum = new JLabel("예매번호");
 		lblReserveNum.setFont(fontNanumGothic15);
-		JLabel lbl2 = new JLabel("인원수");
-		lbl2.setFont(fontNanumGothic18);
-		lblPeople = new JLabel("성인 " + adult + "명 | 소아 " + child + "명 | 유아 " + infant + "명");
-		lblPeople.setFont(fontNanumGothic15);
-		jpReserveInfo1.add(lbl1);
-		jpReserveInfo1.add(lblReserveNum);
-		jpReserveInfo1.add(lbl2);
-		jpReserveInfo1.add(lblPeople);
 		
-		// 항공편 정보
-		JLabel lbl3 = new JLabel("항공편");
-		lbl3.setFont(fontNanumGothic18);
-		lblGo = new JLabel(GoData);
-		lblGo.setFont(fontNanumGothic15);
-		lblCom = new JLabel(ComData);
-		lblCom.setFont(fontNanumGothic15);
 		
-		// 가격
-		JPanel jpPay = new JPanel(new GridLayout(1, 2));
-		jpPay.setBackground(Color.WHITE);
-		JLabel lbl4 = new JLabel("가격");
-		lbl4.setFont(fontNanumGothic18);
-		lblPay = new JLabel(pay + " 원");
-		lblPay.setFont(fontNanumGothic15);
-		jpPay.add(lbl4);
-		jpPay.add(lblPay);
-		
-		// 결제 수단
-		JLabel lbl5 = new JLabel("결제수단");
-		lbl5.setFont(fontNanumGothic18);
-		JPanel jpPayment = new JPanel(new GridLayout(1, 2, 10, 10));
-		jpPayment.setBackground(Color.WHITE);
-		bgPayment = new ButtonGroup();
-		rbCash = new JRadioButton("무통장 입금", true);
-		rbCash.setFont(fontNanumGothic15);
-		rbCash.setBackground(Color.WHITE);
-		rbCard = new JRadioButton("신용카드", false);
-		rbCard.setFont(fontNanumGothic15);
-		rbCard.setBackground(Color.WHITE);
-		bgPayment.add(rbCash);
-		bgPayment.add(rbCard);
-		jpPayment.add(rbCash);
-		jpPayment.add(rbCard);
-		
-		// 컴포넌트 붙이기
-		jpCheck.add(jpReserveInfo1);
-		jpCheck.add(lbl3);
-		jpCheck.add(lblGo);
-		jpCheck.add(lblCom);
-		jpCheck.add(jpPay);
-		jpCheck.add(lbl5);
-		jpCheck.add(jpPayment);
+		jpCheck.add(jpReserveNum);
 		
 		jpLbl.add(lblTitle);
 		jpLbl.add(jpCheck);
 	}
 
 
+	// 결제 수단 버튼 그룹
+/*	private void setBtnGroup() {
+		
+		bgPayment = new ButtonGroup();
+		
+		btnCash = new JButton("무통장 입금");
+		btnCash.setFont(fontNanumGothic20);
+		btnCash.setSize(175, 200);
+		btnCash.setLocation(295, 200);
+//		btnCash.setBackground(Color.WHITE);
+//		btnCash.setBackground(new Color(10,90,150));
+		btnCash.setBackground(new Color(150,150,150));
+		btnCash.setForeground(Color.WHITE);
+		btnCash.setSelected(true);
+//		btnCash.setBorderPainted(false);
+		
+		btnCard = new JButton("카드 결제");
+		btnCard.setFont(fontNanumGothic20);
+		btnCard.setSize(175, 200);
+		btnCard.setLocation(535, 200);
+		btnCard.setBackground(Color.WHITE);
+		btnCard.setForeground(new Color(10,90,150));
+//		btnCard.setBorderPainted(false);
+		
+		bgPayment.add(btnCash);
+		bgPayment.add(btnCard);
+		
+		jpLbl.add(btnCash);
+		jpLbl.add(btnCard);
+	}
+*/
+
 	public static void main(String[] args) {
-		new SelectPaymentForm("test001010");
+		new SelectPaymentForm2();
 	}
 
 
@@ -345,26 +234,22 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		
 		if(obj == btnMainMenu || obj == btnCancle) {
+//			mainMenuForm = new MainMenuForm();
+//			this.setVisible(false);
+			
 			clickMain();
 			
 		}  else if(obj == btnOK) {
+			payment("cash");
 			
-			int result = JOptionPane.showConfirmDialog(null, "결제를 진행하시겠습니까?", "결제 안내", JOptionPane.YES_NO_OPTION);
-			
-			if(result == JOptionPane.YES_OPTION) {
-				if(rbCash.isSelected()) {
-					payment("cash");
-				} else if(rbCard.isSelected()) {
-					payment("card");
-				}
-			}
-
 		}
 	}
 
 	private void payment(String type) {
 		String sql = "INSERT INTO payment(reserveNum, payable, pay) VALUES('" + reserveNum + "', '" + type + "', " + 
 				"( SELECT pay FROM reservation WHERE reserveNum='" + reserveNum + "'))";
+		
+//		System.out.println(sql);
 		
 		int rs = databaseClass.insert(sql);
 		
