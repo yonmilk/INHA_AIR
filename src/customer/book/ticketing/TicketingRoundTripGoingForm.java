@@ -340,6 +340,7 @@ public void roundtrip() {
 	add(jpTotalPay);
 	
 	Find();
+	Insert();
 	
 	lblEcon = new JLabel("이코노미 클래스");
 	lblEcon.setFont(fontNanumGothic25);
@@ -449,17 +450,17 @@ public void roundtrip() {
 	jpFlightTOP.add(lblAirportD);
 	jpFlightTOP.add(lblAirportA);
 	
-//	System.out.println(economyClass);
-	
-	
 	setVisible(true);
 }
 		
-		
 	public TicketingRoundTripGoingForm() {
-		System.out.println(" ");
+//		System.out.println(" ");
 	}
 
+	private void Insert() {
+		
+	}
+	
 	private void Find() {
 		String driver = "com.mysql.cj.jdbc.Driver"; //드라이버
 		String dbURL = "jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
@@ -472,10 +473,8 @@ public void roundtrip() {
 				Class.forName(driver);
 				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 				state = conn.createStatement();
-//				System.out.println("oo");
 				
 				String DepP = "CJU";
-//				String ArrP = "GMP";
 				
 				String sql;
 				sql = "SELECT * FROM airport WHERE `code` = '"+ DepP +"' ";
@@ -483,35 +482,22 @@ public void roundtrip() {
 				ResultSet rs = state.executeQuery(sql);
 				while (rs.next()) {
 					airportD = rs.getString("airport");
-						
-//					System.out.println(airportD);
-					
-//					DepAP = airportD;
 				}
 				rs.close();
 				state.close();
 				conn.close();
-				
 	    }
-	    catch (Exception e) {
-		}finally {
-			try {
-				if(state!=null) 
-					state.close();
-			}catch (SQLException ex1) {
+			catch (Exception e) {
+			}finally {try {if(state!=null)state.close();}
+			catch (SQLException ex1) {}
+			try {if(conn!=null)conn.close();}
+			catch (SQLException ex2) {}
 			}
-			try {
-				if(conn!=null)
-					conn.close();
-			} catch (SQLException ex2) {
-			}
-		}
 		
 			try{
 				Class.forName(driver);
 				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 				state = conn.createStatement();
-//				System.out.println("oo");
 				
 				String ArrP = "GMP";
 				
@@ -522,34 +508,23 @@ public void roundtrip() {
 				while (rs.next()) {
 					airportA = rs.getString("airport");
 						
-//					System.out.println(airportA);
-					
-//					ArrAP = airportA;
 				}
 				rs.close();
 				state.close();
 				conn.close();
 				
 	    }
-	    catch (Exception e) {
-		}finally {
-			try {
-				if(state!=null) 
-					state.close();
-			}catch (SQLException ex1) {
+			catch (Exception e) {
+			}finally {try {if(state!=null)state.close();}
+			catch (SQLException ex1) {}
+			try {if(conn!=null)conn.close();}
+			catch (SQLException ex2) {}
 			}
-			try {
-				if(conn!=null)
-					conn.close();
-			} catch (SQLException ex2) {
-			}
-		}
 		
 			 try{
 					Class.forName(driver);
 					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 					state = conn.createStatement();
-//					System.out.println("oo");
 					
 					String SelectedFliCo = "IH8985";
 					
@@ -561,34 +536,22 @@ public void roundtrip() {
 						economyClass = rs.getString("economyClass");
 						prestigeClass = rs.getString("prestigeClass");
 						firstClass = rs.getString("firstClass");
-							
-//						System.out.println(economyClass + " " + prestigeClass + " " +
-//								firstClass + "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
 					}
 					rs.close();
 					state.close();
 					conn.close();
 					
 		    }
-		    catch (Exception e) {
-			}finally {
-				try {
-					if(state!=null) 
-						state.close();
-				}catch (SQLException ex1) {
+			 catch (Exception e) {
+				}finally {try {if(state!=null)state.close();}
+				catch (SQLException ex1) {}
+				try {if(conn!=null)conn.close();}
+				catch (SQLException ex2) {}
 				}
-				try {
-					if(conn!=null)
-						conn.close();
-				} catch (SQLException ex2) {
-				}
-			}
 		    try{
 			Class.forName(driver);
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 			state = conn.createStatement();	
-					
-					
 				
 					String sql;
 					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'and toDate = " + ComeDay +"";
@@ -607,25 +570,16 @@ public void roundtrip() {
 						toTime = rs.getString("toTime");
 						
 						GOscheduleNo = scheduleNo;
-						
 					}
-						
-//					rs.close();
-//					state.close();
-//					conn.close();
+					rs.close();
+					state.close();
+					conn.close();
 		    }
 		    catch (Exception e) {
-			}finally {
-				try {
-					if(state!=null) 
-						state.close();
-				}catch (SQLException ex1) {
-				}
-				try {
-					if(conn!=null)
-						conn.close();
-				} catch (SQLException ex2) {
-				}
+			}finally {try {if(state!=null)state.close();}
+			catch (SQLException ex1) {}
+			try {if(conn!=null)conn.close();}
+			catch (SQLException ex2) {}
 			}
 	}
 	public static void main(String[] args) {

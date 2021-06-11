@@ -24,7 +24,7 @@ import be.menu.MenuBar;
 import customer.start.MainMenuForm;
 
 
-public class MemberInquiryDetailForm extends JFrame implements ActionListener {
+public class MemberInquiryDetailFormTEST extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
@@ -34,7 +34,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 			private JButton btnMainMenu;
 			// 예원 - Forms
 			private MainMenuForm mainMenuForm;
-			private MemberInquiryDetailForm detailForm;
+			private MemberInquiryDetailFormTEST detailForm;
 			
 			// 예원 - 색상
 			Color colorLogo = new Color(24, 62, 111);
@@ -53,59 +53,59 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 			
-			//reserveDetail
-			String reserveNum = "21061200aa";
-			String scheduleNo = "AAAA-12";
-			String nameKOR = "민보현";
-			String nameENG = "bohyun";
-			String sex = "여";
-			String passport = "M000000000";	
-			String birth = "19991108";	
-			String tel = "01011112222";
-			String email = "aaaaa@bbb.cc";	
-			int agree;	
-			int baggage;
-			
-			//airschedule
-			String flightCode = "BBB12";
-			String from = "CJU";
-			String fromDate ="20210521";
-			String fromTime = "160000";
-			String to = "GMP";
-			String toDate;
-			String toTime = "170000";
-			
-			//reservation
-			String GOclass = "e";
-			String ID;
-//------------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------
-			
 //			//reserveDetail
-//			String reserveNum;
-//			String scheduleNo;
-//			String nameKOR;
-//			String nameENG;
-//			String sex;
-//			String passport;	
-//			String birth;	
-//			String tel;
-//			String email;	
+//			String reserveNum = "21061200aa";
+//			String scheduleNo = "AAAA-12";
+//			String nameKOR = "민보현";
+//			String nameENG = "bohyun";
+//			String sex = "여";
+//			String passport = "M000000000";	
+//			String birth = "19991108";	
+//			String tel = "01011112222";
+//			String email = "aaaaa@bbb.cc";	
 //			int agree;	
 //			int baggage;
 //			
 //			//airschedule
-//			String flightCode;
-//			String from;
-//			String fromDate;
-//			String fromTime;
-//			String to;
+//			String flightCode = "BBB12";
+//			String from = "CJU";
+//			String fromDate ="20210521";
+//			String fromTime = "160000";
+//			String to = "GMP";
 //			String toDate;
-//			String toTime;
+//			String toTime = "170000";
 //			
 //			//reservation
-//			String GOclass;
+//			String GOclass = "e";
 //			String ID;
+//------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
+			
+			//reserveDetail
+			String reserveNum;
+			String scheduleNo;
+			String nameKOR;
+			String nameENG;
+			String sex;
+			String passport;	
+			String birth;	
+			String tel;
+			String email;	
+			int agree;	
+			int baggage;
+			
+			//airschedule
+			String flightCode;
+			String from;
+			String fromDate;
+			String fromTime;
+			String to;
+			String toDate;
+			String toTime;
+			
+			//reservation
+			String GOclass;
+			String ID = "test1";
 //------------------------------------------------------------------------------------------------------------------
 		private JPanel jpInquiry1; // 시간 선택시 비행기1
 		private JPanel jpInquiry2; // 비행기 2
@@ -155,7 +155,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		private Component lblSeatInfo;
 		private String seatClass;
 
-	public MemberInquiryDetailForm() {
+	public MemberInquiryDetailFormTEST() {
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -374,6 +374,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 			while (rs.next()) {
 				reserveNum = rs.getString("reserveNum");
 				GOclass = rs.getString("GOclass");
+				System.out.println(reserveNum);
 			}
 			rs.close();
 			state.close();
@@ -396,7 +397,6 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		
 		ResultSet rs = state.executeQuery(sql);
 		while (rs.next()) {
-			reserveNum = rs.getString("reserveNum");
 			scheduleNo = rs.getString("scheduleNo");
 			nameKOR = rs.getString("nameKOR");
 			nameENG = rs.getString("nameENG");
@@ -450,7 +450,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 	
 //----------------------------------------
 	public static void main(String[] args) {
-		new MemberInquiryDetailForm();
+		new MemberInquiryDetailFormTEST();
 	}
 
 	@Override
