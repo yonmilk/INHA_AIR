@@ -42,6 +42,7 @@ public class FindIdForm extends JFrame implements ActionListener{
 		setLocationRelativeTo(this);
 		Container c = getContentPane();
 		c.setBackground(Color.white);
+		
 		setLayout(null);
 		//this.setUndecorated(true); //타이틀바 없애기 
 		//setFont(fontNanumGothic);
