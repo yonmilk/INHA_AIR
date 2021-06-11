@@ -376,8 +376,8 @@ public class BookForm extends JFrame implements ActionListener {
 //					btnSearch.setBackground(new Color(135,206,250)); //버튼 배경색 RGB코드값으로 주기
 //					btnSearch.setBackground(new Color(153, 204, 255)); //버튼 배경색 RGB코드값으로 주기
 		btnSearch.setBackground(new Color(10,90,150)); //버튼 배경색 RGB코드값으로 주기
-		btnSearch.setSize(250, 50);
-		btnSearch.setLocation(370, 480);
+		btnSearch.setSize(460, 50);
+		btnSearch.setLocation(270, 480);
 		btnSearch.setForeground(Color.white); //버튼 폰트 색 변경
 		btnSearch.setPreferredSize(new Dimension(300, 35));
 		btnSearch.setBorderPainted(false); //버튼 윤곽선 제거
