@@ -115,6 +115,7 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		btnFindId.setLocation(15, 240);
 		btnFindId.setBorderPainted(false); //버튼 윤곽선 제거
 		btnFindId.setBackground(new Color(10,90,150));
+		btnFindId.addActionListener(this);
 		jpIdFind.add(lblIdName);
 		jpIdFind.add(tfIdName);
 		jpIdFind.add(lblIdPhoneNum);
@@ -169,6 +170,7 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		btnFindPw.setLocation(15, 240);
 		btnFindPw.setBorderPainted(false); //버튼 윤곽선 제거
 		btnFindPw.setBackground(new Color(10,90,150));
+		btnFindPw.addActionListener(this);
 		jpPwFind.add(lblPwName);
 		jpPwFind.add(tfPwName);
 		jpPwFind.add(lblPwPhoneNum);
@@ -195,6 +197,10 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
+		//new customer.login.FindIdForm(this);
+		//new customer.login.FindPwForm(this);
+		
+		
 		if(obj == btnFindId) {
 			String name = tfIdName.getText();
 			String tel = tfIdPhoneNum.getText();
@@ -208,7 +214,7 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 			} else {
 				boolean check = checkNameNum(name, tel);
 				if(check) {
-					JOptionPane.showMessageDialog(null, "회원님의 아이디는 " + "" + "입니다.", "아이디 찾기 성공", JOptionPane.INFORMATION_MESSAGE);
+					new customer.login.FindIdForm(this);
 				} else {
 					JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.", "아이디 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
 				}
@@ -231,7 +237,9 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 			} else {
 				boolean check = checkNameNumID(name, tel, id);
 				if(check) {
-					JOptionPane.showMessageDialog(null, "회원님의 임시 비밀번호는 " + "" + "입니다.", "비밀번호 찾기 성공", JOptionPane.INFORMATION_MESSAGE);
+					
+					new customer.login.FindPwForm(this);
+					
 				} else {
 					JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.", "비밀번호 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
 				}
