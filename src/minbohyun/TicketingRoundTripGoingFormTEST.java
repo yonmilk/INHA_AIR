@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -108,8 +109,6 @@ public class TicketingRoundTripGoingFormTEST extends JFrame implements ActionLis
 		public void setInfantP(int infantP) {
 			InfantP = infantP;
 		}
-		
-		
 		
 		public String getFlightCode() {
 			return flightCode;
@@ -478,7 +477,7 @@ public void roundtrip() {
 		
 		
 	public TicketingRoundTripGoingFormTEST() {
-		System.out.println(" ");
+		
 	}
 
 	private void Find() {
@@ -672,13 +671,21 @@ public void roundtrip() {
 					Class.forName(driver);
 					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 					state = conn.createStatement();	
-						
-//							String sql = "insert into reservation values('"+reserveNum+"', '"+GOscheduleNo+"','"+ID+"', "+AdultP+","+ChildP+" ,"+InfantP+","+totalPay+",'"+selectedSeatGo+"','');";
-							String sql = "insert into reservation('reserveNum', 'GOscheduleNo', 'COMscheduleNo', 'ID', 'adult','child' ,'infant','pay','GOclass','COMclass') values('"+reserveNum+"', '"+GOscheduleNo+"','"+ID+"', "+AdultP+","+ChildP+" ,"+InfantP+","+totalPay+",'"+selectedSeatGo+"','');";
+						String COMscheduleNo = "aaa";
+							String sql = "insert into reservation('reserveNum', 'GOscheduleNo', 'COMscheduleNo', 'ID', 'adult','child' ,'infant','pay','GOclass','COMclass')"
+									+ " values('"+reserveNum+"', '"+GOscheduleNo+"','"+COMscheduleNo+"','"+ID+"', "+AdultP+","+ChildP+" ,"+InfantP+","+totalPay+",'"+selectedSeatGo+"','');";
 							
-							state.executeUpdate(sql);
+							ResultSet rs = state.executeQuery(sql);
 							
+							while (rs.next()) {
+								System.out.println(sql);
+//								System.out.println(reserveNum+ GOscheduleNo+ID+AdultP+ChildP +InfantP+totalPay+selectedSeatGo+COMclass);
+							}	
+							rs.close();
+							state.close();
+							conn.close();
 				    }
+			
 				    catch (Exception e3) {
 					}finally {
 						
@@ -694,9 +701,9 @@ public void roundtrip() {
 						} catch (SQLException ex2) {
 						}
 					}
+			
 			//------/test
-//			System.out.println(reserveNum+ GOscheduleNo+ID+AdultP+ChildP +InfantP+totalPay+selectedSeatGo+COMclass);
-			System.out.println(reserveNum);
+//			System.out.println(reserveNum);
 
 		}
 		else if(obj == btnEcon)
