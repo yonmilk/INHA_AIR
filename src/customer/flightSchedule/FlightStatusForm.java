@@ -6,12 +6,19 @@ import java.awt.GridLayout;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
+import DataBase.databaseClass;
 import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.start.MainMenuForm;
@@ -23,22 +30,45 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	
 	// 폰트
 	Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
+	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
+	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
+	Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
+	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
+	Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 30
 	
 	// 색상
 	Color colorLogo = new Color(24, 62, 111);	
 	Color colorBtn = new Color(10,90,150);
+	Color crPaleblue = new Color(230,240,250);
 	
-	// 버튼
+	// 컴포넌트
 	private JButton btnMainMenu;
-		
+	
 	// Forms
 	private MainMenuForm mainMenuForm;
 	
 	// 항공편 조회
 	private JPanel jpSchedule, jpSearch, jpTable;
+	private JLabel lblFrom, lblTo;
+	private JComboBox<String> cbFrom, cbTo;
+	private JButton btnOK;
+	
+	private ArrayList<String> city = new ArrayList<>();
+	private ArrayList<String> destination = new ArrayList<>();
 	
 	// 예원 - 시작 화면
 	public FlightStatusForm() {
+		
+		// DB 정보 - 테스트 소스
+		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbID="inhaair";
+		String dbPassword="1234";
+		// 데이터베이스 연결 - 테스트 소스
+		databaseClass.connect(dbURL, dbID, dbPassword);
+		
+		// 공항 정보 가져오기
+		setCity();
+				
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -74,28 +104,125 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 
+	// 공항 정보 가져오기 - 운행되고 있는 공항만 가져옴
+	private void setCity() {
+		// 국내 공항 먼저
+//		String sql = "SELECT code, city FROM airport WHERE terminal='국내' ORDER BY city";
+		String sql = "SELECT code, country, city FROM airport \r\n"
+				+ "WHERE terminal='국내' AND code IN (SELECT DISTINCT `from` FROM airplane)\r\n"
+				+ "ORDER BY city";
+		
+		ResultSet rs = databaseClass.select(sql);
+		try {
+			while(rs.next()) {
+				city.add(rs.getString("city") + "/" + rs.getString("code"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// 국내 뒤에 국제 공항 정보 나오도록
+//		String sql2 = "SELECT code, country, city FROM airport WHERE terminal='국제' ORDER BY country";
+		String sql2 = "SELECT code, country, city FROM airport \r\n"
+				+ "WHERE terminal='국제' AND code IN (SELECT DISTINCT `from` FROM airplane)\r\n"
+				+ "ORDER BY country, city";
+		
+		ResultSet rs2 = databaseClass.select(sql2);
+		try {
+			while(rs2.next()) {
+				city.add(rs2.getString("city") + "/" + rs2.getString("code"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// 출발지 가장 첫번째 값을 기준으로 도착지 정보 가져옴
+		String dept = city.get(0);
+		dept = dept.substring(dept.lastIndexOf("/")+1);
+		String sql3 = "SELECT code, country, city FROM airport WHERE code IN (SELECT `to` "
+				+ "FROM airplane "
+				+ "WHERE `from`='" + dept + "')";
+		
+		ResultSet rs3 = databaseClass.select(sql3);
+		try {
+			while(rs3.next()) {
+				destination.add(rs3.getString("city") + "/" + rs3.getString("code"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	// 예매 조회창
 	private void setFindTrips() {
 		jpSchedule = new JPanel(null);
 		jpSchedule.setSize(1100, 635);
 		jpSchedule.setLocation(3, 90);
-//		jpSchedule.setBackground(Color.WHITE);
+		jpSchedule.setBackground(Color.WHITE);
 		
 		// 검색 조건 선택
-		jpSearch = new JPanel(new GridLayout(1, 5, 5, 5));
-		jpSearch.setSize(1090, 100);
-		jpSearch.setLocation(5, 5);
-		jpSearch.setBackground(Color.BLUE);
-		jpSchedule.add(jpSearch);
+		jpSearch = new JPanel(null);
+		jpSearch.setBorder(new EmptyBorder(30, 40, 30, 120));
+		jpSearch.setSize(1000, 70);
+		jpSearch.setLocation(50, 5);
+//		jpSearch.setBackground(Color.WHITE);
+		jpSearch.setBackground(crPaleblue);
 		
+		lblFrom = new JLabel("출발지");
+		lblFrom.setFont(fontNanumGothic20);
+		lblFrom.setHorizontalAlignment(JLabel.RIGHT);
+		lblFrom.setSize(100, 40);
+		lblFrom.setLocation(10, 18);
+		
+		cbFrom = new JComboBox<String>(city.toArray(new String[city.size()]));
+		cbFrom.setFont(fontNanumGothic20);
+		cbFrom.setSize(250, 40);
+		cbFrom.setLocation(140, 18);
+//		cbFrom.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		cbFrom.setBackground(Color.WHITE);
+		cbFrom.addActionListener(this);
+		
+		lblTo = new JLabel("도착지");
+		lblTo.setFont(fontNanumGothic20);
+		lblTo.setHorizontalAlignment(JLabel.RIGHT);
+		lblTo.setSize(100, 40);
+		lblTo.setLocation(400, 18);
+		
+		cbTo = new JComboBox<String>(destination.toArray(new String[destination.size()]));
+		cbTo.setFont(fontNanumGothic20);
+		cbTo.setSize(250, 40);
+		cbTo.setLocation(530, 18);
+		cbTo.setBackground(Color.WHITE);
+		cbTo.addActionListener(this);
+		
+		btnOK = new JButton("조회");
+		btnOK.setFont(fontNanumGothic20);
+		btnOK.addActionListener(this);
+		btnOK.setBackground(colorBtn);
+//		btnOK.setBackground(Color.WHITE);
+		btnOK.setForeground(Color.WHITE);
+		btnOK.setSize(150, 40);
+		btnOK.setLocation(820, 18);
+		btnOK.setBorder(null);
+		
+		jpSearch.add(lblFrom);
+		jpSearch.add(cbFrom);
+		jpSearch.add(lblTo);
+		jpSearch.add(cbTo);
+		jpSearch.add(btnOK);
 		
 		// 검색 결과 테이블
 		jpTable = new JPanel();
-		jpTable.setSize(1090, 520);
-		jpTable.setLocation(5, 110);
+		jpTable.setSize(1000, 520);
+		jpTable.setLocation(50, 95);
 		jpTable.setBackground(Color.ORANGE);
 		jpSchedule.add(jpTable);
 		
+		
+		jpSchedule.add(jpSearch);
 		
 		add(jpSchedule);
 	}
@@ -113,6 +240,59 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 			mainMenuForm = new MainMenuForm();
 			this.setVisible(false);
 			
+		} else if(obj == cbFrom) {
+			String selected = cbFrom.getSelectedItem().toString();
+			
+//			String[] strArr = selected.split("/");
+//			String dept = strArr[1];
+			String dept = selected.substring(selected.lastIndexOf("/")+1);
+			
+			// 도착지 콤보박스 설정
+			setDestination(dept);
+		} else if(obj == btnOK) {
+			String dept = cbFrom.getSelectedItem().toString();
+			String desn = cbTo.getSelectedItem().toString();
+			
+			dept = dept.substring(dept.lastIndexOf("/")+1);
+			desn = desn.substring(desn.lastIndexOf("/")+1);
+			
+//			System.out.println(dept + " ~ " + desn);
+			
+			// 항공편 조회
+			flightStatus(dept, desn);
 		}
+	}
+
+	// 도착지 콤보박스 설정 - 출발지에서 편항이 있는 도착지만 표시
+	private void setDestination(String dept) {
+		
+		String sql = "SELECT code, country, city FROM airport WHERE code IN (SELECT `to` "
+				+ "FROM airplane "
+				+ "WHERE `from`='" + dept + "')";
+//		System.out.println(sql);
+		
+		destination.clear();
+		
+		ResultSet rs = databaseClass.select(sql);
+		try {
+			while(rs.next()) {
+				destination.add(rs.getString("city") + "/" + rs.getString("code"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		cbTo.removeAllItems();
+//		cbTo.addItem(destination.toArray(new String[destination.size()]));
+		
+		for(String des : destination) {
+			cbTo.addItem(des);
+		}
+	}
+	
+	// 항공편 조회
+	private void flightStatus(String dept, String desn) {
+		
 	}
 }
