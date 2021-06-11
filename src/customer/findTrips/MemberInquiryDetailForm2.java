@@ -6,11 +6,6 @@ import java.awt.Font;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,7 +19,7 @@ import be.menu.MenuBar;
 import customer.start.MainMenuForm;
 
 
-public class MemberInquiryDetailForm extends JFrame implements ActionListener {
+public class MemberInquiryDetailForm2 extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
@@ -34,26 +29,18 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 			private JButton btnMainMenu;
 			// 예원 - Forms
 			private MainMenuForm mainMenuForm;
-			private MemberInquiryDetailForm detailForm;
+			private MemberInquiryDetailForm2 detailForm;
 			
 			// 예원 - 색상
 			Color colorLogo = new Color(24, 62, 111);
 			// 예원 - 폰트
 			Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
-			
-			String driver = "com.mysql.cj.jdbc.Driver"; //드라이버
-			String dbURL = "jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
-			String dbID = "inhaair"; //DB에 접속할 사용자 이름을 상수로 정의
-			String dbPassword = "1234"; //사용자의 비밀번호를 상수로 정의
-				
-			Connection conn = null; 
-			Statement state = null; 
+	
 	
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 			
-			//reserveDetail
 			String reserveNum = "21061200aa";
 			String scheduleNo = "AAAA-12";
 			String nameKOR = "민보현";
@@ -66,46 +53,18 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 			int agree;	
 			int baggage;
 			
-			//airschedule
 			String flightCode = "BBB12";
 			String from = "CJU";
 			String fromDate ="20210521";
 			String fromTime = "160000";
 			String to = "GMP";
-			String toDate;
+//			String toDate;
 			String toTime = "170000";
 			
-			//reservation
 			String GOclass = "e";
-			String ID;
-//------------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------
 			
-//			//reserveDetail
-//			String reserveNum;
-//			String scheduleNo;
-//			String nameKOR;
-//			String nameENG;
-//			String sex;
-//			String passport;	
-//			String birth;	
-//			String tel;
-//			String email;	
-//			int agree;	
-//			int baggage;
-//			
-//			//airschedule
-//			String flightCode;
-//			String from;
-//			String fromDate;
-//			String fromTime;
-//			String to;
-//			String toDate;
-//			String toTime;
-//			
-//			//reservation
-//			String GOclass;
-//			String ID;
+//------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 		private JPanel jpInquiry1; // 시간 선택시 비행기1
 		private JPanel jpInquiry2; // 비행기 2
@@ -138,7 +97,6 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		private JLabel lblDepArr;
 		private JLabel lblDate;
 		private JLabel lblSeat;
-		private JButton btnCheckIn;
 		private JLabel lblnameKOR;
 		private JLabel lblnameENG;
 		private JLabel lblSexBirth;
@@ -149,12 +107,12 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		private JLabel lblFlightcode;
 		private JLabel lblSchedule;
 		private JLabel lblFromToP;
-		private Component lblFromToT;
+		private JLabel lblFromToT;
 		private JLabel lblFromToD;
-		private Component lblSeatInfo;
+		private JLabel lblSeatInfo;
 		private String seatClass;
 
-	public MemberInquiryDetailForm() {
+	public MemberInquiryDetailForm2() {
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -182,8 +140,6 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		
 		// 예원 - 컴포넌트 붙이기
 		add(btnMainMenu);
-		
-		Data();
 		
 		lblInquiryTitle = new JLabel("예약 상세"); //큰 제목
 		lblInquiryTitle.setBounds(70,85 , 200, 60);
@@ -242,10 +198,10 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		lblSeat.setBounds(690, 10, 80, 20);
 		lblSeat.setFont(fontNanumGothic15);
 		
-		btnCheckIn = new JButton("체크인");
-		btnCheckIn.setBounds(880, 70, 90, 35);
-		btnCheckIn.setFont(fontNanumGothic12);
-		btnCheckIn.setBackground(crPaleblue);
+//		btnCheckIn = new JButton("체크인");
+//		btnCheckIn.setBounds(880, 70, 90, 35);
+//		btnCheckIn.setFont(fontNanumGothic12);
+//		btnCheckIn.setBackground(crPaleblue);
 		
 		jpInquiryDetailTop.add(lblPName);
 		jpInquiryDetailTop.add(lblPassengerDetail);
@@ -271,7 +227,6 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		jpInquiry2.setSize(1000,180);
 		jpInquiry2.setLocation(70,454);
 		jpInquiry2.setBackground(crInfo);
-		jpInquiry2.add(btnCheckIn);
 		
 		add(lblInquiryTitle);
 		add(jpInquiryDetailTop);
@@ -359,97 +314,9 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		
 		setVisible(true);
 	}
-//----------------------------------------------------------
-//----------------------------------------------------------
-//----------------------------------------------------------
-	private void Data() {
-		try{
-			Class.forName(driver);
-			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-			String sql;
-			sql = "SELECT * FROM reservation WHERE `ID` = '"+ ID +"' ";
-			
-			ResultSet rs = state.executeQuery(sql);
-			while (rs.next()) {
-				reserveNum = rs.getString("reserveNum");
-				GOclass = rs.getString("GOclass");
-			}
-			rs.close();
-			state.close();
-			conn.close();
-		}
-		catch (Exception e) {
-		}finally {try {if(state!=null)state.close();}
-		catch (SQLException ex1) {}
-		try {if(conn!=null)conn.close();}
-		catch (SQLException ex2) {}
-			}
-		
-	//-------------------------------------------
-	//-------------------------------------------
-	try{
-		Class.forName(driver);
-		conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-		String sql;
-		sql = "SELECT * FROM reservationDetail WHERE `reserveNum` = '"+ reserveNum +"' ";
-		
-		ResultSet rs = state.executeQuery(sql);
-		while (rs.next()) {
-			reserveNum = rs.getString("reserveNum");
-			scheduleNo = rs.getString("scheduleNo");
-			nameKOR = rs.getString("nameKOR");
-			nameENG = rs.getString("nameENG");
-			sex = rs.getString("sex");
-			passport = rs.getString("passport");
-			birth = rs.getString("birth");
-			tel = rs.getString("tel");
-			email = rs.getString("email");
-			agree = rs.getInt("agree");
-			baggage = rs.getInt("baggage");
-		}
-		rs.close();
-		state.close();
-		conn.close();
-	}
-	catch (Exception e) {
-	}finally {try {if(state!=null)state.close();}
-	catch (SQLException ex1) {}
-	try {if(conn!=null)conn.close();}
-	catch (SQLException ex2) {}
-	}
 
-//----------------------------------------
-//----------------------------------------
-	try{
-		Class.forName(driver);
-		conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-		String sql;
-		sql = "SELECT * FROM airSchedule WHERE `scheduleNo` = '"+ scheduleNo +"' ";
-		
-		ResultSet rs = state.executeQuery(sql);
-		while (rs.next()) {
-			flightCode = rs.getString("flightCode");
-			from = rs.getString("from");
-			fromDate = rs.getString("fromDate");
-			fromTime = rs.getString("fromTime");
-			to = rs.getString("to");
-			toTime = rs.getString("toTime");
-		}
-		rs.close();
-		state.close();
-		conn.close();
-	}
-	catch (Exception e) {
-	}finally {try {if(state!=null)state.close();}
-	catch (SQLException ex1) {}
-	try {if(conn!=null)conn.close();}
-	catch (SQLException ex2) {}
-	}
-}
-	
-//----------------------------------------
 	public static void main(String[] args) {
-		new MemberInquiryDetailForm();
+		new MemberInquiryDetailForm2();
 	}
 
 	@Override

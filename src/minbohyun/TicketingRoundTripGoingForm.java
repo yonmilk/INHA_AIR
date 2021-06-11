@@ -505,28 +505,16 @@ public void roundtrip() {
 				ResultSet rs = state.executeQuery(sql);
 				while (rs.next()) {
 					airportD = rs.getString("airport");
-						
-//					System.out.println(airportD);
-					
-//					DepAP = airportD;
 				}
 				rs.close();
 				state.close();
 				conn.close();
-				
 	    }
-	    catch (Exception e) {
-		}finally {
-			try {
-				if(state!=null) 
-					state.close();
-			}catch (SQLException ex1) {
-			}
-			try {
-				if(conn!=null)
-					conn.close();
-			} catch (SQLException ex2) {
-			}
+	    catch (Exception e) {}
+		finally {try {if(state!=null)state.close();}
+			catch (SQLException ex1) {}
+			try {if(conn!=null)conn.close();}
+			catch (SQLException ex2) {}
 		}
 		
 			try{
@@ -553,19 +541,12 @@ public void roundtrip() {
 				conn.close();
 				
 	    }
-	    catch (Exception e) {
-		}finally {
-			try {
-				if(state!=null) 
-					state.close();
-			}catch (SQLException ex1) {
+			 catch (Exception e) {}
+			finally {try {if(state!=null)state.close();}
+				catch (SQLException ex1) {}
+				try {if(conn!=null)conn.close();}
+				catch (SQLException ex2) {}
 			}
-			try {
-				if(conn!=null)
-					conn.close();
-			} catch (SQLException ex2) {
-			}
-		}
 			
 			 try{
 					Class.forName(driver);
@@ -590,19 +571,12 @@ public void roundtrip() {
 					conn.close();
 					
 		    }
-		    catch (Exception e) {
-			}finally {
-				try {
-					if(state!=null) 
-						state.close();
-				}catch (SQLException ex1) {
+			 catch (Exception e) {}
+				finally {try {if(state!=null)state.close();}
+					catch (SQLException ex1) {}
+					try {if(conn!=null)conn.close();}
+					catch (SQLException ex2) {}
 				}
-				try {
-					if(conn!=null)
-						conn.close();
-				} catch (SQLException ex2) {
-				}
-			}
 			 
 		    try{
 			Class.forName(driver);
@@ -633,24 +607,12 @@ public void roundtrip() {
 //					state.close();
 //					conn.close();
 		    }
-		    catch (Exception e) {
-			}finally {
-				try {
-					if(state!=null) 
-						state.close();
-				}catch (SQLException ex1) {
-				}
-				try {
-					if(conn!=null)
-						conn.close();
-				} catch (SQLException ex2) {
-				} 
+		    catch (Exception e) {}
+			finally {try {if(state!=null)state.close();}
+				catch (SQLException ex1) {}
+				try {if(conn!=null)conn.close();}
+				catch (SQLException ex2) {}
 			}
-		    
-		    //
-				
-			
-			
 	}
 	
 	public static void main(String[] args) {
@@ -680,7 +642,7 @@ public void roundtrip() {
 							String sql;
 							
 
-							//							sql = "INSERT INTO reservation values(reserveNum, GOscheduleNo,ID, AdultP,ChildP ,InfantP,totalPay,selectedSeatGo,COMclass)";
+							//sql = "INSERT INTO reservation values(reserveNum, GOscheduleNo,ID, AdultP,ChildP ,InfantP,totalPay,selectedSeatGo,COMclass)";
 							sql = "INSERT INTO reservation('reserveNum', 'GOscheduleNo', 'COMscheduleNo', 'ID', 'adult','child' ,'infant','pay','GOclass','COMclass') values('"+reserveNum+"', '"+GOscheduleNo+"','"+ID+"', "+AdultP+","+ChildP+" ,"+InfantP+","+totalPay+",'"+selectedSeatGo+"','"+COMclass +"')";
 							
 							ResultSet rs = state.executeQuery(sql);
