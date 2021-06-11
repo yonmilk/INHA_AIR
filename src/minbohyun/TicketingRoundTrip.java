@@ -30,6 +30,7 @@ import customer.start.MainMenuForm;
 
 
 public class TicketingRoundTrip extends JFrame implements ActionListener {
+	private static TicketingRoundTrip a;
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
@@ -126,7 +127,7 @@ public class TicketingRoundTrip extends JFrame implements ActionListener {
 			return totalPay;
 		}
 		public String getSelectedSeat() {
-			return selectedSeat;
+			return selectedSeatGo;
 		}
 		public String getID(String ID) {
 			return ID;
@@ -216,238 +217,471 @@ public class TicketingRoundTrip extends JFrame implements ActionListener {
 		private JLabel lblGoingPayP;
 		private JLabel lblGoingPayF;
 		private String totalPay;
-		private String selectedSeat;
+		private String selectedSeatGo;
+		
+public void roundtrip() {
+	setTitle(title);
+	setSize(width, height);
+	setResizable(false);
+	setLocationRelativeTo(this);
+	setDefaultCloseOperation(EXIT_ON_CLOSE);
+	
+	// 레이아웃 설정
+	setLayout(null);
+	
+	// 배경색
+	Container c = getContentPane();
+	c.setBackground(Color.WHITE);
+	
+	// 예원 - 메인메뉴로 돌아가기 버튼
+	btnMainMenu = new JButton("INHA AIR");
+	btnMainMenu.setSize(200, 50);
+	btnMainMenu.setLocation(10, 10);
+	btnMainMenu.setFont(fontArial30);
+	btnMainMenu.setForeground(colorLogo);
+	btnMainMenu.setBorderPainted(false);
+	btnMainMenu.setBackground(Color.WHITE);
+	
+	// 예원 - 리스너
+	btnMainMenu.addActionListener(this);
+	
+	// 예원 - 컴포넌트 붙이기
+	add(btnMainMenu);
+	
+	crInfo = new Color(240,240,240);//고객이 선택한 정보를 나타내는 바의 색 
+	crTop = new Color(230,230,235);//고객이 선택한 정보를 나타내는 바의 색 
+	crClass = new Color(213, 230, 250);//좌석 등급 선택 버튼의 색
+	crSelect = new Color(120,180,250);
+	crNext = new Color(10,90,150); //다음 버튼 색깔
+	
+	jpSelectedInfo = new JPanel(); //고객이 선택한 정보를 표시하는 바
+	jpSelectedInfo.setLayout(null);
+	jpSelectedInfo.setSize(1000,60);
+	jpSelectedInfo.setLocation(70,100);
+	jpSelectedInfo.setBackground(crInfo);
+	
+	lblArrow = new JLabel("→"); 
+	lblArrow.setFont(fontNanumGothic30);
+	lblArrow.setBounds(135, -20, 200, 100);
+	
+	lblPassenger = new JLabel("    성인  " + AdultP + "명   " +"  |  "+ "  소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
+	lblPassenger.setFont(fontNanumGothic18Plain);
+	lblPassenger.setBounds(640, -20, 500, 100);
+	
+	jpFlightTOP = new JPanel(); //3개의 시간표 중 선택 1
+	jpFlightTOP.setLayout(null);
+	jpFlightTOP.setSize(1000,100);
+	jpFlightTOP.setLocation(70,185);
+	jpFlightTOP.setBackground(crTop);
+	
+	jpFlight1 = new JPanel(); //3개의 시간표 중 선택 1
+	jpFlight1.setLayout(null);
+	jpFlight1.setSize(1000,70);
+	jpFlight1.setLocation(70,310);
+	jpFlight1.setBackground(crInfo);
+	
+	jpFlight2 = new JPanel();//선택 2
+	jpFlight2.setLayout(null);
+	jpFlight2.setSize(1000,70);
+	jpFlight2.setLocation(70,400);
+	jpFlight2.setBackground(crInfo);
+	
+	jpFlight3 = new JPanel();// 선택 3
+	jpFlight3.setLayout(null);
+	jpFlight3.setSize(1000,70);
+	jpFlight3.setLocation(70,490);
+	jpFlight3.setBackground(crInfo);
+	
+	jpSelectedInfo.add(lblArrow); // 화살표
+	jpSelectedInfo.add(lblPassenger); //탑승 인원 정보(성인인지 유아인지 + 인원수)
+	
+	jpTotalPay = new JPanel();//예상 결제 금액 + 버튼 라벨나타내는 패널
+	jpTotalPay.setLayout(null);
+	jpTotalPay.setSize(1120,130);
+	jpTotalPay.setLocation(00,590);
+	jpTotalPay.setBackground(Color.white);
+	jpTotalPay.setBorder(new LineBorder(Color.black,1));
+	
+	lblTotalPay = new JLabel("예상 결제 금액"); // "예상 결제 금액" 라벨
+	lblTotalPay.setFont(fontNanumGothic20);
+	lblTotalPay.setBounds(50,0,200,100);
+	
+	lblTotalPayGoing = new JLabel("pay");
+	lblTotalPayGoing.setFont(fontNanumGothic20);
+	lblTotalPayGoing.setBounds(500,0,200,100);
+	
+	
+	totalPay = " ";
+	
+	jpTotalPay.add(lblTotalPayGoing);
+	
+	btnNext = new JButton("다음"); // 회원 진행 버튼
+	btnNext.setFont(fontNanumGothic20);
+	btnNext.setBackground(crNext);
+	btnNext.setForeground(Color.white);
+	btnNext.setBounds(905, 0, 200, 100);
+	btnNext.addActionListener(this);
+	
+	jpTotalPay.add(lblTotalPay);
+	jpTotalPay.add(btnNext);
+	
+	add(jpSelectedInfo);
+	add(jpFlightTOP);
+	add(jpFlight1);
+	add(jpFlight2);
+	add(jpFlight3);
+	
+	
+	add(jpTotalPay);
+	
+	Find();
+	
+	lblEcon = new JLabel("이코노미 클래스");
+	lblEcon.setFont(fontNanumGothic25);
+	lblEcon.setBounds(60, -15, 200, 100);
+	
+	lblEconPr = new JLabel(economyClass + " 원          " + " 현재 잔여           "+ economy + "석" );
+	lblEconPr.setFont(fontNanumGothic20);
+	lblEconPr.setBounds(350, -15,400, 100);
+	
+	btnEcon = new JButton("선택");
+	btnEcon.setFont(fontNanumGothic18Plain);
+	btnEcon.setBounds(810, 20,100, 30);
+	btnEcon.setBackground(crSelect);
+	btnEcon.setForeground(Color.white);
+	btnEcon.addActionListener(this);
+	
+	
+	jpFlight1.add(lblEcon);
+	jpFlight1.add(lblEconPr);
+	jpFlight1.add(btnEcon);
+	
+	
+	
+	lblPres = new JLabel("프레스티지 클래스");
+	lblPres.setFont(fontNanumGothic25);
+	lblPres.setBounds(60, -15, 400, 100);
+	
+	lblPresPr = new JLabel(prestigeClass + " 원          " + " 현재 잔여           "+ prestige + "석" );
+	lblPresPr.setFont(fontNanumGothic20);
+	lblPresPr.setBounds(350, -15,400, 100);
+	
+	btnPres = new JButton("선택");
+	btnPres.setFont(fontNanumGothic18Plain);
+	btnPres.setBounds(810, 20,100, 30);
+	btnPres.setBackground(crSelect);
+	btnPres.setForeground(Color.white);
+	btnPres.addActionListener(this);
+	
+	
+	jpFlight2.add(lblPres);
+	jpFlight2.add(lblPresPr);
+	jpFlight2.add(btnPres);
+	
+	lblFirs = new JLabel("퍼스트 클래스");
+	lblFirs.setFont(fontNanumGothic25);
+	lblFirs.setBounds(60, -15, 400, 100);
+	
+	lblFirsPr = new JLabel(firstClass + " 원          " + " 현재 잔여           "+ first + "석" );
+	lblFirsPr.setFont(fontNanumGothic20);
+	lblFirsPr.setBounds(350, -15,400, 100);
+	
+	btnFirs = new JButton("선택");
+	btnFirs.setFont(fontNanumGothic18Plain);
+	btnFirs.setBounds(810, 20,100, 30);
+	btnFirs.setBackground(crSelect);
+	btnFirs.setForeground(Color.white);
+	btnFirs.addActionListener(this);
+
+	
+	jpFlight3.add(lblFirs);
+	jpFlight3.add(lblFirsPr);
+	jpFlight3.add(btnFirs);
+	
+	
+	lblDepP = new JLabel(from);
+	lblDepP.setFont(fontNanumGothic25);
+	lblDepP.setBounds(50, -20, 200, 100);
+	
+	lblArrP = new JLabel(to);
+	lblArrP.setFont(fontNanumGothic25);
+	lblArrP.setBounds(180, -20, 200, 100);
+	
+//	lblDate = new JLabel("<html>"+fromDate + "&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;" + toDate+"</html>");
+	lblGoComeDate = new JLabel(GoDay + "~" + ComeDay);
+	lblGoComeDate.setFont(fontNanumGothic18Plain);
+	lblGoComeDate.setBounds(300, -20, 400, 100);
+
+	lblFliCo = new JLabel(flightCode);
+	lblFliCo.setFont(fontNanumGothic30);
+	lblFliCo.setBounds(70, 0, 300, 100);
+	
+	
+	lblDate = new JLabel(fromDate);
+	lblDate.setFont(fontNanumGothic18Plain);
+	lblDate.setBounds(230, 0, 300, 100);
+	
+	lblTime = new JLabel("출발 "+ fromTime.substring(0, 5)+"   -  "+" 도착 "+toTime.substring(0, 5));
+	lblTime.setFont(fontNanumGothic18Plain);
+	lblTime.setBounds(500, 0, 300, 100);
+	
+	lblAirportD = new JLabel(airportD);
+	lblAirportD.setFont(fontNanumGothic30);
+	lblAirportD.setBounds(350, 0, 200, 100);
+	
+	lblAirportA = new JLabel(airportA);
+	lblAirportA.setFont(fontNanumGothic30);
+	lblAirportA.setBounds(780, 0, 200, 100);
+	
+	
+	jpSelectedInfo.add(lblDepP);
+	jpSelectedInfo.add(lblArrP);
+	jpSelectedInfo.add(lblGoComeDate);
+	
+	jpFlightTOP.add(lblFliCo);
+	jpFlightTOP.add(lblDate);
+	jpFlightTOP.add(lblTime);
+	jpFlightTOP.add(lblAirportD);
+	jpFlightTOP.add(lblAirportA);
+	
+//	System.out.println(economyClass);
+	
+	
+	setVisible(true);
+}
 		
 		
 	public TicketingRoundTrip() {
-		setTitle(title);
-		setSize(width, height);
-		setResizable(false);
-		setLocationRelativeTo(this);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		// 레이아웃 설정
-		setLayout(null);
-		
-		// 배경색
-		Container c = getContentPane();
-		c.setBackground(Color.WHITE);
-		
-		// 예원 - 메인메뉴로 돌아가기 버튼
-		btnMainMenu = new JButton("INHA AIR");
-		btnMainMenu.setSize(200, 50);
-		btnMainMenu.setLocation(10, 10);
-		btnMainMenu.setFont(fontArial30);
-		btnMainMenu.setForeground(colorLogo);
-		btnMainMenu.setBorderPainted(false);
-		btnMainMenu.setBackground(Color.WHITE);
-		
-		// 예원 - 리스너
-		btnMainMenu.addActionListener(this);
-		
-		// 예원 - 컴포넌트 붙이기
-		add(btnMainMenu);
-		
-		crInfo = new Color(240,240,240);//고객이 선택한 정보를 나타내는 바의 색 
-		crTop = new Color(230,230,235);//고객이 선택한 정보를 나타내는 바의 색 
-		crClass = new Color(213, 230, 250);//좌석 등급 선택 버튼의 색
-		crSelect = new Color(120,180,250);
-		crNext = new Color(10,90,150); //다음 버튼 색깔
-		
-		jpSelectedInfo = new JPanel(); //고객이 선택한 정보를 표시하는 바
-		jpSelectedInfo.setLayout(null);
-		jpSelectedInfo.setSize(1000,60);
-		jpSelectedInfo.setLocation(70,100);
-		jpSelectedInfo.setBackground(crInfo);
-		
-		lblArrow = new JLabel("→"); 
-		lblArrow.setFont(fontNanumGothic30);
-		lblArrow.setBounds(135, -20, 200, 100);
-		
-		lblPassenger = new JLabel("    성인  " + AdultP + "명   " +"  |  "+ "  소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
-		lblPassenger.setFont(fontNanumGothic18Plain);
-		lblPassenger.setBounds(640, -20, 500, 100);
-		
-		jpFlightTOP = new JPanel(); //3개의 시간표 중 선택 1
-		jpFlightTOP.setLayout(null);
-		jpFlightTOP.setSize(1000,100);
-		jpFlightTOP.setLocation(70,185);
-		jpFlightTOP.setBackground(crTop);
-		
-		jpFlight1 = new JPanel(); //3개의 시간표 중 선택 1
-		jpFlight1.setLayout(null);
-		jpFlight1.setSize(1000,70);
-		jpFlight1.setLocation(70,310);
-		jpFlight1.setBackground(crInfo);
-		
-		jpFlight2 = new JPanel();//선택 2
-		jpFlight2.setLayout(null);
-		jpFlight2.setSize(1000,70);
-		jpFlight2.setLocation(70,400);
-		jpFlight2.setBackground(crInfo);
-		
-		jpFlight3 = new JPanel();// 선택 3
-		jpFlight3.setLayout(null);
-		jpFlight3.setSize(1000,70);
-		jpFlight3.setLocation(70,490);
-		jpFlight3.setBackground(crInfo);
-		
-		jpSelectedInfo.add(lblArrow); // 화살표
-		jpSelectedInfo.add(lblPassenger); //탑승 인원 정보(성인인지 유아인지 + 인원수)
-		
-		jpTotalPay = new JPanel();//예상 결제 금액 + 버튼 라벨나타내는 패널
-		jpTotalPay.setLayout(null);
-		jpTotalPay.setSize(1120,130);
-		jpTotalPay.setLocation(00,590);
-		jpTotalPay.setBackground(Color.white);
-		jpTotalPay.setBorder(new LineBorder(Color.black,1));
-		
-		lblTotalPay = new JLabel("예상 결제 금액"); // "예상 결제 금액" 라벨
-		lblTotalPay.setFont(fontNanumGothic20);
-		lblTotalPay.setBounds(50,0,200,100);
-		
-		lblTotalPayGoing = new JLabel("pay");
-		lblTotalPayGoing.setFont(fontNanumGothic20);
-		lblTotalPayGoing.setBounds(500,0,200,100);
-		
-		
-		totalPay = " ";
-		
-		jpTotalPay.add(lblTotalPayGoing);
-		
-		btnNext = new JButton("다음"); // 회원 진행 버튼
-		btnNext.setFont(fontNanumGothic20);
-		btnNext.setBackground(crNext);
-		btnNext.setForeground(Color.white);
-		btnNext.setBounds(905, 0, 200, 100);
-		btnNext.addActionListener(this);
-		
-		jpTotalPay.add(lblTotalPay);
-		jpTotalPay.add(btnNext);
-		
-		add(jpSelectedInfo);
-		add(jpFlightTOP);
-		add(jpFlight1);
-		add(jpFlight2);
-		add(jpFlight3);
-		
-		
-		add(jpTotalPay);
-		
-		Find();
-		
-		lblEcon = new JLabel("이코노미 클래스");
-		lblEcon.setFont(fontNanumGothic25);
-		lblEcon.setBounds(60, -15, 200, 100);
-		
-		lblEconPr = new JLabel(economyClass + " 원          " + " 현재 잔여           "+ economy + "석" );
-		lblEconPr.setFont(fontNanumGothic20);
-		lblEconPr.setBounds(350, -15,400, 100);
-		
-		btnEcon = new JButton("선택");
-		btnEcon.setFont(fontNanumGothic18Plain);
-		btnEcon.setBounds(810, 20,100, 30);
-		btnEcon.setBackground(crSelect);
-		btnEcon.setForeground(Color.white);
-		btnEcon.addActionListener(this);
-		
-		
-		jpFlight1.add(lblEcon);
-		jpFlight1.add(lblEconPr);
-		jpFlight1.add(btnEcon);
-		
-		
-		
-		lblPres = new JLabel("프레스티지 클래스");
-		lblPres.setFont(fontNanumGothic25);
-		lblPres.setBounds(60, -15, 400, 100);
-		
-		lblPresPr = new JLabel(prestigeClass + " 원          " + " 현재 잔여           "+ prestige + "석" );
-		lblPresPr.setFont(fontNanumGothic20);
-		lblPresPr.setBounds(350, -15,400, 100);
-		
-		btnPres = new JButton("선택");
-		btnPres.setFont(fontNanumGothic18Plain);
-		btnPres.setBounds(810, 20,100, 30);
-		btnPres.setBackground(crSelect);
-		btnPres.setForeground(Color.white);
-		btnPres.addActionListener(this);
-		
-		
-		jpFlight2.add(lblPres);
-		jpFlight2.add(lblPresPr);
-		jpFlight2.add(btnPres);
-		
-		lblFirs = new JLabel("퍼스트 클래스");
-		lblFirs.setFont(fontNanumGothic25);
-		lblFirs.setBounds(60, -15, 400, 100);
-		
-		lblFirsPr = new JLabel(firstClass + " 원          " + " 현재 잔여           "+ first + "석" );
-		lblFirsPr.setFont(fontNanumGothic20);
-		lblFirsPr.setBounds(350, -15,400, 100);
-		
-		btnFirs = new JButton("선택");
-		btnFirs.setFont(fontNanumGothic18Plain);
-		btnFirs.setBounds(810, 20,100, 30);
-		btnFirs.setBackground(crSelect);
-		btnFirs.setForeground(Color.white);
-		btnFirs.addActionListener(this);
-
-		
-		jpFlight3.add(lblFirs);
-		jpFlight3.add(lblFirsPr);
-		jpFlight3.add(btnFirs);
-		
-		
-		lblDepP = new JLabel(from);
-		lblDepP.setFont(fontNanumGothic25);
-		lblDepP.setBounds(50, -20, 200, 100);
-		
-		lblArrP = new JLabel(to);
-		lblArrP.setFont(fontNanumGothic25);
-		lblArrP.setBounds(180, -20, 200, 100);
-		
-//		lblDate = new JLabel("<html>"+fromDate + "&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;" + toDate+"</html>");
-		lblGoComeDate = new JLabel(GoDay + "~" + ComeDay);
-		lblGoComeDate.setFont(fontNanumGothic18Plain);
-		lblGoComeDate.setBounds(300, -20, 400, 100);
-
-		lblFliCo = new JLabel(flightCode);
-		lblFliCo.setFont(fontNanumGothic30);
-		lblFliCo.setBounds(70, 0, 300, 100);
-		
-		
-		lblDate = new JLabel(fromDate);
-		lblDate.setFont(fontNanumGothic18Plain);
-		lblDate.setBounds(230, 0, 300, 100);
-		
-		lblTime = new JLabel("출발 "+ fromTime.substring(0, 5)+"   -  "+" 도착 "+toTime.substring(0, 5));
-		lblTime.setFont(fontNanumGothic18Plain);
-		lblTime.setBounds(500, 0, 300, 100);
-		
-		lblAirportD = new JLabel(airportD);
-		lblAirportD.setFont(fontNanumGothic30);
-		lblAirportD.setBounds(350, 0, 200, 100);
-		
-		lblAirportA = new JLabel(airportA);
-		lblAirportA.setFont(fontNanumGothic30);
-		lblAirportA.setBounds(780, 0, 200, 100);
-		
-		
-		jpSelectedInfo.add(lblDepP);
-		jpSelectedInfo.add(lblArrP);
-		jpSelectedInfo.add(lblGoComeDate);
-		
-		jpFlightTOP.add(lblFliCo);
-		jpFlightTOP.add(lblDate);
-		jpFlightTOP.add(lblTime);
-		jpFlightTOP.add(lblAirportD);
-		jpFlightTOP.add(lblAirportA);
-		
-//		System.out.println(economyClass);
-		
-		
-		setVisible(true);
+		System.out.println(" ");
+//		setTitle(title);
+//		setSize(width, height);
+//		setResizable(false);
+//		setLocationRelativeTo(this);
+//		setDefaultCloseOperation(EXIT_ON_CLOSE);
+//		
+//		// 레이아웃 설정
+//		setLayout(null);
+//		
+//		// 배경색
+//		Container c = getContentPane();
+//		c.setBackground(Color.WHITE);
+//		
+//		// 예원 - 메인메뉴로 돌아가기 버튼
+//		btnMainMenu = new JButton("INHA AIR");
+//		btnMainMenu.setSize(200, 50);
+//		btnMainMenu.setLocation(10, 10);
+//		btnMainMenu.setFont(fontArial30);
+//		btnMainMenu.setForeground(colorLogo);
+//		btnMainMenu.setBorderPainted(false);
+//		btnMainMenu.setBackground(Color.WHITE);
+//		
+//		// 예원 - 리스너
+//		btnMainMenu.addActionListener(this);
+//		
+//		// 예원 - 컴포넌트 붙이기
+//		add(btnMainMenu);
+//		
+//		crInfo = new Color(240,240,240);//고객이 선택한 정보를 나타내는 바의 색 
+//		crTop = new Color(230,230,235);//고객이 선택한 정보를 나타내는 바의 색 
+//		crClass = new Color(213, 230, 250);//좌석 등급 선택 버튼의 색
+//		crSelect = new Color(120,180,250);
+//		crNext = new Color(10,90,150); //다음 버튼 색깔
+//		
+//		jpSelectedInfo = new JPanel(); //고객이 선택한 정보를 표시하는 바
+//		jpSelectedInfo.setLayout(null);
+//		jpSelectedInfo.setSize(1000,60);
+//		jpSelectedInfo.setLocation(70,100);
+//		jpSelectedInfo.setBackground(crInfo);
+//		
+//		lblArrow = new JLabel("→"); 
+//		lblArrow.setFont(fontNanumGothic30);
+//		lblArrow.setBounds(135, -20, 200, 100);
+//		
+//		lblPassenger = new JLabel("    성인  " + AdultP + "명   " +"  |  "+ "  소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
+//		lblPassenger.setFont(fontNanumGothic18Plain);
+//		lblPassenger.setBounds(640, -20, 500, 100);
+//		
+//		jpFlightTOP = new JPanel(); //3개의 시간표 중 선택 1
+//		jpFlightTOP.setLayout(null);
+//		jpFlightTOP.setSize(1000,100);
+//		jpFlightTOP.setLocation(70,185);
+//		jpFlightTOP.setBackground(crTop);
+//		
+//		jpFlight1 = new JPanel(); //3개의 시간표 중 선택 1
+//		jpFlight1.setLayout(null);
+//		jpFlight1.setSize(1000,70);
+//		jpFlight1.setLocation(70,310);
+//		jpFlight1.setBackground(crInfo);
+//		
+//		jpFlight2 = new JPanel();//선택 2
+//		jpFlight2.setLayout(null);
+//		jpFlight2.setSize(1000,70);
+//		jpFlight2.setLocation(70,400);
+//		jpFlight2.setBackground(crInfo);
+//		
+//		jpFlight3 = new JPanel();// 선택 3
+//		jpFlight3.setLayout(null);
+//		jpFlight3.setSize(1000,70);
+//		jpFlight3.setLocation(70,490);
+//		jpFlight3.setBackground(crInfo);
+//		
+//		jpSelectedInfo.add(lblArrow); // 화살표
+//		jpSelectedInfo.add(lblPassenger); //탑승 인원 정보(성인인지 유아인지 + 인원수)
+//		
+//		jpTotalPay = new JPanel();//예상 결제 금액 + 버튼 라벨나타내는 패널
+//		jpTotalPay.setLayout(null);
+//		jpTotalPay.setSize(1120,130);
+//		jpTotalPay.setLocation(00,590);
+//		jpTotalPay.setBackground(Color.white);
+//		jpTotalPay.setBorder(new LineBorder(Color.black,1));
+//		
+//		lblTotalPay = new JLabel("예상 결제 금액"); // "예상 결제 금액" 라벨
+//		lblTotalPay.setFont(fontNanumGothic20);
+//		lblTotalPay.setBounds(50,0,200,100);
+//		
+//		lblTotalPayGoing = new JLabel("pay");
+//		lblTotalPayGoing.setFont(fontNanumGothic20);
+//		lblTotalPayGoing.setBounds(500,0,200,100);
+//		
+//		
+//		totalPay = " ";
+//		
+//		jpTotalPay.add(lblTotalPayGoing);
+//		
+//		btnNext = new JButton("다음"); // 회원 진행 버튼
+//		btnNext.setFont(fontNanumGothic20);
+//		btnNext.setBackground(crNext);
+//		btnNext.setForeground(Color.white);
+//		btnNext.setBounds(905, 0, 200, 100);
+//		btnNext.addActionListener(this);
+//		
+//		jpTotalPay.add(lblTotalPay);
+//		jpTotalPay.add(btnNext);
+//		
+//		add(jpSelectedInfo);
+//		add(jpFlightTOP);
+//		add(jpFlight1);
+//		add(jpFlight2);
+//		add(jpFlight3);
+//		
+//		
+//		add(jpTotalPay);
+//		
+//		Find();
+//		
+//		lblEcon = new JLabel("이코노미 클래스");
+//		lblEcon.setFont(fontNanumGothic25);
+//		lblEcon.setBounds(60, -15, 200, 100);
+//		
+//		lblEconPr = new JLabel(economyClass + " 원          " + " 현재 잔여           "+ economy + "석" );
+//		lblEconPr.setFont(fontNanumGothic20);
+//		lblEconPr.setBounds(350, -15,400, 100);
+//		
+//		btnEcon = new JButton("선택");
+//		btnEcon.setFont(fontNanumGothic18Plain);
+//		btnEcon.setBounds(810, 20,100, 30);
+//		btnEcon.setBackground(crSelect);
+//		btnEcon.setForeground(Color.white);
+//		btnEcon.addActionListener(this);
+//		
+//		
+//		jpFlight1.add(lblEcon);
+//		jpFlight1.add(lblEconPr);
+//		jpFlight1.add(btnEcon);
+//		
+//		
+//		
+//		lblPres = new JLabel("프레스티지 클래스");
+//		lblPres.setFont(fontNanumGothic25);
+//		lblPres.setBounds(60, -15, 400, 100);
+//		
+//		lblPresPr = new JLabel(prestigeClass + " 원          " + " 현재 잔여           "+ prestige + "석" );
+//		lblPresPr.setFont(fontNanumGothic20);
+//		lblPresPr.setBounds(350, -15,400, 100);
+//		
+//		btnPres = new JButton("선택");
+//		btnPres.setFont(fontNanumGothic18Plain);
+//		btnPres.setBounds(810, 20,100, 30);
+//		btnPres.setBackground(crSelect);
+//		btnPres.setForeground(Color.white);
+//		btnPres.addActionListener(this);
+//		
+//		
+//		jpFlight2.add(lblPres);
+//		jpFlight2.add(lblPresPr);
+//		jpFlight2.add(btnPres);
+//		
+//		lblFirs = new JLabel("퍼스트 클래스");
+//		lblFirs.setFont(fontNanumGothic25);
+//		lblFirs.setBounds(60, -15, 400, 100);
+//		
+//		lblFirsPr = new JLabel(firstClass + " 원          " + " 현재 잔여           "+ first + "석" );
+//		lblFirsPr.setFont(fontNanumGothic20);
+//		lblFirsPr.setBounds(350, -15,400, 100);
+//		
+//		btnFirs = new JButton("선택");
+//		btnFirs.setFont(fontNanumGothic18Plain);
+//		btnFirs.setBounds(810, 20,100, 30);
+//		btnFirs.setBackground(crSelect);
+//		btnFirs.setForeground(Color.white);
+//		btnFirs.addActionListener(this);
+//
+//		
+//		jpFlight3.add(lblFirs);
+//		jpFlight3.add(lblFirsPr);
+//		jpFlight3.add(btnFirs);
+//		
+//		
+//		lblDepP = new JLabel(from);
+//		lblDepP.setFont(fontNanumGothic25);
+//		lblDepP.setBounds(50, -20, 200, 100);
+//		
+//		lblArrP = new JLabel(to);
+//		lblArrP.setFont(fontNanumGothic25);
+//		lblArrP.setBounds(180, -20, 200, 100);
+//		
+////		lblDate = new JLabel("<html>"+fromDate + "&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;" + toDate+"</html>");
+//		lblGoComeDate = new JLabel(GoDay + "~" + ComeDay);
+//		lblGoComeDate.setFont(fontNanumGothic18Plain);
+//		lblGoComeDate.setBounds(300, -20, 400, 100);
+//
+//		lblFliCo = new JLabel(flightCode);
+//		lblFliCo.setFont(fontNanumGothic30);
+//		lblFliCo.setBounds(70, 0, 300, 100);
+//		
+//		
+//		lblDate = new JLabel(fromDate);
+//		lblDate.setFont(fontNanumGothic18Plain);
+//		lblDate.setBounds(230, 0, 300, 100);
+//		
+//		lblTime = new JLabel("출발 "+ fromTime.substring(0, 5)+"   -  "+" 도착 "+toTime.substring(0, 5));
+//		lblTime.setFont(fontNanumGothic18Plain);
+//		lblTime.setBounds(500, 0, 300, 100);
+//		
+//		lblAirportD = new JLabel(airportD);
+//		lblAirportD.setFont(fontNanumGothic30);
+//		lblAirportD.setBounds(350, 0, 200, 100);
+//		
+//		lblAirportA = new JLabel(airportA);
+//		lblAirportA.setFont(fontNanumGothic30);
+//		lblAirportA.setBounds(780, 0, 200, 100);
+//		
+//		
+//		jpSelectedInfo.add(lblDepP);
+//		jpSelectedInfo.add(lblArrP);
+//		jpSelectedInfo.add(lblGoComeDate);
+//		
+//		jpFlightTOP.add(lblFliCo);
+//		jpFlightTOP.add(lblDate);
+//		jpFlightTOP.add(lblTime);
+//		jpFlightTOP.add(lblAirportD);
+//		jpFlightTOP.add(lblAirportA);
+//		
+////		System.out.println(economyClass);
+//		
+//		
+//		setVisible(true);
 	}
 
 	private void Find() {
@@ -617,6 +851,9 @@ public class TicketingRoundTrip extends JFrame implements ActionListener {
 	}
 	public static void main(String[] args) {
 		new TicketingRoundTrip();
+		a = new TicketingRoundTrip();
+		a.roundtrip();
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -636,19 +873,19 @@ public class TicketingRoundTrip extends JFrame implements ActionListener {
 			totalPay = economyClass;
 			lblTotalPayGoing.setText(totalPay + "원");
 			
-			selectedSeat = "E";
+			selectedSeatGo = "economy";
 		}
 		else if(obj == btnPres)
 		{
 			totalPay = prestigeClass;
 			lblTotalPayGoing.setText(totalPay + "원");	
-			selectedSeat = "P";
+			selectedSeatGo = "prestige";
 			}
 		else if(obj == btnFirs)
 		{
 			totalPay = firstClass;
 			lblTotalPayGoing.setText(totalPay + "원");	
-			selectedSeat = "F";
+			selectedSeatGo = "first";
 			}
 	}
 

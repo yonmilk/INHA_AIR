@@ -159,16 +159,23 @@ public class TicketingRoundTripC extends JFrame implements ActionListener {
 		private Color crSelect;
 		private Component lblPres;
 		private Component lblPresPr;
-		private Component btnPres;
+		private JButton btnPres;
 		private String prestige;
 		private Component lblFirs;
 		private Component lblFirsPr;
-		private Component btnFirs;
+		private JButton btnFirs;
 		private String first;
 		private JLabel lblTotalPayGoing;
-		private String totalPay;
+		private String finaltotalPay;
 		private String airportD;
 		private String airportA;
+		private TicketingRoundTrip rtg1;
+		private String payGo;
+		private String selectedSeatCome;
+		private int intEcoPrice;
+		private int intPayGo;
+		private int intPrePrice;
+		private int intFirPrice;
 		
 		
 	public TicketingRoundTripC() {
@@ -265,7 +272,7 @@ public class TicketingRoundTripC extends JFrame implements ActionListener {
 		lblTotalPayGoing.setFont(fontNanumGothic20);
 		lblTotalPayGoing.setBounds(500,0,200,100);
 		
-		totalPay = " ";
+		finaltotalPay = " ";
 		
 		jpTotalPay.add(lblTotalPayGoing);
 		
@@ -305,7 +312,8 @@ public class TicketingRoundTripC extends JFrame implements ActionListener {
 		btnEcon.setBounds(810, 20,100, 30);
 		btnEcon.setBackground(crSelect);
 		btnEcon.setForeground(Color.white);
-		
+		btnEcon.addActionListener(this);
+
 		
 		jpFlight1.add(lblEcon);
 		jpFlight1.add(lblEconPr);
@@ -326,7 +334,8 @@ public class TicketingRoundTripC extends JFrame implements ActionListener {
 		btnPres.setBounds(810, 20,100, 30);
 		btnPres.setBackground(crSelect);
 		btnPres.setForeground(Color.white);
-		
+		btnPres.addActionListener(this);
+
 		jpFlight2.add(lblPres);
 		jpFlight2.add(lblPresPr);
 		jpFlight2.add(btnPres);
@@ -344,7 +353,8 @@ public class TicketingRoundTripC extends JFrame implements ActionListener {
 		btnFirs.setBounds(810, 20,100, 30);
 		btnFirs.setBackground(crSelect);
 		btnFirs.setForeground(Color.white);
-		
+		btnFirs.addActionListener(this);
+
 		jpFlight3.add(lblFirs);
 		jpFlight3.add(lblFirsPr);
 		jpFlight3.add(btnFirs);
@@ -601,6 +611,46 @@ public class TicketingRoundTripC extends JFrame implements ActionListener {
 //			new ReservationDetailForm();
 			this.setVisible(false);
 		}
+		else if(obj == btnEcon)
+		{
+			rtg1 = new TicketingRoundTrip();
+			payGo = rtg1.getTotalPay();
+			intEcoPrice = Integer.parseInt(economyClass);
+			intPayGo = Integer.parseInt(payGo);
+			finaltotalPay = Integer.toString(intEcoPrice) + Integer.toString(intPayGo);
+			
+			lblTotalPayGoing.setText(finaltotalPay + "원");
+			
+			selectedSeatCome = "economy";
+		}
+		else if(obj == btnPres)
+		{
+			rtg1 = new TicketingRoundTrip();
+			payGo = rtg1.getTotalPay();
+			
+			intPrePrice = Integer.parseInt(prestigeClass);
+			intPayGo = Integer.parseInt(payGo);
+			finaltotalPay = Integer.toString(intPrePrice) + Integer.toString(intPayGo);
+			
+//			finaltotalPay = Integer.parseInt(prestigeClass) + Integer.parseInt(payGo)+ " ";
+			lblTotalPayGoing.setText(finaltotalPay + "원");	
+			selectedSeatCome = "prestige";
+			}
+		else if(obj == btnFirs)
+		{
+			rtg1 = new TicketingRoundTrip();
+			payGo = rtg1.getTotalPay();
+			
+			intFirPrice = Integer.parseInt(firstClass);
+			intPayGo = Integer.parseInt(payGo);
+			finaltotalPay = Integer.toString(intFirPrice) + Integer.toString(intPayGo);
+			
+			
+//			finaltotalPay = Integer.parseInt(firstClass) + Integer.parseInt(payGo)+ " ";
+			lblTotalPayGoing.setText(finaltotalPay + "원");	
+			selectedSeatCome = "first";
+			}
 	}
+	
 }
 
