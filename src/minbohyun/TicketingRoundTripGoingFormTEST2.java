@@ -482,7 +482,7 @@ public void roundtrip() {
 			//reserveNum, GOscheduleNo,COMscheduleNo,ID, AdultP,ChildP ,InfantP,totalPay,selectedSeatGo,COMclass
 
 			String sql;
-			sql = "INSERT INTO reservation VALUES ('"+ reserveNum +"','"+ GOscheduleNo +"','"+ COMscheduleNo +"','"+ ID +"',"+ AdultP +","+ ChildP +","+ InfantP +","+ totalPay +",'"+ selectedSeatGo +"','"+ COMclass +"')";
+			sql = "INSERT INTO RESERVATION VALUES ('"+ reserveNum +"','"+ GOscheduleNo +"','"+ COMscheduleNo +"','"+ ID +"',"+ AdultP +","+ ChildP +","+ InfantP +","+ totalPay +",'"+ selectedSeatGo +"','"+ COMclass +"')";
 			
 			ResultSet rs = state.executeQuery(sql);
 			while (rs.next()) {
