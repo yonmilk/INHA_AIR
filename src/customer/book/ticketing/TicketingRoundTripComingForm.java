@@ -27,6 +27,7 @@ import java.awt.BorderLayout;
 
 import be.main.MainForm;
 import be.menu.MenuBar;
+import customer.book.ReservationDetailForm;
 import customer.book.ticketing.TicketingRoundTripComingFormX;
 import customer.start.MainMenuForm;
 //import sun.awt.www.content.image.jpeg;
@@ -265,6 +266,8 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		private String GOscheduleNo;
 		private int finaltotalPay;
 		private String selectedSeatCom;
+		
+		private ReservationDetailForm reservation;
 		
 		public TicketingRoundTripComingForm() {
 
@@ -834,8 +837,14 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		{
 //			tkRTComForm= new customer.book.ticketing.TicketingRoundTripComingFormX();
 //			this.setVisible(false);
+			
+			
 //			
 			Insert();
+			
+			reservation = new ReservationDetailForm(reserveNum);
+			this.setVisible(false);
+			
 		}
 		else if(obj == btnEcon)
 		{

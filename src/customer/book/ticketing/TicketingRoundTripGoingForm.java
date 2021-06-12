@@ -80,7 +80,7 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		 String strToday = sdf.format(c.getTime());
 			
 //		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
-		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) + "77" ;
+		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) + "100" ;
 private int TotalPay;
 
 		//reserveNum, GOscheduleNo, COMscheduleNo, ID, adult,child ,infant,pay,GOclass,COMclass
@@ -746,10 +746,11 @@ public void roundtrip() {
 			
 		} else if(obj == btnNext)
 		{
+			Insert();
+			
 			tkRTComForm= new customer.book.ticketing.TicketingRoundTripComingForm();
 			this.setVisible(false);
-			
-			Insert();
+
 		}
 		else if(obj == btnEcon)
 		{
