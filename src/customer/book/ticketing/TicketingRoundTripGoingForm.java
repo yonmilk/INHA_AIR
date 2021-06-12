@@ -28,10 +28,9 @@ import java.awt.BorderLayout;
 import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.book.BookForm;
-import customer.book.ticketing.TicketingRoundTripComingFormX;
 import customer.start.MainMenuForm;
 //import sun.awt.www.content.image.jpeg;
-import test.TicketingRoundTripComingForm2;
+//import test.TicketingRoundTripComingForm2;
 
 
 public class TicketingRoundTripGoingForm extends JFrame implements ActionListener {
@@ -61,25 +60,10 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
     Connection conn = null; 
 	Statement state = null; 
 	
-	BookForm sel = new BookForm();
+	private BookForm sel;
 	
 	
-//	
-	private String goDay = sel.getGoDay();		//가는날
-	private String comeDay = sel.getComeDay();	//오는날
-//	private int roundTrip = 0;		//편도와 왕복 (편도 0, 왕복 1)
-	//승객 인원 값
-	private int numAdult = sel.getNumAdult();		//성인 수
-	private int numChild = sel.getNumChild();		//소아 수
-	private int numInfant = sel.getNumInfant();		//유아 수
-	private int numTotal = sel.getNumTotal();		//총 인원 수
-	//출발지 값
-	private String SelectDep = "";		//선택 출발지
-	private String SelectDepCode= sel.getSelectDepCode();	//선택 출발지 코드
-	//도착지 값
-	private String SelectArr= "";		//선택 도착지
-	private String SelectArrCode= sel.getSelectArrCode();	//선택 도착지 코드
-//	
+	
 	
 		private JPanel jpSelectedInfo;
 	//--가상의 고객이 선택한 정보
@@ -90,10 +74,10 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 //		private int numAdult = 3;//성인
 //		private int numChild= 2;//소아인원
 //		private int numInfant = 1;//소아인원
-		private String ID = "test1";
 		
 		String COMclass;
 		String COMscheduleNo;
+		String ID = "test1" ;
 		private int totalPay; //---삭제
 
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -101,7 +85,6 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		 String strToday = sdf.format(c.getTime());
 			
 //		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
-		String reserveNum = goDay.substring(0, 3) + comeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
 private int TotalPay;
 
 		//reserveNum, GOscheduleNo, COMscheduleNo, ID, adult,child ,infant,pay,GOclass,COMclass
@@ -239,7 +222,7 @@ private int TotalPay;
 		private String fromDate;
 		private String to;
 		private String toDate;
-		private String fromTime;
+		private String fromTime=" ";
 		private String toTime;
 		private JLabel lblFliCo;
 		private JLabel lblTime;
@@ -277,8 +260,40 @@ private int TotalPay;
 		private String GOscheduleNo;
 		private int GoPay;
 		private Color crChange;
+		private String goDay;
+		private String comeDay;
+		private int numAdult;
+		private int numChild;
+		private int numInfant;
+		private int numTotal;
+		private String SelectDep;
+		private String SelectDepCode;
+		private String SelectArr;
+		private String SelectArrCode;
+		private String reserveNum;
+
+public TicketingRoundTripGoingForm(BookForm sel) {
 		
-public void roundtrip() {
+	this.sel =sel;
+	
+	this.goDay = sel.getGoDay();		//가는날
+	this.comeDay = sel.getComeDay();	//오는날
+//	private int roundTrip = 0;		//편도와 왕복 (편도 0, 왕복 1)
+	//승객 인원 값
+	this.numAdult = sel.getNumAdult();		//성인 수
+	this.numChild = sel.getNumChild();		//소아 수
+	this.numInfant = sel.getNumInfant();		//유아 수
+	this.numTotal = sel.getNumTotal();		//총 인원 수
+	//출발지 값
+	this.SelectDep = "";		//선택 출발지
+	this.SelectDepCode= sel.getSelectDepCode();	//선택 출발지 코드
+	//도착지 값
+	this.SelectArr= "";		//선택 도착지
+	this.SelectArrCode= sel.getSelectArrCode();	//선택 도착지 코드
+//	this.ID = sel.getID();
+	
+	reserveNum = goDay.substring(0, 3) + comeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) + "00";
+
 	setTitle(title);
 	setSize(width, height);
 	setResizable(false);
@@ -508,9 +523,7 @@ public void roundtrip() {
 	jpFlightTOP.add(lblAirportA);
 	
 	setVisible(true);
-}
-		
-	public TicketingRoundTripGoingForm() {
+
 		
 	}
 	private void Insert() {
@@ -558,7 +571,7 @@ public void roundtrip() {
 				Class.forName(driver);
 				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 				state = conn.createStatement();
-				System.out.println("oo");
+//				System.out.println("oo");
 				
 				String DepP = "CJU";
 //				String ArrP = "GMP";
@@ -753,9 +766,9 @@ public void roundtrip() {
 	}
 	
 	public static void main(String[] args) {
-		new TicketingRoundTripGoingForm();
-		a = new TicketingRoundTripGoingForm();
-		a.roundtrip();
+//		new TicketingRoundTripGoingForm();
+//		a = new TicketingRoundTripGoingForm();
+//		a.roundtrip();
 		
 		
 	}
@@ -769,7 +782,7 @@ public void roundtrip() {
 			
 		} else if(obj == btnNext)
 		{
-			tkRTComForm= new customer.book.ticketing.TicketingRoundTripComingForm();
+			tkRTComForm= new customer.book.ticketing.TicketingRoundTripComingForm(this);
 			this.setVisible(false);
 			
 			Insert();

@@ -28,10 +28,10 @@ import java.awt.BorderLayout;
 import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.book.ReservationDetailForm;
-import customer.book.ticketing.TicketingRoundTripComingFormX;
 import customer.start.MainMenuForm;
 //import sun.awt.www.content.image.jpeg;
-import test.TicketingRoundTripComingForm2;
+//import test.TicketingRoundTripComingForm2;
+//import test.TicketingRoundTripComingFormX;
 
 public class TicketingRoundTripComingForm extends JFrame implements ActionListener {
 	private ReservationDetailForm reservation;
@@ -44,7 +44,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 	private JButton btnMainMenu;
 	// 예원 - Forms
 	private MainMenuForm mainMenuForm;
-	private TicketingRoundTripComingFormX tkRTComForm; //--------->>>>>
+//	private TicketingRoundTripComingFormX tkRTComForm; //--------->>>>>
 	
 	
 	// 예원 - 색상
@@ -90,20 +90,20 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 //		 Calendar c = Calendar.getInstance();
 //		 String strToday = sdf.format(c.getTime());
 		 
-		 TicketingRoundTripGoingForm rtg = new TicketingRoundTripGoingForm();
-		 
-		 String comeDay = rtg.getComeDay();
-		 String goDay = rtg.getGoDay();
-		 String SelectDep = rtg.getDepP();
-		 String SelectArr = rtg.getArrP();
-		 int numAdult = rtg.getAdultP();
-		 int numChild = rtg.getChildP();
-		 int numInfant = rtg.getInfantP();
-		 String ID = rtg.getID();
-		 String airportD = rtg.getAirportD();
-		 String airportA = rtg.getAirportA();
-		 String reserveNum = rtg.getReserveNum();
-		 int totalPay = rtg.getTotalPay();
+//		private TicketingRoundTripGoingForm rtg;
+//		 
+//		comeDay = rtg.getComeDay();
+//		goDay = rtg.getGoDay();
+//		SelectDep = rtg.getDepP();
+//		SelectArr = rtg.getArrP();
+//		numAdult = rtg.getAdultP();
+//		numChild = rtg.getChildP();
+//		numInfant = rtg.getInfantP();
+//		ID = rtg.getID();
+//		airportD = rtg.getAirportD();
+//		airportA = rtg.getAirportA();
+//		reserveNum = rtg.getReserveNum();
+//		totalPay = rtg.getTotalPay();
 
 //		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
 //		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,7) + ID.substring(0,3) + strToday.substring(3,6) ;
@@ -216,6 +216,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 25
 		Font fontNanumGothic25Plain = new Font("NanumGothic", Font.PLAIN, 25);	// 나눔고딕 25
 	
+		private TicketingRoundTripGoingForm rtg;
 		
 		private JLabel lblDepP;
 		private JLabel lblArrP;
@@ -266,9 +267,39 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		private int finaltotalPay;
 		private String selectedSeatCom;
 		private Color crChange;
+		private String comeDay;
+		private String goDay;
+		private String SelectDep;
+		private String SelectArr;
+		private int numAdult;
+		private int numChild;
+		private int numInfant;
+		private String ID;
+		private String airportD;
+		private String airportA;
+		private String reserveNum;
+		private int totalPay;
 		
-		public TicketingRoundTripComingForm() {
+		public TicketingRoundTripComingForm(TicketingRoundTripGoingForm rtg) {
 
+//			private TicketingRoundTripGoingForm rtg;
+			
+			this.rtg = rtg;
+			
+			this.comeDay = rtg.getComeDay();
+			this.goDay = rtg.getGoDay();
+			this.SelectDep = rtg.getDepP();
+			this.SelectArr = rtg.getArrP();
+			this.numAdult = rtg.getAdultP();
+			this.numChild = rtg.getChildP();
+			this.numInfant = rtg.getInfantP();
+			this.ID = rtg.getID();
+			this.airportD = rtg.getAirportD();
+			this.airportA = rtg.getAirportA();
+			this.reserveNum = rtg.getReserveNum();
+			this.totalPay = rtg.getTotalPay();
+
+			
 	setTitle(title);
 	setSize(width, height);
 	setResizable(false);
@@ -635,7 +666,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 				Class.forName(driver);
 				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 				state = conn.createStatement();
-				System.out.println("oo");
+//				System.out.println("oo");
 				
 //				String DepP = "CJU";
 //				String ArrP = "GMP";
@@ -820,7 +851,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 	}
 	
 	public static void main(String[] args) {
-		new TicketingRoundTripComingForm();
+//		new TicketingRoundTripComingForm();
 		
 		
 	}

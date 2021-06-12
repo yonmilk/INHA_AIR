@@ -26,7 +26,6 @@ import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.book.ticketing.TicketingRoundTripGoingForm;
 import customer.start.MainMenuForm;
-import minbohyun.TicketingRoundTripGoingForm4;
 
 // 연우 - 예매창 설정
 
@@ -420,7 +419,7 @@ public class BookForm extends JFrame implements ActionListener {
 			} else if (SelectDepCode.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "탑승지를 선택해주세요", "조회", JOptionPane.OK_CANCEL_OPTION);
 			} else {
-				tkRTGoForm = new TicketingRoundTripGoingForm();
+				tkRTGoForm = new TicketingRoundTripGoingForm(this);
 				this.setVisible(false);
 			}
 			
