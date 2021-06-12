@@ -885,7 +885,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			finaltotalPay = totalPay + economyPay;
 			lblTotalPayGoing.setText(finaltotalPay + "원");
 			
-			selectedSeatCom = "e";
+			selectedSeatCom = "economy";
 			jpFlight1.setBackground(crChange);
 
 //			btnEcon.setBackground(crNext);
@@ -894,7 +894,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		{
 			finaltotalPay = totalPay + businessPay;
 			lblTotalPayGoing.setText(finaltotalPay + "원");	
-			selectedSeatCom = "b";
+			selectedSeatCom = "business";
 			jpFlight2.setBackground(crChange);
 
 //			btnBus.setBackground(crNext);
@@ -905,7 +905,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			finaltotalPay = totalPay + firstPay;
 			lblTotalPayGoing.setText(finaltotalPay + "원");	
 			
-			selectedSeatCom = "f";
+			selectedSeatCom = "first";
 			jpFlight3.setBackground(crChange);
 
 //			btnFirs.setBackground(crNext);

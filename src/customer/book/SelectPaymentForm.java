@@ -80,12 +80,12 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		this.reserveNum = reserveNum;
 		this.id = id;
 		
-//		// DB 정보 - 테스트 소스
-//		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
-//		String dbID="inhaair";
-//		String dbPassword="1234";
-//		// 데이터베이스 연결 - 테스트 소스
-//		databaseClass.connect(dbURL, dbID, dbPassword);
+		// DB 정보 - 테스트 소스
+		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbID="inhaair";
+		String dbPassword="1234";
+		// 데이터베이스 연결 - 테스트 소스
+		databaseClass.connect(dbURL, dbID, dbPassword);
 		
 		setTitle(title);
 		setSize(width, height);
@@ -371,13 +371,98 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		int rs = databaseClass.insert(sql);
 		
 		if(rs == 1) {
-			paymentForm = new PaymentForm(id);
-			this.setVisible(false);
+			
+			// 잔여좌석 수 변경
+			updateSeat();
+			
+//			paymentForm = new PaymentForm(id);
+//			this.setVisible(false);
 		} else {
 			JOptionPane.showMessageDialog(null, "결제 실패했습니다.", "결제 실패", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
+	// 잔여좌석 수 변경
+	private void updateSeat() {
+		
+		// 스케쥴번호, 좌석 클래스 정보 select
+		String sql = "SELECT GOscheduleNo, COMscheduleNo, GOclass, COMclass FROM reservation WHERE reserveNum = '" + reserveNum + "'";
+		
+		String GOscheduleNo = "";
+		String COMscheduleNo = "";
+		String GOclass = "";
+		String COMclass = "";
+		
+		ResultSet rs1 = databaseClass.select(sql);
+		try {
+			while(rs1.next()) {
+				GOscheduleNo = rs1.getString("GOscheduleNo");
+				COMscheduleNo = rs1.getString("COMscheduleNo");
+				GOclass = rs1.getString("GOclass");
+				COMclass = rs1.getString("COMclass");
+			}
+			
+//			System.out.println(GOscheduleNo + ", " + COMscheduleNo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// 잔여 좌석 수 select
+		int goSeat = 0;
+		int comSeat = 0;
+		
+		String sql2 = "SELECT " + GOclass + " FROM seat WHERE scheduleNo='" + GOscheduleNo + "'";
+		String sql3 = "SELECT " + COMclass + " FROM seat WHERE scheduleNo='" + COMscheduleNo + "'";
+		
+		ResultSet rs2 = databaseClass.select(sql2);
+		try {
+			while(rs2.next()) {
+				goSeat = Integer.parseInt(rs2.getString(1));
+			}
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ResultSet rs3 = databaseClass.select(sql3);
+		try {
+			while(rs3.next()) {
+				comSeat = Integer.parseInt(rs3.getString(1));
+			}
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		System.out.println("Seat " + goSeat + ", " + comSeat);
+		
+		// 잔여 좌석수 변경
+		int people = adult + child;
+		
+		goSeat = goSeat - people;
+		comSeat = comSeat - people;
+		
+		String sqlUpdate = "UPDATE seat SET " + GOclass + "=" + goSeat + " WHERE scheduleNo='" + GOscheduleNo + "'";
+		
+		int resultGo = databaseClass.update(sqlUpdate);
+		
+		if(resultGo == 1) {
+			sqlUpdate = "UPDATE seat SET " + COMclass + "=" + comSeat + " WHERE scheduleNo='" + COMscheduleNo + "'";
+			
+//			System.out.println(sqlUpdate);
+			
+			int resultCom = databaseClass.update(sqlUpdate);
+			
+			if(resultCom == 1) {
+				// 성공시 결제완료 창으로 이동
+				paymentForm = new PaymentForm(id);
+				this.setVisible(false);
+			}
+		} 
+	}
+
+
 	private void clickMain() {
 		// 정보 입력된 승객이 있는지 확인
 		String sql = "SELECT COUNT(*) FROM reservationDetail WHERE reserveNum = '" + reserveNum + "'";
