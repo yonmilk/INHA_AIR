@@ -189,7 +189,8 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 				pay = Integer.parseInt(rs.getString("pay"));
 			}
 			
-			people = adult + child + infant;
+//			people = adult + child + infant;
+			people = adult + child;
 //			System.out.println(people);
 //			System.out.println(GOscheduleNo + ", " + COMscheduleNo + ", " + pay);
 		} catch (SQLException e) {
