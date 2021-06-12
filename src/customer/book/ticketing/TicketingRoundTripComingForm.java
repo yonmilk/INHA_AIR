@@ -267,8 +267,6 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		private String selectedSeatCom;
 		private Color crChange;
 		
-		private ReservationDetailForm reservation;
-		
 		public TicketingRoundTripComingForm() {
 
 	setTitle(title);
@@ -839,17 +837,11 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			
 //			tkRTComForm= new customer.book.ticketing.TicketingRoundTripComingFormX();
 //			this.setVisible(false);
-			
-			
 //			
 			Insert();
 			
 			reservation = new ReservationDetailForm(reserveNum);
 			this.setVisible(false);
-<<<<<<< HEAD
-			
-=======
->>>>>>> branch 'main' of https://github.com/yewon-Noh/JAVA_INHA_AIR.git
 		}
 		else if(obj == btnEcon)
 		{
