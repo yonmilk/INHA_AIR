@@ -80,7 +80,7 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		 String strToday = sdf.format(c.getTime());
 			
 //		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
-		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) + "77" ;
+		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
 private int TotalPay;
 
 		//reserveNum, GOscheduleNo, COMscheduleNo, ID, adult,child ,infant,pay,GOclass,COMclass
@@ -255,6 +255,7 @@ private int TotalPay;
 		private String selectedSeatGo;
 		private String GOscheduleNo;
 		private int GoPay;
+		private Color crChange;
 		
 public void roundtrip() {
 	setTitle(title);
@@ -290,6 +291,7 @@ public void roundtrip() {
 	crClass = new Color(213, 230, 250);//좌석 등급 선택 버튼의 색
 	crSelect = new Color(120,180,250);
 	crNext = new Color(10,90,150); //다음 버튼 색깔
+	crChange = new Color(200,200,200); //다음 버튼 색깔
 	
 	jpSelectedInfo = new JPanel(); //고객이 선택한 정보를 표시하는 바
 	jpSelectedInfo.setLayout(null);
@@ -395,7 +397,7 @@ public void roundtrip() {
 	
 	
 	
-	lblBus = new JLabel("프레스티지 클래스");
+	lblBus = new JLabel("비즈니스 클래스");
 	lblBus.setFont(fontNanumGothic25);
 	lblBus.setBounds(60, -15, 400, 100);
 	
@@ -758,19 +760,22 @@ public void roundtrip() {
 			
 			selectedSeatGo = "e";
 			setTotalPay(totalPay);
+			
 //			GoPay = totalPay;
 			
-			btnEcon.setBackground(crNext);
+//			btnEcon.setBackground(crNext);
+			
+			jpFlight1.setBackground(crChange);
 		}
 		else if(obj == btnBus)
 		{
 			totalPay = businessPay;
 			lblTotalPayGoing.setText(totalPay + "원");	
 			selectedSeatGo = "b";
-			
+			jpFlight3.setBackground(crChange);
 //			GoPay = totalPay;
 			
-			btnBus.setBackground(crNext);
+//			btnBus.setBackground(crNext);
 
 			}
 		else if(obj == btnFirs)
@@ -779,10 +784,10 @@ public void roundtrip() {
 			lblTotalPayGoing.setText(totalPay + "원");	
 			
 			selectedSeatGo = "f";
-			
+			jpFlight3.setBackground(crChange);
 //			GoPay = totalPay;
 			
-			btnFirs.setBackground(crNext);
+//			btnFirs.setBackground(crNext);
 
 			}
 		

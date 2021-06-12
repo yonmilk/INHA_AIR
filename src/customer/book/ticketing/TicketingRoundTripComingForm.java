@@ -27,13 +27,14 @@ import java.awt.BorderLayout;
 
 import be.main.MainForm;
 import be.menu.MenuBar;
+import customer.book.ReservationDetailForm;
 import customer.book.ticketing.TicketingRoundTripComingFormX;
 import customer.start.MainMenuForm;
 //import sun.awt.www.content.image.jpeg;
 import test.TicketingRoundTripComingForm2;
 
-
 public class TicketingRoundTripComingForm extends JFrame implements ActionListener {
+	private ReservationDetailForm reservation;
 	private static TicketingRoundTripComingForm a;
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
@@ -59,7 +60,6 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 
     Connection conn = null; 
 	Statement state = null; 
-	
 	
 		private JPanel jpSelectedInfo;
 	//--가상의 고객이 선택한 정보
@@ -265,6 +265,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		private String GOscheduleNo;
 		private int finaltotalPay;
 		private String selectedSeatCom;
+		private Color crChange;
 		
 		public TicketingRoundTripComingForm() {
 
@@ -301,6 +302,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 	crClass = new Color(213, 230, 250);//좌석 등급 선택 버튼의 색
 	crSelect = new Color(120,180,250);
 	crNext = new Color(10,90,150); //다음 버튼 색깔
+	crChange = new Color(200,200,200); 
 	
 	jpSelectedInfo = new JPanel(); //고객이 선택한 정보를 표시하는 바
 	jpSelectedInfo.setLayout(null);
@@ -405,7 +407,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 	
 	
 	
-	lblBus = new JLabel("프레스티지 클래스");
+	lblBus = new JLabel("비즈니스 클래스");
 	lblBus.setFont(fontNanumGothic25);
 	lblBus.setBounds(60, -15, 400, 100);
 	
@@ -832,10 +834,14 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			
 		} else if(obj == btnNext)
 		{
+			
 //			tkRTComForm= new customer.book.ticketing.TicketingRoundTripComingFormX();
 //			this.setVisible(false);
 //			
 			Insert();
+			
+			reservation = new ReservationDetailForm(reserveNum);
+			this.setVisible(false);
 		}
 		else if(obj == btnEcon)
 		{
@@ -843,16 +849,18 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			lblTotalPayGoing.setText(finaltotalPay + "원");
 			
 			selectedSeatCom = "e";
-			
-			btnEcon.setBackground(crNext);
+			jpFlight1.setBackground(crChange);
+
+//			btnEcon.setBackground(crNext);
 		}
 		else if(obj == btnBus)
 		{
 			finaltotalPay = totalPay + businessPay;
 			lblTotalPayGoing.setText(finaltotalPay + "원");	
 			selectedSeatCom = "b";
-			
-			btnBus.setBackground(crNext);
+			jpFlight2.setBackground(crChange);
+
+//			btnBus.setBackground(crNext);
 
 			}
 		else if(obj == btnFirs)
@@ -861,8 +869,9 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			lblTotalPayGoing.setText(finaltotalPay + "원");	
 			
 			selectedSeatCom = "f";
-			
-			btnFirs.setBackground(crNext);
+			jpFlight3.setBackground(crChange);
+
+//			btnFirs.setBackground(crNext);
 
 			}
 		
