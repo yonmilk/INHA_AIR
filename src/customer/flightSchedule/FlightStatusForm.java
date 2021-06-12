@@ -71,19 +71,19 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	// 테이블
 	private DefaultTableModel model;
 //	private JTable jtSchedule;
-	private ColorTable jtSchedule;
+	private CreateTable jtSchedule;
 	private String[][] datas = new String[0][0];
 	private String[] tableTitle = {"편명", "출발일", "출발시간", "도착일", "도착시간"};
 	
 	// 예원 - 시작 화면
 	public FlightStatusForm() {
 		
-		// DB 정보 - 테스트 소스
-		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
-		String dbID="inhaair";
-		String dbPassword="1234";
-		// 데이터베이스 연결 - 테스트 소스
-		databaseClass.connect(dbURL, dbID, dbPassword);
+//		// DB 정보 - 테스트 소스
+//		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+//		String dbID="inhaair";
+//		String dbPassword="1234";
+//		// 데이터베이스 연결 - 테스트 소스
+//		databaseClass.connect(dbURL, dbID, dbPassword);
 		
 		// 공항 정보 가져오기
 		setCity();
@@ -254,7 +254,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		model = new DefaultTableModel(datas, tableTitle);
 		
 //		jtSchedule = new JTable(model);
-		jtSchedule = new ColorTable(model);
+		jtSchedule = new CreateTable(model);
 		jtSchedule.setFont(fontNanumGothic15);
 		jtSchedule.setRowHeight(30);
 		jtSchedule.setFillsViewportHeight(true);	// 배경색 변경 위함
@@ -389,9 +389,9 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		}
 	}
 	
-	// 짝수/홀수 행에 배경색을 지정하여 jtable 생성
-	class ColorTable extends JTable {
-		public ColorTable(DefaultTableModel model) {
+	// jtable 생성
+	class CreateTable extends JTable {
+		public CreateTable(DefaultTableModel model) {
 			super(model);
 		}
 
@@ -407,12 +407,18 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 				if(row % 2 == 0) {
 					component.setBackground(Color.WHITE);
 				} else {
-					component.setBackground(crGrey);
-//					component.setBackground(crPaleblue);
+//					component.setBackground(crGrey);
+					component.setBackground(crPaleblue);
 				}
 			}
-			
+
 			return component;
+		}
+
+		// 더블클릭 수정 붊가
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return false;
 		}
 		
 	}
