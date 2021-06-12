@@ -78,12 +78,12 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	// 예원 - 시작 화면
 	public FlightStatusForm() {
 		
-//		// DB 정보 - 테스트 소스
-//		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
-//		String dbID="inhaair";
-//		String dbPassword="1234";
-//		// 데이터베이스 연결 - 테스트 소스
-//		databaseClass.connect(dbURL, dbID, dbPassword);
+		// DB 정보 - 테스트 소스
+		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbID="inhaair";
+		String dbPassword="1234";
+		// 데이터베이스 연결 - 테스트 소스
+		databaseClass.connect(dbURL, dbID, dbPassword);
 		
 		// 공항 정보 가져오기
 		setCity();
@@ -276,7 +276,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		
 //		jtSchedule.setBorder(new EmptyBorder(50, 50, 50, 50));	
 		
-		
+
 		// 헤더 디자인 변경
 		JTableHeader jtHeader = jtSchedule.getTableHeader();
 		jtHeader.setReorderingAllowed(false);	// 컬럼 이동 금지
@@ -410,7 +410,10 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 //					component.setBackground(crGrey);
 					component.setBackground(crPaleblue);
 				}
-			}
+			} 
+//			else if(isRowSelected(row)) {
+//				System.out.println(jtSchedule.getValueAt(row, column).toString());
+//			}
 
 			return component;
 		}
