@@ -1,6 +1,9 @@
 package customer.flightSchedule;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Menu;
@@ -13,10 +16,17 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 import DataBase.databaseClass;
 import be.main.MainForm;
@@ -30,6 +40,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	
 	// 폰트
 	Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
+	Font fontNanumGothic15 = new Font("NanumGothic", Font.PLAIN, 15);	// 나눔고딕 15
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
 	Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
@@ -40,6 +51,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	Color colorLogo = new Color(24, 62, 111);	
 	Color colorBtn = new Color(10,90,150);
 	Color crPaleblue = new Color(230,240,250);
+	Color crGrey = new Color(240,240,240);
 	
 	// 컴포넌트
 	private JButton btnMainMenu;
@@ -55,6 +67,13 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	
 	private ArrayList<String> city = new ArrayList<>();
 	private ArrayList<String> destination = new ArrayList<>();
+	
+	// 테이블
+	private DefaultTableModel model;
+//	private JTable jtSchedule;
+	private ColorTable jtSchedule;
+	private String[][] datas = new String[0][0];
+	private String[] tableTitle = {"편명", "출발일", "출발시간", "도착일", "도착시간"};
 	
 	// 예원 - 시작 화면
 	public FlightStatusForm() {
@@ -91,8 +110,17 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		btnMainMenu.setBorderPainted(false);
 		btnMainMenu.setBackground(Color.WHITE);
 				
+		// 전체 패널
+		jpSchedule = new JPanel(null);
+		jpSchedule.setSize(1100, 635);
+		jpSchedule.setLocation(3, 90);
+		jpSchedule.setBackground(Color.WHITE);
+		
 		// 예매 조회창
 		setFindTrips();
+		
+		// 조회 테이블
+		setTable();
 		
 		// 리스너
 		btnMainMenu.addActionListener(this);
@@ -158,18 +186,14 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 
 	// 예매 조회창
 	private void setFindTrips() {
-		jpSchedule = new JPanel(null);
-		jpSchedule.setSize(1100, 635);
-		jpSchedule.setLocation(3, 90);
-		jpSchedule.setBackground(Color.WHITE);
-		
 		// 검색 조건 선택
 		jpSearch = new JPanel(null);
 		jpSearch.setBorder(new EmptyBorder(30, 40, 30, 120));
 		jpSearch.setSize(1000, 70);
 		jpSearch.setLocation(50, 5);
 //		jpSearch.setBackground(Color.WHITE);
-		jpSearch.setBackground(crPaleblue);
+		jpSearch.setBackground(crGrey);
+//		jpSearch.setBackground(crPaleblue);
 		
 		lblFrom = new JLabel("출발지");
 		lblFrom.setFont(fontNanumGothic20);
@@ -214,17 +238,60 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		jpSearch.add(cbTo);
 		jpSearch.add(btnOK);
 		
-		// 검색 결과 테이블
-		jpTable = new JPanel();
-		jpTable.setSize(1000, 520);
-		jpTable.setLocation(50, 95);
-		jpTable.setBackground(Color.ORANGE);
-		jpSchedule.add(jpTable);
-		
-		
 		jpSchedule.add(jpSearch);
 		
 		add(jpSchedule);
+	}
+	
+	
+	// 항공편 테이블
+	private void setTable() {
+		jpTable = new JPanel(new BorderLayout());
+		jpTable.setSize(1000, 520);
+		jpTable.setLocation(50, 95);
+		jpTable.setBackground(Color.WHITE);
+		
+		model = new DefaultTableModel(datas, tableTitle);
+		
+//		jtSchedule = new JTable(model);
+		jtSchedule = new ColorTable(model);
+		jtSchedule.setFont(fontNanumGothic15);
+		jtSchedule.setRowHeight(30);
+		jtSchedule.setFillsViewportHeight(true);	// 배경색 변경 위함
+		jtSchedule.setBackground(Color.WHITE);
+//		jtSchedule.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//		jtSchedule.getColumn("편명").setPreferredWidth(155);
+//		jtSchedule.getColumn("출발일").setPreferredWidth(210);
+//		jtSchedule.getColumn("출발시간").setPreferredWidth(210);
+//		jtSchedule.getColumn("도착일").setPreferredWidth(210);
+//		jtSchedule.getColumn("도착시간").setPreferredWidth(210);
+		
+		DefaultTableCellRenderer rowCenter = new DefaultTableCellRenderer();
+		rowCenter.setHorizontalAlignment(JLabel.CENTER);
+		jtSchedule.getColumn("편명").setCellRenderer(rowCenter);
+		jtSchedule.getColumn("출발일").setCellRenderer(rowCenter);
+		jtSchedule.getColumn("출발시간").setCellRenderer(rowCenter);
+		jtSchedule.getColumn("도착일").setCellRenderer(rowCenter);
+		jtSchedule.getColumn("도착시간").setCellRenderer(rowCenter);
+		
+//		jtSchedule.setBorder(new EmptyBorder(50, 50, 50, 50));	
+		
+		
+		// 헤더 디자인 변경
+		JTableHeader jtHeader = jtSchedule.getTableHeader();
+		jtHeader.setReorderingAllowed(false);	// 컬럼 이동 금지
+		jtHeader.setResizingAllowed(false);		// 칼럼 크기 조절 불가
+		jtHeader.setBackground(colorBtn);
+		jtHeader.setFont(fontNanumGothic18);
+		jtHeader.setForeground(Color.WHITE);
+		jtHeader.setPreferredSize(new Dimension(0, 30));
+		
+		
+		JScrollPane scrollPane = new JScrollPane(jtSchedule);
+		
+		jpTable.add(scrollPane);
+
+		jpSchedule.add(jpTable);
 	}
 
 	public static void main(String[] args) {
@@ -293,6 +360,60 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	
 	// 항공편 조회
 	private void flightStatus(String dept, String desn) {
+		
+		// 현재 날짜 이후 항공편 검색
+		String sql = "SELECT flightCode, fromDate, fromTime, toDate, toTime\r\n"
+				+ "FROM inhaair.airSchedule\r\n"
+				+ "WHERE `from` = '" + dept + "' AND `to` = '" + desn + "' AND DATE(fromDate) > DATE(NOW())\r\n"
+				+ "ORDER BY fromDate, flightCode";
+		
+		// 테이블 초기화
+		model.setNumRows(0);
+		
+		// 검색한 항공편 테이블 추가
+		ResultSet rs = databaseClass.select(sql);
+		try {
+			while(rs.next()) {
+				String flightCode = rs.getString("flightCode");
+				String fromDate = rs.getString("fromDate");
+				String fromTime = rs.getString("fromTime");
+				String toDate = rs.getString("toDate");
+				String toTime = rs.getString("toTime");
+				
+				String[] sechdule = {flightCode, fromDate, fromTime, toDate, toTime};
+				model.addRow(sechdule);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	// 짝수/홀수 행에 배경색을 지정하여 jtable 생성
+	class ColorTable extends JTable {
+		public ColorTable(DefaultTableModel model) {
+			super(model);
+		}
+
+		@Override
+		public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+			
+			JComponent component = (JComponent) super.prepareRenderer(renderer, row, column);
+
+			// 선택된 행 제외하고
+			if(!isRowSelected(row)) {
+				
+				// 짝수 행 홀수 행 배경색 다르게 지정
+				if(row % 2 == 0) {
+					component.setBackground(Color.WHITE);
+				} else {
+					component.setBackground(crGrey);
+//					component.setBackground(crPaleblue);
+				}
+			}
+			
+			return component;
+		}
 		
 	}
 }
