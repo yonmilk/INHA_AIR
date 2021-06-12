@@ -15,7 +15,7 @@ import javax.swing.border.LineBorder;
 
 import be.main.MainForm;
 import be.menu.MenuBar;
-import customer.book.ticketing.TicketingRoundTripComingForm;
+import customer.book.ticketing.TicketingRoundTripComingFormX;
 import customer.start.MainMenuForm;
 
 
@@ -28,7 +28,7 @@ public class TicketingOneWay extends JFrame implements ActionListener {
 	private JButton btnMainMenu;
 	// 예원 - Forms
 	private MainMenuForm mainMenuForm;
-	private TicketingRoundTripComingForm tkRTComForm;
+	private TicketingRoundTripComingFormX tkRTComForm;
 	
 	// 예원 - 색상
 	Color colorLogo = new Color(24, 62, 111);

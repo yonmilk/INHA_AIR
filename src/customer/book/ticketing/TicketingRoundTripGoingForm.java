@@ -27,7 +27,7 @@ import java.awt.BorderLayout;
 
 import be.main.MainForm;
 import be.menu.MenuBar;
-import customer.book.ticketing.TicketingRoundTripComingForm;
+import customer.book.ticketing.TicketingRoundTripComingFormX;
 import customer.start.MainMenuForm;
 //import sun.awt.www.content.image.jpeg;
 import test.TicketingRoundTripComingForm2;
@@ -43,7 +43,8 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 	private JButton btnMainMenu;
 	// 예원 - Forms
 	private MainMenuForm mainMenuForm;
-	private minbohyun.TicketingRoundTripComingForm tkRTComForm; //--------->>>>>
+	private TicketingRoundTripComingForm tkRTComForm; //--------->>>>>
+	
 	
 	// 예원 - 색상
 	Color colorLogo = new Color(24, 62, 111);
@@ -65,13 +66,13 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		String DepP = "CJU";
 		String ArrP = "GMP";
 		String GoDay = "20210531";
-		String ComeDay = "20210531";
+		String ComeDay = "20210609";
 		private int AdultP = 3;//성인
 		private int ChildP = 2;//소아인원
 		private int InfantP = 1;//소아인원
 		private String ID = "test1";
-		String COMclass = "p";//---삭제
-		String COMscheduleNo = "aaa";//----삭제
+		String COMclass;//---삭제
+		String COMscheduleNo;//----삭제
 		private int totalPay; //---삭제
 
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -79,7 +80,8 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		 String strToday = sdf.format(c.getTime());
 			
 //		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
-		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6)+ "t" ;
+		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) + "77" ;
+private int TotalPay;
 
 		//reserveNum, GOscheduleNo, COMscheduleNo, ID, adult,child ,infant,pay,GOclass,COMclass
 		//reserveNum, GOscheduleNo,COMscheduleNo,ID, AdultP,ChildP ,InfantP,totalPay,selectedSeatGo,COMclass
@@ -111,6 +113,10 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		public void setInfantP(int infantP) {
 			InfantP = infantP;
 		}
+		public void setTotalPay(int totalPay) {
+			TotalPay = totalPay;
+		}
+		
 		
 		public String getFlightCode() {
 			return flightCode;
@@ -141,7 +147,7 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		public int getAdultP() {
 			return AdultP;
 		}
-		public int getChildP() {
+		public int getChildP() { 
 			return ChildP;
 		}
 		public int getInfantP() {
@@ -162,6 +168,18 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		public String getComeDay() {
 			return ComeDay;
 		}
+		
+		public String getAirportD() {
+			return airportD;
+		}
+		
+		public String getAirportA() {
+			return airportA;
+		}
+		public String getReserveNum() {
+			return reserveNum;
+		}
+		
 		
 		private JLabel lblArrow; //왕복 화살표
 		private JLabel lblPassenger;// 탑승 인원 정보 (성인인지 유아인지의 정보 + 인원수)
@@ -236,6 +254,7 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		private JLabel lblGoingPayF;
 		private String selectedSeatGo;
 		private String GOscheduleNo;
+		private int GoPay;
 		
 public void roundtrip() {
 	setTitle(title);
@@ -491,12 +510,12 @@ public void roundtrip() {
 		ps = conn.prepareStatement(sql);
 		ps.setString(1,reserveNum);
 		ps.setString(2,GOscheduleNo);
-		ps.setString(3,COMscheduleNo);
+		ps.setString(3,null);
 		ps.setString(4,ID);
 		ps.setInt(5, AdultP);
 		ps.setInt(6,ChildP);
 		ps.setInt(7,InfantP);
-		ps.setInt(8,totalPay);
+		ps.setInt(8,0);
 		ps.setString(9,selectedSeatGo);
 		ps.setString(10,null);
 		 int res = ps.executeUpdate();
@@ -594,7 +613,8 @@ public void roundtrip() {
 			state = conn.createStatement();	
 				
 					String sql;
-					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'and toDate = " + ComeDay +"";
+					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'";
+//					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'and toDate = " + ComeDay +"";
 					
 					ResultSet rs = state.executeQuery(sql);
 					while (rs.next()) {
@@ -606,7 +626,7 @@ public void roundtrip() {
 						fromTime = rs.getString("fromTime");
 
 						to = rs.getString("to");
-						toDate = rs.getString("toDate");
+//						toDate = rs.getString("toDate");
 						toTime = rs.getString("toTime");
 						
 						GOscheduleNo = scheduleNo;
@@ -714,6 +734,7 @@ public void roundtrip() {
 		a = new TicketingRoundTripGoingForm();
 		a.roundtrip();
 		
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -725,7 +746,7 @@ public void roundtrip() {
 			
 		} else if(obj == btnNext)
 		{
-			tkRTComForm= new minbohyun.TicketingRoundTripComingForm();
+			tkRTComForm= new customer.book.ticketing.TicketingRoundTripComingForm();
 			this.setVisible(false);
 			
 			Insert();
@@ -736,12 +757,21 @@ public void roundtrip() {
 			lblTotalPayGoing.setText(totalPay + "원");
 			
 			selectedSeatGo = "e";
+			setTotalPay(totalPay);
+//			GoPay = totalPay;
+			
+			btnEcon.setBackground(crNext);
 		}
 		else if(obj == btnBus)
 		{
 			totalPay = businessPay;
 			lblTotalPayGoing.setText(totalPay + "원");	
 			selectedSeatGo = "b";
+			
+//			GoPay = totalPay;
+			
+			btnBus.setBackground(crNext);
+
 			}
 		else if(obj == btnFirs)
 		{
@@ -749,6 +779,11 @@ public void roundtrip() {
 			lblTotalPayGoing.setText(totalPay + "원");	
 			
 			selectedSeatGo = "f";
+			
+//			GoPay = totalPay;
+			
+			btnFirs.setBackground(crNext);
+
 			}
 		
 	}

@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import customer.book.ticketing.TicketingRoundTripComingForm;
+import customer.book.ticketing.TicketingRoundTripComingFormX;
 import customer.start.MainMenuForm;
 
 public class ticketttttt2 extends JFrame implements ActionListener {
@@ -31,7 +31,7 @@ public class ticketttttt2 extends JFrame implements ActionListener {
 	private JButton btnMainMenu;
 	// 예원 - Forms
 	private MainMenuForm mainMenuForm;
-	private TicketingRoundTripComingForm tkRTComForm;
+	private TicketingRoundTripComingFormX tkRTComForm;
 	
 	// 예원 - 색상
 	Color colorLogo = new Color(24, 62, 111);

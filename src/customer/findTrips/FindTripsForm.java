@@ -66,6 +66,15 @@ public class FindTripsForm extends JFrame implements ActionListener {
 //		String ID;
 	//-------------------------------------	
 	//-------------------------------------	
+//		String reserveNum;
+//		String nameKOR;		
+//		String secheduleNo;		
+//		String from;		
+//		String to;		
+//		String fromDate =;	
+//		String ID = getID();
+//-------------------------------------	
+//-------------------------------------	
 		
 		private JPanel jpInquiry1; // 시간 선택시 비행기1
 		private JPanel jpInquiry2; // 비행기 2
