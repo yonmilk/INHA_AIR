@@ -83,6 +83,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	private int count = 0;
 	
 	// 데이터 저장용
+	private String id;
 	private String nameKOR = "";			// 한글이름
 	private String nameENG = "";			// 영문이름
 	private String sex = "";				// 성별(남 또는 여)
@@ -113,8 +114,9 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	
 
 	// 예원 - 시작 화면
-	public ReservationDetailForm(String reserveNum) {
+	public ReservationDetailForm(String reserveNum, String id) {
 		this.reserveNum = reserveNum;
+		this.id = id;
 		
 		// DB 정보 - 테스트 소스
 		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
@@ -391,7 +393,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 
 
 	public static void main(String[] args) {
-		new ReservationDetailForm("test001010");
+		new ReservationDetailForm("test001010", "test1");
 	}
 
 
@@ -458,6 +460,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 							
 				// 첫 화면으로 
 				mainMenuForm = new MainMenuForm();
+				mainMenuForm.setId(id);
 				this.setVisible(false);
 			} else {
 				// 삭제 실패시 다이얼로그 띄움
@@ -578,7 +581,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		
 		if(rs == 1) {
 			if(count == people) {
-				paymentForm = new SelectPaymentForm(reserveNum);
+				paymentForm = new SelectPaymentForm(reserveNum, id);
 				this.setVisible(false);
 			} else {
 				// 라벨 변경

@@ -50,6 +50,17 @@ public class BookForm extends JFrame implements ActionListener {
 	private JButton btnMainMenu;
 	private JPanel jpBook;
 	
+	//
+	private String id;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 
 	private String [] seat = {"일등석", "비즈니스석", "이코노미석"};
 	private JPanel jpCountry, jpCalNum, jpDep, jpSwap, jpArr;
@@ -203,7 +214,9 @@ public class BookForm extends JFrame implements ActionListener {
 	
 	
 
-	public BookForm() {
+	public BookForm(String id) {
+		this.id = id;
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -391,7 +404,7 @@ public class BookForm extends JFrame implements ActionListener {
 	}	
 	
 	public static void main(String[] args) {
-		new BookForm();
+		new BookForm("test1");
 	}
 
 	
@@ -401,6 +414,7 @@ public class BookForm extends JFrame implements ActionListener {
 		
 		if(obj == btnMainMenu) {
 			mainMenuForm = new MainMenuForm();
+			mainMenuForm.setId(id);
 			this.setVisible(false);
 		} else if(obj == btnSearch) {
 			

@@ -30,6 +30,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	
 	// 예원 - 컴포넌트
 		private JButton btnMainMenu;
+		private String id;
 		// 예원 - Forms
 		private MainMenuForm mainMenuForm;
 		private MemberInquiryDetailForm2 detailForm;
@@ -113,7 +114,9 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		private JLabel lblDepP;
 		private Component lblArrP;
 
-	public FindTripsForm() {
+	public FindTripsForm(String id) {
+		this.id = id;
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -345,7 +348,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	
 	// 상단 
 	public static void main(String[] args) {
-		new FindTripsForm();
+		new FindTripsForm("test1");
 	}
 
 	@Override
@@ -354,6 +357,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		
 		if(obj == btnMainMenu) {
 			mainMenuForm = new MainMenuForm();
+			mainMenuForm.setId(id);
 			this.setVisible(false);
 			
 		} else if(obj == btnDetail1) {

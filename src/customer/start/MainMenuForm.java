@@ -147,15 +147,15 @@ public class MainMenuForm extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		
 		if(obj == btnBook) {
-			bookForm = new BookForm();
+			bookForm = new BookForm(id);
 			this.setVisible(false);
 			
 		} else if(obj == btnFindTrips) {
-			findTripsForm = new FindTripsForm();
+			findTripsForm = new FindTripsForm(id);
 			this.setVisible(false);
 			
 		} else if(obj == btnFilghtStatus) {
-			flightStatusForm = new FlightStatusForm();
+			flightStatusForm = new FlightStatusForm(id);
 			this.setVisible(false);
 			
 		}

@@ -63,8 +63,6 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 	private BookForm sel;
 	
 	
-	
-	
 		private JPanel jpSelectedInfo;
 	//--가상의 고객이 선택한 정보
 //		String SelectDepCode = "CJU";
@@ -77,7 +75,7 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		
 		String COMclass;
 		String COMscheduleNo;
-		String ID = "test1" ;
+		private String ID = "test1" ;
 		private int totalPay; //---삭제
 
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -290,9 +288,10 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 	//도착지 값
 	this.SelectArr= "";		//선택 도착지
 	this.SelectArrCode= sel.getSelectArrCode();	//선택 도착지 코드
-//	this.ID = sel.getID();
+	this.ID = sel.getId();
 	
-	reserveNum = goDay.substring(0, 3) + comeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) + "00";
+//	reserveNum = goDay.substring(0, 3) + comeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) + "00";
+	reserveNum = goDay.substring(0, 3) + comeDay.substring(2,5) + ID + strToday.substring(3,6) + "00";
 
 	setTitle(title);
 	setSize(width, height);

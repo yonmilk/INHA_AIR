@@ -64,6 +64,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	private JButton btnCancle, btnOK;	// 취소, 결제 버튼
 	
 	// 데이터 정보
+	private String id;
 	private String reserveNum = "test001010";			// 예매 번호(테스트값)
 	private String GOscheduleNo = "";
 	private String COMscheduleNo = "";
@@ -75,8 +76,9 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	private int pay = 0;	// 금액
 	
 
-	public SelectPaymentForm(String reserveNum) {
+	public SelectPaymentForm(String reserveNum, String id) {
 		this.reserveNum = reserveNum;
+		this.id = id;
 		
 //		// DB 정보 - 테스트 소스
 //		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
@@ -336,7 +338,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 
 
 	public static void main(String[] args) {
-		new SelectPaymentForm("test001010");
+		new SelectPaymentForm("test001010", "test1");
 	}
 
 
@@ -369,7 +371,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		int rs = databaseClass.insert(sql);
 		
 		if(rs == 1) {
-			paymentForm = new PaymentForm();
+			paymentForm = new PaymentForm(id);
 			this.setVisible(false);
 		} else {
 			JOptionPane.showMessageDialog(null, "결제 실패했습니다.", "결제 실패", JOptionPane.WARNING_MESSAGE);

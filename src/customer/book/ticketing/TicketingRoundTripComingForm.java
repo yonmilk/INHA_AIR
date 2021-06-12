@@ -190,6 +190,10 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 //			return ComeDay;
 //		}
 		
+		
+		//
+		private String id;
+		
 		private JLabel lblArrow; //왕복 화살표
 		private JLabel lblPassenger;// 탑승 인원 정보 (성인인지 유아인지의 정보 + 인원수)
 		
@@ -298,6 +302,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			this.airportA = rtg.getAirportA();
 			this.reserveNum = rtg.getReserveNum();
 			this.totalPay = rtg.getTotalPay();
+			this.ID = rtg.getID();
 
 			
 	setTitle(title);
@@ -861,6 +866,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		
 		if(obj == btnMainMenu) {
 			mainMenuForm = new MainMenuForm();
+			mainMenuForm.setId(ID);
 			this.setVisible(false);
 			
 		} else if(obj == btnNext)
@@ -871,7 +877,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 //			
 			Insert();
 			
-			reservation = new ReservationDetailForm(reserveNum);
+			reservation = new ReservationDetailForm(reserveNum, ID);
 			this.setVisible(false);
 		}
 		else if(obj == btnEcon)

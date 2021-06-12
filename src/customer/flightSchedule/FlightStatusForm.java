@@ -53,6 +53,9 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	Color crPaleblue = new Color(230,240,250);
 	Color crGrey = new Color(240,240,240);
 	
+	//
+	private String id;
+	
 	// 컴포넌트
 	private JButton btnMainMenu;
 	
@@ -76,7 +79,9 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	private String[] tableTitle = {"편명", "출발일", "출발시간", "도착일", "도착시간"};
 	
 	// 예원 - 시작 화면
-	public FlightStatusForm() {
+	public FlightStatusForm(String id) {
+		this.id = id;
+		
 		
 //		// DB 정보 - 테스트 소스
 //		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
@@ -295,7 +300,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new FlightStatusForm();
+		new FlightStatusForm("test1");
 	}
 
 
@@ -305,6 +310,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		
 		if(obj == btnMainMenu) {
 			mainMenuForm = new MainMenuForm();
+			mainMenuForm.setId(id);
 			this.setVisible(false);
 			
 		} else if(obj == cbFrom) {
