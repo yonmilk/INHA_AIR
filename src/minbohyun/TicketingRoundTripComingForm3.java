@@ -1,4 +1,4 @@
-package customer.book.ticketing;
+package minbohyun;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -24,7 +24,7 @@ import customer.book.ReservationDetailForm;
 import customer.start.MainMenuForm;
 
 
-public class TicketingRoundTripComingForm2 extends JFrame implements ActionListener {
+public class TicketingRoundTripComingForm3 extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
@@ -41,13 +41,15 @@ public class TicketingRoundTripComingForm2 extends JFrame implements ActionListe
 	
 	private JPanel jpSelectedInfo;
 	//--가상의 고객이 선택한 정보
-	private String DepP = " "; //고객이 선택한 정보 : 
-	private String ArrP = " "; // 출발지 GMP 도착지 PUS (P : place)
-	private String GoDay = " "; //출발 날짜 : 21.0515- 
-	private String ComeDay = " ";//도착 날짜 : 0601(화)    (D : date)
+	String ID = "abc12";
+	private String DepP = "CJU"; //고객이 선택한 정보 : 
+	private String ArrP = "GMP"; // 출발지 GMP 도착지 PUS (P : place)
+	String GoDay = "20210531"; //출발 날짜 : 21.0515- 
+	private String ComeDay = "20210601";//도착 날짜 : 0601(화)    (D : date)
 	private int AdultP = 0;//성인
 	private int ChildP = 0;//소아인원
 	private int InfantP = 0;//소아인원
+	String TotalPayment = "1000000";
 	
 	public void setDepP(String depP) {
 		DepP = depP;
@@ -77,7 +79,47 @@ public class TicketingRoundTripComingForm2 extends JFrame implements ActionListe
 		InfantP = infantP;
 	}
 	
+	public String getReserveNum() {
+		return reserveNum;
+	}
 	
+	public String getFlightCode(String flightCode) {
+		return flightCode;
+	}
+	
+	public String getSheduleNo(String scheduleNo) {
+		return scheduleNo;
+	}
+	public String getfromTime(String fromTime) {
+		return fromTime;
+	}
+	public String getToTime(String toTime ) {
+		return toTime;
+	}
+	public String getFromDate(String fromDate ) {
+		return fromDate;
+	}
+	public String getToDate(String toDate ) {
+		return toDate;
+	}
+	public String getDepP(String DepP) {
+		return DepP;
+	}
+	public String getArrP(String ArrP) {
+		return ArrP;
+	}
+	public String getAdultP(String AdultP) {
+		return AdultP;
+	}
+	public String getChildP(String ChildP) {
+		return ChildP;
+	}
+	public String getInfantP(String InfantP) {
+		return InfantP;
+	}
+	public String getTotalPay(String InfantP) {
+		return InfantP;
+	}
 	
 //		private JLabel lblDepartP; //고객이 선택한 출발지 정보
 //		private JLabel lblArriveP; //         도착지
@@ -166,8 +208,22 @@ public class TicketingRoundTripComingForm2 extends JFrame implements ActionListe
 		private Component btnFirs;
 		private String first;
 		
+		String driver = "com.mysql.cj.jdbc.Driver"; //드라이버
+		String dbURL = "jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
+		String dbID = "inhaair"; //DB에 접속할 사용자 이름을 상수로 정의
+		String dbPassword = "1234"; //사용자의 비밀번호를 상수로 정의
 		
-	public TicketingRoundTripComingForm2() {
+		Connection conn = null; 
+		Statement state = null;
+		String GOsheduleNo ;
+		String COMsheduleNo;
+		private TicketingRoundTripGoingForm3 rt1;
+		private String reserveNum;
+		private String airportD;
+		private String airportA; 
+		
+		
+	public TicketingRoundTripComingForm3() {
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -195,7 +251,11 @@ public class TicketingRoundTripComingForm2 extends JFrame implements ActionListe
 		
 		// 예원 - 컴포넌트 붙이기
 		add(btnMainMenu);
-				
+		
+		rt1 = new TicketingRoundTripGoingForm3();
+		rt1.getGOscheduleNo();
+		rt1.setVisible(false);
+		
 		crInfo = new Color(240,240,240);//고객이 선택한 정보를 나타내는 바의 색 
 		crClass = new Color(213, 230, 250);//좌석 등급 선택 버튼의 색
 		crTop = new Color(230,230,235);//고객이 선택한 정보를 나타내는 바의 색 
@@ -463,13 +523,14 @@ public class TicketingRoundTripComingForm2 extends JFrame implements ActionListe
 		lblTime.setFont(fontNanumGothic18Plain);
 		lblTime.setBounds(500, 0, 300, 100);
 		
-		lblDepP2 = new JLabel(from);
+		lblDepP2 = new JLabel(airportD);
 		lblDepP2.setFont(fontNanumGothic30);
-		lblDepP2.setBounds(400, 0, 200, 100);
+		lblDepP2.setBounds(350, 0, 200, 100);
 		
-		lblArrP2 = new JLabel(to);
+		lblArrP2 = new JLabel(airportA);
 		lblArrP2.setFont(fontNanumGothic30);
-		lblArrP2.setBounds(750, 0, 200, 100);
+		lblArrP2.setBounds(780, 0, 200, 100);
+		
 		
 		jpSelectedInfo.add(lblDepP);
 		jpSelectedInfo.add(lblArrP);
@@ -483,15 +544,95 @@ public class TicketingRoundTripComingForm2 extends JFrame implements ActionListe
 		
 		setVisible(true);
 	}
+	
+//	private String getGOscheduleNo() {
+//		rt1 = new TicketingRoundTripGoingForm3();
+//		rt1.getGOscheduleNo();
+//		rt1.setVisible(false);
+//		return null;
+//	}
+
 	private void Find() {
-		String driver = "com.mysql.cj.jdbc.Driver"; //드라이버
-		String dbURL = "jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
-		String dbID = "inhaair"; //DB에 접속할 사용자 이름을 상수로 정의
-		String dbPassword = "1234"; //사용자의 비밀번호를 상수로 정의
+		
 			
 		    Connection conn = null; 
 			Statement state = null; 
+			try{
+				Class.forName(driver);
+				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+				state = conn.createStatement();
+//				System.out.println("oo");
+				
+				String DepP = "GMP";
+//				String ArrP = "GMP";
+				
+				String sql;
+				sql = "SELECT * FROM airport WHERE `code` = '"+ DepP +"' ";
+				
+				ResultSet rs = state.executeQuery(sql);
+				while (rs.next()) {
+					airportD = rs.getString("airport");
+						
+//					System.out.println(airportD);
+					
+//					DepAP = airportD;
+				}
+				rs.close();
+				state.close();
+				conn.close();
+				
+	    }
+	    catch (Exception e) {
+		}finally {
+			try {
+				if(state!=null) 
+					state.close();
+			}catch (SQLException ex1) {
+			}
+			try {
+				if(conn!=null)
+					conn.close();
+			} catch (SQLException ex2) {
+			}
+		}
 			
+			try{
+				Class.forName(driver);
+				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+				state = conn.createStatement();
+//				System.out.println("oo");
+				
+				String ArrP = "CJU";
+				
+				String sql;
+				sql = "SELECT * FROM airport WHERE `code` = '"+ ArrP +"' ";
+				
+				ResultSet rs = state.executeQuery(sql);
+				while (rs.next()) {
+					airportA = rs.getString("airport");
+						
+//					System.out.println(airportA);
+					
+//					ArrAP = airportA;
+				}
+				rs.close();
+				state.close();
+				conn.close();
+				
+	    }
+	    catch (Exception e) {
+		}finally {
+			try {
+				if(state!=null) 
+					state.close();
+			}catch (SQLException ex1) {
+			}
+			try {
+				if(conn!=null)
+					conn.close();
+			} catch (SQLException ex2) {
+			}
+		}	
 			 try{
 					Class.forName(driver);
 					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
@@ -535,12 +676,12 @@ public class TicketingRoundTripComingForm2 extends JFrame implements ActionListe
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 			state = conn.createStatement();	
 					
-					String DepP = "CJU";
-					String ArrP = "GMP";
-					String GoDay = "20210531";
+//					String DepP = "CJU";
+//					String ArrP = "GMP";
+//					String ComeDay = "20210609";
 				
 					String sql;
-					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ ArrP +"' and fromDate = " + GoDay +" and `to` = '" + DepP +"'";
+					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ ArrP +"' and fromDate = " + ComeDay +" and `to` = '" + DepP +"'";
 					
 					ResultSet rs = state.executeQuery(sql);
 					while (rs.next()) {
@@ -554,6 +695,8 @@ public class TicketingRoundTripComingForm2 extends JFrame implements ActionListe
 						to = rs.getString("to");
 						toDate = rs.getString("toDate");
 						toTime = rs.getString("toTime");
+						
+						COMsheduleNo = scheduleNo;
 					}
 						
 //					rs.close();
@@ -576,7 +719,7 @@ public class TicketingRoundTripComingForm2 extends JFrame implements ActionListe
 	}
 
 	public static void main(String[] args) {
-		new TicketingRoundTripComingForm2();
+		new TicketingRoundTripComingForm3();
 	}
 
 
@@ -590,6 +733,52 @@ public class TicketingRoundTripComingForm2 extends JFrame implements ActionListe
 			
 		} else if(obj == btnMember) {
 //			new ReservationDetailForm();
+			reserveNum = GoDay.substring(3,6)+ComeDay.substring(4,7)+DepP.substring(0, 1)+ArrP.substring(0, 1)+ID.substring(2,4);
+			System.out.println(reserveNum);
+			
+			try{
+				Class.forName(driver);
+				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+				state = conn.createStatement();	
+						
+						String sql;
+						
+						sql = "INSERT INTO reservation (reserveNum, GOscheduleNo, COMscheduleNo, ID, adult, child, infant, pay, class) " 
+								   + "VALUES ('" + reserveNum + "', '" + GOsheduleNo  + "','" + COMsheduleNo + "','" + ID + "','" + AdultP + "','" + ChildP + "','" + InfantP + "','" + AdultP + "', '"+TotalPayment +"')";
+					
+						ResultSet rs = state.executeQuery(sql);
+//						while (rs.next()) {
+//							scheduleNo = rs.getString("scheduleNo");
+//							flightCode = rs.getString("flightCode");
+//							
+//							from = rs.getString("from");
+//							fromDate = rs.getString("fromDate");
+//							fromTime = rs.getString("fromTime");
+//
+//							to = rs.getString("to");
+//							toDate = rs.getString("toDate");
+//							toTime = rs.getString("toTime");
+//						}
+							
+//						rs.close();
+//						state.close();
+//						conn.close();
+			    }
+			    catch (Exception e1) {
+				}finally {
+					try {
+						if(state!=null) 
+							state.close();
+					}catch (SQLException ex1) {
+					}
+					try {
+						if(conn!=null)
+							conn.close();
+					} catch (SQLException ex2) {
+					}
+				}
+			
+			
 			this.setVisible(false);
 		}
 	}
