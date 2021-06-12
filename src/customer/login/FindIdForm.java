@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class FindIdForm extends JFrame implements ActionListener{
-	private String title = "비밀번호 찾기";
+	private String title = "아이디 찾기";
 	private int width = 400, height = 300;
 	
 	// 폰트
