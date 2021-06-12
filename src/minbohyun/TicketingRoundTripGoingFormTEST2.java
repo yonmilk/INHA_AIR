@@ -28,9 +28,9 @@ import java.awt.BorderLayout;
 import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.book.ticketing.TicketingRoundTripComingForm;
-import customer.book.ticketing.TicketingRoundTripComingForm2;
 import customer.start.MainMenuForm;
 //import sun.awt.www.content.image.jpeg;
+import test.TicketingRoundTripComingForm2;
 
 
 public class TicketingRoundTripGoingFormTEST2 extends JFrame implements ActionListener {
@@ -69,7 +69,7 @@ public class TicketingRoundTripGoingFormTEST2 extends JFrame implements ActionLi
 		private int AdultP = 3;//성인
 		private int ChildP = 2;//소아인원
 		private int InfantP = 1;//소아인원
-		private String ID = "bohyun123";
+		private String ID = "test1";
 		String COMclass = "p";//---삭제
 		String COMscheduleNo = "aaa";//----삭제
 		private int totalPay; //---삭제
@@ -78,7 +78,8 @@ public class TicketingRoundTripGoingFormTEST2 extends JFrame implements ActionLi
 		 Calendar c = Calendar.getInstance();
 		 String strToday = sdf.format(c.getTime());
 			
-		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
+//		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
+		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6)+ strToday.substring(3,6) ;
 
 		//reserveNum, GOscheduleNo, COMscheduleNo, ID, adult,child ,infant,pay,GOclass,COMclass
 		//reserveNum, GOscheduleNo,COMscheduleNo,ID, AdultP,ChildP ,InfantP,totalPay,selectedSeatGo,COMclass
@@ -216,17 +217,17 @@ public class TicketingRoundTripGoingFormTEST2 extends JFrame implements ActionLi
 		private JLabel lblAirportA;
 		private JLabel lblEcon;
 		private JLabel lblEconPr;
-		private String economy;
+		private int economy;
 		private JButton btnEcon;
 		private Color crSelect;
 		private JLabel lblBus;
 		private JLabel lblBusPr;
 		private JButton btnBus;
-		private String business;
+		private int business;
 		private JLabel lblFirs;
 		private JLabel lblFirsPr;
 		private JButton btnFirs;
-		private String first;
+		private int first;
 		private String airportD;
 		private String airportA;
 		private JLabel lblTotalPayGoing;
@@ -235,7 +236,6 @@ public class TicketingRoundTripGoingFormTEST2 extends JFrame implements ActionLi
 		private JLabel lblGoingPayF;
 		private String selectedSeatGo;
 		private String GOscheduleNo;
-		private String SelectedFliCo;
 		
 public void roundtrip() {
 	setTitle(title);
@@ -468,45 +468,49 @@ public void roundtrip() {
 	setVisible(true);
 }
 		
-		
 	public TicketingRoundTripGoingFormTEST2() {
 		
 	}
 	private void Insert() {
+		
+		System.out.println("버튼");
+		
 		try{
 			Class.forName(driver);
+		}catch (ClassNotFoundException e) {
+		}
+		try {
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-			state = conn.createStatement();
-			System.out.println("oo");
-			
-			//reserveNum, GOscheduleNo,COMscheduleNo,ID, AdultP,ChildP ,InfantP,totalPay,selectedSeatGo,COMclass
-
-			String sql;
-			sql = "INSERT INTO RESERVATION VALUES ('"+ reserveNum +"','"+ GOscheduleNo +"','"+ COMscheduleNo +"','"+ ID +"',"+ AdultP +","+ ChildP +","+ InfantP +","+ totalPay +",'"+ selectedSeatGo +"','"+ COMclass +"')";
-			
-			ResultSet rs = state.executeQuery(sql);
-			while (rs.next()) {
-				System.out.println("!!!!!!!!!!!!!!!!!!!");
-	
-			}
-//			rs.close();
-//			state.close();
-//			conn.close();
-//			
+		}
+		catch(SQLException e ) {
+			e.printStackTrace();
+		}
+		java.sql.PreparedStatement ps = null;
+		try {
+		String sql = "INSERT INTO reservation(reserveNum, GOscheduleNo, COMscheduleNo, ID, adult, child, infant, pay, GOclass, COMclass) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		ps = conn.prepareStatement(sql);
+		ps.setString(1,reserveNum);
+		ps.setString(2,GOscheduleNo);
+		ps.setString(3,COMscheduleNo);
+		ps.setString(4,ID);
+		ps.setInt(5, AdultP);
+		ps.setInt(6,ChildP);
+		ps.setInt(7,InfantP);
+		ps.setInt(8,totalPay);
+		ps.setString(9,selectedSeatGo);
+		ps.setString(10,null);
+		 int res = ps.executeUpdate();
+		 if(res>0) {
+			 System.out.println(sql);
+		}else {
+			 System.out.println("XXX");
+		 }
+		}catch (SQLException e) {
+			System.out.println("error");
+			e.printStackTrace();
+		}
     }
-    catch (Exception e) {
-	}finally {
-		try {
-			if(state!=null) 
-				state.close();
-		}catch (SQLException ex1) {
-		}
-		try {
-			if(conn!=null)
-				conn.close();
-		} catch (SQLException ex2) {
-		}
-	}}
+
 	private void Find() {	
 			try{
 				Class.forName(driver);
@@ -606,7 +610,7 @@ public void roundtrip() {
 						toTime = rs.getString("toTime");
 						
 						GOscheduleNo = scheduleNo;
-						SelectedFliCo = flightCode;
+						flightCode = flightCode;
 					}
 						
 					
@@ -636,7 +640,7 @@ public void roundtrip() {
 //					String SelectedFliCo = "IH8985";
 					
 					String sql;
-					sql = "SELECT * FROM airPrice WHERE `flightCode` = '"+ SelectedFliCo +"' ";
+					sql = "SELECT * FROM airplane WHERE `flightCode` = '"+ flightCode +"' ";
 					
 					ResultSet rs = state.executeQuery(sql);
 					while (rs.next()) {
@@ -663,7 +667,46 @@ public void roundtrip() {
 				} catch (SQLException ex2) {
 				}
 			}
-			 
+			 try{
+					Class.forName(driver);
+					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+					state = conn.createStatement();
+					System.out.println("oo");
+					
+					String DepP = "CJU";
+//					String ArrP = "GMP";
+					
+					String sql;
+					sql = "SELECT * FROM seat WHERE `scheduleNo` = '"+ scheduleNo +"' ";
+					
+					ResultSet rs = state.executeQuery(sql);
+					while (rs.next()) {
+						economy = rs.getInt("economy");
+						business = rs.getInt("business");
+						first = rs.getInt("first");
+							
+//						System.out.println(airportD);
+						
+//						DepAP = airportD;
+					}
+					rs.close();
+					state.close();
+					conn.close();
+					
+		    }
+		    catch (Exception e) {
+			}finally {
+				try {
+					if(state!=null) 
+						state.close();
+				}catch (SQLException ex1) {
+				}
+				try {
+					if(conn!=null)
+						conn.close();
+				} catch (SQLException ex2) {
+				}
+			} 
 	}
 	
 	public static void main(String[] args) {

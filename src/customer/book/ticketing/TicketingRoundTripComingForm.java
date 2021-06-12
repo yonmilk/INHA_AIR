@@ -22,6 +22,7 @@ import be.main.MainForm;
 import be.menu.MenuBar;
 import customer.book.ReservationDetailForm;
 import customer.start.MainMenuForm;
+import minbohyun.TicketingRoundTripGoingForm4;
 
 
 public class TicketingRoundTripComingForm extends JFrame implements ActionListener {
@@ -39,7 +40,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 	// 예원 - 폰트
 	Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
 	
-	private TicketingRoundTripGoingForm rtg1;
+	private TicketingRoundTripGoingForm4 rtg1;
 	
 	private JPanel jpSelectedInfo;
 	//--가상의 고객이 선택한 정보
@@ -429,7 +430,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 				
 //				String DepP = "GMP";
 				
-				TicketingRoundTripGoingForm rt1 = new TicketingRoundTripGoingForm();
+				TicketingRoundTripGoingForm4 rt1 = new TicketingRoundTripGoingForm4();
 //				rt1.setVisible(false);
 				String DepP = rt1.getArrP();
 				
@@ -473,7 +474,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 				
 //				String ArrP = "CJU";
 				
-				TicketingRoundTripGoingForm rt2 = new TicketingRoundTripGoingForm();
+				TicketingRoundTripGoingForm4 rt2 = new TicketingRoundTripGoingForm4();
 				rt2.setVisible(false);
 				((Connection) rt2).close();
 				String ArrP = rt2.getDepP();
@@ -612,7 +613,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		}
 		else if(obj == btnEcon)
 		{
-			rtg1 = new TicketingRoundTripGoingForm();
+			rtg1 = new TicketingRoundTripGoingForm4();
 			payGo = rtg1.getTotalPay();
 			intEcoPrice = Integer.parseInt(economyClass);
 			intPayGo = Integer.parseInt(payGo);
@@ -624,7 +625,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		}
 		else if(obj == btnPres)
 		{
-			rtg1 = new TicketingRoundTripGoingForm();
+			rtg1 = new TicketingRoundTripGoingForm4();
 			payGo = rtg1.getTotalPay();
 			
 			intPrePrice = Integer.parseInt(prestigeClass);
@@ -637,7 +638,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			}
 		else if(obj == btnFirs)
 		{
-			rtg1 = new TicketingRoundTripGoingForm();
+			rtg1 = new TicketingRoundTripGoingForm4();
 			payGo = rtg1.getTotalPay();
 			
 			intFirPrice = Integer.parseInt(firstClass);
