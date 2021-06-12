@@ -38,10 +38,12 @@ import customer.start.MainMenuForm;
 
 public class SelectDep extends JFrame implements ActionListener {
 	
+	
 	//데이터베이스 관련
 	static String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
 	static String dbID="inhaair";
 	static String dbPassword="1234";
+	private static BookForm BookForm;
 
 	// Title 및 사이즈 설정
 	private String title = "출발지 선택";
@@ -83,6 +85,7 @@ public class SelectDep extends JFrame implements ActionListener {
 	
 	
 	public SelectDep(BookForm bookForm) {
+		
 		//this.mainForm = mainForm;
 		this.bookForm = bookForm; //bookForm에 대한 정보
 		
@@ -237,5 +240,5 @@ public class SelectDep extends JFrame implements ActionListener {
 		}
 		
 	}
-
+	
 }

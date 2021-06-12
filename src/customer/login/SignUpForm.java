@@ -216,14 +216,16 @@ public class SignUpForm extends JFrame implements ActionListener{
 		jpInfR.add(lblSex);
 		
 		rg = new ButtonGroup();
-		rbMan = new JRadioButton("남자");
+		rbMan = new JRadioButton("남");
+		rbMan.setSelected(true);
 		rbMan.setSize(50, 30);
 		rbMan.setLocation(0, 100);
-		rbWoman = new JRadioButton("여자");
+		rbMan.setBackground(Color.white);
+		rbWoman = new JRadioButton("여");
 		rbWoman.setSize(50, 30);
 		rbWoman.setLocation(80, 100);
-		rbMan.setBackground(Color.white);
 		rbWoman.setBackground(Color.white);
+		rbWoman.setSelected(false);
 		rg.add(rbMan);
 		rg.add(rbWoman);
 		jpInfR.add(rbMan);
@@ -310,10 +312,23 @@ public class SignUpForm extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+
+		//System.out.println(chkNewsLetter.get());
+		//System.out.println(chkPromotion.getSelectedObjects());
+		//System.out.println(chkSMS.getSelectedObjects());
+		
+		
 		Object obj = e.getSource();
 		
-		if (obj == btnchk) {
-			if (btnchk.getText().equals("중복체크")) {
+		if (obj == btnchk && !(tfID.getText().isEmpty())) {
+			if (tfID.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "아이디를 입력해주세요");
+			} 
+			if (!idVCheck) {
+				
+				//System.out.println(idCheck(tfID.getText()));
+				
 				if (idCheck(tfID.getText())) {
 					JOptionPane.showMessageDialog(null, "중복된 아이디입니다.");
 				} else {
@@ -327,9 +342,12 @@ public class SignUpForm extends JFrame implements ActionListener{
 				btnchk.setText("중복체크");
 				idVCheck = false;
 			}
-		} else if (obj == btnSignUp) {
+		} else if (tfID.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "아이디를 입력해주세요");
+		}
+		else if (obj == btnSignUp) {
 			
-			System.out.println(rbMan.isSelected());
+			//System.out.println(rbMan.isSelected());
 			if (tfLNKor.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "한글 이름을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
 			} else if (tfLNEng.getText().isEmpty()) {
@@ -342,42 +360,46 @@ public class SignUpForm extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "비밀번호 확인을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
 			} else if (tfBirth.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "생년월일을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
-			} else if (rbMan.isSelected() == false && rbWoman.isSelected() == false) {
-				JOptionPane.showMessageDialog(null, "성별을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
 			} else if (tfEmail.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "이메일 주소를 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
 			} else if (tfPhone.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "휴대전화 번호를 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
 			} else if(!tfPW.getText().equals(tfPWchk.getText())) {
-				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.", "ERROR", JOptionPane.ERROR_MESSAGE);
-			} else if(!idVCheck) {
-				JOptionPane.showMessageDialog(null, "아이디 중복체크를 해주세요.", "ERROR", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.", "회원가입오류", JOptionPane.ERROR_MESSAGE);
+			} else if(idVCheck == false) {
+				JOptionPane.showMessageDialog(null, "아이디 중복체크를 해주세요.", "회원가입오류", JOptionPane.ERROR_MESSAGE);
 			} else {
-				String sql = "inset into user(ID, password, nameKOR, nameENG, sex, birth, tel, email, newsletter, promotion, sms) values('" +
-								tfID.getText() + ", " +
-								tfPW.getText() + ", " +
-								tfLNKor.getText() + ", " +
-								tfLNEng.getText() + ", " +
-								rg.getSelection() + ", " +
-								tfBirth.getText() + ", " +
-								tfPhone.getText() + ", " +
-								tfEmail.getText() + ", " +
-								chkNewsLetter.getSelectedObjects() + ", " +
-								chkPromotion.getSelectedObjects() + ", " +
-								chkSMS.getSelectedObjects() + "')";
-				System.out.println(sql);
 				
-				
-				ResultSet rs = databaseClass.select(sql);
-				
-				try {
-					while(rs.next()) {
-						
-					}
-				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, "ERROR", "회원가입에 실패했습니다. 정보를 다시 확인해주세요.", JOptionPane.ERROR_MESSAGE);
-					e1.printStackTrace();
+				if (rbMan.getSelectedObjects().equals(true)) {
+					
 				}
+				
+//				String sql = "INSERT INTO user(ID, password, nameKOR, nameENG, sex, birth, tel, email, newsletter, promotion, sms) VALUES('" +
+//								tfID.getText() + "', '" +
+//								tfPW.getText() + "', '" +
+//								tfLNKor.getText() + "', '" +
+//								tfLNEng.getText() + "', '" +
+//								rg.getSelection() + "', '" +
+//								tfBirth.getText() + "', '" +
+//								tfPhone.getText() + "', '" +
+//								tfEmail.getText() + "', '" +
+//								chkNewsLetter.getSelectedObjects() + "', '" +
+//								chkPromotion.getSelectedObjects() + "', '" +
+//								chkSMS.getSelectedObjects() + "')";
+//				
+//				ResultSet rs = databaseClass.select(sql);
+//				
+//				JOptionPane.showMessageDialog(null, "회원가입되었습니다.", "회원가입완료", JOptionPane.ERROR_MESSAGE);
+//				setVisible(false);
+//				
+//				try {
+//					while(rs.next()) {
+//						
+//					}
+//				} catch (SQLException e1) {
+//					JOptionPane.showMessageDialog(null, "ERROR", "회원가입에 실패했습니다. 정보를 다시 확인해주세요.", JOptionPane.ERROR_MESSAGE);
+//					e1.printStackTrace();
+//				}
 				
 			}
 		}
@@ -387,18 +409,19 @@ public class SignUpForm extends JFrame implements ActionListener{
 	
 	//아이디 중복 체크
 	private boolean idCheck(String id) {
-		String sql = "select id from user where '" + id + "'";
+
+		String sql = "SELECT ID FROM user WHERE ID in('" + id + "')";
 		ResultSet rs = databaseClass.select(sql);
 		
 		try {
-			if (rs.next()) {
+			while(rs.next()) {
 				return true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		idVCheck = true;
-		return idVCheck;
+		return false;
 	}
 
 
