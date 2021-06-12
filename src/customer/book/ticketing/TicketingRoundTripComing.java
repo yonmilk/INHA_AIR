@@ -67,7 +67,6 @@ public class TicketingRoundTripComing extends JFrame implements ActionListener {
 //		String ArrP = "GMP";
 //		String GoDay = "20210531";
 		
-//		
 //		String ComeDay = "20210609";
 //		private int AdultP = 3;//성인
 //		private int ChildP = 2;//소아인원

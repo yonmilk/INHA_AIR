@@ -92,13 +92,13 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		 
 		 TicketingRoundTripGoingForm rtg = new TicketingRoundTripGoingForm();
 		 
-		 String ComeDay = rtg.getComeDay();
-		 String GoDay = rtg.getGoDay();
-		 String DepP = rtg.getDepP();
-		 String ArrP = rtg.getArrP();
-		 int AdultP = rtg.getAdultP();
-		 int ChildP = rtg.getChildP();
-		 int InfantP = rtg.getInfantP();
+		 String comeDay = rtg.getComeDay();
+		 String goDay = rtg.getGoDay();
+		 String SelectDep = rtg.getDepP();
+		 String SelectArr = rtg.getArrP();
+		 int numAdult = rtg.getAdultP();
+		 int numChild = rtg.getChildP();
+		 int numInfant = rtg.getInfantP();
 		 String ID = rtg.getID();
 		 String airportD = rtg.getAirportD();
 		 String airportA = rtg.getAirportA();
@@ -112,31 +112,31 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 		//reserveNum, GOscheduleNo,COMscheduleNo,ID, AdultP,ChildP ,InfantP,totalPay,selectedSeatGo,COMclass
 		
 		public void setDepP(String depP) {
-			DepP = depP;
+			SelectDep = depP;
 		}
 
 		public void setArrP(String arrP) {
-			ArrP = arrP;
+			SelectArr = arrP;
 		}
 
 		public void setGoDay(String goDay) {
-			GoDay = goDay;
+			goDay = goDay;
 		}
 
 		public void setComeDay(String comeDay) {
-			ComeDay = comeDay;
+			comeDay = comeDay;
 		}
 
 		public void setAdultP(int adultP) {
-			AdultP = adultP;
+			numAdult = adultP;
 		}
 
 		public void setChildP(int childP) {
-			ChildP = childP;
+			numChild = childP;
 		}
 
 		public void setInfantP(int infantP) {
-			InfantP = infantP;
+			numInfant = infantP;
 		}
 		
 //		public String getFlightCode() {
@@ -314,7 +314,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 	lblArrow.setFont(fontNanumGothic30);
 	lblArrow.setBounds(135, -20, 200, 100);
 	
-	lblPassenger = new JLabel("    성인  " + AdultP + "명   " +"  |  "+ "  소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
+	lblPassenger = new JLabel("    성인  " + numAdult + "명   " +"  |  "+ "  소아  "+ numChild + "명"); //고객이 선택한 탑승자 정보
 	lblPassenger.setFont(fontNanumGothic18Plain);
 	lblPassenger.setBounds(640, -20, 500, 100);
 	
@@ -459,8 +459,8 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 //	lblDate = new JLabel("<html>"+fromDate + "&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;" + toDate+"</html>");
 	
 //	lblGoComeDate = new JLabel(GoDay + "~" + ComeDay);
-	lblGoComeDate = new JLabel(GoDay.substring(0, 4)+"-"+GoDay.substring(4, 6)+"-"+GoDay.substring(6, 8) + "~" 
-+ ComeDay.substring(0, 4)+"-"+ComeDay.substring(4, 6)+"-"+ComeDay.substring(6, 8));
+	lblGoComeDate = new JLabel(goDay.substring(0, 4)+"-"+goDay.substring(4, 6)+"-"+goDay.substring(6, 8) + "~" 
++ comeDay.substring(0, 4)+"-"+comeDay.substring(4, 6)+"-"+comeDay.substring(6, 8));
 	lblGoComeDate.setFont(fontNanumGothic18Plain);
 	lblGoComeDate.setBounds(300, -20, 400, 100);
 
@@ -641,7 +641,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 //				String ArrP = "GMP";
 				
 				String sql;
-				sql = "SELECT * FROM airport WHERE `code` = '"+ ArrP +"' ";
+				sql = "SELECT * FROM airport WHERE `code` = '"+ SelectArr +"' ";
 				
 				ResultSet rs = state.executeQuery(sql);
 				while (rs.next()) {
@@ -674,7 +674,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 //				String ArrP = "GMP";
 				
 				String sql;
-				sql = "SELECT * FROM airport WHERE `code` = '"+ DepP +"' ";
+				sql = "SELECT * FROM airport WHERE `code` = '"+ SelectDep +"' ";
 				
 				ResultSet rs = state.executeQuery(sql);
 				while (rs.next()) {
@@ -704,7 +704,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			state = conn.createStatement();	
 				
 					String sql;
-					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ ArrP +"' and fromDate = " + ComeDay +" and `to` = '" + DepP +"'and toDate = " + ComeDay +"";
+					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ SelectArr +"' and fromDate = " + comeDay +" and `to` = '" + SelectDep +"'and toDate = " + comeDay +"";
 					
 					ResultSet rs = state.executeQuery(sql);
 					while (rs.next()) {

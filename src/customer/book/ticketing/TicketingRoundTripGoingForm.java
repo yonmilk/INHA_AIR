@@ -27,6 +27,7 @@ import java.awt.BorderLayout;
 
 import be.main.MainForm;
 import be.menu.MenuBar;
+import customer.book.BookForm;
 import customer.book.ticketing.TicketingRoundTripComingFormX;
 import customer.start.MainMenuForm;
 //import sun.awt.www.content.image.jpeg;
@@ -60,19 +61,39 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
     Connection conn = null; 
 	Statement state = null; 
 	
+	BookForm sel = new BookForm();
+	
+	
+//	
+	private String goDay = sel.getGoDay();		//가는날
+	private String comeDay = sel.getComeDay();	//오는날
+//	private int roundTrip = 0;		//편도와 왕복 (편도 0, 왕복 1)
+	//승객 인원 값
+	private int numAdult = sel.getNumAdult();		//성인 수
+	private int numChild = sel.getNumChild();		//소아 수
+	private int numInfant = sel.getNumInfant();		//유아 수
+	private int numTotal = sel.getNumTotal();		//총 인원 수
+	//출발지 값
+	private String SelectDep = "";		//선택 출발지
+	private String SelectDepCode= sel.getSelectDepCode();	//선택 출발지 코드
+	//도착지 값
+	private String SelectArr= "";		//선택 도착지
+	private String SelectArrCode= sel.getSelectArrCode();	//선택 도착지 코드
+//	
 	
 		private JPanel jpSelectedInfo;
 	//--가상의 고객이 선택한 정보
-		String DepP = "CJU";
-		String ArrP = "GMP";
-		String GoDay = "20210531";
-		String ComeDay = "20210609";
-		private int AdultP = 3;//성인
-		private int ChildP = 2;//소아인원
-		private int InfantP = 1;//소아인원
+//		String SelectDepCode = "CJU";
+//		String SelectArrCode = "GMP";
+//		String goDay = "20210531";
+//		String comeDay = "20210609";
+//		private int numAdult = 3;//성인
+//		private int numChild= 2;//소아인원
+//		private int numInfant = 1;//소아인원
 		private String ID = "test1";
-		String COMclass;//---삭제
-		String COMscheduleNo;//----삭제
+		
+		String COMclass;
+		String COMscheduleNo;
 		private int totalPay; //---삭제
 
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -80,38 +101,38 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		 String strToday = sdf.format(c.getTime());
 			
 //		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
-		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
+		String reserveNum = goDay.substring(0, 3) + comeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
 private int TotalPay;
 
 		//reserveNum, GOscheduleNo, COMscheduleNo, ID, adult,child ,infant,pay,GOclass,COMclass
 		//reserveNum, GOscheduleNo,COMscheduleNo,ID, AdultP,ChildP ,InfantP,totalPay,selectedSeatGo,COMclass
 		
 		public void setDepP(String depP) {
-			DepP = depP;
+			SelectDepCode = depP;
 		}
 
 		public void setArrP(String arrP) {
-			ArrP = arrP;
+			SelectArrCode = arrP;
 		}
 
 		public void setGoDay(String goDay) {
-			GoDay = goDay;
+			this.goDay = goDay;
 		}
 
 		public void setComeDay(String comeDay) {
-			ComeDay = comeDay;
+			this.comeDay = comeDay;
 		}
 
 		public void setAdultP(int adultP) {
-			AdultP = adultP;
+			numAdult = adultP;
 		}
 
 		public void setChildP(int childP) {
-			ChildP = childP;
+			numChild = childP;
 		}
 
 		public void setInfantP(int infantP) {
-			InfantP = infantP;
+			numInfant = infantP;
 		}
 		public void setTotalPay(int totalPay) {
 			TotalPay = totalPay;
@@ -139,19 +160,19 @@ private int TotalPay;
 			return toDate;
 		}
 		public String getDepP() {
-			return DepP;
+			return SelectDepCode;
 		}
 		public String getArrP() {
-			return ArrP;
+			return SelectArrCode;
 		}
 		public int getAdultP() {
-			return AdultP;
+			return numAdult;
 		}
 		public int getChildP() { 
-			return ChildP;
+			return numChild;
 		}
 		public int getInfantP() {
-			return InfantP;
+			return numInfant;
 		}
 		public int getTotalPay() {
 			return totalPay;
@@ -163,10 +184,10 @@ private int TotalPay;
 			return ID;
 		}
 		public String getGoDay() {
-			return GoDay;
+			return goDay;
 		}
 		public String getComeDay() {
-			return ComeDay;
+			return comeDay;
 		}
 		
 		public String getAirportD() {
@@ -303,7 +324,7 @@ public void roundtrip() {
 	lblArrow.setFont(fontNanumGothic30);
 	lblArrow.setBounds(135, -20, 200, 100);
 	
-	lblPassenger = new JLabel("    성인  " + AdultP + "명   " +"  |  "+ "  소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
+	lblPassenger = new JLabel("    성인  " + numAdult + "명   " +"  |  "+ "  소아  "+ numChild + "명"); //고객이 선택한 탑승자 정보
 	lblPassenger.setFont(fontNanumGothic18Plain);
 	lblPassenger.setBounds(640, -20, 500, 100);
 	
@@ -449,8 +470,8 @@ public void roundtrip() {
 //	lblDate = new JLabel("<html>"+fromDate + "&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;" + toDate+"</html>");
 	
 //	lblGoComeDate = new JLabel(GoDay + "~" + ComeDay);
-	lblGoComeDate = new JLabel(GoDay.substring(0, 4)+"-"+GoDay.substring(4, 6)+"-"+GoDay.substring(6, 8) + "~" 
-+ ComeDay.substring(0, 4)+"-"+ComeDay.substring(4, 6)+"-"+ComeDay.substring(6, 8));
+	lblGoComeDate = new JLabel(goDay.substring(0, 4)+"-"+goDay.substring(4, 6)+"-"+goDay.substring(6, 8) + "~" 
++ comeDay.substring(0, 4)+"-"+comeDay.substring(4, 6)+"-"+comeDay.substring(6, 8));
 	lblGoComeDate.setFont(fontNanumGothic18Plain);
 	lblGoComeDate.setBounds(300, -20, 400, 100);
 
@@ -514,9 +535,9 @@ public void roundtrip() {
 		ps.setString(2,GOscheduleNo);
 		ps.setString(3,null);
 		ps.setString(4,ID);
-		ps.setInt(5, AdultP);
-		ps.setInt(6,ChildP);
-		ps.setInt(7,InfantP);
+		ps.setInt(5, numAdult);
+		ps.setInt(6,numInfant);
+		ps.setInt(7,numChild);
 		ps.setInt(8,0);
 		ps.setString(9,selectedSeatGo);
 		ps.setString(10,null);
@@ -615,7 +636,7 @@ public void roundtrip() {
 			state = conn.createStatement();	
 				
 					String sql;
-					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'";
+					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ SelectDepCode +"' and fromDate = " + goDay +" and `to` = '" + SelectArrCode +"'";
 //					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'and toDate = " + ComeDay +"";
 					
 					ResultSet rs = state.executeQuery(sql);
@@ -772,7 +793,7 @@ public void roundtrip() {
 			totalPay = businessPay;
 			lblTotalPayGoing.setText(totalPay + "원");	
 			selectedSeatGo = "b";
-			jpFlight3.setBackground(crChange);
+			jpFlight2.setBackground(crChange);
 //			GoPay = totalPay;
 			
 //			btnBus.setBackground(crNext);
