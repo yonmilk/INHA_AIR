@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -17,14 +19,23 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import DataBase.databaseClass;
+
 public class SignUpForm extends JFrame implements ActionListener{
 
+	
+	//데이터베이스 관련
+	static String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+	static String dbID="inhaair";
+	static String dbPassword="1234";
+	
 	Font fontGothic = new Font("Gothic", Font.BOLD, 13);
 	Font fontNanumGothic = new Font("NanumGothic", Font.BOLD, 20);
 	
@@ -55,6 +66,8 @@ public class SignUpForm extends JFrame implements ActionListener{
 	private JTextField tfBirth;
 	private JLabel lblEmailEx;
 	private JLabel lblPhoneEx;
+	private JLabel lblBirthEx;
+	private boolean idVCheck = false;
 
 
 	public SignUpForm() {
@@ -89,8 +102,8 @@ public class SignUpForm extends JFrame implements ActionListener{
 		//회원가입 제목
 		jpTitle = new JPanel();
 		jpTitle.setLayout(null);
-		jpTitle.setSize(350, 100);
-		jpTitle.setLocation(40, 0);
+		jpTitle.setSize(350, 50);
+		jpTitle.setLocation(40, 20);
 		jpTitle.setBackground(Color.white);
 		
 		lblTitle = new JLabel("회원가입");
@@ -184,6 +197,12 @@ public class SignUpForm extends JFrame implements ActionListener{
 		lblBirth.setFont(fontNanumGothic18);
 		jpInfR.add(lblBirth);
 		
+		lblBirthEx = new JLabel("예) 20020214");
+		lblBirthEx.setSize(300, 30);
+		lblBirthEx.setLocation(100, 0);
+		lblBirthEx.setFont(fontNanumGothic13);
+		jpInfR.add(lblBirthEx);
+		
 		tfBirth = new JTextField("");
 		tfBirth.setSize(300, 30);
 		tfBirth.setLocation(0, 30);
@@ -233,7 +252,7 @@ public class SignUpForm extends JFrame implements ActionListener{
 		lblPhone.setFont(fontNanumGothic18);
 		jpInfR.add(lblPhone);
 		
-		lblPhoneEx = new JLabel("예) 01092032769");
+		lblPhoneEx = new JLabel("예) 01012345678");
 		lblPhoneEx.setSize(300, 30);
 		lblPhoneEx.setLocation(140, 210);
 		lblPhoneEx.setFont(fontNanumGothic13);
@@ -271,7 +290,7 @@ public class SignUpForm extends JFrame implements ActionListener{
 		
 		btnSignUp = new JButton("회원가입");
 		btnSignUp.setBackground(new Color(10,90,150));
-		btnSignUp.setSize(200, 50);
+		btnSignUp.setSize(200, 40);
 		btnSignUp.setLocation(280, 550);
 		btnSignUp.setForeground(Color.WHITE);
 		btnSignUp.setFont(fontNanumGothic18);
@@ -289,18 +308,99 @@ public class SignUpForm extends JFrame implements ActionListener{
 		new SignUpForm();
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
 		if (obj == btnchk) {
-			
+			if (!idVCheck) {
+				if (idCheck(tfID.getText())) {
+					JOptionPane.showMessageDialog(null, "중복된 아이디입니다.");
+				} else {
+					JOptionPane.showMessageDialog(null, "사용가능한 아이디입니다.");
+					btnchk.setText("다시입력");
+					tfID.setEnabled(false);
+				}
+			} else {
+				tfID.setText("");
+				tfID.setEnabled(true);
+				btnchk.setText("중복체크");
+				idVCheck = false;
+			}
 		} else if (obj == btnSignUp) {
 			
+			System.out.println(rbMan.isSelected());
+			if (tfLNKor.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "한글 이름을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
+			} else if (tfLNEng.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "영문 이름을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
+			} else if(tfID.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "회원 아이디를 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
+			} else if (tfPW.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
+			} else if (tfPWchk.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "비밀번호 확인을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
+			} else if (tfBirth.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "생년월일을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
+			} else if (rbMan.isSelected() == false && rbWoman.isSelected() == false) {
+				JOptionPane.showMessageDialog(null, "성별을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
+			} else if (tfEmail.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "이메일 주소를 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
+			} else if (tfPhone.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "휴대전화 번호를 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
+			} else if(!tfPW.getText().equals(tfPWchk.getText())) {
+				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.", "ERROR", JOptionPane.ERROR_MESSAGE);
+			} else if(!idVCheck) {
+				JOptionPane.showMessageDialog(null, "아이디 중복체크를 해주세요.", "ERROR", JOptionPane.ERROR_MESSAGE);
+			} else {
+				String sql = "inset into user(ID, password, nameKOR, nameENG, sex, birth, tel, email, newletter, promotion, sms) values('" +
+								tfID.getText() + ", " +
+								tfPW.getText() + ", " +
+								tfLNKor.getText() + ", " +
+								tfLNEng.getText() + ", " +
+								rg.getSelection() + ", " +
+								tfBirth.getText() + ", " +
+								tfPhone.getText() + ", " +
+								tfEmail.getText() + ", " +
+								chkNewsLetter.getSelectedObjects() + ", " +
+								chkPromotion.getSelectedObjects() + ", " +
+								chkSMS.getSelectedObjects() + "')";
+				System.out.println(sql);
+				
+				
+				ResultSet rs = databaseClass.select(sql);
+				
+				try {
+					while(rs.next()) {
+						
+					}
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "ERROR", "회원가입에 실패했습니다. 정보를 다시 확인해주세요.", JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				}
+				
+			}
 		}
 		
 	}
+	
+	
+	//아이디 중복 체크
+	private boolean idCheck(String id) {
+		String sql = "select user from id where '" + id + "'";
+		ResultSet rs = databaseClass.select(sql);
+		
+		try {
+			if (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		idVCheck = true;
+		return false;
+	}
+
 
 }
 

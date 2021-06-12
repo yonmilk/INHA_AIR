@@ -148,7 +148,7 @@ public class SelectDep extends JFrame implements ActionListener {
 		
 		String[][] rows;
 		
-		String sql = "SELECT continent, country, city, code FROM airport ORDER BY continent, country";
+		String sql = "SELECT continent, country, city, code FROM airport ORDER BY terminal, continent, country";
 		ResultSet rs = databaseClass.select(sql);
 		
 		try {
@@ -176,8 +176,9 @@ public class SelectDep extends JFrame implements ActionListener {
 		jtCountryList.setRowSorter(tablesorter);
 		jtCountryList.setShowVerticalLines(false); // 수직 라인 안보이게 처리
 		jtCountryList.setFont(fontNanumGothic15);
-		jtCountryList.getTableHeader().setBackground(new Color(10,90,150)); // 헤더 배경색 
+		jtCountryList.getTableHeader().setBackground(new Color(10,90,150)); // 헤더 배경색
 		jtCountryList.getTableHeader().setForeground(new Color(0XFFFFFF)); //헤더 글자색
+		jtCountryList.setRowHeight(30);
 		
 		// ScrollPane
 		scrollPane = new JScrollPane(jtCountryList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
