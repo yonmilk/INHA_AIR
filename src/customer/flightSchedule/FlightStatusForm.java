@@ -407,8 +407,8 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 				if(row % 2 == 0) {
 					component.setBackground(Color.WHITE);
 				} else {
-//					component.setBackground(crGrey);
-					component.setBackground(crPaleblue);
+					component.setBackground(crGrey);
+//					component.setBackground(crPaleblue);
 				}
 			} 
 //			else if(isRowSelected(row)) {

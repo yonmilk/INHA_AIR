@@ -116,12 +116,12 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	public ReservationDetailForm(String reserveNum) {
 		this.reserveNum = reserveNum;
 		
-//		// DB 정보 - 테스트 소스
-//		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
-//		String dbID="inhaair";
-//		String dbPassword="1234";
-//		// 데이터베이스 연결 - 테스트 소스
-//		databaseClass.connect(dbURL, dbID, dbPassword);
+		// DB 정보 - 테스트 소스
+		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbID="inhaair";
+		String dbPassword="1234";
+		// 데이터베이스 연결 - 테스트 소스
+		databaseClass.connect(dbURL, dbID, dbPassword);
 		
 		setTitle(title);
 		setSize(width, height);
@@ -573,31 +573,52 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 
 	private void goNext() {
 		
-		if(count == people) {
-			// insert 성공 시 결제로 넘어감
-			
-			// 추가수하물 만큼 가격 추가하기
-			int rs = upPay();
-			
-			if(rs == 1) {
+		int rs = upPay();
+		
+		if(rs == 1) {
+			if(count == people) {
 				paymentForm = new SelectPaymentForm(reserveNum);
 				this.setVisible(false);
+			} else {
+				// 라벨 변경
+				lblInformation.setText("승객" + (count+1) + " 정보 입력");
+				
+				// 입력된 값 다 지우기
+				tfReset();
+				
+				if((count+1) == people) {
+					btnOK.setText("결제 하기");
+				}
 			}
-			else {
-				JOptionPane.showMessageDialog(null, "다시 시도해주세요.", "오류 안내", JOptionPane.WARNING_MESSAGE);
-			}
-			
 		} else {
-			// 라벨 변경
-			lblInformation.setText("승객" + (count+1) + " 정보 입력");
-			
-			// 입력된 값 다 지우기
-			tfReset();
-			
-			if((count+1) == people) {
-				btnOK.setText("결제 하기");
-			}
+			JOptionPane.showMessageDialog(null, "다시 시도해주세요.", "오류 안내", JOptionPane.WARNING_MESSAGE);
 		}
+		
+//		if(count == people) {
+//			// insert 성공 시 결제로 넘어감
+//			
+//			// 추가수하물 만큼 가격 추가하기
+//			int rs = upPay();
+//			
+//			if(rs == 1) {
+//				paymentForm = new SelectPaymentForm(reserveNum);
+//				this.setVisible(false);
+//			}
+//			else {
+//				JOptionPane.showMessageDialog(null, "다시 시도해주세요.", "오류 안내", JOptionPane.WARNING_MESSAGE);
+//			}
+//			
+//		} else {
+//			// 라벨 변경
+//			lblInformation.setText("승객" + (count+1) + " 정보 입력");
+//			
+//			// 입력된 값 다 지우기
+//			tfReset();
+//			
+//			if((count+1) == people) {
+//				btnOK.setText("결제 하기");
+//			}
+//		}
 	}
 
 
