@@ -313,7 +313,7 @@ public class SignUpForm extends JFrame implements ActionListener{
 		Object obj = e.getSource();
 		
 		if (obj == btnchk) {
-			if (!idVCheck) {
+			if (btnchk.getText().equals("중복체크")) {
 				if (idCheck(tfID.getText())) {
 					JOptionPane.showMessageDialog(null, "중복된 아이디입니다.");
 				} else {
@@ -353,7 +353,7 @@ public class SignUpForm extends JFrame implements ActionListener{
 			} else if(!idVCheck) {
 				JOptionPane.showMessageDialog(null, "아이디 중복체크를 해주세요.", "ERROR", JOptionPane.ERROR_MESSAGE);
 			} else {
-				String sql = "inset into user(ID, password, nameKOR, nameENG, sex, birth, tel, email, newletter, promotion, sms) values('" +
+				String sql = "inset into user(ID, password, nameKOR, nameENG, sex, birth, tel, email, newsletter, promotion, sms) values('" +
 								tfID.getText() + ", " +
 								tfPW.getText() + ", " +
 								tfLNKor.getText() + ", " +
@@ -387,7 +387,7 @@ public class SignUpForm extends JFrame implements ActionListener{
 	
 	//아이디 중복 체크
 	private boolean idCheck(String id) {
-		String sql = "select user from id where '" + id + "'";
+		String sql = "select id from user where '" + id + "'";
 		ResultSet rs = databaseClass.select(sql);
 		
 		try {
@@ -398,7 +398,7 @@ public class SignUpForm extends JFrame implements ActionListener{
 			e.printStackTrace();
 		}
 		idVCheck = true;
-		return false;
+		return idVCheck;
 	}
 
 
