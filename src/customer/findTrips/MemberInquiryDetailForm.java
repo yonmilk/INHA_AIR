@@ -88,7 +88,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 			String nameENG;
 			String sex;
 			String passport;	
-			String birth;	
+			String birth = " ";	
 			String tel;
 			String email;	
 //			int agree;	

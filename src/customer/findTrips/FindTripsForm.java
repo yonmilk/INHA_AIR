@@ -50,20 +50,20 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	
 	//---------------------가상의 고객이 선택한 정보
 	//-------------------------------------
-		String reserveNum = "21061200aa";
-		String scheduleNo = "AAAA-12";
-		String nameKOR = "민보현";
-		String from = "CJU";
-		String fromDate ="20210521";
-		String to = "GMP";
-		String ID;
+//		String reserveNum = "test001010";
+//		String scheduleNo = "AAAA-12";
+//		String nameKOR = "민보현";
+//		String from = "CJU";
+//		String fromDate ="20210521";
+//		String to = "GMP";
+//		String ID = "test1";
 	//-------------------------------------
-//		String reserveNum;
-//		String nameKOR;		
-//		String secheduleNo;		
-//		String from;		
-//		String to;		
-//		String fromDate;	
+		String reserveNum;
+		String nameKOR;		
+		String scheduleNo;		
+		String from;		
+		String to;		
+		String fromDate = " ";	
 //		String ID;
 	//-------------------------------------	
 	//-------------------------------------	
@@ -96,6 +96,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
 		Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 30
+		
 		private JPanel jpInquiryTop;
 		private JPanel jpInquiry4;
 		private JLabel lblRNum;
@@ -116,6 +117,12 @@ public class FindTripsForm extends JFrame implements ActionListener {
 
 	public FindTripsForm(String id) {
 		this.id = id;
+		this.nameKOR = nameKOR;		
+		this.scheduleNo = scheduleNo;		
+		this.from = from;		
+		this.to = to;		
+		this.fromDate = fromDate;	
+		this.reserveNum = reserveNum;	
 		
 		setTitle(title);
 		setSize(width, height);
@@ -250,7 +257,8 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		lblName.setBounds(245, 40, 80, 20);
 		lblName.setFont(fontNanumGothic15Plain);
 		
-		lblDate = new JLabel(fromDate.substring(0,4)+"년 " + fromDate.substring(4,6) + "월 " + fromDate.substring(6,8) + "일");
+//		lblDate = new JLabel(fromDate.substring(0,4)+"년 " + fromDate.substring(4,6) + "월 " + fromDate.substring(6,8) + "일");
+		lblDate = new JLabel(fromDate);
 		lblDate.setBounds(370, 40, 200, 20);
 		lblDate.setFont(fontNanumGothic15Plain);
 		
@@ -274,11 +282,15 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	private void Data() {
+		
+		
+		//-------------------------------------------
+		//-------------------------------------------
 		try{
 			Class.forName(driver);
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 			String sql;
-			sql = "SELECT * FROM reservation WHERE `ID` = '"+ ID +"' ";
+			sql = "SELECT * FROM reservation WHERE `ID` = '"+ id +"' ";
 			
 			ResultSet rs = state.executeQuery(sql);
 			while (rs.next()) {

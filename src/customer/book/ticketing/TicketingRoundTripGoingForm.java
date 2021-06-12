@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -82,6 +83,12 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		 Calendar c = Calendar.getInstance();
 		 String strToday = sdf.format(c.getTime());
 			
+		 SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyyMMddHHmmss");
+         Date date_now = new Date(System.currentTimeMillis()); // 현재시간을 가져와 Date형으로 저장한다
+         String sdf2 = fourteen_format .format(date_now);
+         
+//         System.out.println(fourteen_format .format(date_now)); // 기본 포멧으로 출력한다
+		 
 //		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
 private int TotalPay;
 
@@ -291,7 +298,7 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 	this.ID = sel.getId();
 	
 //	reserveNum = goDay.substring(0, 3) + comeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) + "00";
-	reserveNum = goDay.substring(0, 3) + comeDay.substring(2,5) + ID + strToday.substring(3,6) + "00";
+	reserveNum = goDay.substring(0, 3) + comeDay.substring(2,5) + ID + strToday.substring(3,6) + sdf2.substring(11, 14);
 
 	setTitle(title);
 	setSize(width, height);
@@ -791,7 +798,7 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 			totalPay = economyPay;
 			lblTotalPayGoing.setText(totalPay + "원");
 			
-			selectedSeatGo = "e";
+			selectedSeatGo = "economy";
 			setTotalPay(totalPay);
 			
 //			GoPay = totalPay;
@@ -804,7 +811,7 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 		{
 			totalPay = businessPay;
 			lblTotalPayGoing.setText(totalPay + "원");	
-			selectedSeatGo = "b";
+			selectedSeatGo = "business";
 			jpFlight2.setBackground(crChange);
 //			GoPay = totalPay;
 			
@@ -816,7 +823,7 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 			totalPay = firstPay;
 			lblTotalPayGoing.setText(totalPay + "원");	
 			
-			selectedSeatGo = "f";
+			selectedSeatGo = "first";
 			jpFlight3.setBackground(crChange);
 //			GoPay = totalPay;
 			
