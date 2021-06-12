@@ -52,7 +52,13 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 	private JPanel jpPwTitle;
 	private JLabel lblPwTitle;
 	
+	private String idFound = "";
 	
+	public String getIdFound() {
+		return idFound;
+	}
+
+
 	public FindIdPwForm() {
 		
 		
@@ -237,9 +243,8 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 			} else {
 				boolean check = checkNameNumID(name, tel, id);
 				if(check) {
-					
+					idFound = id;
 					new customer.login.FindPwForm(this);
-					
 				} else {
 					JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.", "비밀번호 찾기 실패", JOptionPane.OK_CANCEL_OPTION);
 				}
@@ -253,15 +258,12 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 	private boolean checkNameNumID(String name, String tel, String id) {
 		boolean check = false;
 		
-//		String sql = "SELECT * FROM login WHERE ID = 'test1' AND password='1111'";
-		String sql = "SELECT * FROM login WHERE nameENG = '" + name + "' AND tel='" + tel + "' AND ID = " + id + "'";
+		String sql = "SELECT * FROM user WHERE nameENG IN('"+ name +"') AND tel IN('" + tel + "') AND id IN('" + id + "')";
 		ResultSet rs = databaseClass.select(sql);
 		
 		try {
 			if(rs.next()) {	//내용이 있을 때
-				check = true;
-			} else {
-				check = false;
+				return check = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -275,23 +277,19 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 	private boolean checkNameNum(String name, String tel) {
 		boolean check = false;
 		
-//		String sql = "SELECT * FROM login WHERE ID = 'test1' AND password='1111'";
-		String sql = "SELECT * FROM login WHERE nameENG = '" + name + "' AND tel='" + tel + "'";
+		String sql = "SELECT * FROM user WHERE nameENG IN('"+ name +"') AND tel IN('" + tel + "')";
 		ResultSet rs = databaseClass.select(sql);
-		
-		
+
 		try {
 			if(rs.next()) {	//내용이 있을 때
-				check = true;
-			} else {
-				check = false;
+				idFound = rs.getString(1);
+				return check = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		
-		return check;
+		return check = false;
 	}
 
 }

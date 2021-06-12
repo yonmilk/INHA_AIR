@@ -68,6 +68,10 @@ public class SignUpForm extends JFrame implements ActionListener{
 	private JLabel lblPhoneEx;
 	private JLabel lblBirthEx;
 	private boolean idVCheck = false;
+	private String sex;
+	private int news, pro, sms;
+	private JLabel lblPassport;
+	private JTextField tfPassport;
 
 
 	public SignUpForm() {
@@ -76,13 +80,6 @@ public class SignUpForm extends JFrame implements ActionListener{
 		setSize(width, height);
 		setResizable(false);
 		setLocationRelativeTo(this);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		setTitle(title);
-		setSize(width, height);
-		setResizable(false);
-		setLocationRelativeTo(this);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		// 배경색
 		Container c = getContentPane();
@@ -102,7 +99,7 @@ public class SignUpForm extends JFrame implements ActionListener{
 		//회원가입 제목
 		jpTitle = new JPanel();
 		jpTitle.setLayout(null);
-		jpTitle.setSize(350, 50);
+		jpTitle.setSize(350, 40);
 		jpTitle.setLocation(40, 20);
 		jpTitle.setBackground(Color.white);
 		
@@ -115,8 +112,8 @@ public class SignUpForm extends JFrame implements ActionListener{
 		//좌측 정보 창
 		jpInfL = new JPanel();
 		jpInfL.setLayout(null);
-		jpInfL.setSize(350, 400);
-		jpInfL.setLocation(40, 100);
+		jpInfL.setSize(350, 420);
+		jpInfL.setLocation(40, 80);
 		jpInfL.setBackground(Color.white);
 		
 		lblLNKor= new JLabel("한글 이름");
@@ -183,12 +180,23 @@ public class SignUpForm extends JFrame implements ActionListener{
 		tfPWchk.setLocation(0, 310);
 		jpInfL.add(tfPWchk);
 		
+		lblPassport = new JLabel("여권번호");
+		lblPassport.setSize(300, 30);
+		lblPassport.setLocation(0, 350);
+		lblPassport.setFont(fontNanumGothic18);
+		jpInfL.add(lblPassport);
+		
+		tfPassport = new JTextField();
+		tfPassport.setSize(300, 30);
+		tfPassport.setLocation(0, 380);
+		jpInfL.add(tfPassport);
+		
 		
 		//우측 정보 창
 		jpInfR = new JPanel();
 		jpInfR.setLayout(null);
 		jpInfR.setSize(350, 400);
-		jpInfR.setLocation(410, 100);
+		jpInfR.setLocation(410, 80);
 		jpInfR.setBackground(Color.white);
 		
 		lblBirth = new JLabel("생년월일");
@@ -276,18 +284,21 @@ public class SignUpForm extends JFrame implements ActionListener{
 		chkNewsLetter.setSize(300, 30);
 		chkNewsLetter.setLocation(0, 310);
 		chkNewsLetter.setBackground(Color.white);
+		chkNewsLetter.setSelected(false);
 		jpInfR.add(chkNewsLetter);
 		
 		chkPromotion = new JCheckBox("프로모션 정보(이벤트, 할인 쿠폰)");
 		chkPromotion.setSize(300, 30);
 		chkPromotion.setLocation(0, 340);
 		chkPromotion.setBackground(Color.white);
+		chkPromotion.setSelected(false);
 		jpInfR.add(chkPromotion);
 
 		chkSMS = new JCheckBox("SMS 수신 동의");
 		chkSMS.setSize(300, 30);
 		chkSMS.setLocation(0, 370);
 		chkSMS.setBackground(Color.white);
+		chkSMS.setSelected(false);
 		jpInfR.add(chkSMS);
 		
 		btnSignUp = new JButton("회원가입");
@@ -313,12 +324,6 @@ public class SignUpForm extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-
-		//System.out.println(chkNewsLetter.get());
-		//System.out.println(chkPromotion.getSelectedObjects());
-		//System.out.println(chkSMS.getSelectedObjects());
-		
-		
 		Object obj = e.getSource();
 		
 		if (obj == btnchk && !(tfID.getText().isEmpty())) {
@@ -326,9 +331,6 @@ public class SignUpForm extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "아이디를 입력해주세요");
 			} 
 			if (!idVCheck) {
-				
-				//System.out.println(idCheck(tfID.getText()));
-				
 				if (idCheck(tfID.getText())) {
 					JOptionPane.showMessageDialog(null, "중복된 아이디입니다.");
 				} else {
@@ -347,7 +349,6 @@ public class SignUpForm extends JFrame implements ActionListener{
 		}
 		else if (obj == btnSignUp) {
 			
-			//System.out.println(rbMan.isSelected());
 			if (tfLNKor.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "한글 이름을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
 			} else if (tfLNEng.getText().isEmpty()) {
@@ -358,6 +359,8 @@ public class SignUpForm extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
 			} else if (tfPWchk.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "비밀번호 확인을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
+			} else if (tfPassport.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "여권번호를 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
 			} else if (tfBirth.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "생년월일을 입력해주세요", "회원가입오류", JOptionPane.OK_CANCEL_OPTION);
 			} else if (tfEmail.getText().isEmpty()) {
@@ -370,36 +373,53 @@ public class SignUpForm extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(null, "아이디 중복체크를 해주세요.", "회원가입오류", JOptionPane.ERROR_MESSAGE);
 			} else {
 				
-				if (rbMan.getSelectedObjects().equals(true)) {
-					
+				if (rbMan.isSelected()) {
+					sex = rbMan.getText();
+				} else {
+					sex = rbWoman.getText();
 				}
 				
-//				String sql = "INSERT INTO user(ID, password, nameKOR, nameENG, sex, birth, tel, email, newsletter, promotion, sms) VALUES('" +
-//								tfID.getText() + "', '" +
-//								tfPW.getText() + "', '" +
-//								tfLNKor.getText() + "', '" +
-//								tfLNEng.getText() + "', '" +
-//								rg.getSelection() + "', '" +
-//								tfBirth.getText() + "', '" +
-//								tfPhone.getText() + "', '" +
-//								tfEmail.getText() + "', '" +
-//								chkNewsLetter.getSelectedObjects() + "', '" +
-//								chkPromotion.getSelectedObjects() + "', '" +
-//								chkSMS.getSelectedObjects() + "')";
-//				
-//				ResultSet rs = databaseClass.select(sql);
-//				
-//				JOptionPane.showMessageDialog(null, "회원가입되었습니다.", "회원가입완료", JOptionPane.ERROR_MESSAGE);
-//				setVisible(false);
-//				
-//				try {
-//					while(rs.next()) {
-//						
-//					}
-//				} catch (SQLException e1) {
-//					JOptionPane.showMessageDialog(null, "ERROR", "회원가입에 실패했습니다. 정보를 다시 확인해주세요.", JOptionPane.ERROR_MESSAGE);
-//					e1.printStackTrace();
-//				}
+				if(chkNewsLetter.isSelected()) {
+					news = 1;
+				} else {
+					news = 0;
+				}
+				if (chkPromotion.isSelected()) {
+					pro = 1;
+				} else {
+					pro = 0;
+				}
+				if (chkSMS.isSelected()) {
+					sms = 1;
+				} else {
+					sms = 0;
+				}
+				
+				
+				
+				String sql = "INSERT INTO user(ID, password, nameKOR, nameENG, sex, passport, birth, tel, email, newsletter, promotion, sms) VALUES('" +
+								tfID.getText() + "', '" +
+								tfPW.getText() + "', '" +
+								tfLNKor.getText() + "', '" +
+								tfLNEng.getText() + "', '" +
+								sex + "', '" +
+								tfPassport.getText() + "', '" +
+								tfBirth.getText() + "', '" +
+								tfPhone.getText() + "', '" +
+								tfEmail.getText() + "', " +
+								news + ", " +
+								pro + ", " +
+								sms + ")";
+				
+				try {
+					databaseClass.insert(sql);
+					JOptionPane.showMessageDialog(null, "회원가입되었습니다.", "회원가입완료", JOptionPane.ERROR_MESSAGE);
+					setVisible(false);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+					JOptionPane.showMessageDialog(null, "회원가입 실패했습니다. 정보를 다시 확인해주세요.", "회원가입완료", JOptionPane.ERROR_MESSAGE);
+				}
+				
 				
 			}
 		}
