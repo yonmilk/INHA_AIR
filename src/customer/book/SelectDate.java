@@ -89,10 +89,6 @@ public class SelectDate extends JFrame implements ActionListener {
 	
 	public SelectDate(BookForm bookForm) {
 			
-		System.out.println(todayDate);
-		System.out.println(todayYear);
-		System.out.println(todayMonth);
-		
 		//this.mainForm = mainForm;
 		this.bookForm = bookForm; //bookForm에 대한 정보
 		
@@ -420,7 +416,7 @@ public class SelectDate extends JFrame implements ActionListener {
 			
 			
 		} else if (obj == btnDay) {
-			System.out.println(btnDay.getText());
+			
 		}
 		
 		else if ((obj == btnLeft) || (obj==btnRight)) {
