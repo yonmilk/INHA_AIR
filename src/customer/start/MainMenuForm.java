@@ -164,7 +164,7 @@ public class MainMenuForm extends JFrame implements ActionListener {
 			this.setVisible(false);
 			
 		} else if(obj == btnFindTrips) {
-			findTripsForm = new FindTripsForm(this);
+			findTripsForm = new FindTripsForm(id);
 			this.setVisible(false);
 			
 		} else if(obj == btnFilghtStatus) {

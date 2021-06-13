@@ -155,11 +155,13 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		private Component lblSeatInfo;
 		private String seatClass;
 
-	public MemberInquiryDetailForm(MainMenuForm mainMenuForm) {
+	public MemberInquiryDetailForm(String id) {
 		
-		this.mainMenuForm=mainMenuForm;
+//		this.mainMenuForm=mainMenuForm;
 		
-		this.id = mainMenuForm.getId();
+//		this.id = mainMenuForm.getId();
+		
+		this.id = id;
 		
 		setTitle(title);
 		setSize(width, height);
@@ -471,6 +473,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		
 		if(obj == btnMainMenu) {
 			mainMenuForm = new MainMenuForm();
+			mainMenuForm.setId(id);
 			this.setVisible(false);
 			
 		}
