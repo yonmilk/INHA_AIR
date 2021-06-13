@@ -76,7 +76,7 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		
 		String COMclass;
 		String COMscheduleNo;
-		private String ID = "test1" ;
+//		private String ID = "test1" ;
 		private int totalPay; //---삭제
 
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -274,8 +274,9 @@ private int TotalPay;
 		private String SelectDep;
 		private String SelectDepCode;
 		private String SelectArr;
-		private String SelectArrCode;
+		private String ID;
 		private String reserveNum;
+		private String SelectArrCode;
 
 public TicketingRoundTripGoingForm(BookForm sel) {
 		
@@ -284,14 +285,17 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 	this.goDay = sel.getGoDay();		//가는날
 	this.comeDay = sel.getComeDay();	//오는날
 //	private int roundTrip = 0;		//편도와 왕복 (편도 0, 왕복 1)
+	
 	//승객 인원 값
 	this.numAdult = sel.getNumAdult();		//성인 수
 	this.numChild = sel.getNumChild();		//소아 수
 	this.numInfant = sel.getNumInfant();		//유아 수
 	this.numTotal = sel.getNumTotal();		//총 인원 수
+	
 	//출발지 값
 	this.SelectDep = "";		//선택 출발지
 	this.SelectDepCode= sel.getSelectDepCode();	//선택 출발지 코드
+	
 	//도착지 값
 	this.SelectArr= "";		//선택 도착지
 	this.SelectArrCode= sel.getSelectArrCode();	//선택 도착지 코드
@@ -510,11 +514,11 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 	lblTime.setBounds(535, 0, 300, 100);
 	
 	lblAirportD = new JLabel(airportD);
-	lblAirportD.setFont(fontNanumGothic30);
+	lblAirportD.setFont(fontNanumGothic20);
 	lblAirportD.setBounds(320, 0, 200, 100);
 	
 	lblAirportA = new JLabel(airportA);
-	lblAirportA.setFont(fontNanumGothic30);
+	lblAirportA.setFont(fontNanumGothic20);
 	lblAirportA.setBounds(780, 0, 200, 100);
 	
 	
@@ -579,11 +583,11 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 				state = conn.createStatement();
 //				System.out.println("oo");
 				
-				String DepP = "CJU";
+//				String DepP = "CJU";
 //				String ArrP = "GMP";
 				
 				String sql;
-				sql = "SELECT * FROM airport WHERE `code` = '"+ DepP +"' ";
+				sql = "SELECT * FROM airport WHERE `code` = '"+ SelectDepCode +"' ";
 				
 				ResultSet rs = state.executeQuery(sql);
 				while (rs.next()) {
@@ -618,16 +622,17 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 				state = conn.createStatement();
 //				System.out.println("oo");
 				
-				String ArrP = "GMP";
+//				String ArrP = "GMP";
 				
 				String sql;
-				sql = "SELECT * FROM airport WHERE `code` = '"+ ArrP +"' ";
+				sql = "SELECT * FROM airport WHERE `code` = '"+ SelectArrCode +"' ";
 				
 				ResultSet rs = state.executeQuery(sql);
 				while (rs.next()) {
 					airportA = rs.getString("airport");
 						
 //					System.out.println(airportA);
+					
 					
 //					ArrAP = airportA;
 				}
@@ -735,7 +740,7 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 					state = conn.createStatement();
 					System.out.println("oo");
 					
-					String DepP = "CJU";
+//					String DepP = "CJU";
 //					String ArrP = "GMP";
 					
 					String sql;

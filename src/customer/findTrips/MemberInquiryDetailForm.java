@@ -77,7 +77,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 			
 			//reservation
 //			String GOclass = "e";
-			String ID = "test1";
+//			String ID = "test1";
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 			
@@ -105,7 +105,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 			
 			//reservation
 			String GOclass;
-//			String ID;
+			String id;
 //------------------------------------------------------------------------------------------------------------------
 		private JPanel jpInquiry1; // 시간 선택시 비행기1
 		private JPanel jpInquiry2; // 비행기 2
@@ -155,7 +155,12 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		private Component lblSeatInfo;
 		private String seatClass;
 
-	public MemberInquiryDetailForm() {
+	public MemberInquiryDetailForm(MainMenuForm mainMenuForm) {
+		
+		this.mainMenuForm=mainMenuForm;
+		
+		this.id = mainMenuForm.getId();
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -367,8 +372,11 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		try{
 			Class.forName(driver);
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+			state = conn.createStatement();	
+
+			
 			String sql;
-			sql = "SELECT * FROM reservation WHERE `ID` = '"+ ID +"' ";
+			sql = "SELECT * FROM reservation WHERE `ID` = '"+ id +"' ";
 			
 			ResultSet rs = state.executeQuery(sql);
 			while (rs.next()) {
@@ -391,6 +399,8 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 	try{
 		Class.forName(driver);
 		conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+		state = conn.createStatement();	
+
 		String sql;
 		sql = "SELECT * FROM reservationDetail WHERE `reserveNum` = '"+ reserveNum +"' ";
 		
@@ -424,6 +434,8 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 	try{
 		Class.forName(driver);
 		conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+		state = conn.createStatement();	
+
 		String sql;
 		sql = "SELECT * FROM airSchedule WHERE `scheduleNo` = '"+ scheduleNo +"' ";
 		
@@ -450,7 +462,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 	
 //----------------------------------------
 	public static void main(String[] args) {
-		new MemberInquiryDetailForm();
+//		new MemberInquiryDetailForm();
 	}
 
 	@Override

@@ -58,18 +58,18 @@ public class FindTripsForm extends JFrame implements ActionListener {
 //		String to = "GMP";
 //		String ID = "test1";
 	//-------------------------------------
-		String reserveNum;
-		String nameKOR;		
-		String scheduleNo;		
-		String from;		
-		String to;		
-		String fromDate = " ";	
+		private String reserveNum;
+		private String nameKOR;		
+		private String scheduleNo;		
+		private String from;		
+		private String to;		
+		private String fromDate;	
 //		String ID;
 	//-------------------------------------	
 	//-------------------------------------	
 //		String reserveNum;
 //		String nameKOR;		
-//		String secheduleNo;		
+		String secheduleNo;		
 //		String from;		
 //		String to;		
 //		String fromDate =;	
@@ -115,14 +115,26 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		private JLabel lblDepP;
 		private Component lblArrP;
 
-	public FindTripsForm(String id) {
-		this.id = id;
-		this.nameKOR = nameKOR;		
-		this.scheduleNo = scheduleNo;		
-		this.from = from;		
-		this.to = to;		
-		this.fromDate = fromDate;	
-		this.reserveNum = reserveNum;	
+	public FindTripsForm(MainMenuForm mainMenuForm) {
+		this.mainMenuForm=mainMenuForm;
+		
+		this.id = mainMenuForm.getId();
+		
+//		this.id ="test2";
+//		
+//		this.nameKOR = nameKOR;		
+//		this.scheduleNo = scheduleNo;		
+//		this.from = from;		
+//		this.to = to;		
+//		this.fromDate = fromDate;	
+//		this.reserveNum = reserveNum;	
+//		
+//		this.nameKOR = " ";		
+//		this.scheduleNo =" ";		
+//		this.from =" ";		
+//		this.to = " ";			
+//		this.fromDate = " ";	
+//		this.reserveNum = " ";		
 		
 		setTitle(title);
 		setSize(width, height);
@@ -250,7 +262,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		//------------------------------------------
 		//------------------------------------------
 		lblReserveNum = new JLabel(reserveNum);
-		lblReserveNum.setBounds(65, 40, 150, 20);
+		lblReserveNum.setBounds(55, 40, 150, 20);
 		lblReserveNum.setFont(fontNanumGothic15Plain);
 		
 		lblName = new JLabel(nameKOR);
@@ -278,6 +290,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		jpInquiry1.add(lblDepP);
 		jpInquiry1.add(lblArrP);
 		
+		System.out.println(id);
 		
 		setVisible(true);
 	}
@@ -288,17 +301,23 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		//-------------------------------------------
 		try{
 			Class.forName(driver);
+			
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+			state = conn.createStatement();	
+
 			String sql;
 			sql = "SELECT * FROM reservation WHERE `ID` = '"+ id +"' ";
 			
 			ResultSet rs = state.executeQuery(sql);
 			while (rs.next()) {
 				reserveNum = rs.getString("reserveNum");
+				
+				this.reserveNum = reserveNum;
+				System.out.println(reserveNum);
 			}
-			rs.close();
-			state.close();
-			conn.close();
+//			rs.close();
+//			state.close();
+//			conn.close();
 		}
 		catch (Exception e) {
 		}finally {try {if(state!=null)state.close();}
@@ -312,18 +331,24 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	try{
 		Class.forName(driver);
 		conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+		state = conn.createStatement();	
+
 		String sql;
 		sql = "SELECT * FROM reservationDetail WHERE `reserveNum` = '"+ reserveNum +"' ";
 		
 		ResultSet rs = state.executeQuery(sql);
 		while (rs.next()) {
+			
 			scheduleNo = rs.getString("scheduleNo");
 			nameKOR = rs.getString("nameKOR");
 			
+			scheduleNo = scheduleNo;
+			System.out.println(nameKOR);
+			
 		}
-		rs.close();
-		state.close();
-		conn.close();
+//		rs.close();
+//		state.close();
+//		conn.close();
 	}
 	catch (Exception e) {
 	}finally {try {if(state!=null)state.close();}
@@ -337,6 +362,8 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	try{
 		Class.forName(driver);
 		conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+		state = conn.createStatement();	
+
 		String sql;
 		sql = "SELECT * FROM airSchedule WHERE `scheduleNo` = '"+ scheduleNo +"' ";
 		
@@ -345,6 +372,10 @@ public class FindTripsForm extends JFrame implements ActionListener {
 			from = rs.getString("from");
 			fromDate = rs.getString("fromDate");
 			to = rs.getString("to");
+			
+			System.out.println(from);
+
+			
 		}
 		rs.close();
 		state.close();
@@ -360,7 +391,8 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	
 	// 상단 
 	public static void main(String[] args) {
-		new FindTripsForm("test1");
+//		new FindTripsForm(this);
+		
 	}
 
 	@Override

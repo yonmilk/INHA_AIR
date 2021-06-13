@@ -514,11 +514,11 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 	lblTime.setBounds(535, 0, 300, 100);
 	
 	lblAirportD = new JLabel(airportA);
-	lblAirportD.setFont(fontNanumGothic30);
+	lblAirportD.setFont(fontNanumGothic20);
 	lblAirportD.setBounds(320, 0, 200, 100);
 	
 	lblAirportA = new JLabel(airportD);
-	lblAirportA.setFont(fontNanumGothic30);
+	lblAirportA.setFont(fontNanumGothic20);
 	lblAirportA.setBounds(780, 0, 200, 100);
 	
 	
