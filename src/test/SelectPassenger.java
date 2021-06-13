@@ -102,7 +102,6 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 	private Date dtGoday;
 	private Date dtBirthday;
 	private int compare;
-	private JLabel lblCalVal;
 	
 	public SelectPassenger(BookForm bookForm) {
 		
@@ -275,11 +274,11 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 		lblAgeCal = new JLabel("나이계산기"); //나이계산기
 		lblAgeCal.setFont(fontNanumGothic12);
 		lblAgeCal.setSize(150, 40);
-		lblAgeCal.setLocation(10, 0);
+		lblAgeCal.setLocation(10, 20);
 		lblAgeGuide = new JLabel("생년월일(예: 20020214)"); //예시
 		lblAgeGuide.setFont(fontNanumGothic12);
 		lblAgeGuide.setSize(150, 40);
-		lblAgeGuide.setLocation(10, 20);
+		lblAgeGuide.setLocation(80, 20);
 		lblAgeGuide.setForeground(Color.gray);
 		tfAge = new JTextField(); //생년월일 입력 필드
 		tfAge.addKeyListener(this);
@@ -295,11 +294,6 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 		btnCalculate.setBackground(Color.white);
 		btnCalculate.addActionListener(this);
 		
-		lblCalVal = new JLabel("나이계산결과"); //나이계산기
-		lblCalVal.setFont(fontNanumGothic12);
-		lblCalVal.setSize(150, 40);
-		lblCalVal.setLocation(10, 90);
-		
 		btnOk = new JButton("확인"); //확인버튼
 		btnOk.setFont(fontNanumGothic15);
 		btnOk.setForeground(Color.white);
@@ -314,7 +308,6 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 		jpAgeCal.add(lblAgeGuide);
 		jpAgeCal.add(tfAge);
 		jpAgeCal.add(btnCalculate);
-		jpAgeCal.add(lblCalVal);
 		jpAgeCal.add(btnOk);
 		
 		add(jpTitle);
@@ -387,59 +380,39 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 				
 				birthday = tfAge.getText();
 				
-
-				
 				LocalDate parsedBirthDate = LocalDate.parse(birthday, DateTimeFormatter.ofPattern("yyyyMMdd"));
 				int birthYear = parsedBirthDate.getYear();
-				//int birthYear = Integer.parseInt(birthday.substring(0,4));
+				int birthMonthDay = Integer.parseInt(birthday.substring(5,8));
 				
 				LocalDate parsedgoDay = LocalDate.parse(goDay, DateTimeFormatter.ofPattern("yyyyMMdd"));
 				int goDayYear = parsedgoDay.getYear();
-				//int goDayYear = Integer.parseInt(goDay.substring(0,4));
+				int goMonthDay = Integer.parseInt(goDay.substring(5,8));
 				
 				
-				int age = goDayYear - birthYear;	//만 나이 구하기
-				
-				System.out.println(birthYear);
-				System.out.println(goDayYear);
-				System.out.println(age);
+				int age = goDayYear - birthYear;	//나이 구하기
 				
 				
-				
-				LocalDate birthCompare = parsedBirthDate.plusYears(age);
-				int compareval = birthCompare.compareTo(parsedgoDay);
-				System.out.println(compareval);
-				if (compareval >= 0 ) {
-					System.out.println("성인");
-				} else if (compareval < 0) {
-					System.out.println("미성년");
+				if (age == 19) {
+					if (birthMonthDay <= goMonthDay) {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 성인입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					} else {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + (age-1) + "세 미성년입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					}
+				} else if(age > 19){
+					if (birthMonthDay <= goMonthDay) {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 성인입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					} else {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + (age-1) + "세 성인입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					}
+				} else {
+					if (birthMonthDay <= goMonthDay) {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 미성년입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					} else {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + (age-1) + "세 미성년입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					}
 				}
 				
-//				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-//				try {
-//					dtGoday = dateFormat.parse(goDay);
-//					dtBirthday = dateFormat.parse(birthday);
-//				} catch (ParseException e1) {
-//					e1.printStackTrace();
-//				}
-				
-//				compare = birthday.compareTo(goDay);
-//				System.out.println(compare);
-//				if (compare > 0) {
-//					System.out.println("birthday가 더 크다");
-//				} else if (compare < 0) {
-//					System.out.println("goday가 더 크다");
-//				} else {
-//					System.out.println("둘이 같다 !");
-//				}
-				
-				
-				JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 " + compareval + "입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
 			}
-			
-			
-			
-			
 			
 			
 		}
@@ -486,8 +459,8 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 	public void keyPressed(KeyEvent e) {
 		
 		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-			String text = tfAge.getText().substring(0, tfAge.getText().length() - 1); 	            //tfAge의 글자를 끝에 하나를 자르는 substring 함수
-			tfAge.setText(text);
+			//String text = tfAge.getText().substring(0, tfAge.getText().length() - 1); 	            //tfAge의 글자를 끝에 하나를 자르는 substring 함수
+			//tfAge.setText(text);
 		}
 		
 		try {
@@ -505,7 +478,6 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -20,7 +20,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-public class SignUpForm extends JFrame{
+public class SignUpForm3 extends JFrame{
 
 	Font fontGothic = new Font("Gothic", Font.BOLD, 13);
 	Font fontNanumGothic = new Font("NanumGothic", Font.BOLD, 20);
@@ -51,7 +51,7 @@ public class SignUpForm extends JFrame{
 	private JPanel jpInfR;
 
 
-	public SignUpForm() {
+	public SignUpForm3() {
 		
 		setTitle(title);
 		setSize(width, height);
@@ -264,7 +264,7 @@ public class SignUpForm extends JFrame{
 
 
 	public static void main(String[] args) {
-		new SignUpForm();
+		new SignUpForm3();
 	}
 
 }

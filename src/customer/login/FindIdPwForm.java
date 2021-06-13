@@ -10,11 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import DataBase.databaseClass;
 import customer.start.MainMenuForm;
@@ -29,6 +31,7 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 	
 	Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);		// 나눔고딕 9
 	Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 12
+	Font fontNanumGothic11 = new Font("NanumGothic", Font.BOLD, 11);	// 나눔고딕 12
 	Font fontNanumGothic15 = new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 15
 	Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 25
@@ -41,12 +44,12 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 	private JTextField tfIdName;
 	private JButton btnFindId;
 	private JLabel lblIdPhoneNum;
-	private JTextField tfIdPhoneNum;
+	private JFormattedTextField tfIdPhoneNum;
 	private JPanel jpPwFind;
 	private JLabel lblPwName;
 	private JLabel lblPwPhoneNum;
 	private JTextField tfPwName;
-	private JTextField tfPwPhoneNum;
+	private JFormattedTextField tfPwPhoneNum;
 	private JButton btnFindPw;
 	private JLabel lblId;
 	private JTextField tfId;
@@ -54,6 +57,8 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 	private JLabel lblPwTitle;
 	
 	private String idFound = "";
+	private JLabel lblPWPhoneEx;
+	private JLabel lblIDPhoneEx;
 	
 	public String getIdFound() {
 		return idFound;
@@ -102,7 +107,7 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		lblIdName = new JLabel("영문이름"); 		//제목라벨
 		lblIdName.setFont(fontNanumGothic15);
 		lblIdName.setSize(150, 40);
-		lblIdName.setLocation(20, 10);
+		lblIdName.setLocation(15, 10);
 		tfIdName = new JTextField();
 		tfIdName.setFont(fontNanumGothic15);
 		tfIdName.setSize(250, 40);
@@ -110,8 +115,20 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		lblIdPhoneNum = new JLabel("핸드폰번호"); 		//제목라벨
 		lblIdPhoneNum.setFont(fontNanumGothic15);
 		lblIdPhoneNum.setSize(150, 40);
-		lblIdPhoneNum.setLocation(20, 80);
-		tfIdPhoneNum = new JTextField();
+		lblIdPhoneNum.setLocation(15, 80);
+		try {
+			MaskFormatter format = new MaskFormatter("###########");
+			tfIdPhoneNum = new JFormattedTextField(format);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		lblIDPhoneEx = new JLabel("예) 01012345678");
+		lblIDPhoneEx.setSize(300, 30);
+		lblIDPhoneEx.setLocation(100, 85);
+		lblIDPhoneEx.setFont(fontNanumGothic11);
+		lblIDPhoneEx.setForeground(Color.gray);
+			
 		tfIdPhoneNum.setFont(fontNanumGothic15);
 		tfIdPhoneNum.setSize(250, 40);
 		tfIdPhoneNum.setLocation(15, 115);
@@ -127,6 +144,7 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		jpIdFind.add(tfIdName);
 		jpIdFind.add(lblIdPhoneNum);
 		jpIdFind.add(tfIdPhoneNum);
+		jpIdFind.add(lblIDPhoneEx);
 		jpIdFind.add(btnFindId);
 		
 		//비밀번호찾기 제목패널
@@ -149,7 +167,7 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		lblPwName = new JLabel("영문이름"); 		//제목라벨
 		lblPwName.setFont(fontNanumGothic15);
 		lblPwName.setSize(150, 40);
-		lblPwName.setLocation(20, 10);
+		lblPwName.setLocation(15, 10);
 		tfPwName = new JTextField();
 		tfPwName.setFont(fontNanumGothic15);
 		tfPwName.setSize(250, 40);
@@ -157,15 +175,27 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		lblPwPhoneNum = new JLabel("핸드폰번호"); 		//제목라벨
 		lblPwPhoneNum.setFont(fontNanumGothic15);
 		lblPwPhoneNum.setSize(150, 40);
-		lblPwPhoneNum.setLocation(20, 80);
-		tfPwPhoneNum = new JTextField();
+		lblPwPhoneNum.setLocation(15, 80);
+		try {
+			MaskFormatter format = new MaskFormatter("###########");
+			tfPwPhoneNum = new JFormattedTextField(format);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		lblPWPhoneEx = new JLabel("예) 01012345678");
+		lblPWPhoneEx.setSize(300, 30);
+		lblPWPhoneEx.setLocation(100, 85);
+		lblPWPhoneEx.setFont(fontNanumGothic11);
+		lblPWPhoneEx.setForeground(Color.gray);
+		
 		tfPwPhoneNum.setFont(fontNanumGothic15);
 		tfPwPhoneNum.setSize(250, 40);
 		tfPwPhoneNum.setLocation(15, 115);
 		lblId = new JLabel("아이디"); 		//제목라벨
 		lblId.setFont(fontNanumGothic15);
 		lblId.setSize(150, 40);
-		lblId.setLocation(20, 150);
+		lblId.setLocation(15, 150);
 		tfId = new JTextField();
 		tfId.setFont(fontNanumGothic15);
 		tfId.setSize(250, 40);
@@ -185,6 +215,7 @@ public class FindIdPwForm extends JFrame implements ActionListener {
 		jpPwFind.add(lblId);
 		jpPwFind.add(tfId);
 		jpPwFind.add(btnFindPw);
+		jpPwFind.add(lblPWPhoneEx);
 		
 		add(jpIdTitle);
 		add(jpIdFind);
