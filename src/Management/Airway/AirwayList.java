@@ -51,6 +51,7 @@ public class AirwayList extends JFrame implements ActionListener {
 		private MainForm mainform;
 		private int result;
 		
+		
 	// 폰트
 		Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
 		Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18

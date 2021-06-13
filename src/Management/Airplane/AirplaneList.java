@@ -84,7 +84,8 @@ public class AirplaneList extends JFrame implements ActionListener {
 	private DefaultTableModel model;
 	private CreateTable jtAirway;
 	private String[][] datas = new String[0][0];
-	private String[] uTableTitle = {"스케줄No.","편명","출발지","출발일","출발시","도착지","도착일","도착시"};
+	private String[] StableTitle = {"스케줄No.","편명","출발지","출발일","출발시","도착지","도착일","도착시"};
+	private String[] PtableTitle = {"스케줄No.","편명","출발지","출발일","출발시","도착지","도착일","도착시"};
 	private DefaultTableCellRenderer Center; //테이블 정렬
 	private JTableHeader jtAHeader;
 	private JScrollPane sp;
@@ -133,8 +134,11 @@ public class AirplaneList extends JFrame implements ActionListener {
 		
 		add(jpUser);
 		
-		// 회원 리스트
-		setUserlist();
+		// 좌석테이블
+		setSeatlist();
+		
+		// 비행기테이블
+		setPlanelist();
 		
 		//수정창
 		setUserEdit();
@@ -145,9 +149,6 @@ public class AirplaneList extends JFrame implements ActionListener {
 		setVisible(true);
 		
 	}
-
-
-	
 
 
 	private void setUserEdit() {
@@ -289,9 +290,6 @@ public class AirplaneList extends JFrame implements ActionListener {
 		jpEdit.add(jpBtn);
 	 	
 		
-		
-				
-		
 		jpUser.add(jpEdit);
 
 		
@@ -302,13 +300,13 @@ public class AirplaneList extends JFrame implements ActionListener {
 
 
 
-	private void setUserlist() {
+	private void setSeatlist() {
 		jpTable = new JPanel(new BorderLayout());
 		jpTable.setSize(600, 520);
 		jpTable.setLocation(465,45);
 		jpTable.setBackground(Color.WHITE);
 		
-		model = new DefaultTableModel(datas, uTableTitle);
+		model = new DefaultTableModel(datas, StableTitle);
 		
 		jtAirway = new CreateTable(model);
 		jtAirway.setFont(fontNanumGothic13);
@@ -340,6 +338,50 @@ public class AirplaneList extends JFrame implements ActionListener {
 		jpTable.add(sp);
 		jpUser.add(jpTable);
 	}
+	
+	
+	private void setPlanelist() {
+		jpTable = new JPanel(new BorderLayout());
+		jpTable.setSize(600, 520);
+		jpTable.setLocation(465,45);
+		jpTable.setBackground(Color.WHITE);
+		
+		model = new DefaultTableModel(datas, PtableTitle);
+		
+		jtAirway = new CreateTable(model);
+		jtAirway.setFont(fontNanumGothic13);
+		jtAirway.setRowHeight(20);
+		jtAirway.setFillsViewportHeight(true); //스크롤팬에 꽉 차서 보이게 하기
+		jtAirway.setBackground(Color.WHITE);
+		
+		Center = new DefaultTableCellRenderer(); //테이블 정렬
+		Center.setHorizontalAlignment(JLabel.CENTER); //가운데정렬
+		jtAirway.getColumn("스케줄No.").setCellRenderer(Center);
+		jtAirway.getColumn("편명").setCellRenderer(Center);
+		jtAirway.getColumn("출발지").setCellRenderer(Center);
+		jtAirway.getColumn("출발일").setCellRenderer(Center);
+		jtAirway.getColumn("출발시").setCellRenderer(Center);
+		jtAirway.getColumn("도착지").setCellRenderer(Center);
+		jtAirway.getColumn("도착일").setCellRenderer(Center);
+		jtAirway.getColumn("도착시").setCellRenderer(Center);
+		
+		
+		jtAHeader = jtAirway.getTableHeader();
+		jtAHeader.setReorderingAllowed(false); //컬럼 이동 금지
+		jtAHeader.setResizingAllowed(false); //컬럼 크기 변경 금지
+		jtAHeader.setBackground(colorBtn);
+		jtAHeader.setFont(fontNanumGothic15);
+		jtAHeader.setForeground(Color.white);
+		jtAHeader.setPreferredSize(new Dimension(0,25));
+		
+		sp = new JScrollPane(jtAirway, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		jpTable.add(sp);
+		jpUser.add(jpTable);
+		
+		}
+		
+	
 
 
 	// 상단 메뉴바
