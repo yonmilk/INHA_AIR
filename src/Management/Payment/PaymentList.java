@@ -1,4 +1,5 @@
 package Management.Payment;
+
 //미완, 건들지말것
 import java.awt.BorderLayout;
 import java.awt.Color;
