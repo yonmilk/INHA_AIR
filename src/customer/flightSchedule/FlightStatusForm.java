@@ -81,7 +81,10 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	public FlightStatusForm(String id) {
 		this.id = id;
 		
+<<<<<<< HEAD
+=======
 		
+>>>>>>> branch 'main' of https://github.com/yewon-Noh/JAVA_INHA_AIR.git
 		// DB 정보 - 테스트 소스
 		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
 		String dbID="inhaair";
@@ -394,7 +397,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 			return component;
 		}
 
-		// 더블클릭 수정 붊가
+		// 더블클릭 수정 불가
 		@Override
 		public boolean isCellEditable(int row, int column) {
 			return false;

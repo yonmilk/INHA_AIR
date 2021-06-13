@@ -7,5 +7,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/mysql-connector-java-8.0.11.jar"/>
+	<classpathentry kind="lib" path="D:/javapro/jsoup-1.13.1.jar"/>
+	<classpathentry kind="lib" path="D:/javapro/httpcomponents-client-5.1-bin/lib/reactive-streams-1.0.3.jar"/>
+	<classpathentry kind="lib" path="D:/javapro/httpcomponents-client-5.1-bin/lib/rxjava-2.2.8.jar"/>
+	<classpathentry kind="lib" path="D:/javapro/httpcomponents-client-5.1-bin/lib/slf4j-api-1.7.25.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
