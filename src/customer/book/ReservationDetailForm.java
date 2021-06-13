@@ -84,13 +84,13 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	
 	// 데이터 저장용
 	private String id;
-	private String nameKOR = "";			// 한글이름
-	private String nameENG = "";			// 영문이름
-	private String sex = "";				// 성별(남 또는 여)
-	private String passport = "";			// 여권번호
-	private String birth = "";				// 생년월일
-	private String tel = "";				// 연락처
-	private String email = "";				// 이메일
+	private String nameKOR;// = "";			// 한글이름
+	private String nameENG;// = "";			// 영문이름
+	private String sex;// = "";				// 성별(남 또는 여)
+	private String passport;// = "";			// 여권번호
+	private String birth;// = "";				// 생년월일
+	private String tel;// = "";				// 연락처
+	private String email;// = "";				// 이메일
 	private int agree = 0;			// 수신동의
 	private String baggage = "0";			// 추과수하물 (기본값: 0)
 //	private String baggageCOM = "0";			// 추과수하물 (기본값: 0)
