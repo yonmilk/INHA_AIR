@@ -22,6 +22,7 @@ import javax.swing.border.EtchedBorder;
 import be.main.MainForm;
 import be.menu.MenuBar;
 
+
 public class SelectBaggageForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "초과수하물";

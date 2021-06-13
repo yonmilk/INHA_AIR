@@ -30,6 +30,7 @@ import customer.start.MainMenuForm;
 
 public class LoginForm extends JFrame implements ActionListener {
 	
+	
 	//데이터베이스 관련
 	static String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
 	static String dbID="inhaair";

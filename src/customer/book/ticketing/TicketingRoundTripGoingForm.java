@@ -34,6 +34,7 @@ import customer.start.MainMenuForm;
 //import test.TicketingRoundTripComingForm2;
 
 
+
 public class TicketingRoundTripGoingForm extends JFrame implements ActionListener {
 	private static TicketingRoundTripGoingForm a;
 	// Title 및 사이즈 설정

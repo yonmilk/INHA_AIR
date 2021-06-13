@@ -81,7 +81,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	public FlightStatusForm(String id) {
 		this.id = id;
 		
-		
 		// DB 정보 - 테스트 소스
 		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
 		String dbID="inhaair";
@@ -152,7 +151,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	
 		// 국내 뒤에 국제 공항 정보 나오도록
 		String sql2 = "SELECT code, country, city FROM airport \r\n"
 				+ "WHERE terminal='국제' AND code IN (SELECT DISTINCT `from` FROM airplane)\r\n"
@@ -394,7 +393,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 			return component;
 		}
 
-		// 더블클릭 수정 붊가
+		// 더블클릭 수정 불가
 		@Override
 		public boolean isCellEditable(int row, int column) {
 			return false;
