@@ -387,26 +387,33 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 				
 				birthday = tfAge.getText();
 				
+
+				
 				LocalDate parsedBirthDate = LocalDate.parse(birthday, DateTimeFormatter.ofPattern("yyyyMMdd"));
 				int birthYear = parsedBirthDate.getYear();
+				//int birthYear = Integer.parseInt(birthday.substring(0,4));
 				
 				LocalDate parsedgoDay = LocalDate.parse(goDay, DateTimeFormatter.ofPattern("yyyyMMdd"));
 				int goDayYear = parsedgoDay.getYear();
+				//int goDayYear = Integer.parseInt(goDay.substring(0,4));
 				
-				int age = goDayYear - birthYear;
+				
+				int age = goDayYear - birthYear;	//만 나이 구하기
 				
 				System.out.println(birthYear);
 				System.out.println(goDayYear);
 				System.out.println(age);
 				
-//				LocalDate birthCompare = parsedBirthDate.plusYears(age);	
-//				int compareval = birthCompare.compareTo(parsedgoDay);
-//				System.out.println(compareval);
-//				if (compareval >= 0 ) {
-//					System.out.println("성인");
-//				} else if (compareval < 0) {
-//					System.out.println("미성년");
-//				}
+				
+				
+				LocalDate birthCompare = parsedBirthDate.plusYears(age);
+				int compareval = birthCompare.compareTo(parsedgoDay);
+				System.out.println(compareval);
+				if (compareval >= 0 ) {
+					System.out.println("성인");
+				} else if (compareval < 0) {
+					System.out.println("미성년");
+				}
 				
 //				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 //				try {
@@ -427,9 +434,7 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 //				}
 				
 				
-				
-				
-				JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+				JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 " + compareval + "입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
 			}
 			
 			

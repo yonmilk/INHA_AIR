@@ -387,17 +387,49 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 				
 				LocalDate parsedBirthDate = LocalDate.parse(birthday, DateTimeFormatter.ofPattern("yyyyMMdd"));
 				int birthYear = parsedBirthDate.getYear();
+				int birthMonthDay = Integer.parseInt(birthday.substring(5,8));
 				
 				LocalDate parsedgoDay = LocalDate.parse(goDay, DateTimeFormatter.ofPattern("yyyyMMdd"));
 				int goDayYear = parsedgoDay.getYear();
+				int goMonthDay = Integer.parseInt(goDay.substring(5,8));
 				
-				int age = goDayYear - birthYear;
 				
-//				System.out.println(birthYear);
-//				System.out.println(goDayYear);
-//				System.out.println(age);
+				int age = goDayYear - birthYear;	//나이 구하기
+				
+				
+				
+				
+				//LocalDate birthCompare = parsedBirthDate.plusYears(age);
+				if (age == 19) {
+					if (birthMonthDay <= goMonthDay) {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 성인입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					} else {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + (age-1) + "세 미성년입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					}
+				} else if(age > 19){
+					if (birthMonthDay <= goMonthDay) {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 성인입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					} else {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + (age-1) + "세 성인입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					}
+				} else {
+					if (birthMonthDay <= goMonthDay) {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 미성년입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					} else {
+						JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + (age-1) + "세 미성년입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+					}
+				}
+				
+				
+//				int compareval = parsedgoDay.compareTo(birthCompare);
+//				System.out.println(compareval);
+//				if (compareval >= 0 ) {
+//					JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 성인입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+//				} else if (compareval < 0) {
+//					JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + (age-1) + "세 미성년입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+//				}
 			
-				JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+				
 			}
 			
 			
@@ -445,8 +477,8 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 	public void keyPressed(KeyEvent e) {
 		
 		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-			String text = tfAge.getText().substring(0, tfAge.getText().length() - 1); 	            //tfAge의 글자를 끝에 하나를 자르는 substring 함수
-			tfAge.setText(text);
+			//String text = tfAge.getText().substring(0, tfAge.getText().length() - 1); 	            //tfAge의 글자를 끝에 하나를 자르는 substring 함수
+			//tfAge.setText(text);
 		}
 		
 		try {
@@ -464,7 +496,6 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
