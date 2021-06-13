@@ -115,10 +115,12 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		private JLabel lblDepP;
 		private Component lblArrP;
 
-	public FindTripsForm(MainMenuForm mainMenuForm) {
-		this.mainMenuForm=mainMenuForm;
+	public FindTripsForm(String id) {
+//		this.mainMenuForm=mainMenuForm;
 		
-		this.id = mainMenuForm.getId();
+//		this.id = mainMenuForm.getId();
+		this.id = id;
+		
 		
 //		this.id ="test2";
 //		
