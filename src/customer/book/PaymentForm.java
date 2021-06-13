@@ -20,6 +20,7 @@ import be.menu.MenuBar;
 import customer.findTrips.FindTripsForm;
 import customer.start.MainMenuForm;
 
+
 public class PaymentForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";

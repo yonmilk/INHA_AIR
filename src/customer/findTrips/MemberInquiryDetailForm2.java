@@ -25,6 +25,7 @@ public class MemberInquiryDetailForm2 extends JFrame implements ActionListener {
 	private int width = 1120, height = 770;
 	
 
+
 	// 예원 - 컴포넌트
 			private JButton btnMainMenu;
 			// 예원 - Forms
@@ -36,6 +37,7 @@ public class MemberInquiryDetailForm2 extends JFrame implements ActionListener {
 			// 예원 - 폰트
 			Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
 	
+			
 	
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------

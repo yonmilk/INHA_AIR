@@ -32,7 +32,6 @@ import javax.swing.text.MaskFormatter;
 
 import DataBase.databaseClass;
 
-
 //연우 - 회원가입
 public class SignUpForm extends JFrame implements ActionListener{
 
