@@ -48,6 +48,11 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		Connection conn = null; 
 		Statement state = null; 
 	
+		public String getReserveNum() {
+			return reserveNum;
+		}
+		
+		
 	//---------------------가상의 고객이 선택한 정보
 	//-------------------------------------
 //		String reserveNum = "test001010";
@@ -69,7 +74,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	//-------------------------------------	
 //		String reserveNum;
 //		String nameKOR;		
-		String secheduleNo;		
+//		String secheduleNo;		
 //		String from;		
 //		String to;		
 //		String fromDate =;	
@@ -344,7 +349,8 @@ public class FindTripsForm extends JFrame implements ActionListener {
 			scheduleNo = rs.getString("scheduleNo");
 			nameKOR = rs.getString("nameKOR");
 			
-			scheduleNo = scheduleNo;
+			this.scheduleNo = scheduleNo;
+			this.nameKOR = nameKOR;
 			System.out.println(nameKOR);
 			
 		}
@@ -374,8 +380,10 @@ public class FindTripsForm extends JFrame implements ActionListener {
 			from = rs.getString("from");
 			fromDate = rs.getString("fromDate");
 			to = rs.getString("to");
-			
-			System.out.println(from);
+			this.from = from;
+			this.to = to;
+			this.fromDate=fromDate;
+					System.out.println(from);
 
 			
 		}

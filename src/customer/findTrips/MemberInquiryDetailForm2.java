@@ -111,6 +111,7 @@ public class MemberInquiryDetailForm2 extends JFrame implements ActionListener {
 		private JLabel lblFromToD;
 		private JLabel lblSeatInfo;
 		private String seatClass;
+		private JLabel lblToFromP;
 
 	public MemberInquiryDetailForm2() {
 		setTitle(title);
@@ -182,12 +183,12 @@ public class MemberInquiryDetailForm2 extends JFrame implements ActionListener {
 		lblPassportNo.setBounds(690, 10, 80, 20);
 		lblPassportNo.setFont(fontNanumGothic15);
 		
-		lblFlightName = new JLabel("항공편 상세");
-		lblFlightName.setBounds(50, 10, 80, 20);
+		lblFlightName = new JLabel("항공편 (가는 편 / 오는 편)");
+		lblFlightName.setBounds(30, 10, 200, 20);
 		lblFlightName.setFont(fontNanumGothic15);
 		
 		lblDepArr = new JLabel("출발지  -  도착지");
-		lblDepArr.setBounds(250, 10, 150, 20);
+		lblDepArr.setBounds(270, 10, 150, 20);
 		lblDepArr.setFont(fontNanumGothic15);
 		
 		lblDate = new JLabel("날짜 및 시간");
@@ -275,7 +276,7 @@ public class MemberInquiryDetailForm2 extends JFrame implements ActionListener {
 		//----------------------------------------
 		
 		lblFlightcode = new JLabel("항공편명  :  " + flightCode);
-		lblFlightcode.setBounds(50, 25, 150, 20);
+		lblFlightcode.setBounds(50, 20, 150, 20);
 		lblFlightcode.setFont(fontNanumGothic15Plain);
 		
 		lblSchedule = new JLabel("일정명  :  " + scheduleNo);
@@ -283,11 +284,15 @@ public class MemberInquiryDetailForm2 extends JFrame implements ActionListener {
 		lblSchedule.setFont(fontNanumGothic15Plain);
 		
 		lblFromToP = new JLabel(from + " - " + to);
-		lblFromToP.setBounds(250, 25, 150, 20);
+		lblFromToP.setBounds(270, 20, 150, 20);
 		lblFromToP.setFont(fontNanumGothic18);
 		
+		lblToFromP = new JLabel(to + " - " + from);
+		lblToFromP.setBounds(270, 90, 150, 20);
+		lblToFromP.setFont(fontNanumGothic18);
+		
 		lblFromToD = new JLabel(fromDate.substring(0,4)+"년 " + fromDate.substring(4,6) + "월 " + fromDate.substring(6,8) + "일");
-		lblFromToD.setBounds(460, 25, 150, 20);
+		lblFromToD.setBounds(460, 20, 150, 20);
 		lblFromToD.setFont(fontNanumGothic15Plain);
 		
 		lblFromToT = new JLabel("출발 "+fromTime.substring(0,2)+":" + fromTime.substring(2,4) + " - 도착" + toTime.substring(0,2)+":" + toTime.substring(2,4));
@@ -299,7 +304,7 @@ public class MemberInquiryDetailForm2 extends JFrame implements ActionListener {
 		else if(GOclass == "f"){seatClass = "퍼스트";}
 		
 		lblSeatInfo = new JLabel("클래스 : " + seatClass );
-		lblSeatInfo.setBounds(690, 25, 300, 20);
+		lblSeatInfo.setBounds(690, 20, 300, 20);
 		lblSeatInfo.setFont(fontNanumGothic15Plain);
 		
 		//-----------------------------------------
@@ -308,6 +313,7 @@ public class MemberInquiryDetailForm2 extends JFrame implements ActionListener {
 		jpInquiry2.add(lblFlightcode);
 		jpInquiry2.add(lblSchedule);
 		jpInquiry2.add(lblFromToP);
+		jpInquiry2.add(lblToFromP);
 		jpInquiry2.add(lblFromToD);
 		jpInquiry2.add(lblFromToT);
 		jpInquiry2.add(lblSeatInfo);

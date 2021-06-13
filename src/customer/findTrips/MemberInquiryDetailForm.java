@@ -82,7 +82,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 //------------------------------------------------------------------------------------------------------------------
 			
 //			//reserveDetail
-			String reserveNum = "test001010";
+			String reserveNum;
 			String scheduleNo;
 			String nameKOR ;
 			String nameENG;
@@ -154,6 +154,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		private JLabel lblFromToD;
 		private Component lblSeatInfo;
 		private String seatClass;
+		private JLabel lblToFromP;
 
 	public MemberInquiryDetailForm(String id) {
 		
@@ -234,19 +235,19 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		lblPassportNo.setBounds(690, 10, 80, 20);
 		lblPassportNo.setFont(fontNanumGothic15);
 		
-		lblFlightName = new JLabel("항공편 상세");
-		lblFlightName.setBounds(50, 10, 80, 20);
+		lblFlightName = new JLabel("항공편 (가는 편 / 오는 편)");
+		lblFlightName.setBounds(30, 10, 200, 20);
 		lblFlightName.setFont(fontNanumGothic15);
 		
 		lblDepArr = new JLabel("출발지  -  도착지");
-		lblDepArr.setBounds(250, 10, 150, 20);
+		lblDepArr.setBounds(270, 10, 150, 20);
 		lblDepArr.setFont(fontNanumGothic15);
 		
-		lblDate = new JLabel("날짜 및 시간");
+		lblDate = new JLabel("날짜 및 시간 (가는 편 / 오는 편)");
 		lblDate.setBounds(460, 10, 150, 20);
 		lblDate.setFont(fontNanumGothic15);
 		
-		lblSeat = new JLabel("좌석정보");
+		lblSeat = new JLabel("좌석정보(가는 편 / 오는 편)");
 		lblSeat.setBounds(690, 10, 80, 20);
 		lblSeat.setFont(fontNanumGothic15);
 		
@@ -336,8 +337,12 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		lblSchedule.setFont(fontNanumGothic15Plain);
 		
 		lblFromToP = new JLabel(from + " - " + to);
-		lblFromToP.setBounds(250, 25, 150, 20);
+		lblFromToP.setBounds(270, 25, 150, 20);
 		lblFromToP.setFont(fontNanumGothic18);
+		
+		lblToFromP = new JLabel(to + " - " + from);
+		lblToFromP.setBounds(270, 90, 150, 20);
+		lblToFromP.setFont(fontNanumGothic18);
 		
 		lblFromToD = new JLabel(fromDate.substring(0,4)+"년 " + fromDate.substring(4,6) + "월 " + fromDate.substring(6,8) + "일");
 		lblFromToD.setBounds(460, 25, 150, 20);
@@ -361,6 +366,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		jpInquiry2.add(lblFlightcode);
 		jpInquiry2.add(lblSchedule);
 		jpInquiry2.add(lblFromToP);
+		jpInquiry2.add(lblToFromP);
 		jpInquiry2.add(lblFromToD);
 		jpInquiry2.add(lblFromToT);
 		jpInquiry2.add(lblSeatInfo);

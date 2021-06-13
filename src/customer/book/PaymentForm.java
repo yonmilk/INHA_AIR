@@ -54,6 +54,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 	
 	
 	public PaymentForm(String id) {
+		
 		this.id = id;
 		
 		setTitle(title);
@@ -97,11 +98,13 @@ public class PaymentForm extends JFrame implements ActionListener {
 		jpPayment.setSize(1100, 635);
 		jpPayment.setLocation(3, 90);
 		jpPayment.setBackground(Color.WHITE);
+//		jpPayment.setBackground(Color.yellow);
 		
 		// 라벨 부분
 		jpLbl = new JPanel(new BorderLayout());
 		jpLbl.setSize(1000, 400);
 		jpLbl.setLocation(50, 10);
+//		jpLbl.setBorder(new LineBorder(new Color(10,90,150), 1));
 		jpLbl.setBorder(new EtchedBorder(EtchedBorder.RAISED));		// 테두리 설정
 		jpLbl.setBackground(Color.WHITE);
 		
