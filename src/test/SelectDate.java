@@ -1,4 +1,4 @@
-package customer.book;
+package test;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -19,6 +19,8 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import customer.book.BookForm;
 
 //연우 - 탑승일 선택 작성
 
@@ -76,9 +78,6 @@ public class SelectDate extends JFrame implements ActionListener {
 	private int todayYear = toDaycal.get(Calendar.YEAR);
 	private int todayMonth = toDaycal.get(Calendar.MONTH)+1;
 	//cal.set(todayYear, todayMonth, todayDate);
-	private int compareVal;
-	private Object stTodayMonth;
-	private String stTodayDate;
 	
 	
 	
@@ -288,13 +287,13 @@ public class SelectDate extends JFrame implements ActionListener {
 		if (goDay.isEmpty()) {
 			btnSelect.setText("날짜 선택");
 		} else {
-//			if(comeDay.isEmpty()) {
-//				btnSelect.setText("편도 선택");
-//			} else {
-//				btnSelect.setText("왕복 선택");
-//			}
+			if(comeDay.isEmpty()) {
+				btnSelect.setText("편도 선택");
+			} else {
+				btnSelect.setText("왕복 선택");
+			}
 			
-			btnSelect.setText("왕복 선택");
+			
 			
 		}
 		
@@ -350,8 +349,6 @@ public class SelectDate extends JFrame implements ActionListener {
 		
 		cal.set(calDayYear, calDayMonth-1, 1); //캘린더 객체에 년도, 달 설정과 Date 1로 설정
 		
-		
-		
 		//if (toDaycal.YEAR > cal.YEAR)
 		
 		if (obj == btnSelect) 
@@ -364,29 +361,29 @@ public class SelectDate extends JFrame implements ActionListener {
 				
 			}
 			
-//			if (objText.equals("편도 선택")) {
-//				
-//				//System.out.print("편도");
-//				int result = JOptionPane.showConfirmDialog(null, "가는날 - " + goDay + "으로 편도 선택되었습니다.", "편도 선택", JOptionPane.YES_NO_OPTION);
-//				
-//				if(result == JOptionPane.YES_OPTION) {
-//					
-//					goDay = goDay+"";
-//					roundTrip = 0;
-//					
-//					bookForm.setGoDay(goDay);
-//					bookForm.setRoundTrip(roundTrip);
-//					bookForm.setDate();
-//					
-//					setVisible(false);
-//					
-//				}
-//				
-//			}
+			if (objText.equals("편도 선택")) {
+				
+				//System.out.print("편도");
+				int result = JOptionPane.showConfirmDialog(null, "가는날 - " + goDay + "으로 편도 선택되었습니다.", "편도 선택", JOptionPane.YES_NO_OPTION);
+				
+				if(result == JOptionPane.YES_OPTION) {
+					
+					goDay = goDay+"";
+					roundTrip = 0;
+					
+					bookForm.setGoDay(goDay);
+					bookForm.setRoundTrip(roundTrip);
+					bookForm.setDate();
+					
+					setVisible(false);
+					
+				}
+				
+			}
 			if (objText.equals("왕복 선택")) {
 				
 				//System.out.print("왕복");
-				int result = JOptionPane.showConfirmDialog(null, "가는날 - " + goDay + "     오는 날 -" + comeDay + "으로 왕복 선택되었습니다.", "왕복 선택", JOptionPane.YES_NO_OPTION);
+				int result = JOptionPane.showConfirmDialog(null, "가는날 - " + goDay + "     오는 날 -" + comeDay + "으로 왕복 선택되었습니다.", "편도 선택", JOptionPane.YES_NO_OPTION);
 				
 				if(result == JOptionPane.YES_OPTION) {
 					
@@ -427,11 +424,15 @@ public class SelectDate extends JFrame implements ActionListener {
 			
 			if (obj == btnLeft) { //이전 달 달력 값 설정
 				
+				//이번달 전의 날이면 날짜 안 뜨는거로 하기
+				
+				
+				
 				calDayMonth--; //이전달로
 				
 				 if(calDayMonth<1) { //1월 이전 달로 넘길 때 이전년도 12월로 설정
 					 calDayMonth=12;
-					 calDayYear--;
+					calDayYear--;
 				}
 			} else if (obj == btnRight) { //다음 달 달력 값 설정
 					
@@ -484,9 +485,12 @@ public class SelectDate extends JFrame implements ActionListener {
 			lblstringMonth = lblMonth.getText().substring(0,lblMonth.getText().length()-1);
 			
 
+			
 			if (objText.isEmpty()) {
 				
 			} else {
+				
+				
 				
 				
 				if(Integer.parseInt(lblstringMonth)<10)
@@ -494,53 +498,36 @@ public class SelectDate extends JFrame implements ActionListener {
 				if(Integer.parseInt(objText)<10)
 					objText = 0 + objText;
 				
-				if(todayMonth < 10)
-					stTodayMonth = "0" + todayMonth;
-				else
-					stTodayMonth = todayMonth;
-				if(todayDate < 10)
-					stTodayDate = "0" + todayDate;
-				else
-					stTodayDate = String.valueOf(todayDate);
 				
 				
-				//이번달 전의 날이면 선택 못하게 하기
-				int day1 = Integer.parseInt(String.valueOf(lblstringYear+lblstringMonth+objText)); //선택한 날짜
-				int day2 = Integer.parseInt(String.valueOf(toDaycal.get(Calendar.YEAR)) + stTodayMonth + stTodayDate); //오늘 날짜
 				
-				if (day1 - day2 < 0) {
-					JOptionPane.showMessageDialog(null, "오늘 이전의 날은 선택할 수 없습니다.", "날짜선택", JOptionPane.OK_CANCEL_OPTION);
-				} else {
-					if (selectindex == 0) {
+				if (selectindex == 0) {
+					
+					goDay = lblstringYear+lblstringMonth+objText;
+					
+					//tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
+					tfGo.setText(goDay);
+					tfCome.setText("");
+					btnSelect.setText("편도 선택");
+					selectindex++;
+										
+					
+					
+				} else if(selectindex == 1) {
+					comeDay = lblstringYear+lblstringMonth+objText;
+					if(Integer.parseInt(goDay)<Integer.parseInt(comeDay)) {
+						//tfCome.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
+						tfCome.setText(comeDay);
+						btnSelect.setText("왕복 선택");
+						selectindex--;
 						
+						
+					} else {
 						goDay = lblstringYear+lblstringMonth+objText;
-						
 						//tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
 						tfGo.setText(goDay);
-						tfCome.setText("");
-						btnSelect.setText("날짜 선택");
-						//btnSelect.setText("편도 선택");
-						selectindex++;
-											
-						
-						
-					} else if(selectindex == 1) {
-						comeDay = lblstringYear+lblstringMonth+objText;
-						if(Integer.parseInt(goDay)<Integer.parseInt(comeDay)) {
-							//tfCome.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
-							tfCome.setText(comeDay);
-							btnSelect.setText("왕복 선택");
-							selectindex--;
-							
-							
-						} else {
-							goDay = lblstringYear+lblstringMonth+objText;
-							//tfGo.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
-							btnSelect.setText("날짜 선택");
-							tfGo.setText(goDay);
-						}
 					}
-				
+					
 				}
 			}
 		}

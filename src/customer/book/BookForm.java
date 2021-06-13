@@ -203,10 +203,11 @@ public class BookForm extends JFrame implements ActionListener {
 
 	public void setDate() {	//날짜 값 설정
 		//System.out.println(goDay);
-		if (roundTrip == 1) 
-			btnDate.setText(goDay+" ~ "+comeDay);
-		else
-			btnDate.setText(goDay);
+//		if (roundTrip == 1) 
+//			btnDate.setText(goDay+" ~ "+comeDay);
+//		else
+//			btnDate.setText(goDay);
+		btnDate.setText(goDay+" ~ "+comeDay);
 	}
 	
 	public void setPassenger() {
