@@ -32,7 +32,7 @@ public class MainMenuForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
-	
+
 	// 폰트
 	Font fontArial45 = new Font("Arial", Font.BOLD, 45);
 	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20

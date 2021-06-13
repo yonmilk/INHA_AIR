@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-
 //연우 - 아이디찾기
 public class FindIdForm extends JFrame implements ActionListener {
 	

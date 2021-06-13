@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 
 import DataBase.databaseClass;
 
-
 //연우 - 비밀번호 찾기
 public class FindPwForm extends JFrame implements ActionListener{
 	private String title = "비밀번호 찾기";

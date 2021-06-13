@@ -9,3 +9,4 @@ public class ForcedListSelectionModel extends DefaultColorSelectionModel {
         jt.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 }
+

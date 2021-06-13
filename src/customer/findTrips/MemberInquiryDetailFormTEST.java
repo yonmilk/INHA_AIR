@@ -28,7 +28,6 @@ public class MemberInquiryDetailFormTEST extends JFrame implements ActionListene
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
-	
 
 	// 예원 - 컴포넌트
 			private JButton btnMainMenu;

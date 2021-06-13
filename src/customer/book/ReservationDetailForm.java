@@ -63,6 +63,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	private JCheckBox cbAgree;
 	private JButton btnOK, btnBaggage;//, btnSeat;
 	
+	
 	// Forms
 	private MainMenuForm mainMenuForm;
 	private SelectBaggageForm baggageFrom;

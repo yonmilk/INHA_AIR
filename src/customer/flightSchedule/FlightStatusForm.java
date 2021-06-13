@@ -152,7 +152,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	
 		// 국내 뒤에 국제 공항 정보 나오도록
 		String sql2 = "SELECT code, country, city FROM airport \r\n"
 				+ "WHERE terminal='국제' AND code IN (SELECT DISTINCT `from` FROM airplane)\r\n"

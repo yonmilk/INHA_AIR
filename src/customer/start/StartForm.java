@@ -23,7 +23,7 @@ public class StartForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "INHA AIR";
 	private int width = 1120, height = 770;
-	
+
 	// 폰트
 	Font fontArial60 = new Font("Arial", Font.BOLD | Font.ITALIC, 60);
 	
