@@ -1,11 +1,14 @@
 package customer.start;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,6 +31,7 @@ public class StartForm extends JFrame implements ActionListener {
 	Color colorLogo = new Color(24, 62, 111);	
 	
 	// 버튼
+	private ImageIcon icon = new ImageIcon("imgs/main/inhaair.png");
 	private JButton btnStart;
 	
 	// Forms
@@ -49,9 +53,19 @@ public class StartForm extends JFrame implements ActionListener {
 		// 배경색
 		Container c = getContentPane();
 		c.setBackground(Color.WHITE);
+
+		setLayout(null);
+		
+		
+		Image image1 = icon.getImage();
+		Image image2 = image1.getScaledInstance(600, 330, Image.SCALE_SMOOTH);
+		ImageIcon icon2 = new ImageIcon(image2);
 		
 		// 시작 버튼
-		btnStart = new JButton("INHA AIR");
+//		btnStart = new JButton("INHA AIR");
+		btnStart = new JButton(icon2);
+		btnStart.setSize(600, 330);
+		btnStart.setLocation(240, 180);
 		btnStart.setFont(fontArial60);
 		btnStart.setForeground(colorLogo);
 		btnStart.setBorderPainted(false);

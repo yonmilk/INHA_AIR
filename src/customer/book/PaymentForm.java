@@ -31,6 +31,10 @@ public class PaymentForm extends JFrame implements ActionListener {
 	private MainMenuForm mainMenuForm;
 	private FindTripsForm findTripsForm;
 	
+	//
+	private String id;
+	
+	
 	// 예원 - 색상
 	Color colorLogo = new Color(24, 62, 111);
 	// 예원 - 폰트
@@ -49,7 +53,9 @@ public class PaymentForm extends JFrame implements ActionListener {
 	private JButton btnOK, btnCheckRes;
 	
 	
-	public PaymentForm() {
+	public PaymentForm(String id) {
+		this.id = id;
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -91,13 +97,11 @@ public class PaymentForm extends JFrame implements ActionListener {
 		jpPayment.setSize(1100, 635);
 		jpPayment.setLocation(3, 90);
 		jpPayment.setBackground(Color.WHITE);
-//		jpPayment.setBackground(Color.yellow);
 		
 		// 라벨 부분
 		jpLbl = new JPanel(new BorderLayout());
 		jpLbl.setSize(1000, 400);
 		jpLbl.setLocation(50, 10);
-//		jpLbl.setBorder(new LineBorder(new Color(10,90,150), 1));
 		jpLbl.setBorder(new EtchedBorder(EtchedBorder.RAISED));		// 테두리 설정
 		jpLbl.setBackground(Color.WHITE);
 		
@@ -141,7 +145,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new PaymentForm();
+		new PaymentForm("test1");
 	}
 
 
@@ -151,10 +155,11 @@ public class PaymentForm extends JFrame implements ActionListener {
 		
 		if(obj == btnMainMenu || obj == btnOK) {
 			mainMenuForm = new MainMenuForm();
+			mainMenuForm.setId(id);
 			this.setVisible(false);
 			
 		} else if(obj == btnCheckRes) {
-			findTripsForm = new FindTripsForm();
+			findTripsForm = new FindTripsForm(id);
 			this.setVisible(false);
 		}
 	}

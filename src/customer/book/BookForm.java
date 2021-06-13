@@ -50,6 +50,17 @@ public class BookForm extends JFrame implements ActionListener {
 	private JButton btnMainMenu;
 	private JPanel jpBook;
 	
+	//
+	private String id;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 
 	private String [] seat = {"일등석", "비즈니스석", "이코노미석"};
 	private JPanel jpCountry, jpCalNum, jpDep, jpSwap, jpArr;
@@ -83,6 +94,7 @@ public class BookForm extends JFrame implements ActionListener {
 	//연우 - 도착지 값 받아오기
 	private String SelectArr = "";
 	private String SelectArrCode = "";
+	private JButton btnReset;
 	
 	//도착지 값 받아오기
 	public String getSelectArr() {
@@ -191,10 +203,11 @@ public class BookForm extends JFrame implements ActionListener {
 
 	public void setDate() {	//날짜 값 설정
 		//System.out.println(goDay);
-		if (roundTrip == 1) 
-			btnDate.setText(goDay+" ~ "+comeDay);
-		else
-			btnDate.setText(goDay);
+//		if (roundTrip == 1) 
+//			btnDate.setText(goDay+" ~ "+comeDay);
+//		else
+//			btnDate.setText(goDay);
+		btnDate.setText(goDay+" ~ "+comeDay);
 	}
 	
 	public void setPassenger() {
@@ -203,7 +216,9 @@ public class BookForm extends JFrame implements ActionListener {
 	
 	
 
-	public BookForm() {
+	public BookForm(String id) {
+		this.id = id;
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -338,7 +353,7 @@ public class BookForm extends JFrame implements ActionListener {
 		btnDate.setBackground(Color.white);
 		btnDate.addActionListener(this);
 		btnDate.setSize(300, 60);
-		btnDate.setLocation(180, 0);
+		btnDate.setLocation(175, 0);
 		btnDate.setFont(fontNanumGothic15);
 		
 		
@@ -351,7 +366,7 @@ public class BookForm extends JFrame implements ActionListener {
 		btnPeople.setBackground(Color.white);
 		btnPeople.addActionListener(this);
 		btnPeople.setSize(300, 60);
-		btnPeople.setLocation(180, 100);
+		btnPeople.setLocation(175, 100);
 		btnPeople.setFont(fontNanumGothic15);
 		
 		
@@ -369,6 +384,19 @@ public class BookForm extends JFrame implements ActionListener {
 //		jpCENTER.add(lblSeat);
 //		jpCENTER.add(cbSeat);
 		
+		//다시선택 버튼
+		btnReset = new JButton("다시선택", imgAirport); //버튼에 이미지, 라벨 삽입
+		btnReset.setFont(fontNanumGothic25);
+//					btnSearch.setBackground(new Color(135,206,250)); //버튼 배경색 RGB코드값으로 주기
+//					btnSearch.setBackground(new Color(153, 204, 255)); //버튼 배경색 RGB코드값으로 주기
+		btnReset.setBackground(new Color(10,90,150)); //버튼 배경색 RGB코드값으로 주기
+		btnReset.setSize(220, 50);
+		btnReset.setLocation(270, 480);
+		btnReset.setForeground(Color.white); //버튼 폰트 색 변경
+		btnReset.setPreferredSize(new Dimension(300, 35));
+		btnReset.setBorderPainted(false); //버튼 윤곽선 제거
+		btnReset.addActionListener(this);
+		
 		//조회 버튼
 		imgAirport = new ImageIcon("image/airport.png");
 		btnSearch = new JButton("조회", imgAirport); //버튼에 이미지, 라벨 삽입
@@ -376,8 +404,8 @@ public class BookForm extends JFrame implements ActionListener {
 //					btnSearch.setBackground(new Color(135,206,250)); //버튼 배경색 RGB코드값으로 주기
 //					btnSearch.setBackground(new Color(153, 204, 255)); //버튼 배경색 RGB코드값으로 주기
 		btnSearch.setBackground(new Color(10,90,150)); //버튼 배경색 RGB코드값으로 주기
-		btnSearch.setSize(460, 50);
-		btnSearch.setLocation(270, 480);
+		btnSearch.setSize(220, 50);
+		btnSearch.setLocation(505, 480);
 		btnSearch.setForeground(Color.white); //버튼 폰트 색 변경
 		btnSearch.setPreferredSize(new Dimension(300, 35));
 		btnSearch.setBorderPainted(false); //버튼 윤곽선 제거
@@ -387,11 +415,12 @@ public class BookForm extends JFrame implements ActionListener {
 		jpBook.add(jpCountry);
 		jpBook.add(jpCalNum);
 		jpBook.add(btnSearch);
+		jpBook.add(btnReset);
 		add(jpBook);
 	}	
 	
 	public static void main(String[] args) {
-		new BookForm();
+		new BookForm("test1");
 	}
 
 	
@@ -401,6 +430,7 @@ public class BookForm extends JFrame implements ActionListener {
 		
 		if(obj == btnMainMenu) {
 			mainMenuForm = new MainMenuForm();
+			mainMenuForm.setId(id);
 			this.setVisible(false);
 		} else if(obj == btnSearch) {
 			
@@ -419,9 +449,31 @@ public class BookForm extends JFrame implements ActionListener {
 			} else if (SelectDepCode.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "탑승지를 선택해주세요", "조회", JOptionPane.OK_CANCEL_OPTION);
 			} else {
-				tkRTGoForm = new TicketingRoundTripGoingForm();
+				tkRTGoForm = new TicketingRoundTripGoingForm(this);
 				this.setVisible(false);
 			}
+			
+		} else if (obj == btnReset) {
+			
+			btnDep.setText("<HTML><body style ='text-align:center;'>From<br>출발지</body></HTML>");
+			btnArr.setText("<HTML><body style = 'text-align:center;'>To<br>도착지</body></HTML>");
+			btnDate.setText("");
+			btnPeople.setText("");
+			
+			goDay = "";
+			comeDay = "";
+			roundTrip = 0;
+			
+			numAdult = 0;
+			numInfant = 0;
+			numChild = 0;
+			numTotal = 0;
+			
+			SelectDep = "";
+			SelectDepCode = "";
+			
+			SelectArr = "";
+			SelectArrCode = "";
 			
 		} else if(obj == btnDate) {
 			new customer.book.SelectDate(this);
@@ -447,9 +499,6 @@ public class BookForm extends JFrame implements ActionListener {
 				swapCode = SelectDepCode;
 				SelectDepCode = SelectArrCode;
 				SelectArrCode = swapCode;
-				
-				btnDep.setText(SelectDep);
-				btnArr.setText(SelectArr);
 				
 			}	
 		}

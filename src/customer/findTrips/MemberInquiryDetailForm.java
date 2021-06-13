@@ -54,58 +54,58 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 //------------------------------------------------------------------------------------------------------------------
 			
 			//reserveDetail
-			String reserveNum = "21061200aa";
-			String scheduleNo = "AAAA-12";
-			String nameKOR = "민보현";
-			String nameENG = "bohyun";
-			String sex = "여";
-			String passport = "M000000000";	
-			String birth = "19991108";	
-			String tel = "01011112222";
-			String email = "aaaaa@bbb.cc";	
+//			String reserveNum = "test001010";
+//			String scheduleNo = "CTOG-39";
+//			String nameKOR = "이은선";
+//			String nameENG = "leeunsdk";
+//			String sex = "여";
+//			String passport = "dkjslkfjkl";	
+//			String birth = "2000-02-02";	
+//			String tel = "dkjflsjflk";
+//			String email = "sdjlfksjdklfsjd";	
 			int agree;	
 			int baggage;
 			
 			//airschedule
-			String flightCode = "BBB12";
-			String from = "CJU";
-			String fromDate ="20210521";
-			String fromTime = "160000";
-			String to = "GMP";
-			String toDate;
-			String toTime = "170000";
+//			String flightCode = "IH5898";
+//			String from = "CJU";
+//			String fromDate ="2021-07-08";
+//			String fromTime = "12:00:00";
+//			String to = "GMP";
+//			String toDate;
+//			String toTime = "13:30:00";
 			
 			//reservation
-			String GOclass = "e";
-			String ID;
+//			String GOclass = "e";
+//			String ID = "test1";
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 			
 //			//reserveDetail
-//			String reserveNum;
-//			String scheduleNo;
-//			String nameKOR;
-//			String nameENG;
-//			String sex;
-//			String passport;	
-//			String birth;	
-//			String tel;
-//			String email;	
+			String reserveNum = "test001010";
+			String scheduleNo;
+			String nameKOR ;
+			String nameENG;
+			String sex;
+			String passport;	
+			String birth = " ";	
+			String tel;
+			String email;	
 //			int agree;	
 //			int baggage;
-//			
-//			//airschedule
-//			String flightCode;
-//			String from;
-//			String fromDate;
-//			String fromTime;
-//			String to;
-//			String toDate;
-//			String toTime;
-//			
-//			//reservation
-//			String GOclass;
-//			String ID;
+			
+			//airschedule
+			String flightCode;
+			String from;
+			String fromDate;
+			String fromTime;
+			String to;
+			String toDate;
+			String toTime;
+			
+			//reservation
+			String GOclass;
+			String id;
 //------------------------------------------------------------------------------------------------------------------
 		private JPanel jpInquiry1; // 시간 선택시 비행기1
 		private JPanel jpInquiry2; // 비행기 2
@@ -155,7 +155,12 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		private Component lblSeatInfo;
 		private String seatClass;
 
-	public MemberInquiryDetailForm() {
+	public MemberInquiryDetailForm(MainMenuForm mainMenuForm) {
+		
+		this.mainMenuForm=mainMenuForm;
+		
+		this.id = mainMenuForm.getId();
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -367,8 +372,11 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 		try{
 			Class.forName(driver);
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+			state = conn.createStatement();	
+
+			
 			String sql;
-			sql = "SELECT * FROM reservation WHERE `ID` = '"+ ID +"' ";
+			sql = "SELECT * FROM reservation WHERE `ID` = '"+ id +"' ";
 			
 			ResultSet rs = state.executeQuery(sql);
 			while (rs.next()) {
@@ -391,6 +399,8 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 	try{
 		Class.forName(driver);
 		conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+		state = conn.createStatement();	
+
 		String sql;
 		sql = "SELECT * FROM reservationDetail WHERE `reserveNum` = '"+ reserveNum +"' ";
 		
@@ -424,6 +434,8 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 	try{
 		Class.forName(driver);
 		conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+		state = conn.createStatement();	
+
 		String sql;
 		sql = "SELECT * FROM airSchedule WHERE `scheduleNo` = '"+ scheduleNo +"' ";
 		
@@ -450,7 +462,7 @@ public class MemberInquiryDetailForm extends JFrame implements ActionListener {
 	
 //----------------------------------------
 	public static void main(String[] args) {
-		new MemberInquiryDetailForm();
+//		new MemberInquiryDetailForm();
 	}
 
 	@Override

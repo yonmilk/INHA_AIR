@@ -11,6 +11,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,14 +28,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
 //연우 - 승객선택
-public class SelectPassenger extends JFrame implements ActionListener, KeyListener{
+public class SelectPassenger extends JFrame implements ActionListener{
 
 	// Title 및 사이즈 설정
 	private String title = "승객 선택";
-	private int width = 490, height = 500;
+	private int width = 490, height = 540;
 	
 	//폰트
 	Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
@@ -89,8 +97,15 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 	private JLabel lblTotal;
 	private JLabel lblTotalNum;
 	
-	private int birthday;
-	
+	private String goDay = "";
+	private String birthday;
+	private Date dtGoday;
+	private Date dtBirthday;
+	private int compare;
+	private int birthYear;
+	private int birthMonthDay;
+	private int goDayYear;
+	private int goMonthDay;
 	
 	public SelectPassenger(BookForm bookForm) {
 		
@@ -101,6 +116,7 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 		this.numInfant = bookForm.getNumInfant();
 		this.numChild = bookForm.getNumChild();
 		this.numTotal = bookForm.getNumTotal();
+		this.goDay = bookForm.getGoDay();
 		
 		setTitle(title);
 		setSize(width, height);
@@ -262,14 +278,20 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 		lblAgeCal = new JLabel("나이계산기"); //나이계산기
 		lblAgeCal.setFont(fontNanumGothic12);
 		lblAgeCal.setSize(150, 40);
-		lblAgeCal.setLocation(10, 0);
+		lblAgeCal.setLocation(10, 20);
 		lblAgeGuide = new JLabel("생년월일(예: 20020214)"); //예시
 		lblAgeGuide.setFont(fontNanumGothic12);
 		lblAgeGuide.setSize(150, 40);
-		lblAgeGuide.setLocation(10, 20);
+		lblAgeGuide.setLocation(80, 20);
 		lblAgeGuide.setForeground(Color.gray);
-		tfAge = new JFormattedTextField(new NumberFormatter()); //생년월일 입력 필드
-		tfAge.addKeyListener(this);
+		
+		try {
+			MaskFormatter format = new MaskFormatter("########");
+			tfAge = new JFormattedTextField(format); //생년월일 입력 필드
+		} catch (ParseException e) {
+			e.printStackTrace();
+			//JOptionPane.showMessageDialog(null, "값을 제대로 입력해주세요", "나이계산기", JOptionPane.OK_CANCEL_OPTION);
+		}
 		tfAge.setFont(fontNanumGothic12);
 		tfAge.setSize(300, 30);
 		tfAge.setLocation(10, 50);
@@ -281,6 +303,7 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 		//btnCalculate.setContentAreaFilled(false); //버튼배경 제거
 		btnCalculate.setBackground(Color.white);
 		btnCalculate.addActionListener(this);
+		
 		btnOk = new JButton("확인"); //확인버튼
 		btnOk.setFont(fontNanumGothic15);
 		btnOk.setForeground(Color.white);
@@ -361,9 +384,51 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 		
 		if (obj == btnCalculate) {		//나이계산기 버튼 눌렀을 때
 			
-			
-			JOptionPane.showMessageDialog(null, "나이는 ", "나이계산", JOptionPane.OK_CANCEL_OPTION);
-			
+			if (goDay.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "탑승일 선택 후 나이계산이 가능합니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+			} else {
+				
+				birthday = tfAge.getText();
+				
+				
+				try {
+					
+					LocalDate parsedBirthDate = LocalDate.parse(birthday, DateTimeFormatter.ofPattern("yyyyMMdd"));
+					birthYear = parsedBirthDate.getYear();
+					birthMonthDay = Integer.parseInt(birthday.substring(5,8));
+					
+					LocalDate parsedgoDay = LocalDate.parse(goDay, DateTimeFormatter.ofPattern("yyyyMMdd"));
+					goDayYear = parsedgoDay.getYear();
+					goMonthDay = Integer.parseInt(goDay.substring(5,8));
+					
+					int age = goDayYear - birthYear;	//나이 구하기
+					
+					
+					if (age == 19) {
+						if (birthMonthDay <= goMonthDay) {
+							JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 성인입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+						} else {
+							JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + (age-1) + "세 미성년입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+						}
+					} else if(age > 19){
+						if (birthMonthDay <= goMonthDay) {
+							JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 성인입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+						} else {
+							JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + (age-1) + "세 성인입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+						}
+					} else {
+						if (birthMonthDay <= goMonthDay) {
+							JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 미성년입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+						} else {
+							JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + (age-1) + "세 미성년입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
+						}
+					}
+					
+				} catch (DateTimeParseException e2) {
+					JOptionPane.showMessageDialog(null, "값을 제대로 입력해주세요", "나이계산기", JOptionPane.OK_CANCEL_OPTION);
+				}
+				
+			}
 			
 		}
 		
@@ -389,50 +454,7 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 			} else {
 				JOptionPane.showMessageDialog(null, "1명 이상으로 선택해주세요", "인원선택", JOptionPane.OK_CANCEL_OPTION);
 			}
-			
-			
 		}
-		
-	}
-
-
-
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		if (tfAge.getText().length() >= 6) {
-			e.consume();
-		}
-	}
-
-
-
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		
-		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-			String text = tfAge.getText().substring(0, tfAge.getText().length() - 1); 	            //tfAge의 글자를 끝에 하나를 자르는 substring 함수
-			tfAge.setText(text);
-		}
-		
-		try {
-			String keyText = KeyEvent.getKeyText(e.getKeyCode());
-			//System.out.println(keyText);
-			Integer.parseInt(keyText);
-			
-		} catch (NumberFormatException | NullPointerException ex) {
-			e.consume();
-		}
-	}
-
-
-
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

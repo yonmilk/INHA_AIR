@@ -27,6 +27,7 @@ import javax.swing.table.TableCellRenderer;
 
 import DataBase.databaseClass;
 import Management.AirPort.AirportList;
+import Management.Airplane.AirplaneList;
 import Management.Airway.AirwayList;
 import Management.Main.MainForm;
 import Management.Payment.PaymentList;
@@ -40,12 +41,13 @@ public class AirwayList extends JFrame implements ActionListener {
 	
 	//메뉴
 		private JPanel jpTOP, jpMenu;
-		private JButton btnLogo, btnUser, btnAirway, btnAirport, btnPay, btnLogout;
+		private JButton btnLogo, btnUser, btnAirway, btnAirport, btnPay, btnLogout, btnAirplane;
 		private SignIn signIn;
 		private UserList userlist, userList;
 		private PaymentList paymentlist;
 		private AirwayList airwaylist;
 		private AirportList airportlist;
+		private AirplaneList airplanelist;
 		private MainForm mainform;
 		private int result;
 		
@@ -391,13 +393,22 @@ public class AirwayList extends JFrame implements ActionListener {
 		btnAirport.setBorderPainted(false);
 		btnAirport.setContentAreaFilled(false);
 		
+		btnAirplane = new JButton("비행기");
+		btnAirplane.setSize(150, 40);
+		btnAirplane.setLocation(650, 0);
+		btnAirplane.addActionListener(this);
+		btnAirplane.setFont(fontNanumGothic18);
+		btnAirplane.setBorderPainted(false);
+		btnAirplane.setContentAreaFilled(false);
+		
 		btnPay = new JButton("매출");
 		btnPay.setSize(150, 40);
-		btnPay.setLocation(650, 0);
+		btnPay.setLocation(800, 0);
 		btnPay.addActionListener(this);
 		btnPay.setFont(fontNanumGothic18);
 		btnPay.setBorderPainted(false);
 		btnPay.setContentAreaFilled(false);
+		
 		
 		
 		
@@ -417,6 +428,7 @@ public class AirwayList extends JFrame implements ActionListener {
 		jpMenu.add(btnUser);
 		jpMenu.add(btnAirway);
 		jpMenu.add(btnAirport);
+		jpMenu.add(btnAirplane);
 		jpMenu.add(btnPay);
 		
 		jpTOP.add(btnLogout);
@@ -464,6 +476,9 @@ Object obj = e.getSource();
 		} else if(obj == btnPay) {
 			dispose();
 			paymentlist = new PaymentList();
+		}else if(obj == btnAirplane) {
+			dispose();
+			airplanelist = new AirplaneList();
 		}
 	}
 	// jtable 생성

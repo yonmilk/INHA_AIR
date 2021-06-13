@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import Management.AirPort.AirportList;
+import Management.Airplane.AirplaneList;
 import Management.Airway.AirwayList;
 import Management.Payment.PaymentList;
 import Management.User.UserList;
@@ -24,12 +25,13 @@ public class MainForm extends JFrame implements ActionListener {
 	
 	//변수
 	private JPanel jpTOP, jpMenu;
-	private JButton btnLogo, btnUser, btnAirway, btnAirline, btnAirport, btnLogout, btnPay;
+	private JButton btnLogo, btnUser, btnAirway, btnAirline, btnAirport, btnLogout, btnPay, btnAirplane;
 	private SignIn signIn;
 	private UserList userlist;
 	private PaymentList paymentlist;
 	private AirwayList airwaylist;
 	private AirportList airportlist;
+	private AirplaneList airplanelist;
 	private int result;
 	
 // 폰트
@@ -133,13 +135,22 @@ public class MainForm extends JFrame implements ActionListener {
 		btnAirport.setBorderPainted(false);
 		btnAirport.setContentAreaFilled(false);
 		
+		btnAirplane = new JButton("비행기");
+		btnAirplane.setSize(150, 40);
+		btnAirplane.setLocation(650, 0);
+		btnAirplane.addActionListener(this);
+		btnAirplane.setFont(fontNanumGothic18);
+		btnAirplane.setBorderPainted(false);
+		btnAirplane.setContentAreaFilled(false);
+		
 		btnPay = new JButton("매출");
-		btnPay.setSize(150,40);
-		btnPay.setLocation(650, 0);
+		btnPay.setSize(150, 40);
+		btnPay.setLocation(800, 0);
 		btnPay.addActionListener(this);
 		btnPay.setFont(fontNanumGothic18);
 		btnPay.setBorderPainted(false);
 		btnPay.setContentAreaFilled(false);
+		
 		
 		// 로그아웃
 		btnLogout = new JButton("<HTML><U>LOGOUT</U></HTML>");
@@ -157,6 +168,7 @@ public class MainForm extends JFrame implements ActionListener {
 		jpMenu.add(btnUser);
 		jpMenu.add(btnAirway);
 		jpMenu.add(btnAirport);
+		jpMenu.add(btnAirplane);
 		jpMenu.add(btnPay);
 		
 		jpTOP.add(btnLogout);
@@ -204,7 +216,10 @@ public class MainForm extends JFrame implements ActionListener {
 		} else if(obj == btnPay) {
 			dispose();
 			paymentlist = new PaymentList();
-		} 
+		} else if(obj == btnAirplane) {
+			dispose();
+			airplanelist = new AirplaneList();
+		}
 
 	}
 }

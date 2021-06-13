@@ -1,11 +1,11 @@
-package Management.Payment;
-//미완, 건들지말것
+package Management.Airplane;
+//이것도 건들지 마세용
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -29,28 +29,27 @@ import javax.swing.table.TableCellRenderer;
 
 import DataBase.databaseClass;
 import Management.AirPort.AirportList;
-import Management.Airplane.AirplaneList;
 import Management.Airway.AirwayList;
 import Management.Main.MainForm;
 import Management.Payment.PaymentList;
 import Management.User.UserList;
 import be.sign.SignIn;
 
-public class PaymentList extends JFrame implements ActionListener {
+public class AirplaneList extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
 	private String title = "Management";
 	private int width = 1120, height = 770;
 	
 	//메뉴
 		private JPanel jpTOP, jpMenu;
-		private JButton btnLogo, btnUser, btnAirway, btnAirport, btnPay, btnLogout, btnser, btnAirplane;
+		private JButton btnLogo, btnUser, btnAirway, btnAirport, btnPay, btnLogout, btnAirplane;
 		private SignIn signIn;
 		private UserList userlist, userList;
 		private PaymentList paymentlist;
 		private AirwayList airwaylist;
-		private AirportList airlinelist;
-		private AirplaneList airplanelist;
+		private AirportList airportlist;
 		private MainForm mainform;
+		private AirplaneList airplanelist;
 		private int result;
 		
 	// 폰트
@@ -83,26 +82,25 @@ public class PaymentList extends JFrame implements ActionListener {
 	//테이블
 	private JPanel jpTable;
 	private DefaultTableModel model;
-	private CreateTable jtPay;
+	private CreateTable jtAirway;
 	private String[][] datas = new String[0][0];
-	private String[] uTableTitle = {"카드", "무통장", "총매출"};
+	private String[] uTableTitle = {"스케줄No.","편명","출발지","출발일","출발시","도착지","도착일","도착시"};
 	private DefaultTableCellRenderer Center; //테이블 정렬
-	private JTableHeader jtUHeader;
+	private JTableHeader jtAHeader;
 	private JScrollPane sp;
 	
 	//수정
 	private JPanel jpAll, jpBtn, jpEdit, jpNew, jpSer;
-	private JButton btnOk, btnBye, btnDel, btnMod;
-	private JLabel lblNew, lblId, lblPw, lblName, lblSex, lblPN, lblBir, lblTel, lblEmail, lblserach;
-	private JTextField tfId, tfPw, tfName, tfSex, tfPN, tfBir, tfTel, tfEmail, tfSer;
-	private AirportList airportlist;
+	private JButton btnOk, btnBye, btnDel, btnMod, btnser;
+	private JLabel lblNew, lblsche, lblflightNo, lblDep, lblDepday, lblDepTime, lblArr, lblArrDay, lblArrTime, lblserach;
+	private JTextField tfSche, tfFlightNo, tfDep, tfDepDay, tfDepTime, tfArr, tfArrDay, tffArrTime, tfSer;
 	
 
 	
 	
 
 	
-	public PaymentList() {
+	public AirplaneList() {
 		
 		
 		setTitle(title);
@@ -139,7 +137,7 @@ public class PaymentList extends JFrame implements ActionListener {
 		setUserlist();
 		
 		//수정창
-		setButtonPannel();
+		setUserEdit();
 		
 		
 
@@ -152,21 +150,152 @@ public class PaymentList extends JFrame implements ActionListener {
 	
 
 
-	private void setButtonPannel() {
-		jpEdit = new JPanel(new BorderLayout());
-		jpEdit.setSize(200, 40);
-		jpEdit.setLocation(125,45);
+	private void setUserEdit() {
+		jpEdit = new JPanel();
+		jpEdit.setSize(400, 635);
+		jpEdit.setLocation(35,45);
 		jpEdit.setBackground(Color.WHITE);
-		//월별 콤보박스 삽입 예정
-		btnser = new JButton("매출 조회");
-		btnser.setPreferredSize(new Dimension(150,40));
+		
+		//검색 패널
+		jpSer = new JPanel();
+		jpSer.setBackground(Color.WHITE);
+		jpSer.setPreferredSize(new Dimension(400, 30));
+		
+		//검색 라벨
+		lblserach = new JLabel("스케줄No.검색  ");
+		lblserach.setFont(fontNanumGothic15);
+		lblserach.setHorizontalAlignment(JLabel.CENTER);
+		
+		//검색 텍스트필드
+		tfSer = new JTextField("ex)AKLTOI-1",15);
+				
+		//검색 버튼
+		btnser = new JButton("검색");
+		btnser.setFont(fontNanumGothic13);
 		btnser.setBackground(colorBtn);
 		btnser.setForeground(Color.white);
-		btnser.setFont(fontNanumGothic25);
 		btnser.addActionListener(this);
+				
+		jpSer.add(lblserach);
+		jpSer.add(tfSer);
+		jpSer.add(btnser);
 		
-		jpEdit.add(btnser);
+		jpEdit.add(jpSer);
+		
+	 	//폼 패널
+	 	jpNew  = new JPanel();	
+	 	jpNew.setLayout(new GridLayout(8, 2));
+	 	jpNew.setBackground(Color.WHITE);
+	 	jpNew.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+	 	jpNew.setPreferredSize(new Dimension(400, 300));
+	 	
+	 	//폼 라벨
+	 	lblsche = new JLabel("스케줄No.  ");
+	 	lblsche.setFont(fontNanumGothic15);
+	 	lblsche.setHorizontalAlignment(JLabel.CENTER);
+	 	lblflightNo = new JLabel("편명  ");
+	 	lblflightNo.setFont(fontNanumGothic15);
+	 	lblflightNo.setHorizontalAlignment(JLabel.CENTER);
+	 	lblDep = new JLabel("출발지  ");
+	 	lblDep.setFont(fontNanumGothic15);
+	 	lblDep.setHorizontalAlignment(JLabel.CENTER);
+	 	lblDepday = new JLabel("출발일  ");
+	 	lblDepday.setFont(fontNanumGothic15);
+	 	lblDepday.setHorizontalAlignment(JLabel.CENTER);
+	 	lblDepTime = new JLabel("출발시  ");
+	 	lblDepTime.setFont(fontNanumGothic15);
+	 	lblDepTime.setHorizontalAlignment(JLabel.CENTER);
+	 	lblArr = new JLabel("도착지  ");
+	 	lblArr.setFont(fontNanumGothic15);
+	 	lblArr.setHorizontalAlignment(JLabel.CENTER);
+	 	lblArrDay = new JLabel("도착일  ");
+	 	lblArrDay.setFont(fontNanumGothic15);
+	 	lblArrDay.setHorizontalAlignment(JLabel.CENTER);
+	 	lblArrTime = new JLabel("도착시  ");
+	 	lblArrTime.setFont(fontNanumGothic15);
+	 	lblArrTime.setHorizontalAlignment(JLabel.CENTER);
+	 			
+	 	//폼 텍스트필드 
+	 	tfSche = new JTextField("ex)AKLTOI-1",30);
+	 	tfFlightNo = new JTextField("ex)IH1222",30);
+	 	tfDep = new JTextField("ex)AKL",30);
+	 	tfDepDay = new JTextField("ex)1998-12-22",30);
+	 	tfDepTime = new JTextField("ex)12:22:00",30);
+	 	tfArr = new JTextField("ex)ICN",30);
+	 	tfArrDay = new JTextField("ex)2000-02-16",30);
+	 	tffArrTime = new JTextField("ex)02:16:00",30);
+	 	
+	 	//붙이기
+	 	jpNew.add(lblsche);
+	 	jpNew.add(tfSche);
+	 	jpNew.add(lblflightNo);
+	 	jpNew.add(tfFlightNo);
+	 	jpNew.add(lblDep);
+	 	jpNew.add(tfDep);
+	 	jpNew.add(lblDepday);
+	 	jpNew.add(tfDepDay);
+	 	jpNew.add(lblDepTime);
+	 	jpNew.add(tfDepTime);
+	 	jpNew.add(lblArr);
+	 	jpNew.add(tfArr);
+	 	jpNew.add(lblArrDay);
+	 	jpNew.add(tfArrDay);
+	 	jpNew.add(lblArrTime);
+	 	jpNew.add(tffArrTime);
+	 	
+	 	jpEdit.add(jpNew);
+	 	
+	 	//버튼 패널
+		jpBtn = new JPanel(new GridLayout(1,4,5,5));
+		jpBtn.setBorder(BorderFactory.createEmptyBorder(10,10,10,20));
+		jpBtn.setBackground(Color.WHITE);
+			
+		//등록 버튼
+		btnOk = new JButton("등록");
+		btnOk.setFont(fontNanumGothic18);
+		btnOk.setBackground(colorBtn);
+		btnOk.setForeground(Color.white);
+		btnOk.setPreferredSize(new Dimension(80, 30));
+		btnOk.addActionListener(this);
+	 			
+	 			
+		//삭제 버튼
+    	btnDel = new JButton("삭제");
+    	btnDel.setFont(fontNanumGothic18);
+    	btnDel.setBackground(Color.LIGHT_GRAY);
+    	btnDel.setPreferredSize(new Dimension(80, 30));
+    	btnDel.addActionListener(this);
+	 			
+		//확인 버튼
+		btnMod = new JButton("수정");
+		btnMod.setFont(fontNanumGothic18);
+		btnMod.setBackground(colorBtn);
+		btnMod.setForeground(Color.white);
+		btnMod.setPreferredSize(new Dimension(80, 30));
+		btnMod.addActionListener(this);
+		
+		//취소 버튼
+    	btnBye = new JButton("취소");
+		btnBye.setFont(fontNanumGothic18);
+		btnBye.setBackground(Color.LIGHT_GRAY);
+		btnBye.setPreferredSize(new Dimension(80, 30));
+		btnBye.addActionListener(this);
+	 			
+		jpBtn.add(btnOk);
+		jpBtn.add(btnDel);
+		jpBtn.add(btnMod);
+		jpBtn.add(btnBye);
+	 			
+		jpEdit.add(jpBtn);
+	 	
+		
+		
+				
+		
 		jpUser.add(jpEdit);
+
+		
+		
 	}
 
 
@@ -181,27 +310,32 @@ public class PaymentList extends JFrame implements ActionListener {
 		
 		model = new DefaultTableModel(datas, uTableTitle);
 		
-		jtPay = new CreateTable(model);
-		jtPay.setFont(fontNanumGothic13);
-		jtPay.setRowHeight(20);
-		jtPay.setFillsViewportHeight(true); //스크롤팬에 꽉 차서 보이게 하기
-		jtPay.setBackground(Color.WHITE);
+		jtAirway = new CreateTable(model);
+		jtAirway.setFont(fontNanumGothic13);
+		jtAirway.setRowHeight(20);
+		jtAirway.setFillsViewportHeight(true); //스크롤팬에 꽉 차서 보이게 하기
+		jtAirway.setBackground(Color.WHITE);
 		
 		Center = new DefaultTableCellRenderer(); //테이블 정렬
 		Center.setHorizontalAlignment(JLabel.CENTER); //가운데정렬
-		jtPay.getColumn("카드").setCellRenderer(Center);
-		jtPay.getColumn("무통장").setCellRenderer(Center);
-		jtPay.getColumn("총매출").setCellRenderer(Center);
+		jtAirway.getColumn("스케줄No.").setCellRenderer(Center);
+		jtAirway.getColumn("편명").setCellRenderer(Center);
+		jtAirway.getColumn("출발지").setCellRenderer(Center);
+		jtAirway.getColumn("출발일").setCellRenderer(Center);
+		jtAirway.getColumn("출발시").setCellRenderer(Center);
+		jtAirway.getColumn("도착지").setCellRenderer(Center);
+		jtAirway.getColumn("도착일").setCellRenderer(Center);
+		jtAirway.getColumn("도착시").setCellRenderer(Center);
 		
-		jtUHeader = jtPay.getTableHeader();
-		jtUHeader.setReorderingAllowed(false); //컬럼 이동 금지
-		jtUHeader.setResizingAllowed(false); //컬럼 크기 변경 금지
-		jtUHeader.setBackground(colorBtn);
-		jtUHeader.setFont(fontNanumGothic15);
-		jtUHeader.setForeground(Color.white);
-		jtUHeader.setPreferredSize(new Dimension(0,25));
+		jtAHeader = jtAirway.getTableHeader();
+		jtAHeader.setReorderingAllowed(false); //컬럼 이동 금지
+		jtAHeader.setResizingAllowed(false); //컬럼 크기 변경 금지
+		jtAHeader.setBackground(colorBtn);
+		jtAHeader.setFont(fontNanumGothic15);
+		jtAHeader.setForeground(Color.white);
+		jtAHeader.setPreferredSize(new Dimension(0,25));
 		
-		sp = new JScrollPane(jtPay, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		sp = new JScrollPane(jtAirway, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		jpTable.add(sp);
 		jpUser.add(jpTable);
@@ -277,6 +411,7 @@ public class PaymentList extends JFrame implements ActionListener {
 		btnPay.setContentAreaFilled(false);
 		
 		
+		
 		// 로그아웃 버튼
 		btnLogout = new JButton("<HTML><U>LOGOUT</U></HTML>");
 		btnLogout.setSize(80, 50);
@@ -302,7 +437,7 @@ public class PaymentList extends JFrame implements ActionListener {
 
 
 	public static void main(String[] args) {
-		new PaymentList();
+		new AirplaneList();
 	}
 
 
@@ -321,7 +456,7 @@ Object obj = e.getSource();
 		}
 			
 		} else if(obj == btnLogout){
-			 result = JOptionPane.showConfirmDialog(this, "정말 로그아웃 하시겠습니까?", "로그아웃",JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.showConfirmDialog(this, "정말 로그아웃 하시겠습니까?", "로그아웃",JOptionPane.YES_NO_OPTION);
 			if(result == JOptionPane.YES_OPTION ) {
 				JOptionPane.showMessageDialog(null, "시스템을 종료합니다");
 				dispose();
@@ -329,7 +464,7 @@ Object obj = e.getSource();
 			} else {
 				JOptionPane.showMessageDialog(null, "로그아웃을 취소합니다.");
 			}
-		} else if(obj == btnUser) {
+		}  else if(obj == btnUser) {
 			dispose();
 			userList = new UserList();
 		} else if(obj == btnAirway) {
@@ -341,14 +476,6 @@ Object obj = e.getSource();
 		} else if(obj == btnPay) {
 			dispose();
 			paymentlist = new PaymentList();
-		} else if(obj == btnBye) {
-			 result = JOptionPane.showConfirmDialog(this, "입력을 취소하시겠습니까?", "입력 취소",JOptionPane.YES_NO_OPTION);
-			 if(result == JOptionPane.YES_OPTION ) {
-					JOptionPane.showMessageDialog(null, "입력이 취소되었습니다");
-					tfId.setText("");
-				} else {
-					JOptionPane.showMessageDialog(null, "계속 입력해주세요");
-				}
 		} else if(obj == btnAirplane) {
 			dispose();
 			airplanelist = new AirplaneList();

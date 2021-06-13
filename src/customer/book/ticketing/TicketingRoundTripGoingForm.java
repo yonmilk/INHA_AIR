@@ -10,9 +10,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -24,9 +28,10 @@ import java.awt.BorderLayout;
 
 import be.main.MainForm;
 import be.menu.MenuBar;
-import customer.book.ticketing.TicketingRoundTripComingForm2;
+import customer.book.BookForm;
 import customer.start.MainMenuForm;
 //import sun.awt.www.content.image.jpeg;
+//import test.TicketingRoundTripComingForm2;
 
 
 public class TicketingRoundTripGoingForm extends JFrame implements ActionListener {
@@ -41,51 +46,85 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 	private MainMenuForm mainMenuForm;
 	private TicketingRoundTripComingForm tkRTComForm; //--------->>>>>
 	
+	
 	// 예원 - 색상
 	Color colorLogo = new Color(24, 62, 111);
 	// 예원 - 폰트
 	Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
 	
-	private JPanel jpSelectedInfo;
+	
+	String driver = "com.mysql.cj.jdbc.Driver"; //드라이버
+	String dbURL = "jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
+	String dbID = "inhaair"; //DB에 접속할 사용자 이름을 상수로 정의
+	String dbPassword = "1234"; //사용자의 비밀번호를 상수로 정의
+
+    Connection conn = null; 
+	Statement state = null; 
+	
+	private BookForm sel;
+	
+	
+		private JPanel jpSelectedInfo;
 	//--가상의 고객이 선택한 정보
-//		private String DepP = " "; //고객이 선택한 정보 : 
-//		private String ArrP = " "; // 출발지 GMP 도착지 PUS (P : place)
-//		private String GoDay = " "; //출발 날짜 : 21.0515- 
-//		private String ComeDay = " ";//도착 날짜 : 0601(화)    (D : date)
-		private int AdultP = 0;//성인
-		private int ChildP = 0;//소아인원
-		private int InfantP = 0;//소아인원
-		private String reserveNum;
-		private String ID;
+//		String SelectDepCode = "CJU";
+//		String SelectArrCode = "GMP";
+//		String goDay = "20210531";
+//		String comeDay = "20210609";
+//		private int numAdult = 3;//성인
+//		private int numChild= 2;//소아인원
+//		private int numInfant = 1;//소아인원
+		
+		String COMclass;
+		String COMscheduleNo;
+//		private String ID = "test1" ;
+		private int totalPay; //---삭제
+
+		 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		 Calendar c = Calendar.getInstance();
+		 String strToday = sdf.format(c.getTime());
+			
+		 SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyyMMddHHmmss");
+         Date date_now = new Date(System.currentTimeMillis()); // 현재시간을 가져와 Date형으로 저장한다
+         String sdf2 = fourteen_format .format(date_now);
+         
+//         System.out.println(fourteen_format .format(date_now)); // 기본 포멧으로 출력한다
+		 
+//		String reserveNum = GoDay.substring(0, 3) + ComeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) ;
+private int TotalPay;
+
+		//reserveNum, GOscheduleNo, COMscheduleNo, ID, adult,child ,infant,pay,GOclass,COMclass
+		//reserveNum, GOscheduleNo,COMscheduleNo,ID, AdultP,ChildP ,InfantP,totalPay,selectedSeatGo,COMclass
 		
 		public void setDepP(String depP) {
-			DepP = depP;
+			SelectDepCode = depP;
 		}
 
 		public void setArrP(String arrP) {
-			ArrP = arrP;
+			SelectArrCode = arrP;
 		}
 
 		public void setGoDay(String goDay) {
-			GoDay = goDay;
+			this.goDay = goDay;
 		}
 
 		public void setComeDay(String comeDay) {
-			ComeDay = comeDay;
+			this.comeDay = comeDay;
 		}
 
 		public void setAdultP(int adultP) {
-			AdultP = adultP;
+			numAdult = adultP;
 		}
 
 		public void setChildP(int childP) {
-			ChildP = childP;
+			numChild = childP;
 		}
 
 		public void setInfantP(int infantP) {
-			InfantP = infantP;
+			numInfant = infantP;
 		}
-		
+		public void setTotalPay(int totalPay) {
+			TotalPay = totalPay;
+		}
 		
 		
 		public String getFlightCode() {
@@ -109,21 +148,21 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 			return toDate;
 		}
 		public String getDepP() {
-			return DepP;
+			return SelectDepCode;
 		}
 		public String getArrP() {
-			return ArrP;
+			return SelectArrCode;
 		}
 		public int getAdultP() {
-			return AdultP;
+			return numAdult;
 		}
-		public int getChildP() {
-			return ChildP;
+		public int getChildP() { 
+			return numChild;
 		}
 		public int getInfantP() {
-			return InfantP;
+			return numInfant;
 		}
-		public String getTotalPay() {
+		public int getTotalPay() {
 			return totalPay;
 		}
 		public String getSelectedSeat() {
@@ -133,19 +172,25 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 			return ID;
 		}
 		public String getGoDay() {
-			return GoDay;
+			return goDay;
 		}
 		public String getComeDay() {
-			return ComeDay;
+			return comeDay;
+		}
+		
+		public String getAirportD() {
+			return airportD;
+		}
+		
+		public String getAirportA() {
+			return airportA;
+		}
+		public String getReserveNum() {
+			return reserveNum;
 		}
 		
 		
-//		private JLabel lblDepartP; //고객이 선택한 출발지 정보
-//		private JLabel lblArriveP; //         도착지
-//		private JLabel lblDepArrD;	//고객이 선택한 출발일 + 도착일
 		private JLabel lblArrow; //왕복 화살표
-//		private JLabel lblAdult; //성인임을 나타냄 유아인 경우 children
-//		private JLabel lblNumP; //인원 수 
 		private JLabel lblPassenger;// 탑승 인원 정보 (성인인지 유아인지의 정보 + 인원수)
 		
 		private JPanel jpFlight1; // 시간 선택시 비행기1
@@ -171,10 +216,6 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 25
 		Font fontNanumGothic25Plain = new Font("NanumGothic", Font.PLAIN, 25);	// 나눔고딕 25
 	
-		String DepP = "CJU";
-		String ArrP = "GMP";
-		String GoDay = "20210531";
-		String ComeDay = "20210531";
 		
 		private JLabel lblDepP;
 		private JLabel lblArrP;
@@ -186,13 +227,13 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		private String fromDate;
 		private String to;
 		private String toDate;
-		private String fromTime;
+		private String fromTime=" ";
 		private String toTime;
 		private JLabel lblFliCo;
 		private JLabel lblTime;
-		private String economyClass;
-		private String prestigeClass;
-		private String firstClass;
+		private int economyPay;
+		private int businessPay;
+		private int firstPay;
 		private JLabel eco1;
 		private JLabel pres1;
 		private JLabel fir1;
@@ -203,28 +244,66 @@ public class TicketingRoundTripGoingForm extends JFrame implements ActionListene
 		private JLabel lblAirportA;
 		private JLabel lblEcon;
 		private JLabel lblEconPr;
-		private String economy;
+		private int economy;
 		private JButton btnEcon;
 		private Color crSelect;
-		private Component lblPres;
-		private Component lblPresPr;
-		private JButton btnPres;
-		private String prestige;
-		private Component lblFirs;
-		private Component lblFirsPr;
+		private JLabel lblBus;
+		private JLabel lblBusPr;
+		private JButton btnBus;
+		private int business;
+		private JLabel lblFirs;
+		private JLabel lblFirsPr;
 		private JButton btnFirs;
-		private String first;
+		private int first;
 		private String airportD;
 		private String airportA;
 		private JLabel lblTotalPayGoing;
 		private String GoingPay;
 		private JLabel lblGoingPayP;
 		private JLabel lblGoingPayF;
-		private String totalPay;
 		private String selectedSeatGo;
 		private String GOscheduleNo;
+		private int GoPay;
+		private Color crChange;
+		private String goDay;
+		private String comeDay;
+		private int numAdult;
+		private int numChild;
+		private int numInfant;
+		private int numTotal;
+		private String SelectDep;
+		private String SelectDepCode;
+		private String SelectArr;
+		private String ID;
+		private String reserveNum;
+		private String SelectArrCode;
+
+public TicketingRoundTripGoingForm(BookForm sel) {
 		
-public void roundtrip() {
+	this.sel =sel;
+	
+	this.goDay = sel.getGoDay();		//가는날
+	this.comeDay = sel.getComeDay();	//오는날
+//	private int roundTrip = 0;		//편도와 왕복 (편도 0, 왕복 1)
+	
+	//승객 인원 값
+	this.numAdult = sel.getNumAdult();		//성인 수
+	this.numChild = sel.getNumChild();		//소아 수
+	this.numInfant = sel.getNumInfant();		//유아 수
+	this.numTotal = sel.getNumTotal();		//총 인원 수
+	
+	//출발지 값
+	this.SelectDep = "";		//선택 출발지
+	this.SelectDepCode= sel.getSelectDepCode();	//선택 출발지 코드
+	
+	//도착지 값
+	this.SelectArr= "";		//선택 도착지
+	this.SelectArrCode= sel.getSelectArrCode();	//선택 도착지 코드
+	this.ID = sel.getId();
+	
+//	reserveNum = goDay.substring(0, 3) + comeDay.substring(2,5) + ID.substring(0,3) + strToday.substring(3,6) + "00";
+	reserveNum = goDay.substring(0, 3) + comeDay.substring(2,5) + ID + strToday.substring(3,6) + sdf2.substring(11, 14);
+
 	setTitle(title);
 	setSize(width, height);
 	setResizable(false);
@@ -258,6 +337,7 @@ public void roundtrip() {
 	crClass = new Color(213, 230, 250);//좌석 등급 선택 버튼의 색
 	crSelect = new Color(120,180,250);
 	crNext = new Color(10,90,150); //다음 버튼 색깔
+	crChange = new Color(200,200,200); //다음 버튼 색깔
 	
 	jpSelectedInfo = new JPanel(); //고객이 선택한 정보를 표시하는 바
 	jpSelectedInfo.setLayout(null);
@@ -269,7 +349,7 @@ public void roundtrip() {
 	lblArrow.setFont(fontNanumGothic30);
 	lblArrow.setBounds(135, -20, 200, 100);
 	
-	lblPassenger = new JLabel("    성인  " + AdultP + "명   " +"  |  "+ "  소아  "+ ChildP + "명"); //고객이 선택한 탑승자 정보
+	lblPassenger = new JLabel("    성인  " + numAdult + "명   " +"  |  "+ "  소아  "+ numChild + "명"); //고객이 선택한 탑승자 정보
 	lblPassenger.setFont(fontNanumGothic18Plain);
 	lblPassenger.setBounds(640, -20, 500, 100);
 	
@@ -316,7 +396,6 @@ public void roundtrip() {
 	lblTotalPayGoing.setBounds(500,0,200,100);
 	
 	
-	totalPay = " ";
 	
 	jpTotalPay.add(lblTotalPayGoing);
 	
@@ -340,13 +419,13 @@ public void roundtrip() {
 	add(jpTotalPay);
 	
 	Find();
-	Insert();
+	
 	
 	lblEcon = new JLabel("이코노미 클래스");
 	lblEcon.setFont(fontNanumGothic25);
 	lblEcon.setBounds(60, -15, 200, 100);
 	
-	lblEconPr = new JLabel(economyClass + " 원          " + " 현재 잔여           "+ economy + "석" );
+	lblEconPr = new JLabel(economyPay + " 원          " + " 현재 잔여           "+ economy + "석" );
 	lblEconPr.setFont(fontNanumGothic20);
 	lblEconPr.setBounds(350, -15,400, 100);
 	
@@ -364,31 +443,31 @@ public void roundtrip() {
 	
 	
 	
-	lblPres = new JLabel("프레스티지 클래스");
-	lblPres.setFont(fontNanumGothic25);
-	lblPres.setBounds(60, -15, 400, 100);
+	lblBus = new JLabel("비즈니스 클래스");
+	lblBus.setFont(fontNanumGothic25);
+	lblBus.setBounds(60, -15, 400, 100);
 	
-	lblPresPr = new JLabel(prestigeClass + " 원          " + " 현재 잔여           "+ prestige + "석" );
-	lblPresPr.setFont(fontNanumGothic20);
-	lblPresPr.setBounds(350, -15,400, 100);
+	lblBusPr = new JLabel(businessPay + " 원          " + " 현재 잔여           "+ business + "석" );
+	lblBusPr.setFont(fontNanumGothic20);
+	lblBusPr.setBounds(350, -15,400, 100);
 	
-	btnPres = new JButton("선택");
-	btnPres.setFont(fontNanumGothic18Plain);
-	btnPres.setBounds(810, 20,100, 30);
-	btnPres.setBackground(crSelect);
-	btnPres.setForeground(Color.white);
-	btnPres.addActionListener(this);
+	btnBus = new JButton("선택");
+	btnBus.setFont(fontNanumGothic18Plain);
+	btnBus.setBounds(810, 20,100, 30);
+	btnBus.setBackground(crSelect);
+	btnBus.setForeground(Color.white);
+	btnBus.addActionListener(this);
 	
 	
-	jpFlight2.add(lblPres);
-	jpFlight2.add(lblPresPr);
-	jpFlight2.add(btnPres);
+	jpFlight2.add(lblBus);
+	jpFlight2.add(lblBusPr);
+	jpFlight2.add(btnBus);
 	
 	lblFirs = new JLabel("퍼스트 클래스");
 	lblFirs.setFont(fontNanumGothic25);
 	lblFirs.setBounds(60, -15, 400, 100);
 	
-	lblFirsPr = new JLabel(firstClass + " 원          " + " 현재 잔여           "+ first + "석" );
+	lblFirsPr = new JLabel(firstPay + " 원          " + " 현재 잔여           "+ first + "석" );
 	lblFirsPr.setFont(fontNanumGothic20);
 	lblFirsPr.setBounds(350, -15,400, 100);
 	
@@ -414,7 +493,10 @@ public void roundtrip() {
 	lblArrP.setBounds(180, -20, 200, 100);
 	
 //	lblDate = new JLabel("<html>"+fromDate + "&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;" + toDate+"</html>");
-	lblGoComeDate = new JLabel(GoDay + "~" + ComeDay);
+	
+//	lblGoComeDate = new JLabel(GoDay + "~" + ComeDay);
+	lblGoComeDate = new JLabel(goDay.substring(0, 4)+"-"+goDay.substring(4, 6)+"-"+goDay.substring(6, 8) + "~" 
++ comeDay.substring(0, 4)+"-"+comeDay.substring(4, 6)+"-"+comeDay.substring(6, 8));
 	lblGoComeDate.setFont(fontNanumGothic18Plain);
 	lblGoComeDate.setBounds(300, -20, 400, 100);
 
@@ -425,19 +507,19 @@ public void roundtrip() {
 	
 	lblDate = new JLabel(fromDate);
 	lblDate.setFont(fontNanumGothic18Plain);
-	lblDate.setBounds(195, 0, 300, 100);
+	lblDate.setBounds(190, 0, 300, 100);
 	
 	lblTime = new JLabel("출발 "+ fromTime.substring(0, 5)+"   -  "+" 도착 "+toTime.substring(0, 5));
 	lblTime.setFont(fontNanumGothic18Plain);
 	lblTime.setBounds(535, 0, 300, 100);
 	
 	lblAirportD = new JLabel(airportD);
-	lblAirportD.setFont(fontNanumGothic30);
+	lblAirportD.setFont(fontNanumGothic20);
 	lblAirportD.setBounds(320, 0, 200, 100);
 	
 	lblAirportA = new JLabel(airportA);
-	lblAirportA.setFont(fontNanumGothic30);
-	lblAirportA.setBounds(770, 0, 200, 100);
+	lblAirportA.setFont(fontNanumGothic20);
+	lblAirportA.setBounds(780, 0, 200, 100);
 	
 	
 	jpSelectedInfo.add(lblDepP);
@@ -451,110 +533,135 @@ public void roundtrip() {
 	jpFlightTOP.add(lblAirportA);
 	
 	setVisible(true);
-}
-		
-	public TicketingRoundTripGoingForm() {
-//		System.out.println(" ");
-	}
 
+		
+	}
 	private void Insert() {
 		
-	}
-	
-	private void Find() {
-		String driver = "com.mysql.cj.jdbc.Driver"; //드라이버
-		String dbURL = "jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
-		String dbID = "inhaair"; //DB에 접속할 사용자 이름을 상수로 정의
-		String dbPassword = "1234"; //사용자의 비밀번호를 상수로 정의
-			
-		    Connection conn = null; 
-			Statement state = null; 
+		System.out.println("버튼");
+		
+		try{
+			Class.forName(driver);
+		}catch (ClassNotFoundException e) {
+		}
+		try {
+			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+		}
+		catch(SQLException e ) {
+			e.printStackTrace();
+		}
+		java.sql.PreparedStatement ps = null;
+		try {
+		String sql = "INSERT INTO reservation(reserveNum, GOscheduleNo, COMscheduleNo, ID, adult, child, infant, pay, GOclass, COMclass) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		ps = conn.prepareStatement(sql);
+		ps.setString(1,reserveNum);
+		ps.setString(2,GOscheduleNo);
+		ps.setString(3,null);
+		ps.setString(4,ID);
+		ps.setInt(5, numAdult);
+		ps.setInt(6,numInfant);
+		ps.setInt(7,numChild);
+		ps.setInt(8,0);
+		ps.setString(9,selectedSeatGo);
+		ps.setString(10,null);
+		 int res = ps.executeUpdate();
+		 if(res>0) {
+			 System.out.println(sql);
+		}else {
+			 System.out.println("XXX");
+		 }
+		}catch (SQLException e) {
+			System.out.println("error");
+			e.printStackTrace();
+		}
+    }
+
+	private void Find() {	
 			try{
 				Class.forName(driver);
 				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 				state = conn.createStatement();
+//				System.out.println("oo");
 				
-				String DepP = "CJU";
+//				String DepP = "CJU";
+//				String ArrP = "GMP";
 				
 				String sql;
-				sql = "SELECT * FROM airport WHERE `code` = '"+ DepP +"' ";
+				sql = "SELECT * FROM airport WHERE `code` = '"+ SelectDepCode +"' ";
 				
 				ResultSet rs = state.executeQuery(sql);
 				while (rs.next()) {
 					airportD = rs.getString("airport");
+						
+//					System.out.println(airportD);
+					
+//					DepAP = airportD;
 				}
 				rs.close();
 				state.close();
 				conn.close();
+				
 	    }
-			catch (Exception e) {
-			}finally {try {if(state!=null)state.close();}
-			catch (SQLException ex1) {}
-			try {if(conn!=null)conn.close();}
-			catch (SQLException ex2) {}
+	    catch (Exception e) {
+		}finally {
+			try {
+				if(state!=null) 
+					state.close();
+			}catch (SQLException ex1) {
 			}
+			try {
+				if(conn!=null)
+					conn.close();
+			} catch (SQLException ex2) {
+			}
+		}
 		
 			try{
 				Class.forName(driver);
 				conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 				state = conn.createStatement();
+//				System.out.println("oo");
 				
-				String ArrP = "GMP";
+//				String ArrP = "GMP";
 				
 				String sql;
-				sql = "SELECT * FROM airport WHERE `code` = '"+ ArrP +"' ";
+				sql = "SELECT * FROM airport WHERE `code` = '"+ SelectArrCode +"' ";
 				
 				ResultSet rs = state.executeQuery(sql);
 				while (rs.next()) {
 					airportA = rs.getString("airport");
 						
+//					System.out.println(airportA);
+					
+					
+//					ArrAP = airportA;
 				}
 				rs.close();
 				state.close();
 				conn.close();
 				
 	    }
-			catch (Exception e) {
-			}finally {try {if(state!=null)state.close();}
-			catch (SQLException ex1) {}
-			try {if(conn!=null)conn.close();}
-			catch (SQLException ex2) {}
-			}
-		
-			 try{
-					Class.forName(driver);
-					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-					state = conn.createStatement();
-					
-					String SelectedFliCo = "IH8985";
-					
-					String sql;
-					sql = "SELECT * FROM airPrice WHERE `flightCode` = '"+ SelectedFliCo +"' ";
-					
-					ResultSet rs = state.executeQuery(sql);
-					while (rs.next()) {
-						economyClass = rs.getString("economyClass");
-						prestigeClass = rs.getString("prestigeClass");
-						firstClass = rs.getString("firstClass");
-					}
-					rs.close();
+	    catch (Exception e) {
+		}finally {
+			try {
+				if(state!=null) 
 					state.close();
+			}catch (SQLException ex1) {
+			}
+			try {
+				if(conn!=null)
 					conn.close();
-					
-		    }
-			 catch (Exception e) {
-				}finally {try {if(state!=null)state.close();}
-				catch (SQLException ex1) {}
-				try {if(conn!=null)conn.close();}
-				catch (SQLException ex2) {}
-				}
-		    try{
+			} catch (SQLException ex2) {
+			}
+		}
+			try{
 			Class.forName(driver);
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 			state = conn.createStatement();	
 				
 					String sql;
-					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'and toDate = " + ComeDay +"";
+					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ SelectDepCode +"' and fromDate = " + goDay +" and `to` = '" + SelectArrCode +"'";
+//					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ DepP +"' and fromDate = " + GoDay +" and `to` = '" + ArrP +"'and toDate = " + ComeDay +"";
 					
 					ResultSet rs = state.executeQuery(sql);
 					while (rs.next()) {
@@ -566,26 +673,114 @@ public void roundtrip() {
 						fromTime = rs.getString("fromTime");
 
 						to = rs.getString("to");
-						toDate = rs.getString("toDate");
+//						toDate = rs.getString("toDate");
 						toTime = rs.getString("toTime");
 						
 						GOscheduleNo = scheduleNo;
+						flightCode = flightCode;
+					}
+						
+					
+//					rs.close();
+//					state.close();
+//					conn.close();
+		    }
+		    catch (Exception e) {
+			}finally {
+				try {
+					if(state!=null) 
+						state.close();
+				}catch (SQLException ex1) {
+				}
+				try {
+					if(conn!=null)
+						conn.close();
+				} catch (SQLException ex2) {
+				} 
+			}
+			
+			 try{
+					Class.forName(driver);
+					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+					state = conn.createStatement();
+					
+//					String SelectedFliCo = "IH8985";
+					
+					String sql;
+					sql = "SELECT * FROM airplane WHERE `flightCode` = '"+ flightCode +"' ";
+					
+					ResultSet rs = state.executeQuery(sql);
+					while (rs.next()) {
+						economyPay = rs.getInt("economyPay");
+						businessPay = rs.getInt("businessPay");
+						firstPay = rs.getInt("firstPay");
+							
 					}
 					rs.close();
 					state.close();
 					conn.close();
+					
 		    }
 		    catch (Exception e) {
-			}finally {try {if(state!=null)state.close();}
-			catch (SQLException ex1) {}
-			try {if(conn!=null)conn.close();}
-			catch (SQLException ex2) {}
+			}finally {
+				try {
+					if(state!=null) 
+						state.close();
+				}catch (SQLException ex1) {
+				}
+				try {
+					if(conn!=null)
+						conn.close();
+				} catch (SQLException ex2) {
+				}
 			}
+			 try{
+					Class.forName(driver);
+					conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+					state = conn.createStatement();
+					System.out.println("oo");
+					
+//					String DepP = "CJU";
+//					String ArrP = "GMP";
+					
+					String sql;
+					sql = "SELECT * FROM seat WHERE `scheduleNo` = '"+ scheduleNo +"' ";
+					
+					ResultSet rs = state.executeQuery(sql);
+					while (rs.next()) {
+						economy = rs.getInt("economy");
+						business = rs.getInt("business");
+						first = rs.getInt("first");
+							
+//						System.out.println(airportD);
+						
+//						DepAP = airportD;
+					}
+					rs.close();
+					state.close();
+					conn.close();
+					
+		    }
+		    catch (Exception e) {
+			}finally {
+				try {
+					if(state!=null) 
+						state.close();
+				}catch (SQLException ex1) {
+				}
+				try {
+					if(conn!=null)
+						conn.close();
+				} catch (SQLException ex2) {
+				}
+			} 
 	}
+	
 	public static void main(String[] args) {
-		new TicketingRoundTripGoingForm();
-		a = new TicketingRoundTripGoingForm();
-		a.roundtrip();
+//		new TicketingRoundTripGoingForm();
+//		a = new TicketingRoundTripGoingForm();
+//		a.roundtrip();
+		
 		
 	}
 	@Override
@@ -598,30 +793,49 @@ public void roundtrip() {
 			
 		} else if(obj == btnNext)
 		{
-			tkRTComForm= new TicketingRoundTripComingForm();
+			tkRTComForm= new customer.book.ticketing.TicketingRoundTripComingForm(this);
 			this.setVisible(false);
+			
+			Insert();
 		}
 		else if(obj == btnEcon)
 		{
-			totalPay = economyClass;
+			totalPay = economyPay;
 			lblTotalPayGoing.setText(totalPay + "원");
 			
 			selectedSeatGo = "economy";
+			setTotalPay(totalPay);
+			
+//			GoPay = totalPay;
+			
+//			btnEcon.setBackground(crNext);
+			
+			jpFlight1.setBackground(crChange);
 		}
-		else if(obj == btnPres)
+		else if(obj == btnBus)
 		{
-			totalPay = prestigeClass;
+			totalPay = businessPay;
 			lblTotalPayGoing.setText(totalPay + "원");	
-			selectedSeatGo = "prestige";
+			selectedSeatGo = "business";
+			jpFlight2.setBackground(crChange);
+//			GoPay = totalPay;
+			
+//			btnBus.setBackground(crNext);
+
 			}
 		else if(obj == btnFirs)
 		{
-			totalPay = firstClass;
+			totalPay = firstPay;
 			lblTotalPayGoing.setText(totalPay + "원");	
+			
 			selectedSeatGo = "first";
+			jpFlight3.setBackground(crChange);
+//			GoPay = totalPay;
+			
+//			btnFirs.setBackground(crNext);
+
 			}
+		
 	}
-
-
 	
 }

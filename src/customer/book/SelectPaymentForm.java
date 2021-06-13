@@ -64,6 +64,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	private JButton btnCancle, btnOK;	// 취소, 결제 버튼
 	
 	// 데이터 정보
+	private String id;
 	private String reserveNum = "test001010";			// 예매 번호(테스트값)
 	private String GOscheduleNo = "";
 	private String COMscheduleNo = "";
@@ -75,15 +76,16 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	private int pay = 0;	// 금액
 	
 
-	public SelectPaymentForm(String reserveNum) {
+	public SelectPaymentForm(String reserveNum, String id) {
 		this.reserveNum = reserveNum;
+		this.id = id;
 		
-//		// DB 정보 - 테스트 소스
-//		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
-//		String dbID="inhaair";
-//		String dbPassword="1234";
-//		// 데이터베이스 연결 - 테스트 소스
-//		databaseClass.connect(dbURL, dbID, dbPassword);
+		// DB 정보 - 테스트 소스
+		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbID="inhaair";
+		String dbPassword="1234";
+		// 데이터베이스 연결 - 테스트 소스
+		databaseClass.connect(dbURL, dbID, dbPassword);
 		
 		setTitle(title);
 		setSize(width, height);
@@ -142,7 +144,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 				pay = Integer.parseInt(rs1.getString("pay"));
 			}
 		} catch (NumberFormatException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -167,7 +168,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 				toDate = rs2.getString("toDate");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -195,7 +195,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 				toDate = rs3.getString("toDate");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -260,8 +259,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		lblTitle.setHorizontalAlignment(JLabel.LEFT);
 		lblTitle.setSize(900, 50);
 		lblTitle.setLocation(50, 20);
-//		lblTitle.setOpaque(true);
-//		lblTitle.setBackground(new Color(230,240,250));
 		
 		// 예매 내역 표시 패널
 		JPanel jpCheck = new JPanel(new GridLayout(7, 1, 10, 10));
@@ -336,7 +333,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 
 
 	public static void main(String[] args) {
-		new SelectPaymentForm("test001010");
+		new SelectPaymentForm("test001010", "test1");
 	}
 
 
@@ -369,13 +366,88 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		int rs = databaseClass.insert(sql);
 		
 		if(rs == 1) {
-			paymentForm = new PaymentForm();
-			this.setVisible(false);
+			
+			// 잔여좌석 수 변경
+			updateSeat();
+			
 		} else {
 			JOptionPane.showMessageDialog(null, "결제 실패했습니다.", "결제 실패", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
+	// 잔여좌석 수 변경
+	private void updateSeat() {
+		
+		// 스케쥴번호, 좌석 클래스 정보 select
+		String sql = "SELECT GOscheduleNo, COMscheduleNo, GOclass, COMclass FROM reservation WHERE reserveNum = '" + reserveNum + "'";
+		
+		String GOscheduleNo = "";
+		String COMscheduleNo = "";
+		String GOclass = "";
+		String COMclass = "";
+		
+		ResultSet rs1 = databaseClass.select(sql);
+		try {
+			while(rs1.next()) {
+				GOscheduleNo = rs1.getString("GOscheduleNo");
+				COMscheduleNo = rs1.getString("COMscheduleNo");
+				GOclass = rs1.getString("GOclass");
+				COMclass = rs1.getString("COMclass");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		// 잔여 좌석 수 select
+		int goSeat = 0;
+		int comSeat = 0;
+		
+		String sql2 = "SELECT " + GOclass + " FROM seat WHERE scheduleNo='" + GOscheduleNo + "'";
+		String sql3 = "SELECT " + COMclass + " FROM seat WHERE scheduleNo='" + COMscheduleNo + "'";
+		
+		ResultSet rs2 = databaseClass.select(sql2);
+		try {
+			while(rs2.next()) {
+				goSeat = Integer.parseInt(rs2.getString(1));
+			}
+		} catch (NumberFormatException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		ResultSet rs3 = databaseClass.select(sql3);
+		try {
+			while(rs3.next()) {
+				comSeat = Integer.parseInt(rs3.getString(1));
+			}
+		} catch (NumberFormatException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		// 잔여 좌석수 변경
+		int people = adult + child;
+		
+		goSeat = goSeat - people;
+		comSeat = comSeat - people;
+		
+		String sqlUpdate = "UPDATE seat SET " + GOclass + "=" + goSeat + " WHERE scheduleNo='" + GOscheduleNo + "'";
+		
+		int resultGo = databaseClass.update(sqlUpdate);
+		
+		if(resultGo == 1) {
+			sqlUpdate = "UPDATE seat SET " + COMclass + "=" + comSeat + " WHERE scheduleNo='" + COMscheduleNo + "'";
+			
+			int resultCom = databaseClass.update(sqlUpdate);
+			
+			if(resultCom == 1) {
+				// 성공시 결제완료 창으로 이동
+				paymentForm = new PaymentForm(id);
+				this.setVisible(false);
+			}
+		} 
+	}
+
+
 	private void clickMain() {
 		// 정보 입력된 승객이 있는지 확인
 		String sql = "SELECT COUNT(*) FROM reservationDetail WHERE reserveNum = '" + reserveNum + "'";
@@ -387,7 +459,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 			rouCount = rs.getInt(1);
 			}
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 					

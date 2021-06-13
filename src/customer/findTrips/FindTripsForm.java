@@ -30,6 +30,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	
 	// 예원 - 컴포넌트
 		private JButton btnMainMenu;
+		private String id;
 		// 예원 - Forms
 		private MainMenuForm mainMenuForm;
 		private MemberInquiryDetailForm2 detailForm;
@@ -49,23 +50,32 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	
 	//---------------------가상의 고객이 선택한 정보
 	//-------------------------------------
-		String reserveNum = "21061200aa";
-		String scheduleNo = "AAAA-12";
-		String nameKOR = "민보현";
-		String from = "CJU";
-		String fromDate ="20210521";
-		String to = "GMP";
-		String ID;
+//		String reserveNum = "test001010";
+//		String scheduleNo = "AAAA-12";
+//		String nameKOR = "민보현";
+//		String from = "CJU";
+//		String fromDate ="20210521";
+//		String to = "GMP";
+//		String ID = "test1";
 	//-------------------------------------
-//		String reserveNum;
-//		String nameKOR;		
-//		String secheduleNo;		
-//		String from;		
-//		String to;		
-//		String fromDate;	
+		private String reserveNum;
+		private String nameKOR;		
+		private String scheduleNo;		
+		private String from;		
+		private String to;		
+		private String fromDate;	
 //		String ID;
 	//-------------------------------------	
 	//-------------------------------------	
+//		String reserveNum;
+//		String nameKOR;		
+		String secheduleNo;		
+//		String from;		
+//		String to;		
+//		String fromDate =;	
+//		String ID = getID();
+//-------------------------------------	
+//-------------------------------------	
 		
 		private JPanel jpInquiry1; // 시간 선택시 비행기1
 		private JPanel jpInquiry2; // 비행기 2
@@ -86,6 +96,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
 		Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 30
+		
 		private JPanel jpInquiryTop;
 		private JPanel jpInquiry4;
 		private JLabel lblRNum;
@@ -104,7 +115,27 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		private JLabel lblDepP;
 		private Component lblArrP;
 
-	public FindTripsForm() {
+	public FindTripsForm(MainMenuForm mainMenuForm) {
+		this.mainMenuForm=mainMenuForm;
+		
+		this.id = mainMenuForm.getId();
+		
+//		this.id ="test2";
+//		
+//		this.nameKOR = nameKOR;		
+//		this.scheduleNo = scheduleNo;		
+//		this.from = from;		
+//		this.to = to;		
+//		this.fromDate = fromDate;	
+//		this.reserveNum = reserveNum;	
+//		
+//		this.nameKOR = " ";		
+//		this.scheduleNo =" ";		
+//		this.from =" ";		
+//		this.to = " ";			
+//		this.fromDate = " ";	
+//		this.reserveNum = " ";		
+		
 		setTitle(title);
 		setSize(width, height);
 		setResizable(false);
@@ -231,14 +262,15 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		//------------------------------------------
 		//------------------------------------------
 		lblReserveNum = new JLabel(reserveNum);
-		lblReserveNum.setBounds(65, 40, 150, 20);
+		lblReserveNum.setBounds(55, 40, 150, 20);
 		lblReserveNum.setFont(fontNanumGothic15Plain);
 		
 		lblName = new JLabel(nameKOR);
 		lblName.setBounds(245, 40, 80, 20);
 		lblName.setFont(fontNanumGothic15Plain);
 		
-		lblDate = new JLabel(fromDate.substring(0,4)+"년 " + fromDate.substring(4,6) + "월 " + fromDate.substring(6,8) + "일");
+//		lblDate = new JLabel(fromDate.substring(0,4)+"년 " + fromDate.substring(4,6) + "월 " + fromDate.substring(6,8) + "일");
+		lblDate = new JLabel(fromDate);
 		lblDate.setBounds(370, 40, 200, 20);
 		lblDate.setFont(fontNanumGothic15Plain);
 		
@@ -258,23 +290,34 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		jpInquiry1.add(lblDepP);
 		jpInquiry1.add(lblArrP);
 		
+		System.out.println(id);
 		
 		setVisible(true);
 	}
 	private void Data() {
+		
+		
+		//-------------------------------------------
+		//-------------------------------------------
 		try{
 			Class.forName(driver);
+			
 			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+			state = conn.createStatement();	
+
 			String sql;
-			sql = "SELECT * FROM reservation WHERE `ID` = '"+ ID +"' ";
+			sql = "SELECT * FROM reservation WHERE `ID` = '"+ id +"' ";
 			
 			ResultSet rs = state.executeQuery(sql);
 			while (rs.next()) {
 				reserveNum = rs.getString("reserveNum");
+				
+				this.reserveNum = reserveNum;
+				System.out.println(reserveNum);
 			}
-			rs.close();
-			state.close();
-			conn.close();
+//			rs.close();
+//			state.close();
+//			conn.close();
 		}
 		catch (Exception e) {
 		}finally {try {if(state!=null)state.close();}
@@ -288,18 +331,24 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	try{
 		Class.forName(driver);
 		conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+		state = conn.createStatement();	
+
 		String sql;
 		sql = "SELECT * FROM reservationDetail WHERE `reserveNum` = '"+ reserveNum +"' ";
 		
 		ResultSet rs = state.executeQuery(sql);
 		while (rs.next()) {
+			
 			scheduleNo = rs.getString("scheduleNo");
 			nameKOR = rs.getString("nameKOR");
 			
+			scheduleNo = scheduleNo;
+			System.out.println(nameKOR);
+			
 		}
-		rs.close();
-		state.close();
-		conn.close();
+//		rs.close();
+//		state.close();
+//		conn.close();
 	}
 	catch (Exception e) {
 	}finally {try {if(state!=null)state.close();}
@@ -313,6 +362,8 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	try{
 		Class.forName(driver);
 		conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+		state = conn.createStatement();	
+
 		String sql;
 		sql = "SELECT * FROM airSchedule WHERE `scheduleNo` = '"+ scheduleNo +"' ";
 		
@@ -321,6 +372,10 @@ public class FindTripsForm extends JFrame implements ActionListener {
 			from = rs.getString("from");
 			fromDate = rs.getString("fromDate");
 			to = rs.getString("to");
+			
+			System.out.println(from);
+
+			
 		}
 		rs.close();
 		state.close();
@@ -336,7 +391,8 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	
 	// 상단 
 	public static void main(String[] args) {
-		new FindTripsForm();
+//		new FindTripsForm(this);
+		
 	}
 
 	@Override
@@ -345,6 +401,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		
 		if(obj == btnMainMenu) {
 			mainMenuForm = new MainMenuForm();
+			mainMenuForm.setId(id);
 			this.setVisible(false);
 			
 		} else if(obj == btnDetail1) {
