@@ -26,6 +26,7 @@ import be.menu.MenuBar;
 import customer.book.BookForm;
 import customer.findTrips.FindTripsForm;
 import customer.flightSchedule.FlightStatusForm;
+import customer.login.LoginForm;
 
 public class MainMenuForm extends JFrame implements ActionListener {
 	// Title 및 사이즈 설정
@@ -57,10 +58,13 @@ public class MainMenuForm extends JFrame implements ActionListener {
 	private JPanel jpMenu;
 	private JButton btnBook, btnFindTrips, btnFilghtStatus;
 	
+	private LoginForm loginF;
+	
 	// Forms
 	private BookForm bookForm;
 	private FlightStatusForm flightStatusForm;
 	private FindTripsForm findTripsForm;
+	private JButton btnSignOut;
 	
 	public MainMenuForm() {
 		setTitle(title);
@@ -124,15 +128,24 @@ public class MainMenuForm extends JFrame implements ActionListener {
 		btnFilghtStatus.setForeground(Color.WHITE);
 		btnFilghtStatus.setHorizontalTextPosition(SwingConstants.CENTER);
 		
+		//연우 - 로그아웃 버튼 추가
+		btnSignOut = new JButton("로그아웃");
+		btnSignOut.setFont(fontNanumGothic20);
+		btnSignOut.setBackground(colorBtn);
+		btnSignOut.setForeground(Color.WHITE);
+		btnSignOut.setHorizontalTextPosition(SwingConstants.CENTER);
+		
 		// 리스너
 		btnBook.addActionListener(this);
 		btnFindTrips.addActionListener(this);
 		btnFilghtStatus.addActionListener(this);
+		btnSignOut.addActionListener(this);
 		
 		// 컴포넌트 붙이기
 		jpMenu.add(btnBook);
 		jpMenu.add(btnFindTrips);
 		jpMenu.add(btnFilghtStatus);
+		jpMenu.add(btnSignOut);
 		
 		
 	}
@@ -158,6 +171,10 @@ public class MainMenuForm extends JFrame implements ActionListener {
 			flightStatusForm = new FlightStatusForm(id);
 			this.setVisible(false);
 			
+		} else if (obj == btnSignOut) {
+			id = "";
+			loginF = new LoginForm();
+			this.setVisible(false);
 		}
 	}
 }
