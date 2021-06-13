@@ -64,6 +64,7 @@ public class SelectDep extends JFrame implements ActionListener {
 //	private Vector<String> lstCountryCity = new Vector<String>();
 	private String SelectDep = "";
 	private String SelectDepCode = "";
+	private String terminal = "";
 //	private String SelectContinet;
 //	private String SelectCountry;
 //	private String SelectCity;
@@ -151,7 +152,7 @@ public class SelectDep extends JFrame implements ActionListener {
 		
 		String[][] rows;
 		
-		String sql = "SELECT continent, country, city, code FROM airport ORDER BY terminal, continent, country";
+		String sql = "SELECT continent, country, city, code, terminal FROM airport ORDER BY terminal, continent, country";
 		ResultSet rs = databaseClass.select(sql);
 		
 		try {
@@ -227,6 +228,13 @@ public class SelectDep extends JFrame implements ActionListener {
 			
 			SelectDep = String.valueOf(jtCountryList.getValueAt(row, 2));
 			SelectDepCode = String.valueOf(jtCountryList.getValueAt(row, 3));
+			
+			
+			//terminal = String.valueOf(jtCountryList.getValueAt(row, 4));
+			
+			
+			System.out.println(terminal);
+			
 			
 			int result = JOptionPane.showConfirmDialog(null, "출발지 " + SelectDep + "으로 선택되었습니다.", "출발지 선택", JOptionPane.YES_NO_OPTION);
 			if(result == JOptionPane.YES_OPTION) {

@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+
+//연우 - 아이디찾기
 public class FindIdForm extends JFrame implements ActionListener {
 	
 	private String title = "아이디 찾기";
@@ -39,8 +41,7 @@ public class FindIdForm extends JFrame implements ActionListener {
 		c.setBackground(Color.white);
 		setLayout(null);
 //		this.setUndecorated(true); //타이틀바 없애기 
-		//setFont(fontNanumGothic);
-		
+
 		setFindPw();
 		
 		setVisible(true);

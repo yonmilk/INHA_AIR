@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import DataBase.databaseClass;
 import customer.start.MainMenuForm;
 
+//연우 - 아이디 비밀번호 찾기
 public class FindIdPwForm extends JFrame implements ActionListener {
 
 	//데이터베이스 관련

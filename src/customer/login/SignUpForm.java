@@ -1,7 +1,5 @@
 package customer.login;
 
-
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -28,6 +26,8 @@ import javax.swing.SwingUtilities;
 
 import DataBase.databaseClass;
 
+
+//연우 - 회원가입
 public class SignUpForm extends JFrame implements ActionListener{
 
 	
@@ -417,10 +417,8 @@ public class SignUpForm extends JFrame implements ActionListener{
 					setVisible(false);
 				} catch (Exception e2) {
 					e2.printStackTrace();
-					JOptionPane.showMessageDialog(null, "회원가입 실패했습니다. 정보를 다시 확인해주세요.", "회원가입완료", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "회원가입 실패했습니다. 정보를 다시 확인해주세요.", "회원가입오류", JOptionPane.ERROR_MESSAGE);
 				}
-				
-				
 			}
 		}
 		

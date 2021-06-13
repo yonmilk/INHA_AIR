@@ -1,4 +1,4 @@
-package customer.book;
+package test;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -28,6 +28,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.text.NumberFormatter;
+
+import customer.book.BookForm;
 
 //연우 - 승객선택
 public class SelectPassenger extends JFrame implements ActionListener, KeyListener{
@@ -393,12 +395,46 @@ public class SelectPassenger extends JFrame implements ActionListener, KeyListen
 				
 				int age = goDayYear - birthYear;
 				
-//				System.out.println(birthYear);
-//				System.out.println(goDayYear);
-//				System.out.println(age);
-			
+				System.out.println(birthYear);
+				System.out.println(goDayYear);
+				System.out.println(age);
+				
+//				LocalDate birthCompare = parsedBirthDate.plusYears(age);	
+//				int compareval = birthCompare.compareTo(parsedgoDay);
+//				System.out.println(compareval);
+//				if (compareval >= 0 ) {
+//					System.out.println("성인");
+//				} else if (compareval < 0) {
+//					System.out.println("미성년");
+//				}
+				
+//				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+//				try {
+//					dtGoday = dateFormat.parse(goDay);
+//					dtBirthday = dateFormat.parse(birthday);
+//				} catch (ParseException e1) {
+//					e1.printStackTrace();
+//				}
+				
+//				compare = birthday.compareTo(goDay);
+//				System.out.println(compare);
+//				if (compare > 0) {
+//					System.out.println("birthday가 더 크다");
+//				} else if (compare < 0) {
+//					System.out.println("goday가 더 크다");
+//				} else {
+//					System.out.println("둘이 같다 !");
+//				}
+				
+				
+				
+				
 				JOptionPane.showMessageDialog(null, "가는 날(" + goDay + ") 기준 만" + age + "세 입니다.", "나이계산", JOptionPane.OK_CANCEL_OPTION);
 			}
+			
+			
+			
+			
 			
 			
 		}
