@@ -76,7 +76,6 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	private int adult = 0;	// 성인 인원
 	private int child = 0;	// 소아 인원
 	private int infant = 0;	// 유아 인원
-//	private String seatType = "";	// 좌석 클래스
 	private int pay = 0;	// 금액
 	
 	// 입력된 승객 수 카운트
@@ -84,34 +83,19 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 	
 	// 데이터 저장용
 	private String id;
-	private String nameKOR;// = "";			// 한글이름
-	private String nameENG;// = "";			// 영문이름
-	private String sex;// = "";				// 성별(남 또는 여)
-	private String passport;// = "";			// 여권번호
-	private String birth;// = "";				// 생년월일
-	private String tel;// = "";				// 연락처
-	private String email;// = "";				// 이메일
+	private String nameKOR;		// 한글이름
+	private String nameENG;		// 영문이름
+	private String sex;				// 성별(남 또는 여)
+	private String passport;			// 여권번호
+	private String birth;				// 생년월일
+	private String tel;			// 연락처
+	private String email;				// 이메일
 	private int agree = 0;			// 수신동의
 	private String baggage = "0";			// 추과수하물 (기본값: 0)
-//	private String baggageCOM = "0";			// 추과수하물 (기본값: 0)
-//	public void setAddHydrate(String baggageA, String baggageB ) {
-//		this.baggageGo = baggageA;
-//		this.baggageCOM = baggageB;
-//	}
+
 	public void setAddHydrate(String baggage) {
 		this.baggage = baggage;
 	}
-//	private String GOseatNum = "3";			// 가는날 좌석번호 (기본값: 0)
-//	public void setGOSeatNum(String seatNum) {
-//		this.GOseatNum = seatNum;
-//	}
-//	
-//	private String COMseatNum = "5";			// 오는날 좌석번호 (기본값: 0)
-//	public void setCOMSeatNum(String seatNum) {
-//		this.COMseatNum = seatNum;
-//	}
-	
-	
 
 	// 예원 - 시작 화면
 	public ReservationDetailForm(String reserveNum, String id) {
@@ -187,16 +171,11 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 				adult = Integer.parseInt(rs.getString("adult"));
 				child = Integer.parseInt(rs.getString("child"));
 				infant = Integer.parseInt(rs.getString("infant"));
-//				seatType = rs.getString("class");
 				pay = Integer.parseInt(rs.getString("pay"));
 			}
 			
-//			people = adult + child + infant;
 			people = adult + child;
-//			System.out.println(people);
-//			System.out.println(GOscheduleNo + ", " + COMscheduleNo + ", " + pay);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -221,10 +200,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		btnBaggage.setFont(fontNanumGothic20);
 		btnBaggage.setBackground(colorBtn);
 		btnBaggage.setForeground(Color.WHITE);
-//		btnSeat = new JButton("좌석배정");
-//		btnSeat.setFont(fontNanumGothic20);
-//		btnSeat.setBackground(colorBtn);
-//		btnSeat.setForeground(Color.WHITE);
+
 		btnOK = new JButton(str);
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setBackground(colorBtn);
@@ -232,12 +208,10 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		
 		// 리스너
 		btnBaggage.addActionListener(this);
-//		btnSeat.addActionListener(this);
 		btnOK.addActionListener(this);
 		
 		// 컴포넌트 붙이기
 		jpBtns.add(btnBaggage);
-//		jpBtns.add(btnSeat);
 		jpBtns.add(btnOK);
 		
 		jpSet.add(jpBtns, BorderLayout.SOUTH);
@@ -275,10 +249,8 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		jpTfNameKor.setBackground(Color.WHITE);
 		tfFamilyNameKor = new JTextField(20);
 		tfFamilyNameKor.setFont(fontNanumGothicP15);
-//		tfFamilyNameKor.setText("예: 이");
 		tfNameKor = new JTextField(20);
 		tfNameKor.setFont(fontNanumGothicP15);
-//		tfNameKor.setText("예: 은선");
 		jpTfNameKor.add(tfFamilyNameKor);
 		jpTfNameKor.add(tfNameKor);
 		
@@ -297,10 +269,8 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		jpTfNameEng.setBackground(Color.WHITE);
 		tfFamilyNameEng = new JTextField(20);
 		tfFamilyNameEng.setFont(fontNanumGothicP15);
-//		tfFamilyNameEng.setText("예: LEE");
 		tfNameEng = new JTextField(20);
 		tfNameEng.setFont(fontNanumGothicP15);
-//		tfNameEng.setText("예: EUNSEON");
 		jpTfNameEng.add(tfFamilyNameEng);
 		jpTfNameEng.add(tfNameEng);
 		
@@ -338,10 +308,8 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		jpTfPss.setBackground(Color.WHITE);
 		tfPassport = new JTextField(20);
 		tfPassport.setFont(fontNanumGothicP15);
-//		tfPassport.setText("예: M46910832");
 		tfBirth = new JTextField(20);
 		tfBirth.setFont(fontNanumGothicP15);
-//		tfBirth.setText("예: 20010414");
 		jpTfPss.add(tfPassport);
 		jpTfPss.add(tfBirth);
 		
@@ -360,10 +328,8 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		jptfTel.setBackground(Color.WHITE);
 		tfTel = new JTextField(20);
 		tfTel.setFont(fontNanumGothicP15);
-//		tfTel.setText("예: 01092032769");
 		tfEmail = new JTextField(20);
 		tfEmail.setFont(fontNanumGothicP15);
-//		tfEmail.setText("예: oow214@gmail.com");
 		jptfTel.add(tfTel);
 		jptfTel.add(tfEmail);
 		
@@ -429,7 +395,6 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 			rouCount = rs.getInt(1);
 			}
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 					
@@ -477,26 +442,14 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 			// 편도인지 왕복인지 확인
 			if(COMscheduleNo == "") {
 				// 편도일 경우
-//				if(GOseatNum != "0") {
-//					// 동의 하고 좌석도 선택한 경우 정보 insert
-					// 편도 또는 가느날 정보 insert
 					insertInformationData(GOscheduleNo, 0);
 
-//				} else {
-//					JOptionPane.showMessageDialog(null, "좌석 배정을 해주십시오.", "좌석배정 안내", JOptionPane.INFORMATION_MESSAGE);
-//				}
 			} else {
 				// 왕복일 경우
-//				if(GOseatNum != "0" && COMseatNum != "0") {
-//					// 동의 하고 좌석도 선택한 경우 정보 insert
+					// 동의 하고 좌석도 선택한 경우 정보 insert
 					// 가는날 정보 insert
 					insertInformationData(GOscheduleNo, 1);
-//					
-//				} else {
-//					JOptionPane.showMessageDialog(null, "좌석 배정을 해주십시오.", "좌석배정 안내", JOptionPane.INFORMATION_MESSAGE);
-//				}
 			}
-			
 
 		} else {
 			JOptionPane.showMessageDialog(null, "이메일과 SMS 수신 동의해주십시오.", "동의 안내", JOptionPane.INFORMATION_MESSAGE);
@@ -598,31 +551,6 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "다시 시도해주세요.", "오류 안내", JOptionPane.WARNING_MESSAGE);
 		}
 		
-//		if(count == people) {
-//			// insert 성공 시 결제로 넘어감
-//			
-//			// 추가수하물 만큼 가격 추가하기
-//			int rs = upPay();
-//			
-//			if(rs == 1) {
-//				paymentForm = new SelectPaymentForm(reserveNum);
-//				this.setVisible(false);
-//			}
-//			else {
-//				JOptionPane.showMessageDialog(null, "다시 시도해주세요.", "오류 안내", JOptionPane.WARNING_MESSAGE);
-//			}
-//			
-//		} else {
-//			// 라벨 변경
-//			lblInformation.setText("승객" + (count+1) + " 정보 입력");
-//			
-//			// 입력된 값 다 지우기
-//			tfReset();
-//			
-//			if((count+1) == people) {
-//				btnOK.setText("결제 하기");
-//			}
-//		}
 	}
 
 
@@ -665,9 +593,6 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		email = "";
 		agree = 0;
 		baggage = "0";
-//		baggageCOM = "0";
-//		GOseatNum = "0";
-//		COMseatNum = "0";
 		
 		// textField 초기화
 		tfFamilyNameKor.setText("");

@@ -144,7 +144,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 				pay = Integer.parseInt(rs1.getString("pay"));
 			}
 		} catch (NumberFormatException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -169,7 +168,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 				toDate = rs2.getString("toDate");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -197,7 +195,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 				toDate = rs3.getString("toDate");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -262,8 +259,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		lblTitle.setHorizontalAlignment(JLabel.LEFT);
 		lblTitle.setSize(900, 50);
 		lblTitle.setLocation(50, 20);
-//		lblTitle.setOpaque(true);
-//		lblTitle.setBackground(new Color(230,240,250));
 		
 		// 예매 내역 표시 패널
 		JPanel jpCheck = new JPanel(new GridLayout(7, 1, 10, 10));
@@ -375,8 +370,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 			// 잔여좌석 수 변경
 			updateSeat();
 			
-//			paymentForm = new PaymentForm(id);
-//			this.setVisible(false);
 		} else {
 			JOptionPane.showMessageDialog(null, "결제 실패했습니다.", "결제 실패", JOptionPane.WARNING_MESSAGE);
 		}
@@ -402,9 +395,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 				COMclass = rs1.getString("COMclass");
 			}
 			
-//			System.out.println(GOscheduleNo + ", " + COMscheduleNo);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -421,7 +412,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 				goSeat = Integer.parseInt(rs2.getString(1));
 			}
 		} catch (NumberFormatException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -431,11 +421,8 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 				comSeat = Integer.parseInt(rs3.getString(1));
 			}
 		} catch (NumberFormatException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-//		System.out.println("Seat " + goSeat + ", " + comSeat);
 		
 		// 잔여 좌석수 변경
 		int people = adult + child;
@@ -449,8 +436,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		
 		if(resultGo == 1) {
 			sqlUpdate = "UPDATE seat SET " + COMclass + "=" + comSeat + " WHERE scheduleNo='" + COMscheduleNo + "'";
-			
-//			System.out.println(sqlUpdate);
 			
 			int resultCom = databaseClass.update(sqlUpdate);
 			
@@ -474,7 +459,6 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 			rouCount = rs.getInt(1);
 			}
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 					

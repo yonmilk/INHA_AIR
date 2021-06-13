@@ -73,7 +73,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	
 	// 테이블
 	private DefaultTableModel model;
-//	private JTable jtSchedule;
 	private CreateTable jtSchedule;
 	private String[][] datas = new String[0][0];
 	private String[] tableTitle = {"편명", "출발일", "출발시간", "도착일", "도착시간"};
@@ -83,12 +82,12 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		this.id = id;
 		
 		
-//		// DB 정보 - 테스트 소스
-//		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
-//		String dbID="inhaair";
-//		String dbPassword="1234";
-//		// 데이터베이스 연결 - 테스트 소스
-//		databaseClass.connect(dbURL, dbID, dbPassword);
+		// DB 정보 - 테스트 소스
+		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbID="inhaair";
+		String dbPassword="1234";
+		// 데이터베이스 연결 - 테스트 소스
+		databaseClass.connect(dbURL, dbID, dbPassword);
 		
 		// 공항 정보 가져오기
 		setCity();
@@ -140,7 +139,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	// 공항 정보 가져오기 - 운행되고 있는 공항만 가져옴
 	private void setCity() {
 		// 국내 공항 먼저
-//		String sql = "SELECT code, city FROM airport WHERE terminal='국내' ORDER BY city";
 		String sql = "SELECT code, country, city FROM airport \r\n"
 				+ "WHERE terminal='국내' AND code IN (SELECT DISTINCT `from` FROM airplane)\r\n"
 				+ "ORDER BY city";
@@ -156,7 +154,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		}
 		
 		// 국내 뒤에 국제 공항 정보 나오도록
-//		String sql2 = "SELECT code, country, city FROM airport WHERE terminal='국제' ORDER BY country";
 		String sql2 = "SELECT code, country, city FROM airport \r\n"
 				+ "WHERE terminal='국제' AND code IN (SELECT DISTINCT `from` FROM airplane)\r\n"
 				+ "ORDER BY country, city";
@@ -184,7 +181,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 				destination.add(rs3.getString("city") + "/" + rs3.getString("code"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -196,9 +192,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		jpSearch.setBorder(new EmptyBorder(30, 40, 30, 120));
 		jpSearch.setSize(1000, 70);
 		jpSearch.setLocation(50, 5);
-//		jpSearch.setBackground(Color.WHITE);
 		jpSearch.setBackground(crGrey);
-//		jpSearch.setBackground(crPaleblue);
 		
 		lblFrom = new JLabel("출발지");
 		lblFrom.setFont(fontNanumGothic20);
@@ -210,7 +204,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		cbFrom.setFont(fontNanumGothic20);
 		cbFrom.setSize(250, 40);
 		cbFrom.setLocation(140, 18);
-//		cbFrom.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		cbFrom.setBackground(Color.WHITE);
 		cbFrom.addActionListener(this);
 		
@@ -231,7 +224,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.addActionListener(this);
 		btnOK.setBackground(colorBtn);
-//		btnOK.setBackground(Color.WHITE);
 		btnOK.setForeground(Color.WHITE);
 		btnOK.setSize(150, 40);
 		btnOK.setLocation(820, 18);
@@ -264,12 +256,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		jtSchedule.setRowHeight(30);
 		jtSchedule.setFillsViewportHeight(true);	// 배경색 변경 위함
 		jtSchedule.setBackground(Color.WHITE);
-//		jtSchedule.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//		jtSchedule.getColumn("편명").setPreferredWidth(155);
-//		jtSchedule.getColumn("출발일").setPreferredWidth(210);
-//		jtSchedule.getColumn("출발시간").setPreferredWidth(210);
-//		jtSchedule.getColumn("도착일").setPreferredWidth(210);
-//		jtSchedule.getColumn("도착시간").setPreferredWidth(210);
 		
 		DefaultTableCellRenderer rowCenter = new DefaultTableCellRenderer();
 		rowCenter.setHorizontalAlignment(JLabel.CENTER);
@@ -279,9 +265,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		jtSchedule.getColumn("도착일").setCellRenderer(rowCenter);
 		jtSchedule.getColumn("도착시간").setCellRenderer(rowCenter);
 		
-//		jtSchedule.setBorder(new EmptyBorder(50, 50, 50, 50));	
-		
-
 		// 헤더 디자인 변경
 		JTableHeader jtHeader = jtSchedule.getTableHeader();
 		jtHeader.setReorderingAllowed(false);	// 컬럼 이동 금지
@@ -290,7 +273,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		jtHeader.setFont(fontNanumGothic18);
 		jtHeader.setForeground(Color.WHITE);
 		jtHeader.setPreferredSize(new Dimension(0, 30));
-		
 		
 		JScrollPane scrollPane = new JScrollPane(jtSchedule);
 		
@@ -316,8 +298,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		} else if(obj == cbFrom) {
 			String selected = cbFrom.getSelectedItem().toString();
 			
-//			String[] strArr = selected.split("/");
-//			String dept = strArr[1];
 			String dept = selected.substring(selected.lastIndexOf("/")+1);
 			
 			// 도착지 콤보박스 설정
@@ -328,8 +308,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 			
 			dept = dept.substring(dept.lastIndexOf("/")+1);
 			desn = desn.substring(desn.lastIndexOf("/")+1);
-			
-//			System.out.println(dept + " ~ " + desn);
 			
 			// 항공편 조회
 			flightStatus(dept, desn);
@@ -342,7 +320,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		String sql = "SELECT code, country, city FROM airport WHERE code IN (SELECT `to` "
 				+ "FROM airplane "
 				+ "WHERE `from`='" + dept + "')";
-//		System.out.println(sql);
 		
 		destination.clear();
 		
@@ -352,12 +329,10 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 				destination.add(rs.getString("city") + "/" + rs.getString("code"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		cbTo.removeAllItems();
-//		cbTo.addItem(destination.toArray(new String[destination.size()]));
 		
 		for(String des : destination) {
 			cbTo.addItem(des);
@@ -390,7 +365,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 				model.addRow(sechdule);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -414,12 +388,8 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 					component.setBackground(Color.WHITE);
 				} else {
 					component.setBackground(crGrey);
-//					component.setBackground(crPaleblue);
 				}
 			} 
-//			else if(isRowSelected(row)) {
-//				System.out.println(jtSchedule.getValueAt(row, column).toString());
-//			}
 
 			return component;
 		}
