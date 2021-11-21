@@ -1,0 +1,128 @@
+데이터베이스 (MySQL)
+CREATE DATABASE `inhaair`
+
+테이블
+
+CREATE TABLE `airport` (
+  `code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '공항 코드',
+  `continent` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '대륙명',
+  `country` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '나라명',
+  `city` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '도시명',
+  `airport` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '공항명',
+  `terminal` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '국내/국제',
+  PRIMARY KEY (`code`),
+  CONSTRAINT `airport_CHECK` CHECK ((`terminal` in (_utf8mb3'국내',_utf8mb3'국제'))),
+  CONSTRAINT `continent_CHECK` CHECK ((`continent` in (_utf8mb4'아시아',_utf8mb4'북아메리카',_utf8mb4'유럽',_utf8mb4'오세아니아')))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='공항 정보'
+
+CREATE TABLE `airplane` (
+  `flightCode` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '편명',
+  `from` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '출발지',
+  `to` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '도착지',
+  `economy` int DEFAULT '0' COMMENT '이코노미 좌석 수',
+  `business` int DEFAULT '0' COMMENT '비즈니스 좌석 수',
+  `first` int DEFAULT '0' COMMENT '퍼스트 좌석 수',
+  `economyPay` int DEFAULT '0' COMMENT '일반석가격',
+  `businessPay` int DEFAULT '0' COMMENT '비즈니스석가격',
+  `firstPay` int DEFAULT '0' COMMENT '일등석가격',
+  PRIMARY KEY (`flightCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='인하항공 정보'
+
+CREATE TABLE `seat` (
+  `scheduleNo` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '좌석 인덱싱',
+  `economy` int NOT NULL COMMENT '이코노미 잔여',
+  `business` int NOT NULL COMMENT '비즈니스 잔여',
+  `first` int NOT NULL COMMENT '퍼스트 잔여',
+  PRIMARY KEY (`scheduleNo`),
+  CONSTRAINT `seat_FK` FOREIGN KEY (`scheduleNo`) REFERENCES `airSchedule` (`scheduleNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='잔여 좌석'
+
+CREATE TABLE `airSchedule` (
+  `scheduleNo` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '스케줄번호',
+  `flightCode` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '편명',
+  `from` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '출발지코드',
+  `fromDate` date NOT NULL COMMENT '출발일시',
+  `fromTime` time DEFAULT NULL COMMENT '출발예정시간',
+  `to` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '도착지코드',
+  `toDate` date NOT NULL COMMENT '도착일시',
+  `toTime` time NOT NULL COMMENT '도착예정시간',
+  PRIMARY KEY (`scheduleNo`),
+  KEY `airSchedule_FK` (`flightCode`),
+  CONSTRAINT `airSchedule_FK` FOREIGN KEY (`flightCode`) REFERENCES `airplane` (`flightCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='항공스케줄'
+
+CREATE TABLE `user` (
+  `ID` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '아이디',
+  `password` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '패스워드',
+  `nameKOR` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '한글이름',
+  `nameENG` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '영문이름',
+  `sex` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '성별',
+  `passport` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '여권번호',
+  `birth` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '생년월일',
+  `tel` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '연락처',
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '이메일주소',
+  `newsletter` tinyint(1) DEFAULT '0' COMMENT '뉴스레터 동의',
+  `promotion` tinyint(1) DEFAULT '0' COMMENT '프로모션 동의',
+  `sms` tinyint(1) DEFAULT '0' COMMENT 'SMS 수신 동의',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `email_UN` (`email`),
+  UNIQUE KEY `telephone` (`tel`),
+  UNIQUE KEY `passport` (`passport`),
+  CONSTRAINT `sex_CHECK` CHECK ((`sex` in (_utf8mb3'남',_utf8mb3'여')))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='회원정보'
+
+CREATE TABLE `reservation` (
+  `date` date DEFAULT NULL,
+  `reserveNum` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '예매번호',
+  `GOscheduleNo` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '비행스케줄 번호',
+  `COMscheduleNo` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '왕복의 경우 오는날 스케줄',
+  `ID` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '아이디',
+  `adult` int DEFAULT '0' COMMENT '성인인원',
+  `child` int DEFAULT '0' COMMENT '소아인원',
+  `infant` int DEFAULT '0' COMMENT '유아인원',
+  `pay` int DEFAULT '0' COMMENT '금액',
+  `GOclass` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '좌석 클래스(e,b,f)',
+  `COMclass` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`reserveNum`),
+  KEY `UserReserve_FK_1` (`GOscheduleNo`),
+  KEY `reservation_FK` (`ID`),
+  CONSTRAINT `reservation_FK` FOREIGN KEY (`ID`) REFERENCES `user` (`ID`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='예매 리스트'
+
+CREATE TABLE `reservationDetail` (
+  `reserveNum` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '예매 번호',
+  `scheduleNo` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '스케줄 번호',
+  `nameKOR` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '한글이름',
+  `nameENG` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '영문이름',
+  `sex` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '성별',
+  `passport` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '여권번호',
+  `birth` date NOT NULL COMMENT '생년월일',
+  `tel` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '연락처',
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '이메일',
+  `agree` tinyint(1) NOT NULL DEFAULT '0' COMMENT '수신동의',
+  `baggage` int NOT NULL DEFAULT '0' COMMENT '초과수화물',
+  KEY `reservationDetail_FK` (`reserveNum`),
+  CONSTRAINT `reservationDetail_FK` FOREIGN KEY (`reserveNum`) REFERENCES `reservation` (`reserveNum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='예매 리스트 디테일'
+
+CREATE TABLE `payment` (
+  `index` int NOT NULL AUTO_INCREMENT COMMENT '인덱스 번호',
+  `reserveNum` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '예약 번호',
+  `date` date NOT NULL,
+  `payable` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '결제 방식',
+  `pay` int NOT NULL COMMENT '금액',
+  PRIMARY KEY (`index`),
+  KEY `payment_FK` (`reserveNum`),
+  CONSTRAINT `payment_FK` FOREIGN KEY (`reserveNum`) REFERENCES `reservation` (`reserveNum`) ON DELETE SET NULL ON UPDATE SET NULL,
+  CONSTRAINT `payable_CHECK` CHECK ((`payable` in (_utf8mb3'card',_utf8mb3'cash')))
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='결제내역'
+
+뷰
+
+CREATE OR REPLACE
+ALGORITHM = UNDEFINED VIEW `inhaair`.`login` AS
+select
+    `inhaair`.`user`.`ID` AS `ID`,
+    `inhaair`.`user`.`password` AS `password`
+from
+    `inhaair`.`user`
