@@ -42,7 +42,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
 		
 		String driver = "com.mysql.cj.jdbc.Driver"; //드라이버
-		String dbURL = "jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
+		String dbURL = "jdbc:mysql://아이피:포트번호/디비명?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
 		String dbID = "inhaair"; //DB에 접속할 사용자 이름을 상수로 정의
 		String dbPassword = "1234"; //사용자의 비밀번호를 상수로 정의
 			
@@ -78,14 +78,14 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		private Color crPaleblue = new Color(230,240,250);
 		
 		Font fontGothic = new Font("Gothic", Font.BOLD, 20);				// 고딕
-		Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);	// 나눔고딕 18
-		Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 18
-		Font fontNanumGothic15= new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 18
-		Font fontNanumGothic15Plain= new Font("NanumGothic", Font.PLAIN, 15);	// 나눔고딕 18
+		Font fontNanumGothic9 = new Font("NanumGothic", Font.BOLD, 9);	// 나눔고딕 9
+		Font fontNanumGothic12 = new Font("NanumGothic", Font.BOLD, 12);	// 나눔고딕 12
+		Font fontNanumGothic15= new Font("NanumGothic", Font.BOLD, 15);	// 나눔고딕 15
+		Font fontNanumGothic15Plain= new Font("NanumGothic", Font.PLAIN, 15);	// 나눔고딕 15
 		Font fontNanumGothic18 = new Font("NanumGothic", Font.BOLD, 18);	// 나눔고딕 18
 		Font fontNanumGothic18Plain = new Font("NanumGothic", Font.PLAIN, 18);	// 나눔고딕 18
 		Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
-		Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 20
+		Font fontNanumGothic22 = new Font("NanumGothic", Font.BOLD, 22);	// 나눔고딕 22
 		Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
 		Font fontNanumGothic30 = new Font("NanumGothic", Font.BOLD, 30);	// 나눔고딕 30
 		
