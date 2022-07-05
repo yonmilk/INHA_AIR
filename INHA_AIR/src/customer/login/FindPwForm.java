@@ -25,7 +25,7 @@ public class FindPwForm extends JFrame implements ActionListener{
 	private int width = 400, height = 300;
 	
 	//데이터베이스 관련
-	static String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+	static String dbURL="jdbc:mysql://아이피:포트번호/디비명?serverTimezone=UTC&useSSL=false";
 	static String dbID="inhaair";
 	static String dbPassword="1234";
 	

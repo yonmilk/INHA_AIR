@@ -111,7 +111,7 @@ public class databaseClass {
 	
 	
 	public static void main(String[] args) {
-		String dbURL="jdbc:mysql://localhost:3306/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbURL="jdbc:mysql://서버주소:아이피/디비명?serverTimezone=UTC&useSSL=false";
 		String dbID="inhaair";
 		String dbPassword="1234";
 		

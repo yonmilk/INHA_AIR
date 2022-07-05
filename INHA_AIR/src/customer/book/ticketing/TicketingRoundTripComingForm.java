@@ -50,7 +50,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 	
 	
 	String driver = "com.mysql.cj.jdbc.Driver"; //드라이버
-	String dbURL = "jdbc:mysql://localhost:3306/inhaair?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
+	String dbURL = "jdbc:mysql://아이피:포트번호/디비명?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
 	String dbID = "inhaair"; //DB에 접속할 사용자 이름을 상수로 정의
 	String dbPassword = "1234"; //사용자의 비밀번호를 상수로 정의
 
