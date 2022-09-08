@@ -42,7 +42,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		Font fontArial30 = new Font("Arial", Font.BOLD | Font.ITALIC, 30);
 		
 		String driver = "com.mysql.cj.jdbc.Driver"; //드라이버
-		String dbURL = "jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
+		String dbURL = "jdbc:mysql://IP:PORT/DBNAME?serverTimezone=UTC&useSSL=false"; //접속할 DB 서버
 		String dbID = "inhaair"; //DB에 접속할 사용자 이름을 상수로 정의
 		String dbPassword = "1234"; //사용자의 비밀번호를 상수로 정의
 			

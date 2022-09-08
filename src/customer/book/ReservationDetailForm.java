@@ -104,7 +104,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		this.id = id;
 		
 		// DB 정보 - 테스트 소스
-		String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+		String dbURL="jdbc:mysql://IP:PORT/DBNAME?serverTimezone=UTC&useSSL=false";
 		String dbID="inhaair";
 		String dbPassword="1234";
 		// 데이터베이스 연결 - 테스트 소스

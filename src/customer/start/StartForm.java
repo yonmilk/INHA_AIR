@@ -38,7 +38,7 @@ public class StartForm extends JFrame implements ActionListener {
 	private LoginForm loginF;
 	
 	// DB 정보
-	private String dbURL="jdbc:mysql://114.71.137.174:61083/inhaair?serverTimezone=UTC&useSSL=false";
+	private String dbURL="jdbc:mysql://IP:PORT/DBNAME?serverTimezone=UTC&useSSL=false";
 	private String dbID="inhaair";
 	private String dbPassword="1234";
 	
