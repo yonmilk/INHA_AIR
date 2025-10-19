@@ -1,11 +1,9 @@
 package customer.login;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -15,42 +13,23 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.EtchedBorder;
 
 import DataBase.databaseClass;
 import Management.User.UserList;
-import be.main.MainForm;
-import be.menu.MenuBar;
+import common.Constants;
+import common.UIComponentFactory;
 import customer.start.MainMenuForm;
 
+/**
+ * Login form for INHA AIR application
+ * Refactored to use common constants and UI components
+ */
 public class LoginForm extends JFrame implements ActionListener {
-	
-	
-	//데이터베이스 관련
-	static String dbURL="jdbc:sqlite:inhaair.db";
-	static String dbID="inhaair";
-	static String dbPassword="1234";
-	
-	// Title 및 사이즈 설정
-	private String title = "INHA AIR";
-	private int width = 1120, height = 770;
-	
-	// 폰트
-	Font fontNanumGothic12 = new Font("NanumGothic", Font.PLAIN , 12);	// 나눔고딕 12
-	Font fontNanumGothic15 = new Font("NanumGothic", Font.PLAIN, 15);	// 나눔고딕 15
-	Font fontNanumGothic16 = new Font("NanumGothic", Font.BOLD, 16);	// 나눔고딕 16
-	Font fontNanumGothic20 = new Font("NanumGothic", Font.BOLD, 20);	// 나눔고딕 20
-	Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);	// 나눔고딕 25
-	
-	// 색상
-	Color colorLogin = new Color(10,90,150);
-	Color colorHyper = new Color(000, 102, 255);
-	
-	// 컴포턴트
+
+	// Components
 	private JPanel jpLogin;
 	private JPanel jpTop, jpCenter, jpBottom;
 	private JLabel lblId, lblPw;
@@ -65,26 +44,15 @@ public class LoginForm extends JFrame implements ActionListener {
 	private FindIdPwForm findIdPwForm;
 	private UserList adminForm;
 	
-	
+
 	public LoginForm() {
-		
-		//창 설정
-		setTitle(title);
-		setSize(width, height);
-		setResizable(false);
-		setLocationRelativeTo(this);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		// Setup frame with standard properties
+		UIComponentFactory.setupFrame(this, Constants.APP_NAME);
 		setLayout(null);
-		
-		// 배경색
-		Container c = getContentPane();
-		c.setBackground(Color.WHITE);
-		
-		
+
+		// Setup login panel
 		setLogin();
-		
-		
-		
+
 		setVisible(true);
 	}
 
@@ -103,34 +71,26 @@ public class LoginForm extends JFrame implements ActionListener {
 		jpTop.setPreferredSize(new Dimension(400, 100)); //판넬사이즈 설정
 		jpTop.setLayout(new BorderLayout());
 		
-		JLabel login = new JLabel("로그인"); //로그인 라벨
-		login.setFont(fontNanumGothic25);
+		JLabel login = UIComponentFactory.createTitleLabel("로그인");
 		login.setHorizontalAlignment(JLabel.CENTER);
 		jpTop.add(login);
 		jpLogin.add(jpTop, BorderLayout.NORTH);
-		
-		
-		//중앙패널
+
+		// Central panel
 		jpCenter = new JPanel();
 		jpCenter.setLayout(new GridLayout(5, 1, 10, 10));
 		jpCenter.setBackground(Color.white);
-		lblId = new JLabel("아이디"); //아이디 라벨
-		tfId = new JTextField(); //아이디 입력
-		lblPw = new JLabel("비밀번호"); //비밀번호 라벨
-		pwfPw = new JPasswordField(); //비밀번호 입력
-		lblId.setFont(fontNanumGothic15);
-		lblPw.setFont(fontNanumGothic15);
-		tfId.setFont(fontNanumGothic15);
-		pwfPw.setFont(fontNanumGothic15);
-		
-		
-		btnLogin = new JButton("로그인"); //로그인 버튼
+
+		lblId = UIComponentFactory.createLabel("아이디");
+		tfId = UIComponentFactory.createTextField();
+		lblPw = UIComponentFactory.createLabel("비밀번호");
+		pwfPw = UIComponentFactory.createPasswordField();
+		tfId.setFont(Constants.FONT_REGULAR);
+		pwfPw.setFont(Constants.FONT_REGULAR);
+
+		// Login button with primary styling
+		btnLogin = UIComponentFactory.createPrimaryButton("로그인");
 		btnLogin.addActionListener(this);
-		btnLogin.setFont(fontNanumGothic16);
-		btnLogin.setBorderPainted(false); //버튼 윤곽선 제거
-		btnLogin.setOpaque(true); //불투명 설정으로 배경색 표시
-		btnLogin.setBackground(colorLogin); //버튼 색 설정
-		btnLogin.setForeground(Color.WHITE);
 		
 		//값들 추가
 		jpCenter.add(lblId);
@@ -147,18 +107,12 @@ public class LoginForm extends JFrame implements ActionListener {
 		jpBottom.setLayout(new GridLayout(3,1));
 		jpBottom.setBackground(Color.white);
 		jpBottom.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
-		btnFindIdPw = new JButton("<HTML><U>아이디/비밀번호찾기></U></HTML>"); //아이디/비밀번호 찾기 버튼 추가
-		btnFindIdPw.setForeground(colorHyper);
+		// Text buttons (hyperlink style)
+		btnFindIdPw = UIComponentFactory.createTextButton("<HTML><U>아이디/비밀번호찾기></U></HTML>");
 		btnFindIdPw.addActionListener(this);
-		btnFindIdPw.setBorderPainted(false); //버튼 윤곽선 제거
-		btnFindIdPw.setContentAreaFilled(false); //버튼배경 제거
-		btnSignUp = new JButton("<HTML><U>회원가입></U></HTML>"); //회원가입 버튼 추가
-		btnSignUp.setForeground(colorHyper);
+
+		btnSignUp = UIComponentFactory.createTextButton("<HTML><U>회원가입></U></HTML>");
 		btnSignUp.addActionListener(this);
-		btnSignUp.setBorderPainted(false); //버튼 윤곽선 제거
-		btnSignUp.setContentAreaFilled(false); //버튼배경 제거
-		btnFindIdPw.setFont(fontNanumGothic12);
-		btnSignUp.setFont(fontNanumGothic12);
 		
 		jpBottom.add(btnFindIdPw);
 		jpBottom.add(btnSignUp);
@@ -183,9 +137,8 @@ public class LoginForm extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-//		databaseClass db = new databaseClass();
-//		db.connect();
-		databaseClass.connect(dbURL, dbID, dbPassword);
+		// Connect to database using default configuration
+		databaseClass.connect();
 		new LoginForm();
 	}
 
@@ -200,17 +153,19 @@ public class LoginForm extends JFrame implements ActionListener {
 			String id = tfId.getText();
 			String pw = pwfPw.getText();
 			
-			if (id.isEmpty() && pw.isEmpty()) {	//id와 pw 값이 비어있는지 확인
-				JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 입력해주세요.", "로그인 실패", JOptionPane.OK_CANCEL_OPTION); //INFORMATION_MESSAGE, QUESTION_MESSAGE, WARNING_MESSAGE, ERROR_MESSAGE
+			// Validation
+			if (id.isEmpty() && pw.isEmpty()) {
+				UIComponentFactory.showErrorDialog(this, "아이디와 비밀번호를 입력해주세요.");
 			} else if (id.isEmpty()) {
-				JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.", "로그인 실패", JOptionPane.OK_CANCEL_OPTION);
+				UIComponentFactory.showErrorDialog(this, "아이디를 입력해주세요.");
 			} else if (pw.isEmpty()){
-				JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요.", "로그인 실패", JOptionPane.OK_CANCEL_OPTION);
-			} else { //아이디 비밀번호 확인 - 교수님 강의 보고 함 !
+				UIComponentFactory.showErrorDialog(this, "비밀번호를 입력해주세요.");
+			} else {
+				// Check credentials
 				boolean check = checkIDPW(id, pw);
 				if(check) {
-					JOptionPane.showMessageDialog(null, id + "님 안녕하세요.", "로그인 성공", JOptionPane.INFORMATION_MESSAGE);
-					
+					UIComponentFactory.showSuccessDialog(this, id + "님 안녕하세요.");
+
 					if(id.equals("admin")) {
 						adminForm = new UserList();
 						this.setVisible(false);
@@ -220,7 +175,7 @@ public class LoginForm extends JFrame implements ActionListener {
 						this.setVisible(false);
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "아이디 또는 비밀번호를 확인해주세요.", "로그인 실패", JOptionPane.OK_CANCEL_OPTION);
+					UIComponentFactory.showErrorDialog(this, Constants.MSG_LOGIN_FAIL);
 					tfId.setText("");
 					pwfPw.setText("");
 					tfId.requestFocus();
@@ -234,25 +189,21 @@ public class LoginForm extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Check if ID and password match in database
+	 * TODO: Use PreparedStatement to prevent SQL injection
+	 */
 	private boolean checkIDPW(String id, String pw) {
-		
-		boolean check = false;
-		
-		String sql = "SELECT * FROM login WHERE ID = '" + id + "' AND password='" + pw + "'"; //아이디 비밀번호 찾기 sql문
+		String sql = "SELECT * FROM " + Constants.VIEW_LOGIN +
+		             " WHERE ID = '" + id + "' AND password='" + pw + "'";
 		ResultSet rs = databaseClass.select(sql);
-		
-		
-		try {
-			if(rs.next()) {	//sql문에 내용이 있을 때
-				check = true;
-			} else { //내용이 없으면 false
-				check = false;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 
-		
-		return check;
+		try {
+			return rs != null && rs.next();
+		} catch (SQLException e) {
+			System.err.println("Error checking credentials: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

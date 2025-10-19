@@ -7,37 +7,56 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import common.Constants;
+import common.DatabaseConfig;
 
-//
-// SQLite 연결 코드 (MySQL에서 변경됨)
-//
+/**
+ * Legacy database class - maintained for backward compatibility
+ * New code should use DatabaseConfig instead
+ *
+ * @deprecated Use {@link DatabaseConfig} for new implementations
+ */
+@Deprecated
 public class databaseClass {
 	private static Connection conn;
 	private static Statement stmt;
 
-	// SQLite용 연결 메서드 (파일 경로만 필요)
+	/**
+	 * Connect to database using default configuration
+	 */
+	public static void connect() {
+		connect(Constants.DB_URL);
+	}
+
+	/**
+	 * SQLite connection method (only file path needed)
+	 */
 	public static void connect(String dbURL) {
 		try {
-			// Database 연결
-			Class.forName("org.sqlite.JDBC");	// SQLite 드라이버 로드
-			conn = DriverManager.getConnection(dbURL);	// 연결 (ID, Password 불필요)
-			System.out.println("데이터베이스 연결 성공!");
+			// Database connection
+			Class.forName(Constants.DB_DRIVER);
+			conn = DriverManager.getConnection(dbURL);
+			System.out.println(Constants.MSG_DB_CONNECT_SUCCESS);
 
-			// 쿼리 수행을 위한 Statement 객체 생성
+			// Create Statement object for queries
 			stmt = conn.createStatement();
 
 		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패");
+			System.err.println("드라이버 로딩 실패");
 			e.printStackTrace();
 		} catch (SQLException e) {
-			System.out.println("에러");
+			System.err.println(Constants.MSG_DB_CONNECT_FAIL);
 			e.printStackTrace();
 		}
 	}
 
-	// 기존 MySQL 호환성을 위한 메서드 (dbID, dbPassword는 무시됨)
+	/**
+	 * Legacy MySQL compatibility method (dbID, dbPassword are ignored)
+	 * @deprecated SQLite doesn't require username/password
+	 */
+	@Deprecated
 	public static void connect(String dbURL, String dbID, String dbPassword) {
-		connect(dbURL);  // SQLite는 ID/Password가 필요없으므로 URL만 사용
+		connect(dbURL);
 	}
 	
 	public static void closeDB() {
@@ -116,11 +135,12 @@ public class databaseClass {
 	
 	
 	
+	/**
+	 * Test method for database connection
+	 */
 	public static void main(String[] args) {
-		// SQLite 데이터베이스 파일 경로 (프로젝트 루트에 생성됨)
-		String dbURL="jdbc:sqlite:inhaair.db";
-
-		connect(dbURL);
-
+		connect();  // Use default database URL from Constants
+		System.out.println("Database connection test completed");
+		closeDB();
 	}
 }
