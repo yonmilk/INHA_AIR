@@ -160,6 +160,7 @@ public class SignUpForm extends JFrame implements ActionListener{
 		btnchk = new JButton("중복체크");		//아이디 중복체크 버튼
 		btnchk.setSize(100, 30);
 		btnchk.setLocation(200, 170);
+		btnchk.setBorderPainted(false); //버튼 윤곽선 제거
   		btnchk.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnchk.setBackground(new Color(10,90,150));
 		btnchk.setForeground(Color.white); //버튼 폰트 색 변경
@@ -337,6 +338,7 @@ public class SignUpForm extends JFrame implements ActionListener{
 		jpInfR.add(chkSMS);
 		
 		btnSignUp = new JButton("회원가입");	//회원가입 버튼
+		btnSignUp.setBorderPainted(false); //버튼 윤곽선 제거
   btnSignUp.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnSignUp.setBackground(new Color(10,90,150));
 		btnSignUp.setSize(200, 40);
