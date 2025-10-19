@@ -202,12 +202,14 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		// 버튼
 		btnBaggage = new JButton("초과수하물");
 		btnBaggage.setFont(fontNanumGothic20);
+		btnBaggage.setBorderPainted(false);
   btnBaggage.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnBaggage.setBackground(colorBtn);
 		btnBaggage.setForeground(Color.WHITE);
 
 		btnOK = new JButton(str);
 		btnOK.setFont(fontNanumGothic20);
+		btnOK.setBorderPainted(false);
   btnOK.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOK.setBackground(colorBtn);
 		btnOK.setForeground(Color.WHITE);

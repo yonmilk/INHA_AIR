@@ -175,6 +175,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		btnDetail1 = new JButton("예매 상세");
 		btnDetail1.setBounds(880, 40, 90, 35);
 		btnDetail1.setFont(fontNanumGothic12);
+		btnDetail1.setBorderPainted(false);
   btnDetail1.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnDetail1.setBackground(crPaleblue);
 		btnDetail1.addActionListener(this);
@@ -182,17 +183,22 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		btnDetail2 = new JButton("예약 상세");
 		btnDetail2.setBounds(880, 40, 90, 35);
 		btnDetail2.setFont(fontNanumGothic12);
+		btnDetail2.setBorderPainted(false);
+		btnDetail2.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnDetail2.setBackground(crPaleblue);
 		
 		btnDetail3 = new JButton("예약 상세");
 		btnDetail3.setBounds(880, 40, 90, 35);
 		btnDetail3.setFont(fontNanumGothic12);
+		btnDetail3.setBorderPainted(false);
   btnDetail3.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnDetail3.setBackground(crPaleblue);
 		
 		btnDetail4 = new JButton("예약 상세");
 		btnDetail4.setBounds(880, 40, 90, 35);
 		btnDetail4.setFont(fontNanumGothic12);
+		btnDetail4.setBorderPainted(false);
+		btnDetail4.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnDetail4.setBackground(crPaleblue);
 		
 		jpInquiryTop.add(lblRNum);

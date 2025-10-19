@@ -320,6 +320,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		btnCalculate.setLocation(315, 50);
 		btnCalculate.setBorder(new LineBorder(Color.gray,1));
 		//btnCalculate.setContentAreaFilled(false); //버튼배경 제거
+		btnCalculate.setBorderPainted(false);
   btnCalculate.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnCalculate.setBackground(Color.white);
 		btnCalculate.addActionListener(this);

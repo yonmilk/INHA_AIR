@@ -232,20 +232,20 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		btnCancle.addActionListener(this);
 		btnCancle.setFont(fontNanumGothic20);
 		btnCancle.setVerticalAlignment(SwingConstants.CENTER);
+		btnCancle.setBorderPainted(false);
   btnCancle.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnCancle.setBackground(colorGrayBtn);
 		btnCancle.setForeground(Color.WHITE);
-		btnCancle.setBorderPainted(false);
 		jpBtn.add(btnCancle);
 		
 		btnOK = new JButton("결제");
 		btnOK.addActionListener(this);
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setVerticalAlignment(SwingConstants.CENTER);
+		btnOK.setBorderPainted(false);
   btnOK.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOK.setBackground(colorBtn);
 		btnOK.setForeground(Color.WHITE);
-		btnOK.setBorderPainted(false);
 		jpBtn.add(btnOK);
 
 		jpPayment.add(jpLbl);

@@ -203,6 +203,7 @@ public class PaymentList extends JFrame implements ActionListener {
 		//월별 콤보박스 삽입 예정
 		btnser = new JButton("매출 조회");
 		btnser.setPreferredSize(new Dimension(150,40));
+  setBorderPainted(false);
   btnser.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnser.setBackground(colorBtn);
 		btnser.setForeground(Color.white);
@@ -358,6 +359,7 @@ public class PaymentList extends JFrame implements ActionListener {
 		btnLogo.setSize(200, 70);
 		btnLogo.setLocation(10, 5);
 		btnLogo.addActionListener(this);
+  setBorderPainted(false);
   btnLogo.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnLogo.setBackground(Color.WHITE);
 		btnLogo.setForeground(new Color(24, 62, 111));	// 글자색 변경

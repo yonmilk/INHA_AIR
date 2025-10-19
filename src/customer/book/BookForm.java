@@ -361,6 +361,7 @@ public class BookForm extends JFrame implements ActionListener {
 		lblDate.setLocation(20, 15);
 		lblDate.setFont(fontNanumGothic25);
 		btnDate = new JButton("");
+		btnDate.setBorderPainted(false);
   btnDate.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnDate.setBackground(Color.white);
 		btnDate.addActionListener(this);
@@ -375,6 +376,7 @@ public class BookForm extends JFrame implements ActionListener {
 		lblPeople.setLocation(20, 110);
 		lblPeople.setFont(fontNanumGothic25);
 		btnPeople = new JButton("");
+		btnPeople.setBorderPainted(false);
   btnPeople.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnPeople.setBackground(Color.white);
 		btnPeople.addActionListener(this);
@@ -398,34 +400,26 @@ public class BookForm extends JFrame implements ActionListener {
 		//다시선택 버튼
 		btnReset = new JButton("다시선택", imgAirport); //버튼에 이미지, 라벨 삽입
 		btnReset.setFont(fontNanumGothic25);
-btnSearch.setOpaque(true); //불투명 설정으로 배경색 표시
-//					btnSearch.setBackground(new Color(135,206,250)); //버튼 배경색 RGB코드값으로 주기
-btnSearch.setOpaque(true); //불투명 설정으로 배경색 표시
-//					btnSearch.setBackground(new Color(153, 204, 255)); //버튼 배경색 RGB코드값으로 주기
+		btnReset.setBorderPainted(false); //버튼 윤곽선 제거
   btnReset.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnReset.setBackground(new Color(10,90,150)); //버튼 배경색 RGB코드값으로 주기
 		btnReset.setSize(220, 50);
 		btnReset.setLocation(270, 480);
 		btnReset.setForeground(Color.white); //버튼 폰트 색 변경
 		btnReset.setPreferredSize(new Dimension(300, 35));
-		btnReset.setBorderPainted(false); //버튼 윤곽선 제거
 		btnReset.addActionListener(this);
 		
 		//조회 버튼
 		imgAirport = new ImageIcon("image/airport.png");
 		btnSearch = new JButton("조회", imgAirport); //버튼에 이미지, 라벨 삽입
 		btnSearch.setFont(fontNanumGothic25);
-btnSearch.setOpaque(true); //불투명 설정으로 배경색 표시
-//					btnSearch.setBackground(new Color(135,206,250)); //버튼 배경색 RGB코드값으로 주기
-btnSearch.setOpaque(true); //불투명 설정으로 배경색 표시
-//					btnSearch.setBackground(new Color(153, 204, 255)); //버튼 배경색 RGB코드값으로 주기
+		btnSearch.setBorderPainted(false); //버튼 윤곽선 제거
   btnSearch.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnSearch.setBackground(new Color(10,90,150)); //버튼 배경색 RGB코드값으로 주기
 		btnSearch.setSize(220, 50);
 		btnSearch.setLocation(505, 480);
 		btnSearch.setForeground(Color.white); //버튼 폰트 색 변경
 		btnSearch.setPreferredSize(new Dimension(300, 35));
-		btnSearch.setBorderPainted(false); //버튼 윤곽선 제거
 		btnSearch.addActionListener(this);
 		
 		

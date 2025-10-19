@@ -225,12 +225,12 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		btnOK = new JButton("조회");
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.addActionListener(this);
+		btnOK.setBorderPainted(false);
   btnOK.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOK.setBackground(colorBtn);
 		btnOK.setForeground(Color.WHITE);
 		btnOK.setSize(150, 40);
 		btnOK.setLocation(820, 18);
-		btnOK.setBorder(null);
 		
 		jpSearch.add(lblFrom);
 		jpSearch.add(cbFrom);

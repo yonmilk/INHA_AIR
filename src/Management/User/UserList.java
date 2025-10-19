@@ -229,6 +229,7 @@ public class UserList extends JFrame implements ActionListener, MouseListener {
 		//검색 버튼
 		btnser = new JButton("검색");
 		btnser.setFont(fontNanumGothic13);
+		btnser.setBorderPainted(false);
   btnser.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnser.setBackground(colorBtn);
 		btnser.setForeground(Color.white);
@@ -317,6 +318,7 @@ public class UserList extends JFrame implements ActionListener, MouseListener {
 		//등록 버튼
 		btnOk = new JButton("등록");
 		btnOk.setFont(fontNanumGothic18);
+		btnOk.setBorderPainted(false);
   btnOk.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOk.setBackground(colorBtn);
 		btnOk.setForeground(Color.white);
@@ -327,6 +329,7 @@ public class UserList extends JFrame implements ActionListener, MouseListener {
 		//삭제 버튼
     	btnDel = new JButton("삭제");
     	btnDel.setFont(fontNanumGothic18);
+    	btnDel.setBorderPainted(false);
      btnDel.setOpaque(true); //불투명 설정으로 배경색 표시
     	btnDel.setBackground(Color.LIGHT_GRAY);
     	btnDel.setPreferredSize(new Dimension(80, 30));
@@ -335,6 +338,7 @@ public class UserList extends JFrame implements ActionListener, MouseListener {
 		//확인 버튼
 		btnMod = new JButton("수정");
 		btnMod.setFont(fontNanumGothic18);
+		btnMod.setBorderPainted(false);
   btnMod.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnMod.setBackground(colorBtn);
 		btnMod.setForeground(Color.white);
@@ -344,6 +348,7 @@ public class UserList extends JFrame implements ActionListener, MouseListener {
 		//취소 버튼
     	btnBye = new JButton("취소");
 		btnBye.setFont(fontNanumGothic18);
+		btnBye.setBorderPainted(false);
   btnBye.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnBye.setBackground(Color.LIGHT_GRAY);
 		btnBye.setPreferredSize(new Dimension(80, 30));
@@ -426,6 +431,7 @@ public class UserList extends JFrame implements ActionListener, MouseListener {
 		btnLogo.setSize(200, 70);
 		btnLogo.setLocation(10, 25);
 		btnLogo.addActionListener(this);
+		btnLogo.setBorderPainted(false);
   btnLogo.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnLogo.setBackground(Color.WHITE);
 		btnLogo.setForeground(new Color(24, 62, 111));	// 글자색 변경
