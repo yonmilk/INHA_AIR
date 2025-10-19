@@ -3,6 +3,7 @@ package customer.login;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -20,14 +22,23 @@ import javax.swing.JTextField;
 import DataBase.databaseClass;
 import Management.User.UserList;
 import common.Constants;
-import common.UIComponentFactory;
 import customer.start.MainMenuForm;
 
 /**
  * Login form for INHA AIR application
- * Refactored to use common constants and UI components
+ * Keeps original component styling, only uses Constants for shared values
  */
 public class LoginForm extends JFrame implements ActionListener {
+
+	// Fonts - keep original specific sizes for each component
+	private Font fontNanumGothic12 = new Font("NanumGothic", Font.PLAIN, 12);
+	private Font fontNanumGothic15 = new Font("NanumGothic", Font.PLAIN, 15);
+	private Font fontNanumGothic16 = new Font("NanumGothic", Font.BOLD, 16);
+	private Font fontNanumGothic25 = new Font("NanumGothic", Font.BOLD, 25);
+
+	// Colors - keep original specific colors
+	private Color colorLogin = new Color(10, 90, 150);
+	private Color colorHyper = new Color(0, 102, 255);
 
 	// Components
 	private JPanel jpLogin;
@@ -37,18 +48,25 @@ public class LoginForm extends JFrame implements ActionListener {
 	private JPasswordField pwfPw;
 	private JButton btnLogin, btnFindIdPw, btnSignUp;
 
-	
+
 	// Forms
 	private MainMenuForm mainMenuForm;
 	private SignUpForm signUpForm;
 	private FindIdPwForm findIdPwForm;
 	private UserList adminForm;
-	
+
 
 	public LoginForm() {
-		// Setup frame with standard properties
-		UIComponentFactory.setupFrame(this, Constants.APP_NAME);
+		// Frame setup
+		setTitle(Constants.APP_NAME);
+		setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+		setResizable(false);
+		setLocationRelativeTo(this);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(null);
+
+		// Background color
+		getContentPane().setBackground(Color.WHITE);
 
 		// Setup login panel
 		setLogin();
@@ -71,7 +89,8 @@ public class LoginForm extends JFrame implements ActionListener {
 		jpTop.setPreferredSize(new Dimension(400, 100)); //판넬사이즈 설정
 		jpTop.setLayout(new BorderLayout());
 		
-		JLabel login = UIComponentFactory.createTitleLabel("로그인");
+		JLabel login = new JLabel("로그인");
+		login.setFont(fontNanumGothic25);
 		login.setHorizontalAlignment(JLabel.CENTER);
 		jpTop.add(login);
 		jpLogin.add(jpTop, BorderLayout.NORTH);
@@ -81,15 +100,22 @@ public class LoginForm extends JFrame implements ActionListener {
 		jpCenter.setLayout(new GridLayout(5, 1, 10, 10));
 		jpCenter.setBackground(Color.white);
 
-		lblId = UIComponentFactory.createLabel("아이디");
-		tfId = UIComponentFactory.createTextField();
-		lblPw = UIComponentFactory.createLabel("비밀번호");
-		pwfPw = UIComponentFactory.createPasswordField();
-		tfId.setFont(Constants.FONT_REGULAR);
-		pwfPw.setFont(Constants.FONT_REGULAR);
+		lblId = new JLabel("아이디");
+		lblId.setFont(fontNanumGothic15);
+		tfId = new JTextField();
+		tfId.setFont(fontNanumGothic15);
+		lblPw = new JLabel("비밀번호");
+		lblPw.setFont(fontNanumGothic15);
+		pwfPw = new JPasswordField();
+		pwfPw.setFont(fontNanumGothic15);
 
-		// Login button with primary styling
-		btnLogin = UIComponentFactory.createPrimaryButton("로그인");
+		// Login button - keep original styling
+		btnLogin = new JButton("로그인");
+		btnLogin.setFont(fontNanumGothic16);
+		btnLogin.setBorderPainted(false);
+		btnLogin.setOpaque(true);
+		btnLogin.setBackground(colorLogin);
+		btnLogin.setForeground(Color.WHITE);
 		btnLogin.addActionListener(this);
 		
 		//값들 추가
@@ -107,11 +133,20 @@ public class LoginForm extends JFrame implements ActionListener {
 		jpBottom.setLayout(new GridLayout(3,1));
 		jpBottom.setBackground(Color.white);
 		jpBottom.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
-		// Text buttons (hyperlink style)
-		btnFindIdPw = UIComponentFactory.createTextButton("<HTML><U>아이디/비밀번호찾기></U></HTML>");
+
+		// Text buttons (hyperlink style) - keep original styling
+		btnFindIdPw = new JButton("<HTML><U>아이디/비밀번호찾기></U></HTML>");
+		btnFindIdPw.setFont(fontNanumGothic12);
+		btnFindIdPw.setForeground(colorHyper);
+		btnFindIdPw.setBorderPainted(false);
+		btnFindIdPw.setContentAreaFilled(false);
 		btnFindIdPw.addActionListener(this);
 
-		btnSignUp = UIComponentFactory.createTextButton("<HTML><U>회원가입></U></HTML>");
+		btnSignUp = new JButton("<HTML><U>회원가입></U></HTML>");
+		btnSignUp.setFont(fontNanumGothic12);
+		btnSignUp.setForeground(colorHyper);
+		btnSignUp.setBorderPainted(false);
+		btnSignUp.setContentAreaFilled(false);
 		btnSignUp.addActionListener(this);
 		
 		jpBottom.add(btnFindIdPw);
@@ -155,16 +190,20 @@ public class LoginForm extends JFrame implements ActionListener {
 			
 			// Validation
 			if (id.isEmpty() && pw.isEmpty()) {
-				UIComponentFactory.showErrorDialog(this, "아이디와 비밀번호를 입력해주세요.");
+				JOptionPane.showMessageDialog(this, "아이디와 비밀번호를 입력해주세요.",
+					"Error", JOptionPane.ERROR_MESSAGE);
 			} else if (id.isEmpty()) {
-				UIComponentFactory.showErrorDialog(this, "아이디를 입력해주세요.");
+				JOptionPane.showMessageDialog(this, "아이디를 입력해주세요.",
+					"Error", JOptionPane.ERROR_MESSAGE);
 			} else if (pw.isEmpty()){
-				UIComponentFactory.showErrorDialog(this, "비밀번호를 입력해주세요.");
+				JOptionPane.showMessageDialog(this, "비밀번호를 입력해주세요.",
+					"Error", JOptionPane.ERROR_MESSAGE);
 			} else {
 				// Check credentials
 				boolean check = checkIDPW(id, pw);
 				if(check) {
-					UIComponentFactory.showSuccessDialog(this, id + "님 안녕하세요.");
+					JOptionPane.showMessageDialog(this, id + "님 안녕하세요.",
+						"Success", JOptionPane.INFORMATION_MESSAGE);
 
 					if(id.equals("admin")) {
 						adminForm = new UserList();
@@ -175,7 +214,8 @@ public class LoginForm extends JFrame implements ActionListener {
 						this.setVisible(false);
 					}
 				} else {
-					UIComponentFactory.showErrorDialog(this, Constants.MSG_LOGIN_FAIL);
+					JOptionPane.showMessageDialog(this, "아이디 또는 비밀번호가 잘못 입력되었습니다.",
+						"Error", JOptionPane.ERROR_MESSAGE);
 					tfId.setText("");
 					pwfPw.setText("");
 					tfId.requestFocus();
@@ -194,8 +234,7 @@ public class LoginForm extends JFrame implements ActionListener {
 	 * TODO: Use PreparedStatement to prevent SQL injection
 	 */
 	private boolean checkIDPW(String id, String pw) {
-		String sql = "SELECT * FROM " + Constants.VIEW_LOGIN +
-		             " WHERE ID = '" + id + "' AND password='" + pw + "'";
+		String sql = "SELECT * FROM login WHERE ID = '" + id + "' AND password='" + pw + "'";
 		ResultSet rs = databaseClass.select(sql);
 
 		try {
