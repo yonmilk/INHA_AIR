@@ -9,22 +9,23 @@ import java.sql.Statement;
 
 
 //
-// MySQL 연결 코드
+// SQLite 연결 코드 (MySQL에서 변경됨)
 //
 public class databaseClass {
 	private static Connection conn;
 	private static Statement stmt;
-	
-	public static void connect(String dbURL, String dbID, String dbPassword) {
+
+	// SQLite용 연결 메서드 (파일 경로만 필요)
+	public static void connect(String dbURL) {
 		try {
 			// Database 연결
-			Class.forName("com.mysql.cj.jdbc.Driver");	// 드라이버 로드
-			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);	// 연결
+			Class.forName("org.sqlite.JDBC");	// SQLite 드라이버 로드
+			conn = DriverManager.getConnection(dbURL);	// 연결 (ID, Password 불필요)
 			System.out.println("데이터베이스 연결 성공!");
-			
+
 			// 쿼리 수행을 위한 Statement 객체 생성
 			stmt = conn.createStatement();
-			
+
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패");
 			e.printStackTrace();
@@ -32,6 +33,11 @@ public class databaseClass {
 			System.out.println("에러");
 			e.printStackTrace();
 		}
+	}
+
+	// 기존 MySQL 호환성을 위한 메서드 (dbID, dbPassword는 무시됨)
+	public static void connect(String dbURL, String dbID, String dbPassword) {
+		connect(dbURL);  // SQLite는 ID/Password가 필요없으므로 URL만 사용
 	}
 	
 	public static void closeDB() {
@@ -111,11 +117,10 @@ public class databaseClass {
 	
 	
 	public static void main(String[] args) {
-		String dbURL="jdbc:mysql://IP:PORT/DBNAME?serverTimezone=UTC&useSSL=false";
-		String dbID="inhaair";
-		String dbPassword="1234";
-		
-		connect(dbURL, dbID, dbPassword);
-		
+		// SQLite 데이터베이스 파일 경로 (프로젝트 루트에 생성됨)
+		String dbURL="jdbc:sqlite:inhaair.db";
+
+		connect(dbURL);
+
 	}
 }

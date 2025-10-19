@@ -9,6 +9,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -30,12 +34,15 @@ import DataBase.databaseClass;
 import Management.AirPort.AirportList;
 import Management.Airplane.AirplaneList;
 import Management.Airway.AirwayList;
+import Management.Form.HintTextField;
 import Management.Main.MainForm;
 import Management.Payment.PaymentList;
 import Management.User.UserList;
 import be.sign.SignIn;
+import customer.login.LoginForm;
+import customer.start.StartForm;
 
-public class AirportList extends JFrame implements ActionListener {
+public class AirportList extends JFrame implements ActionListener, MouseListener {
 	// Title 및 사이즈 설정
 	private String title = "Management";
 	private int width = 1120, height = 770;
@@ -43,13 +50,15 @@ public class AirportList extends JFrame implements ActionListener {
 	//메뉴
 		private JPanel jpTOP, jpMenu;
 		private JButton btnLogo, btnUser, btnAirway, btnAirport, btnPay, btnLogout, btnser, btnAirplane;
-		private SignIn signIn;
+		private LoginForm signIn;
 		private UserList userlist, userList;
 		private PaymentList paymentlist;
 		private AirwayList airwaylist;
 		private AirportList airportlist;
 		private AirplaneList airplanelist;
+		private HintTextField hintTf;
 		private MainForm mainform;
+		private StartForm startform;
 		private int result;
 		
 		
@@ -94,7 +103,7 @@ public class AirportList extends JFrame implements ActionListener {
 	private JPanel jpAll, jpBtn, jpEdit, jpNew, jpSer;
 	private JButton btnOk, btnBye, btnDel, btnMod;
 	private JLabel lblNew, lblCode, lblCon, lblCountry, lblCity, lblAName, lblBound, lblTel, lblEmail, lblserach;
-	private JTextField tfCode, tfCon, tfCountry, tfCity, tfAName, tfBound, tfTel, tfEmail, tfSer;
+	private HintTextField tfCode, tfCon, tfCountry, tfCity, tfAName, tfBound, tfTel, tfEmail, tfSer;
 	
 
 	
@@ -111,7 +120,7 @@ public class AirportList extends JFrame implements ActionListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//DB연결
-		String dbURL="jdbc:mysql://IP:PORT/DBNAME?serverTimezone=UTC&useSSL=false";
+		String dbURL="jdbc:sqlite:inhaair.db";
 		String dbID="inhaair";
 		String dbPassword="1234";
 		databaseClass.connect(dbURL, dbID, dbPassword);
@@ -140,7 +149,8 @@ public class AirportList extends JFrame implements ActionListener {
 		//수정창
 		setUserEdit();
 		
-		
+		// 공항 정보 테이블
+		setAirportTable(0, "");
 
 		
 		setVisible(true);
@@ -149,6 +159,44 @@ public class AirportList extends JFrame implements ActionListener {
 
 
 	
+
+	// 공항 정보 테이블
+	private void setAirportTable(int i, String codename) {
+		String sql = "";
+		
+		if(i == 0) {
+			sql = "SELECT code, continent, country, city, airport, terminal\r\n"
+					+ "FROM airport\r\n"
+					+ "ORDER BY terminal, continent, city";
+		}
+		else if(i == 1) {
+			sql = "SELECT code, continent, country, city, airport, terminal\r\n"
+					+ "FROM airport\r\n"
+					+ "WHERE code = '" + codename + "'\r\n"
+					+ "ORDER BY terminal, continent, city";
+		}
+		
+		model.setNumRows(0);
+		
+		ResultSet rs = databaseClass.select(sql);
+		try {
+			while(rs.next()) {
+				String code = rs.getString("code");
+				String continent = rs.getString("continent");
+				String country = rs.getString("country");
+				String city = rs.getString("city");
+				String airport = rs.getString("airport");
+				String terminal = rs.getString("terminal");
+				
+				String[] data = {code, continent, country, city, airport, terminal};
+				model.addRow(data);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 
 
 	private void setUserEdit() {
@@ -168,11 +216,13 @@ public class AirportList extends JFrame implements ActionListener {
 		lblserach.setHorizontalAlignment(JLabel.CENTER);
 		
 		//검색 텍스트필드
-		tfSer = new JTextField("ex)AKL",15);
+		tfSer = new HintTextField("ex)AKL");
+		tfSer.setPreferredSize(new Dimension(200, 25));	
 				
 		//검색 버튼
 		btnser = new JButton("검색");
 		btnser.setFont(fontNanumGothic13);
+  btnser.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnser.setBackground(colorBtn);
 		btnser.setForeground(Color.white);
 		btnser.addActionListener(this);
@@ -211,13 +261,12 @@ public class AirportList extends JFrame implements ActionListener {
 	 	lblBound.setHorizontalAlignment(JLabel.CENTER);
 	 			
 	 	//폼 텍스트필드 
-	 	tfCode = new JTextField("ex)AKL",30);
-	 	tfCode.addActionListener(this);
-	 	tfCon = new JTextField("ex)오세아니아",30);
-	 	tfCountry = new JTextField("ex)뉴질랜드",30);
-	 	tfCity = new JTextField("ex)오클랜드",30);
-	 	tfAName = new JTextField("ex)오클랜드 국제공항",30);
-	 	tfBound = new JTextField("ex)국제",30);
+	 	tfCode = new HintTextField("ex)AKL");
+	 	tfCon = new HintTextField("ex)오세아니아");
+	 	tfCountry = new HintTextField("ex)뉴질랜드");
+	 	tfCity = new HintTextField("ex)오클랜드");
+	 	tfAName = new HintTextField("ex)오클랜드 국제공항");
+	 	tfBound = new HintTextField("ex)국제");
 	 	
 	 	//붙이기
 	 	jpNew.add(lblCode);
@@ -243,6 +292,7 @@ public class AirportList extends JFrame implements ActionListener {
 		//등록 버튼
 		btnOk = new JButton("등록");
 		btnOk.setFont(fontNanumGothic18);
+  btnOk.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOk.setBackground(colorBtn);
 		btnOk.setForeground(Color.white);
 		btnOk.setPreferredSize(new Dimension(80, 30));
@@ -252,6 +302,7 @@ public class AirportList extends JFrame implements ActionListener {
 		//삭제 버튼
     	btnDel = new JButton("삭제");
     	btnDel.setFont(fontNanumGothic18);
+     btnDel.setOpaque(true); //불투명 설정으로 배경색 표시
     	btnDel.setBackground(Color.LIGHT_GRAY);
     	btnDel.setPreferredSize(new Dimension(80, 30));
     	btnDel.addActionListener(this);
@@ -259,6 +310,7 @@ public class AirportList extends JFrame implements ActionListener {
 		//확인 버튼
 		btnMod = new JButton("수정");
 		btnMod.setFont(fontNanumGothic18);
+  btnMod.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnMod.setBackground(colorBtn);
 		btnMod.setForeground(Color.white);
 		btnMod.setPreferredSize(new Dimension(80, 30));
@@ -267,6 +319,7 @@ public class AirportList extends JFrame implements ActionListener {
 		//취소 버튼
     	btnBye = new JButton("취소");
 		btnBye.setFont(fontNanumGothic18);
+  btnBye.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnBye.setBackground(Color.LIGHT_GRAY);
 		btnBye.setPreferredSize(new Dimension(80, 30));
 		btnBye.addActionListener(this);
@@ -305,6 +358,7 @@ public class AirportList extends JFrame implements ActionListener {
 		jtAirport.setRowHeight(20);
 		jtAirport.setFillsViewportHeight(true); //스크롤팬에 꽉 차서 보이게 하기
 		jtAirport.setBackground(Color.WHITE);
+		jtAirport.addMouseListener(this);
 		
 		Center = new DefaultTableCellRenderer(); //테이블 정렬
 		Center.setHorizontalAlignment(JLabel.CENTER); //가운데정렬
@@ -342,8 +396,9 @@ public class AirportList extends JFrame implements ActionListener {
 		btnLogo = new JButton("INHA AIR");
 		btnLogo.setFont(fontArial36);
 		btnLogo.setSize(200, 70);
-		btnLogo.setLocation(10, 5);
+		btnLogo.setLocation(10, 25);
 		btnLogo.addActionListener(this);
+  btnLogo.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnLogo.setBackground(Color.WHITE);
 		btnLogo.setForeground(new Color(24, 62, 111));	// 글자색 변경
 		btnLogo.setBorderPainted(false);
@@ -434,52 +489,169 @@ public class AirportList extends JFrame implements ActionListener {
 Object obj = e.getSource();
 		
 	if(obj == btnLogo) {
+		//메인으로 돌아가기
 		result = JOptionPane.showConfirmDialog(this, "메인으로 돌아가시겠습니까?", "알림", JOptionPane.YES_NO_OPTION);
 		if(result == JOptionPane.YES_OPTION) {
 			JOptionPane.showMessageDialog(this, "메인으로 돌아갑니다.");
 			dispose();
-			mainform = new MainForm();
+			userList = new UserList();
 		}else {
 			JOptionPane.showMessageDialog(this, "메인으로 돌아가지 않습니다.");
 		}
 			
 		} else if(obj == btnLogout){
+			//로그아웃
 			int result = JOptionPane.showConfirmDialog(this, "정말 로그아웃 하시겠습니까?", "로그아웃",JOptionPane.YES_NO_OPTION);
 			if(result == JOptionPane.YES_OPTION ) {
 				JOptionPane.showMessageDialog(null, "시스템을 종료합니다");
 				dispose();
-				signIn = new SignIn();
+//				startform = new StartForm();
+				signIn = new LoginForm();
 			} else {
 				JOptionPane.showMessageDialog(null, "로그아웃을 취소합니다.");
 			}
 		}  else if(obj == btnUser) {
+			//유저창
 			dispose();
 			userList = new UserList();
 		} else if(obj == btnAirway) {
+			//항공편
 			dispose();
 			airwaylist = new AirwayList();
 		} else if(obj == btnAirport) {
+			//공항
 			dispose();
 			airportlist = new AirportList();
 		} else if(obj == btnPay) {
+			//매출
 			dispose();
 			paymentlist = new PaymentList();
 		} else if(obj == btnBye) {
+			//취소버튼
 			 result = JOptionPane.showConfirmDialog(this, "입력을 취소하시겠습니까?", "입력 취소",JOptionPane.YES_NO_OPTION);
 			 if(result == JOptionPane.YES_OPTION ) {
 					JOptionPane.showMessageDialog(null, "입력이 취소되었습니다");
-					tfCode.setText("ex)AKL");
-					tfCon.setText("ex)오세아니아");
-					tfCountry.setText("ex)뉴질랜드");
-					tfCity.setText("ex)오클랜드");
-					tfAName.setText("ex)오클랜드 국제공항");
-					tfBound.setText("ex)국제");
+					tfSer.setText("");
+					tfCode.setText("");
+					tfCon.setText("");
+					tfCountry.setText("");
+					tfCity.setText("");
+					tfAName.setText("");
+					tfBound.setText("");
 				} else {
 					JOptionPane.showMessageDialog(null, "계속 입력해주세요");
 				}
 		}else if(obj == btnAirplane) {
+			//비행기버튼
 			dispose();
 			airplanelist = new AirplaneList();
+		}
+		else if(obj == btnser) {
+			// 검색
+			String code = tfSer.getText();
+		
+			
+			if(code.length() > 3||code.equals("")||code.equals("ex)AKLTOI-1")) {
+				setAirportTable(0, "");
+			}
+			else {
+				setAirportTable(1, code);
+			}
+			
+			tfSer.setText("");
+			tfCode.setText("");
+			tfCon.setText("");
+			tfCountry.setText("");
+			tfCity.setText("");
+			tfAName.setText("");
+			tfBound.setText("");
+			
+		}
+		else if(obj == btnOk) {
+			// 등록
+			String code = tfCode.getText();
+			String continent = tfCon.getText();
+			String country = tfCountry.getText();
+			String city = tfCity.getText();
+			String airport = tfAName.getText();
+			String terminal = tfBound.getText();
+			
+			String sql = "INSERT INTO airport\r\n"
+					+ "(code, continent, country, city, airport, terminal)\r\n"
+					+ "VALUES('" + code + "', '" + continent + "', '" + country + "', '" + city + "', '" + airport + "', '" + terminal + "')";
+			System.out.println(sql);
+			
+			int rs = databaseClass.insert(sql);
+			if(rs == 1) {
+				JOptionPane.showMessageDialog(this, "등록 되었습니다.");
+				setAirportTable(0, "");
+			} else if(rs == 0) {
+				JOptionPane.showMessageDialog(this, "등록에 실패했습니다.");
+			}
+			tfSer.setText("");
+			tfCode.setText("");
+			tfCon.setText("");
+			tfCountry.setText("");
+			tfCity.setText("");
+			tfAName.setText("");
+			tfBound.setText("");
+
+		}
+		else if(obj == btnDel) {
+			// 삭제
+			String code = tfCode.getText();
+			String continent = tfCon.getText();
+			String country = tfCountry.getText();
+			String city = tfCity.getText();
+			String airport = tfAName.getText();
+			String terminal = tfBound.getText();
+			
+			String sql = "DELETE FROM airport\r\n"
+					+ "WHERE code='" + code + "' AND continent = '" + continent + "' AND country = '" + country +"' AND city = '" + city
+					+ "' AND airport = '" + airport + "' AND terminal = '" + terminal + "'";
+			
+			int rs = databaseClass.delete(sql);
+			if(rs == 1) {
+				JOptionPane.showMessageDialog(this, "삭제 되었습니다.");
+				setAirportTable(0, "");
+			} else if(rs == 0) {
+				JOptionPane.showMessageDialog(this, "삭제 실패했습니다.");
+			}
+			tfSer.setText("");
+			tfCode.setText("");
+			tfCon.setText("");
+			tfCountry.setText("");
+			tfCity.setText("");
+			tfAName.setText("");
+			tfBound.setText("");
+		}
+		else if(obj == btnMod) {
+			// 수정
+			String code = tfCode.getText();
+			String continent = tfCon.getText();
+			String country = tfCountry.getText();
+			String city = tfCity.getText();
+			String airport = tfAName.getText();
+			String terminal = tfBound.getText();
+			
+			String sql = "UPDATE airport\r\n"
+					+ "SET continent='" + continent + "', country='" + country + "', city='" + city+"', airport='" + airport + "', terminal='" + terminal+ "'\r\n"
+					+ "WHERE code='" + code + "'";
+			
+			int rs = databaseClass.update(sql);
+			if(rs == 1) {
+				JOptionPane.showMessageDialog(this, "수정 되었습니다.");
+				setAirportTable(0, "");
+			} else if(rs == 0) {
+				JOptionPane.showMessageDialog(this, "수정 실패했습니다.");
+			}
+			tfSer.setText("");
+			tfCode.setText("");
+			tfCon.setText("");
+			tfCountry.setText("");
+			tfCity.setText("");
+			tfAName.setText("");
+			tfBound.setText("");
 		}
 	}
 	// jtable 생성
@@ -503,6 +675,8 @@ Object obj = e.getSource();
 					component.setBackground(crPaleblue);
 				}
 			}
+			
+			
 
 			return component;
 		}
@@ -512,6 +686,56 @@ Object obj = e.getSource();
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
+		
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// 선택한 값 텍스트필드에 표시
+		int row = jtAirport.getSelectedRow();
+		int col = jtAirport.getSelectedColumn();
+		
+		tfCode.setText((String)jtAirport.getValueAt(row, 0));
+		tfCon.setText((String)jtAirport.getValueAt(row, 1));
+		tfCountry.setText((String)jtAirport.getValueAt(row, 2));
+		tfCity.setText((String)jtAirport.getValueAt(row, 3));
+		tfAName.setText((String)jtAirport.getValueAt(row, 4));
+		tfBound.setText((String)jtAirport.getValueAt(row, 5));
+		
+	}
+
+
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 	}

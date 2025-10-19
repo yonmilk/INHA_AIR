@@ -38,7 +38,7 @@ public class StartForm extends JFrame implements ActionListener {
 	private LoginForm loginF;
 	
 	// DB 정보
-	private String dbURL="jdbc:mysql://IP:PORT/DBNAME?serverTimezone=UTC&useSSL=false";
+	private String dbURL="jdbc:sqlite:inhaair.db";
 	private String dbID="inhaair";
 	private String dbPassword="1234";
 	
@@ -69,6 +69,7 @@ public class StartForm extends JFrame implements ActionListener {
 		btnStart.setFont(fontArial60);
 		btnStart.setForeground(colorLogo);
 		btnStart.setBorderPainted(false);
+		btnStart.setOpaque(true);  // 불투명하게 설정하여 배경색이 보이도록 함
 		btnStart.setBackground(Color.WHITE);
 		
 		// 리스너

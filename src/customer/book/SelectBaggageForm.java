@@ -90,6 +90,7 @@ public class SelectBaggageForm extends JFrame implements ActionListener {
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setSize(400, 50);
 		btnOK.setLocation(145, 350);
+  btnOK.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOK.setBackground(new Color(10,90,150));
 		btnOK.setForeground(Color.WHITE);
 		btnOK.setBorderPainted(false);

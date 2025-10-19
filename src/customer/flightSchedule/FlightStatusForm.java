@@ -82,7 +82,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		this.id = id;
 		
 		// DB 정보 - 테스트 소스
-		String dbURL="jdbc:mysql://IP:PORT/DBNAME?serverTimezone=UTC&useSSL=false";
+		String dbURL="jdbc:sqlite:inhaair.db";
 		String dbID="inhaair";
 		String dbPassword="1234";
 		// 데이터베이스 연결 - 테스트 소스
@@ -111,6 +111,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		btnMainMenu.setFont(fontArial30);
 		btnMainMenu.setForeground(colorLogo);
 		btnMainMenu.setBorderPainted(false);
+  btnMainMenu.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnMainMenu.setBackground(Color.WHITE);
 				
 		// 전체 패널
@@ -138,14 +139,15 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 	// 공항 정보 가져오기 - 운행되고 있는 공항만 가져옴
 	private void setCity() {
 		// 국내 공항 먼저
-		String sql = "SELECT code, country, city FROM airport \r\n"
+		String sqlIn = "SELECT code, country, city FROM airport \r\n"
 				+ "WHERE terminal='국내' AND code IN (SELECT DISTINCT `from` FROM airplane)\r\n"
 				+ "ORDER BY city";
 		
-		ResultSet rs = databaseClass.select(sql);
+		// 국내 공항 정보 가져와서 콤보박스에 추가
+		ResultSet rsIn = databaseClass.select(sqlIn);
 		try {
-			while(rs.next()) {
-				city.add(rs.getString("city") + "/" + rs.getString("code"));
+			while(rsIn.next()) {
+				city.add(rsIn.getString("city") + "/" + rsIn.getString("code"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -153,14 +155,15 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		}
 	
 		// 국내 뒤에 국제 공항 정보 나오도록
-		String sql2 = "SELECT code, country, city FROM airport \r\n"
+		String sqlOut = "SELECT code, country, city FROM airport \r\n"
 				+ "WHERE terminal='국제' AND code IN (SELECT DISTINCT `from` FROM airplane)\r\n"
 				+ "ORDER BY country, city";
 		
-		ResultSet rs2 = databaseClass.select(sql2);
+		// 국제 공항 정보 가져와서 콤보박스에 추가
+		ResultSet rsOut = databaseClass.select(sqlOut);
 		try {
-			while(rs2.next()) {
-				city.add(rs2.getString("city") + "/" + rs2.getString("code"));
+			while(rsOut.next()) {
+				city.add(rsOut.getString("city") + "/" + rsOut.getString("code"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -170,14 +173,14 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		// 출발지 가장 첫번째 값을 기준으로 도착지 정보 가져옴
 		String dept = city.get(0);
 		dept = dept.substring(dept.lastIndexOf("/")+1);
-		String sql3 = "SELECT code, country, city FROM airport WHERE code IN (SELECT `to` "
+		String sqlDesn = "SELECT code, country, city FROM airport WHERE code IN (SELECT `to` "
 				+ "FROM airplane "
 				+ "WHERE `from`='" + dept + "')";
 		
-		ResultSet rs3 = databaseClass.select(sql3);
+		ResultSet rsDesn = databaseClass.select(sqlDesn);
 		try {
-			while(rs3.next()) {
-				destination.add(rs3.getString("city") + "/" + rs3.getString("code"));
+			while(rsDesn.next()) {
+				destination.add(rsDesn.getString("city") + "/" + rsDesn.getString("code"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -222,6 +225,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		btnOK = new JButton("조회");
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.addActionListener(this);
+  btnOK.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOK.setBackground(colorBtn);
 		btnOK.setForeground(Color.WHITE);
 		btnOK.setSize(150, 40);
@@ -249,7 +253,6 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		
 		model = new DefaultTableModel(datas, tableTitle);
 		
-//		jtSchedule = new JTable(model);
 		jtSchedule = new CreateTable(model);
 		jtSchedule.setFont(fontNanumGothic15);
 		jtSchedule.setRowHeight(30);
@@ -290,13 +293,14 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		
 		if(obj == btnMainMenu) {
+			// 메뉴로 이동
 			mainMenuForm = new MainMenuForm();
 			mainMenuForm.setId(id);
 			this.setVisible(false);
 			
 		} else if(obj == cbFrom) {
+			// 출발지 가져오기
 			String selected = cbFrom.getSelectedItem().toString();
-			
 			String dept = selected.substring(selected.lastIndexOf("/")+1);
 			
 			// 도착지 콤보박스 설정
@@ -343,7 +347,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		
 		// 현재 날짜 이후 항공편 검색
 		String sql = "SELECT flightCode, fromDate, fromTime, toDate, toTime\r\n"
-				+ "FROM inhaair.airSchedule\r\n"
+				+ "FROM airSchedule\r\n"
 				+ "WHERE `from` = '" + dept + "' AND `to` = '" + desn + "' AND DATE(fromDate) > DATE(NOW())\r\n"
 				+ "ORDER BY fromDate, flightCode";
 		

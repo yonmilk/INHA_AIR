@@ -111,6 +111,7 @@ public class MainMenuForm extends JFrame implements ActionListener {
 		
 		btnBook = new JButton("예매");
 		btnBook.setFont(fontNanumGothic20);
+  btnBook.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnBook.setBackground(colorBtn);
 		btnBook.setForeground(Color.WHITE);
 //		btnBook.setBorder(new EtchedBorder(colorLogo, colorBtn));		// 테두리
@@ -118,12 +119,14 @@ public class MainMenuForm extends JFrame implements ActionListener {
 		
 		btnFindTrips = new JButton("예매 조회");
 		btnFindTrips.setFont(fontNanumGothic20);
+  btnFindTrips.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnFindTrips.setBackground(colorBtn);
 		btnFindTrips.setForeground(Color.WHITE);
 		btnFindTrips.setHorizontalTextPosition(SwingConstants.CENTER);
 		
 		btnFilghtStatus = new JButton("항공편 현황");
 		btnFilghtStatus.setFont(fontNanumGothic20);
+  btnFilghtStatus.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnFilghtStatus.setBackground(colorBtn);
 		btnFilghtStatus.setForeground(Color.WHITE);
 		btnFilghtStatus.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -131,6 +134,7 @@ public class MainMenuForm extends JFrame implements ActionListener {
 		//연우 - 로그아웃 버튼 추가
 		btnSignOut = new JButton("로그아웃");
 		btnSignOut.setFont(fontNanumGothic20);
+  btnSignOut.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnSignOut.setBackground(colorBtn);
 		btnSignOut.setForeground(Color.WHITE);
 		btnSignOut.setHorizontalTextPosition(SwingConstants.CENTER);

@@ -29,6 +29,7 @@ import javax.swing.table.TableCellRenderer;
 import DataBase.databaseClass;
 import Management.AirPort.AirportList;
 import Management.Airway.AirwayList;
+import Management.Form.HintTextField;
 import Management.Main.MainForm;
 import Management.Payment.PaymentList;
 import be.sign.SignIn;
@@ -48,6 +49,7 @@ public class UserListTest extends JFrame implements ActionListener {
 		private AirportList airlinelist;
 		private MainForm mainform;
 		private int result;
+		private HintTextField hintTf;
 		
 		
 	// 폰트
@@ -91,7 +93,7 @@ public class UserListTest extends JFrame implements ActionListener {
 	private JPanel jpAll, jpBtn, jpEdit, jpNew, jpSer;
 	private JButton btnOk, btnBye, btnDel, btnMod, btnser;
 	private JLabel lblNew, lblId, lblPw, lblName, lblSex, lblPN, lblBir, lblTel, lblEmail, lblserach;
-	private JTextField tfId, tfPw, tfName, tfSex, tfPN, tfBir, tfTel, tfEmail, tfSer;
+	private HintTextField tfId, tfPw, tfName, tfSex, tfPN, tfBir, tfTel, tfEmail, tfSer, tftest;
 	
 
 	
@@ -108,7 +110,7 @@ public class UserListTest extends JFrame implements ActionListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//DB연결
-		String dbURL="jdbc:mysql://IP:PORT/DBNAME?serverTimezone=UTC&useSSL=false";
+		String dbURL="jdbc:sqlite:inhaair.db";
 		String dbID="inhaair";
 		String dbPassword="1234";
 		databaseClass.connect(dbURL, dbID, dbPassword);
@@ -138,14 +140,18 @@ public class UserListTest extends JFrame implements ActionListener {
 		setUserEdit();
 		
 		
-
-		
 		setVisible(true);
 		
 	}
 
 
 	
+
+
+	
+
+
+
 
 
 	private void setUserEdit() {
@@ -165,18 +171,20 @@ public class UserListTest extends JFrame implements ActionListener {
 		lblserach.setHorizontalAlignment(JLabel.CENTER);
 		
 		//검색 텍스트필드
-		tfSer = new JTextField("ex)japboss",15);
+		tfSer = new HintTextField("ex)japboss");
+		tfSer.setPreferredSize(new Dimension(200, 25));
 				
 		//검색 버튼
 		btnser = new JButton("검색");
 		btnser.setFont(fontNanumGothic13);
+  btnser.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnser.setBackground(colorBtn);
 		btnser.setForeground(Color.white);
 		btnser.addActionListener(this);
 				
 		jpSer.add(lblserach);
 		jpSer.add(tfSer);
-		jpSer.add(btnUser);
+		jpSer.add(btnser);
 		
 		jpEdit.add(jpSer);
 		
@@ -214,14 +222,15 @@ public class UserListTest extends JFrame implements ActionListener {
 	 	lblEmail.setHorizontalAlignment(JLabel.CENTER);
 	 			
 	 	//폼 텍스트필드 
-	 	tfId = new JTextField(30);
-	 	tfPw = new JTextField(30);
-	 	tfName = new JTextField(30);
-	 	tfSex = new JTextField(30);
-	 	tfPN = new JTextField(30);
-	 	tfBir = new JTextField(30);
-	 	tfTel = new JTextField(30);
-	 	tfEmail = new JTextField(30);
+	 	tfId = new HintTextField("ex)japboss");
+	 	tfPw = new HintTextField("ex)1234");
+	 	tfName = new HintTextField("ex)김민주");
+	 	tfSex = new HintTextField("ex)KIMMINJU");
+	 	tfPN = new HintTextField("ex)여");
+	 	tfBir = new HintTextField("ex)jap981222");
+	 	tfTel = new HintTextField("ex)1998-12-22");
+	 	tfEmail = new HintTextField("ex)이메일");
+	 	
 	 	
 	 	//붙이기
 	 	jpNew.add(lblId);
@@ -251,6 +260,7 @@ public class UserListTest extends JFrame implements ActionListener {
 		//등록 버튼
 		btnOk = new JButton("등록");
 		btnOk.setFont(fontNanumGothic18);
+  btnOk.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOk.setBackground(colorBtn);
 		btnOk.setForeground(Color.white);
 		btnOk.setPreferredSize(new Dimension(80, 30));
@@ -260,6 +270,7 @@ public class UserListTest extends JFrame implements ActionListener {
 		//삭제 버튼
     	btnDel = new JButton("삭제");
     	btnDel.setFont(fontNanumGothic18);
+     btnDel.setOpaque(true); //불투명 설정으로 배경색 표시
     	btnDel.setBackground(Color.LIGHT_GRAY);
     	btnDel.setPreferredSize(new Dimension(80, 30));
     	btnDel.addActionListener(this);
@@ -267,6 +278,7 @@ public class UserListTest extends JFrame implements ActionListener {
 		//확인 버튼
 		btnMod = new JButton("수정");
 		btnMod.setFont(fontNanumGothic18);
+  btnMod.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnMod.setBackground(colorBtn);
 		btnMod.setForeground(Color.white);
 		btnMod.setPreferredSize(new Dimension(80, 30));
@@ -275,6 +287,7 @@ public class UserListTest extends JFrame implements ActionListener {
 		//취소 버튼
     	btnBye = new JButton("취소");
 		btnBye.setFont(fontNanumGothic18);
+  btnBye.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnBye.setBackground(Color.LIGHT_GRAY);
 		btnBye.setPreferredSize(new Dimension(80, 30));
 		btnBye.addActionListener(this);
@@ -354,6 +367,7 @@ public class UserListTest extends JFrame implements ActionListener {
 		btnLogo.setSize(200, 70);
 		btnLogo.setLocation(10, 5);
 		btnLogo.addActionListener(this);
+  btnLogo.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnLogo.setBackground(Color.WHITE);
 		btnLogo.setForeground(new Color(24, 62, 111));	// 글자색 변경
 		btnLogo.setBorderPainted(false);

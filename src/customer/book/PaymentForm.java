@@ -78,6 +78,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 		btnMainMenu.setFont(fontArial30);
 		btnMainMenu.setForeground(colorLogo);
 		btnMainMenu.setBorderPainted(false);
+  btnMainMenu.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnMainMenu.setBackground(Color.WHITE);
 		
 		// 예원 - 리스너
@@ -123,6 +124,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 		btnOK = new JButton("첫화면으로 이동");
 		btnOK.addActionListener(this);
 		btnOK.setFont(fontNanumGothic20);
+  btnOK.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOK.setBackground(new Color(10,90,150));
 		btnOK.setForeground(Color.WHITE);
 		btnOK.setBorderPainted(false);
@@ -134,6 +136,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 		btnCheckRes = new JButton("예약 확인페이지로 이동");
 		btnCheckRes.addActionListener(this);
 		btnCheckRes.setFont(fontNanumGothic20);
+  btnCheckRes.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnCheckRes.setBackground(new Color(150,150,150));
 		btnCheckRes.setForeground(Color.WHITE);
 		btnCheckRes.setBorderPainted(false);
