@@ -78,6 +78,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 		btnMainMenu.setFont(fontArial30);
 		btnMainMenu.setForeground(colorLogo);
 		btnMainMenu.setBorderPainted(false);
+		btnMainMenu.setFocusPainted(false);
   btnMainMenu.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnMainMenu.setBackground(Color.WHITE);
 		
@@ -125,6 +126,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 		btnOK.addActionListener(this);
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setBorderPainted(false);
+		btnOK.setFocusPainted(false);
   btnOK.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOK.setBackground(new Color(10,90,150));
 		btnOK.setForeground(Color.WHITE);
@@ -137,6 +139,7 @@ public class PaymentForm extends JFrame implements ActionListener {
 		btnCheckRes.addActionListener(this);
 		btnCheckRes.setFont(fontNanumGothic20);
 		btnCheckRes.setBorderPainted(false);
+		btnCheckRes.setFocusPainted(false);
   btnCheckRes.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnCheckRes.setBackground(new Color(150,150,150));
 		btnCheckRes.setForeground(Color.WHITE);

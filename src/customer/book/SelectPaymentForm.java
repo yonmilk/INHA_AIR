@@ -108,6 +108,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		btnMainMenu.setFont(fontArial30);
 		btnMainMenu.setForeground(colorLogo);
 		btnMainMenu.setBorderPainted(false);
+		btnMainMenu.setFocusPainted(false);
   btnMainMenu.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnMainMenu.setBackground(Color.WHITE);
 				
@@ -233,6 +234,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		btnCancle.setFont(fontNanumGothic20);
 		btnCancle.setVerticalAlignment(SwingConstants.CENTER);
 		btnCancle.setBorderPainted(false);
+		btnCancle.setFocusPainted(false);
   btnCancle.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnCancle.setBackground(colorGrayBtn);
 		btnCancle.setForeground(Color.WHITE);
@@ -243,6 +245,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setVerticalAlignment(SwingConstants.CENTER);
 		btnOK.setBorderPainted(false);
+		btnOK.setFocusPainted(false);
   btnOK.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOK.setBackground(colorBtn);
 		btnOK.setForeground(Color.WHITE);
@@ -363,7 +366,7 @@ public class SelectPaymentForm extends JFrame implements ActionListener {
 	}
 
 	private void payment(String type) {
-		String sql = "INSERT INTO payment(reserveNum, `date`, payable, pay) VALUES('" + reserveNum + "', NOW(), '" + type + "', " + 
+		String sql = "INSERT INTO payment(reserveNum, `date`, payable, pay) VALUES('" + reserveNum + "', datetime('now', 'localtime'), '" + type + "', " +
 				"( SELECT pay FROM reservation WHERE reserveNum='" + reserveNum + "'))";
 		
 		int rs = databaseClass.insert(sql);

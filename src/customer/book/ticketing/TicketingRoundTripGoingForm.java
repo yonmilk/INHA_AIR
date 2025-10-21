@@ -306,6 +306,7 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 	btnMainMenu.setFont(fontArial30);
 	btnMainMenu.setForeground(colorLogo);
 	btnMainMenu.setBorderPainted(false);
+	btnMainMenu.setFocusPainted(false);
  btnMainMenu.setOpaque(true); //불투명 설정으로 배경색 표시
 	btnMainMenu.setBackground(Color.WHITE);
 	
@@ -381,6 +382,8 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 	
 	btnNext = new JButton("다음"); //오는 편의 항공편을 선택하는 창으로 이동하는 버튼
 	btnNext.setFont(fontNanumGothic20);
+	btnNext.setBorderPainted(false);
+	btnNext.setFocusPainted(false);
  btnNext.setOpaque(true); //불투명 설정으로 배경색 표시
 	btnNext.setBackground(crNext);
 	btnNext.setForeground(Color.white);
@@ -411,6 +414,8 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 	btnEcon = new JButton("선택");
 	btnEcon.setFont(fontNanumGothic18Plain);
 	btnEcon.setBounds(810, 20,100, 30);
+	btnEcon.setBorderPainted(false);
+	btnEcon.setFocusPainted(false);
  btnEcon.setOpaque(true); //불투명 설정으로 배경색 표시
 	btnEcon.setBackground(crSelect);
 	btnEcon.setForeground(Color.white);
@@ -431,6 +436,8 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 	btnBus = new JButton("선택");
 	btnBus.setFont(fontNanumGothic18Plain);
 	btnBus.setBounds(810, 20,100, 30);
+	btnBus.setBorderPainted(false);
+	btnBus.setFocusPainted(false);
  btnBus.setOpaque(true); //불투명 설정으로 배경색 표시
 	btnBus.setBackground(crSelect);
 	btnBus.setForeground(Color.white);
@@ -451,6 +458,8 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 	btnFirs = new JButton("선택");
 	btnFirs.setFont(fontNanumGothic18Plain);
 	btnFirs.setBounds(810, 20,100, 30);
+	btnFirs.setBorderPainted(false);
+	btnFirs.setFocusPainted(false);
  btnFirs.setOpaque(true); //불투명 설정으로 배경색 표시
 	btnFirs.setBackground(crSelect);
 	btnFirs.setForeground(Color.white);
@@ -468,8 +477,7 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 	lblArrP.setFont(fontNanumGothic25);
 	lblArrP.setBounds(180, -20, 200, 100);
 	
-	lblGoComeDate = new JLabel(goDay.substring(0, 4)+"-"+goDay.substring(4, 6)+"-"+goDay.substring(6, 8) + "~" 
-			+ comeDay.substring(0, 4)+"-"+comeDay.substring(4, 6)+"-"+comeDay.substring(6, 8)); //가는 날짜와 오는 날짜
+	lblGoComeDate = new JLabel(goDay + " ~ " + comeDay); //가는 날짜와 오는 날짜
 	lblGoComeDate.setFont(fontNanumGothic18Plain);
 	lblGoComeDate.setBounds(300, -20, 400, 100);
 
@@ -522,7 +530,7 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 		java.sql.PreparedStatement ps = null;
 		try {
 		
-			String sql = "INSERT INTO reservation(`date`, reserveNum, GOscheduleNo, COMscheduleNo, ID, adult, child, infant, pay, GOclass, COMclass) VALUES (NOW(),?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO reservation(`date`, reserveNum, GOscheduleNo, COMscheduleNo, ID, adult, child, infant, pay, GOclass, COMclass) VALUES (datetime('now', 'localtime'),?,?,?,?,?,?,?,?,?,?)";
 			//선택한 정보를 예매 테이블에 삽입 한다.
 			
 			ps = conn.prepareStatement(sql);
@@ -622,7 +630,7 @@ public TicketingRoundTripGoingForm(BookForm sel) {
 			state = conn.createStatement();	
 				
 					String sql;
-					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ SelectDepCode +"' and fromDate = " + goDay +" and `to` = '" + SelectArrCode +"'";
+					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ SelectDepCode +"' and fromDate = '" + goDay +"' and `to` = '" + SelectArrCode +"'";
 					//airSchedule 테이블에서 데이터를 검색하여 변수로 저장
 					
 					ResultSet rs = state.executeQuery(sql);

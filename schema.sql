@@ -77,6 +77,9 @@ CREATE TABLE IF NOT EXISTS reservation (
     COMclass VARCHAR(20),
     pay DECIMAL(10,2),
     reserveDate DATETIME,
+    adult INTEGER DEFAULT 0,
+    child INTEGER DEFAULT 0,
+    infant INTEGER DEFAULT 0,
     FOREIGN KEY (ID) REFERENCES user(ID),
     FOREIGN KEY (GOscheduleNo) REFERENCES airSchedule(scheduleNo),
     FOREIGN KEY (COMscheduleNo) REFERENCES airSchedule(scheduleNo)
@@ -91,6 +94,11 @@ CREATE TABLE IF NOT EXISTS reservationDetail (
     passport VARCHAR(50),
     birth DATE,
     sex VARCHAR(10),
+    scheduleNo INTEGER,
+    tel VARCHAR(20),
+    email VARCHAR(100),
+    agree INTEGER DEFAULT 0,
+    baggage INTEGER DEFAULT 0,
     FOREIGN KEY (reserveNum) REFERENCES reservation(reserveNum)
 );
 

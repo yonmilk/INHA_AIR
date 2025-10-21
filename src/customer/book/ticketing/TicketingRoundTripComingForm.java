@@ -393,8 +393,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 	lblArrP.setFont(fontNanumGothic25);
 	lblArrP.setBounds(180, -20, 200, 100);
 
-	lblGoComeDate = new JLabel(goDay.substring(0, 4)+"-"+goDay.substring(4, 6)+"-"+goDay.substring(6, 8) + "~" 
-			+ comeDay.substring(0, 4)+"-"+comeDay.substring(4, 6)+"-"+comeDay.substring(6, 8));
+	lblGoComeDate = new JLabel(goDay + " ~ " + comeDay);
 	lblGoComeDate.setFont(fontNanumGothic18Plain);
 	lblGoComeDate.setBounds(300, -20, 400, 100);
 
@@ -537,7 +536,7 @@ public class TicketingRoundTripComingForm extends JFrame implements ActionListen
 			state = conn.createStatement();	
 				
 					String sql;
-					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ SelectArr +"' and fromDate = " + comeDay +" and `to` = '" + SelectDep +"'and toDate = " + comeDay +"";
+					sql = "SELECT * FROM airSchedule WHERE `from` = '"+ SelectArr +"' and fromDate = '" + comeDay +"' and `to` = '" + SelectDep +"' and toDate = '" + comeDay +"'";
 					
 					ResultSet rs = state.executeQuery(sql);
 					while (rs.next()) {

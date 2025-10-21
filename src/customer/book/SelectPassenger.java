@@ -201,6 +201,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		lblAdult.setFont(fontNanumGothic18);
 		btnAdult = new JButton(imgQuestionIcon); //국제선 만 12세 이상, 국내선 만 13세 이상
 		btnAdult.setBorderPainted(false); //버튼 윤곽선 제거
+		btnAdult.setFocusPainted(false);
 		btnAdult.setContentAreaFilled(false); //버튼배경 제거
 		btnAdult.addActionListener(this);
 		
@@ -208,6 +209,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		lblInfant.setFont(fontNanumGothic18);
 		btnInfant = new JButton(imgQuestionIcon); //국제선 만 12세 미만, 국내선 만 13세 미만
 		btnInfant.setBorderPainted(false); //버튼 윤곽선 제거
+		btnInfant.setFocusPainted(false);
 		btnInfant.setContentAreaFilled(false); //버튼배경 제거
 		btnInfant.addActionListener(this);
 		
@@ -215,6 +217,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		lblChild.setFont(fontNanumGothic18);
 		btnChild = new JButton(imgQuestionIcon); //만 2세 미만
 		btnChild.setBorderPainted(false); //버튼 윤곽선 제거
+		btnChild.setFocusPainted(false);
 		btnChild.setContentAreaFilled(false); //버튼배경 제거
 		btnChild.addActionListener(this);
 		
@@ -236,6 +239,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		
 		btnPlusAdult = new JButton(imgPlusIcon); //성인 인원 +버튼
 		btnPlusAdult.setBorderPainted(false); //버튼 윤곽선 제거
+		btnPlusAdult.setFocusPainted(false);
 		btnPlusAdult.setContentAreaFilled(false); //버튼배경 제거
 		btnPlusAdult.addActionListener(this);
 		
@@ -245,11 +249,13 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		
 		btnMinusAdult = new JButton(imgMinusIcon); //성인인원 -버튼
 		btnMinusAdult.setBorderPainted(false); //버튼 윤곽선 제거
+		btnMinusAdult.setFocusPainted(false);
 		btnMinusAdult.setContentAreaFilled(false); //버튼배경 제거
 		btnMinusAdult.addActionListener(this);
 		
 		btnPlusInfant = new JButton(imgPlusIcon); //소아인원 +버튼
 		btnPlusInfant.setBorderPainted(false); //버튼 윤곽선 제거
+		btnPlusInfant.setFocusPainted(false);
 		btnPlusInfant.setContentAreaFilled(false); //버튼배경 제거
 		btnPlusInfant.addActionListener(this);
 		
@@ -259,11 +265,13 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		
 		btnMinusInfant = new JButton(imgMinusIcon); //소아인원 -버튼
 		btnMinusInfant.setBorderPainted(false); //버튼 윤곽선 제거
+		btnMinusInfant.setFocusPainted(false);
 		btnMinusInfant.setContentAreaFilled(false); //버튼배경 제거
 		btnMinusInfant.addActionListener(this);
 		
 		btnPlusChild = new JButton(imgPlusIcon); //유아 인원 +버튼
 		btnPlusChild.setBorderPainted(false); //버튼 윤곽선 제거
+		btnPlusChild.setFocusPainted(false);
 		btnPlusChild.setContentAreaFilled(false); //버튼배경 제거
 		btnPlusChild.addActionListener(this);
 		
@@ -273,6 +281,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		
 		btnMinusChild = new JButton(imgMinusIcon); //유아 인원 -버튼
 		btnMinusChild.setBorderPainted(false); //버튼 윤곽선 제거
+		btnMinusChild.setFocusPainted(false);
 		btnMinusChild.setContentAreaFilled(false); //버튼배경 제거
 		btnMinusChild.addActionListener(this);
 
@@ -321,6 +330,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		btnCalculate.setBorder(new LineBorder(Color.gray,1));
 		//btnCalculate.setContentAreaFilled(false); //버튼배경 제거
 		btnCalculate.setBorderPainted(false);
+		btnCalculate.setFocusPainted(false);
   btnCalculate.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnCalculate.setBackground(Color.white);
 		btnCalculate.addActionListener(this);
@@ -331,6 +341,7 @@ public class SelectPassenger extends JFrame implements ActionListener{
 		btnOk.setSize(100, 30);
 		btnOk.setLocation(150, 100);
 		btnOk.setBorderPainted(false); //버튼 윤곽선 제거
+		btnOk.setFocusPainted(false);
   btnOk.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOk.setBackground(new Color(10,90,150));
 		btnOk.addActionListener(this);
@@ -414,9 +425,9 @@ public class SelectPassenger extends JFrame implements ActionListener{
 					birthYear = parsedBirthDate.getYear();
 					birthMonthDay = Integer.parseInt(birthday.substring(5,8));
 					
-					LocalDate parsedgoDay = LocalDate.parse(goDay, DateTimeFormatter.ofPattern("yyyyMMdd")); //생년월일 값 date에 넣어보기
+					LocalDate parsedgoDay = LocalDate.parse(goDay, DateTimeFormatter.ofPattern("yyyy-MM-dd")); //생년월일 값 date에 넣어보기
 					goDayYear = parsedgoDay.getYear();
-					goMonthDay = Integer.parseInt(goDay.substring(5,8));
+					goMonthDay = Integer.parseInt(goDay.substring(5,7) + goDay.substring(8,10));
 					
 					int age = goDayYear - birthYear;	//나이 구하기
 					

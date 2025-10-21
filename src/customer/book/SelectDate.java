@@ -464,9 +464,9 @@ public class SelectDate extends JFrame implements ActionListener {
 			} else { //버튼에 텍스트가 있으면 실행
 				
 				if(Integer.parseInt(lblstringMonth)<10)     //달 값이 10보다 작으면, 해당 페이지의 달 값 설정
-					lblstringMonth = 0 + lblstringMonth;	//한 자리수를 두 자리수로 설정
+					lblstringMonth = "0" + lblstringMonth;	//한 자리수를 두 자리수로 설정
 				if(Integer.parseInt(objText)<10)		    //일 값도 10보다 값 작으면 설정
-					objText = 0 + objText;
+					objText = "0" + objText;
 				
 				if(todayMonth < 10) //10보다 작으면 두자리수 설정
 					stTodayMonth = "0" + todayMonth;
@@ -486,8 +486,8 @@ public class SelectDate extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(null, "오늘 이전의 날은 선택할 수 없습니다.", "날짜선택", JOptionPane.OK_CANCEL_OPTION);
 				} else {
 					if (selectindex == 0) { //선택 안 했으면 goDay에 값 설정
-						
-						goDay = lblstringYear+lblstringMonth+objText;
+
+						goDay = lblstringYear+"-"+lblstringMonth+"-"+objText;
 						tfGo.setText(goDay);
 						tfCome.setText("");
 						btnSelect.setText("날짜 선택");
@@ -496,9 +496,9 @@ public class SelectDate extends JFrame implements ActionListener {
 						
 						
 					} else if(selectindex == 1) { //선택했을 때
-						comeDay = lblstringYear+lblstringMonth+objText;
-						
-						if(Integer.parseInt(goDay)<Integer.parseInt(comeDay)) { //goDay보다 값이 크면 comeDay에 설정
+						comeDay = lblstringYear+"-"+lblstringMonth+"-"+objText;
+
+						if(goDay.compareTo(comeDay) < 0) { //goDay보다 값이 크면 comeDay에 설정
 							//tfCome.setText(lblstringYear + "/" + lblstringMonth + "/" + objText);
 							tfCome.setText(comeDay);
 							btnSelect.setText("왕복 선택");

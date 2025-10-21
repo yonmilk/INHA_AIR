@@ -132,6 +132,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		btnMainMenu.setFont(fontArial30);
 		btnMainMenu.setForeground(colorLogo);
 		btnMainMenu.setBorderPainted(false);
+		btnMainMenu.setFocusPainted(false);
   btnMainMenu.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnMainMenu.setBackground(Color.WHITE);
 		
@@ -203,6 +204,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		btnBaggage = new JButton("초과수하물");
 		btnBaggage.setFont(fontNanumGothic20);
 		btnBaggage.setBorderPainted(false);
+		btnBaggage.setFocusPainted(false);
   btnBaggage.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnBaggage.setBackground(colorBtn);
 		btnBaggage.setForeground(Color.WHITE);
@@ -210,6 +212,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		btnOK = new JButton(str);
 		btnOK.setFont(fontNanumGothic20);
 		btnOK.setBorderPainted(false);
+		btnOK.setFocusPainted(false);
   btnOK.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOK.setBackground(colorBtn);
 		btnOK.setForeground(Color.WHITE);
@@ -453,11 +456,11 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		if(cbAgree.isSelected()) {
 			// 수신 동의 했을 경우
 			// 편도인지 왕복인지 확인
-			if(COMscheduleNo == "") {
+			if(COMscheduleNo.isEmpty() || COMscheduleNo.equals("")) {
 				// 편도일 경우
 				// 정규식 확인
 				boolean rs = checkType();
-				
+
 				if(rs) {
 					insertInformationData(GOscheduleNo, 0);
 				}
@@ -467,7 +470,7 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 				// 동의 하고 좌석도 선택한 경우 정보 insert
 				// 가는날 정보 insert
 				boolean rs = checkType();
-				
+
 				if(rs) {
 					insertInformationData(GOscheduleNo, 1);
 				}
@@ -554,21 +557,21 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 
 	// 예매 정보 insert
 	private void insertInformationData(String schedule, int flag) {
-		
+
 		// reservationDetail 테이블에 insert 하는 sql문
 		String sql = "INSERT INTO reservationDetail "
 				+ "(reserveNum, scheduleNo, nameKOR, nameENG, sex, passport, birth, tel, email, agree, baggage) "
 				+ "VALUES('";
-		
+
 		nameKOR = tfFamilyNameKor.getText().toString() + tfNameKor.getText().toString();
 		nameENG = tfFamilyNameEng.getText().toString() + tfNameEng.getText().toString();
-		
+
 		if(rbMan.isSelected()) {
 			sex = "남";
 		} else if(rbWoman.isSelected()) {
 			sex = "여";
 		}
-		
+
 		passport = tfPassport.getText().toString();
 		birth = tfBirth.getText().toString();
 		tel = tfTel.getText().toString();
@@ -576,31 +579,25 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 		if(cbAgree.isSelected()) {
 			agree = 1;
 		}
-		
-		
+
+
 		sql += reserveNum + "', '" + schedule + "', '" + nameKOR + "', '" + nameENG + "', '" + sex + "', '" + passport + "', '" + birth + "', '"
 			+ tel + "', '" + email + "', " + agree + ", " + baggage + ")";
-		
+
 		System.out.println(sql);
-		
+
 		// sql문 수행
 		int result = databaseClass.insert(sql);
 		if(result == 1) {
-			
-			// flag - 0 : 가는날, 1 : 오는날
+
+			// flag - 0 : 가는날만, 1 : 오는날도 insert 필요
 			if(flag == 1) {
 				// 오는날 정보 insert
 				insertInformationData(COMscheduleNo, 0);
 			}
-			else {
-				
-				count++;
-				
-				// 다음 승객 있는지 확인해서 결제로 넘어가기
-				goNext();
-			}
-			
-			
+
+			count++;
+
 		} else {
 			// insert 실패시 안내 다이얼로그
 			JOptionPane.showMessageDialog(null, "입력한 정보를 확인해주십시오.", "예매 안내", JOptionPane.WARNING_MESSAGE);
@@ -609,10 +606,10 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 
 	// 다음 승객 있는지 확인해서 결제로 넘어가기
 	private void goNext() {
-		
+
 		// payment 테이블에 가격 업데이트
 		int rs = upPay();
-		
+
 		if(rs == 1) {
 			// 업데이트 성공시
 			if(count == people) {
@@ -620,16 +617,21 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 				paymentForm = new SelectPaymentForm(reserveNum, id);
 				this.setVisible(false);
 			} else {
-				// 라벨 변경
-				lblInformation.setText("승객" + (count+1) + " 정보 입력");
-				
-				// 입력된 값 다 지우기
-				tfReset();
-				
-				if((count+1) == people) {
-					// 마지막 승객 일 경우 버튼을 결제하기로 변경
-					btnOK.setText("결제 하기");
+				// 나머지 승객들도 같은 정보로 자동 저장
+				for(int i = count; i < people; i++) {
+					// 왕복인지 확인
+					if(COMscheduleNo.isEmpty() || COMscheduleNo.equals("")) {
+						// 편도일 경우
+						insertInformationData(GOscheduleNo, 0);
+					} else {
+						// 왕복일 경우 - 가는날과 오는날 모두 insert
+						insertInformationData(GOscheduleNo, 1);
+					}
 				}
+
+				// 모든 승객 정보 저장 완료 후 결제 화면으로 이동
+				paymentForm = new SelectPaymentForm(reserveNum, id);
+				this.setVisible(false);
 			}
 		} else {
 			// 업데이트 실패시
@@ -640,9 +642,9 @@ public class ReservationDetailForm extends JFrame implements ActionListener {
 
 	// 금액 update
 	private int upPay() {
-		
+
 		int baggageAddPay = 0;
-		if(COMscheduleNo == "0") {
+		if(COMscheduleNo.equals("0") || COMscheduleNo.isEmpty()) {
 			// 편도일 경우
 			baggageAddPay = (Integer.parseInt(baggage) *  50000);
 		}

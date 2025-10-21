@@ -69,8 +69,9 @@ public class StartForm extends JFrame implements ActionListener {
 		btnStart.setFont(fontArial60);
 		btnStart.setForeground(colorLogo);
 		btnStart.setBorderPainted(false);
-		btnStart.setOpaque(true);  // 불투명하게 설정하여 배경색이 보이도록 함
-		btnStart.setBackground(Color.WHITE);
+		btnStart.setFocusPainted(false);
+		btnStart.setContentAreaFilled(false);
+		btnStart.setOpaque(false);
 		
 		// 리스너
 		btnStart.addActionListener(this);

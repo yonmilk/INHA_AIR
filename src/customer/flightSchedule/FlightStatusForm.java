@@ -348,7 +348,7 @@ public class FlightStatusForm extends JFrame implements ActionListener {
 		// 현재 날짜 이후 항공편 검색
 		String sql = "SELECT flightCode, fromDate, fromTime, toDate, toTime\r\n"
 				+ "FROM airSchedule\r\n"
-				+ "WHERE `from` = '" + dept + "' AND `to` = '" + desn + "' AND DATE(fromDate) > DATE(NOW())\r\n"
+				+ "WHERE `from` = '" + dept + "' AND `to` = '" + desn + "' AND DATE(fromDate) >= DATE('now')\r\n"
 				+ "ORDER BY fromDate, flightCode";
 		
 		// 테이블 초기화
