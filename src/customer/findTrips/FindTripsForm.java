@@ -144,7 +144,6 @@ public class FindTripsForm extends JFrame implements ActionListener {
 				// 예원 - 컴포넌트 붙이기
 				add(btnMainMenu);
 						
-				Data();
 		
 		jpInquiryTop = new JPanel(); //고객이 선택한 정보를 표시하는 바
 		jpInquiryTop.setLayout(null);
@@ -220,27 +219,27 @@ public class FindTripsForm extends JFrame implements ActionListener {
 
 		//------------------------------------------
 		//------------------------------------------
-		lblReserveNum = new JLabel(reserveNum);
+		lblReserveNum = new JLabel("");
 		lblReserveNum.setBounds(55, 40, 150, 20);
 		lblReserveNum.setFont(fontNanumGothic15Plain);
-		
-		lblName = new JLabel(nameKOR);
+
+		lblName = new JLabel("");
 		lblName.setBounds(245, 40, 80, 20);
 		lblName.setFont(fontNanumGothic15Plain);
-		
-		lblFromDate = new JLabel(GOfromDate);
+
+		lblFromDate = new JLabel("");
 		lblFromDate.setBounds(370, 30, 200, 20);
 		lblFromDate.setFont(fontNanumGothic15Plain);
-		
-		lblToDate = new JLabel(COMfromDate);
+
+		lblToDate = new JLabel("");
 		lblToDate.setBounds(370, 60, 200, 20);
 		lblToDate.setFont(fontNanumGothic15Plain);
-		
-		lblDepP = new JLabel(from);
+
+		lblDepP = new JLabel("");
 		lblDepP.setBounds(560, 40, 200, 20);
 		lblDepP.setFont(fontNanumGothic18Plain);
-		
-		lblArrP = new JLabel(to);
+
+		lblArrP = new JLabel("");
 		lblArrP.setBounds(695, 40, 200, 20);
 		lblArrP.setFont(fontNanumGothic18Plain);
 		
@@ -252,7 +251,10 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		jpInquiry1.add(lblToDate);
 		jpInquiry1.add(lblDepP);
 		jpInquiry1.add(lblArrP);
-		
+
+		// Load data from database and update labels
+		Data();
+
 		setVisible(true);
 	}
 	private void Data() {
@@ -267,7 +269,7 @@ public class FindTripsForm extends JFrame implements ActionListener {
 			state = conn.createStatement();	
 
 			String sql;
-			sql = "SELECT * FROM reservation WHERE `ID` = '"+ id +"' ORDER BY date DESC LIMIT 1";
+			sql = "SELECT * FROM reservation WHERE `ID` = '"+ id +"' ORDER BY reserveDate DESC LIMIT 1";
 			//reservation테이블에서 id를 이용하여 가장 최신의 예매 정보를 검색
 			
 			ResultSet rs = state.executeQuery(sql);
@@ -417,6 +419,26 @@ public class FindTripsForm extends JFrame implements ActionListener {
 	catch (SQLException ex1) {}
 	try {if(conn!=null)conn.close();}
 	catch (SQLException ex2) {}
+	}
+
+	// Update labels with fetched data
+	if (lblReserveNum != null && reserveNum != null) {
+		lblReserveNum.setText(reserveNum);
+	}
+	if (lblName != null && nameKOR != null) {
+		lblName.setText(nameKOR);
+	}
+	if (lblFromDate != null && GOfromDate != null) {
+		lblFromDate.setText(GOfromDate);
+	}
+	if (lblToDate != null && COMfromDate != null) {
+		lblToDate.setText(COMfromDate);
+	}
+	if (lblDepP != null && from != null) {
+		lblDepP.setText(from);
+	}
+	if (lblArrP != null && to != null) {
+		((JLabel)lblArrP).setText(to);
 	}
 
 }

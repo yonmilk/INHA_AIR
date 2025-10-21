@@ -103,6 +103,7 @@ public class MainForm extends JFrame implements ActionListener {
 		btnLogo.setBackground(Color.WHITE);
 		btnLogo.setForeground(new Color(24, 62, 111));	// 글자색 변경
 		btnLogo.setBorderPainted(false);
+		btnLogo.setFocusPainted(false);
 		btnLogo.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnLogo.setVerticalAlignment(SwingConstants.BOTTOM);
 		
@@ -114,13 +115,14 @@ public class MainForm extends JFrame implements ActionListener {
 		jpMenu.setLocation(70, 40);
 		
 		//메뉴
-		btnUser = new JButton("회원관리");			
-		btnUser.setSize(150, 40);	
-		btnUser.setLocation(200, 0);				
+		btnUser = new JButton("회원관리");
+		btnUser.setSize(150, 40);
+		btnUser.setLocation(200, 0);
 		btnUser.addActionListener(this);
-		btnUser.setFont(fontNanumGothic18);	
-		btnUser.setBorderPainted(false);		
+		btnUser.setFont(fontNanumGothic18);
+		btnUser.setBorderPainted(false);
 		btnUser.setContentAreaFilled(false);
+		btnUser.setFocusPainted(false);
 		
 		btnAirway = new JButton("항공편");
 		btnAirway.setSize(150, 40);
@@ -129,6 +131,7 @@ public class MainForm extends JFrame implements ActionListener {
 		btnAirway.setFont(fontNanumGothic18);
 		btnAirway.setBorderPainted(false);
 		btnAirway.setContentAreaFilled(false);
+		btnAirway.setFocusPainted(false);
 		
 		btnAirport = new JButton("공항");
 		btnAirport.setSize(150, 40);
@@ -137,6 +140,7 @@ public class MainForm extends JFrame implements ActionListener {
 		btnAirport.setFont(fontNanumGothic18);
 		btnAirport.setBorderPainted(false);
 		btnAirport.setContentAreaFilled(false);
+		btnAirport.setFocusPainted(false);
 		
 		btnAirplane = new JButton("비행기");
 		btnAirplane.setSize(150, 40);
@@ -145,6 +149,7 @@ public class MainForm extends JFrame implements ActionListener {
 		btnAirplane.setFont(fontNanumGothic18);
 		btnAirplane.setBorderPainted(false);
 		btnAirplane.setContentAreaFilled(false);
+		btnAirplane.setFocusPainted(false);
 		
 		btnPay = new JButton("매출");
 		btnPay.setSize(150, 40);
@@ -153,6 +158,7 @@ public class MainForm extends JFrame implements ActionListener {
 		btnPay.setFont(fontNanumGothic18);
 		btnPay.setBorderPainted(false);
 		btnPay.setContentAreaFilled(false);
+		btnPay.setFocusPainted(false);
 		
 		
 		// 로그아웃
@@ -163,6 +169,7 @@ public class MainForm extends JFrame implements ActionListener {
 		btnLogout.setFont(fontArial);
 		btnLogout.setBorderPainted(false);
 		btnLogout.setContentAreaFilled(false);
+		btnLogout.setFocusPainted(false);
 		
 		
 		jpTOP.add(btnLogo);
