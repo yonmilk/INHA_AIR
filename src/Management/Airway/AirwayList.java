@@ -223,7 +223,8 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		//검색 버튼
 		btnser = new JButton("검색");
 		btnser.setFont(fontNanumGothic13);
-  setBorderPainted(false);
+  btnser.setBorderPainted(false);
+  btnser.setFocusPainted(false);
   btnser.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnser.setBackground(colorBtn);
 		btnser.setForeground(Color.white);
@@ -306,7 +307,8 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		//등록 버튼
 		btnOk = new JButton("등록");
 		btnOk.setFont(fontNanumGothic18);
-  setBorderPainted(false);
+  btnOk.setBorderPainted(false);
+  btnOk.setFocusPainted(false);
   btnOk.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnOk.setBackground(colorBtn);
 		btnOk.setForeground(Color.white);
@@ -317,7 +319,8 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		//삭제 버튼
     	btnDel = new JButton("삭제");
     	btnDel.setFont(fontNanumGothic18);
-     setBorderPainted(false);
+     btnDel.setBorderPainted(false);
+     btnDel.setFocusPainted(false);
      btnDel.setOpaque(true); //불투명 설정으로 배경색 표시
     	btnDel.setBackground(Color.LIGHT_GRAY);
     	btnDel.setPreferredSize(new Dimension(80, 30));
@@ -326,7 +329,8 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		//확인 버튼
 		btnMod = new JButton("수정");
 		btnMod.setFont(fontNanumGothic18);
-  setBorderPainted(false);
+  btnMod.setBorderPainted(false);
+  btnMod.setFocusPainted(false);
   btnMod.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnMod.setBackground(colorBtn);
 		btnMod.setForeground(Color.white);
@@ -336,7 +340,8 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		//취소 버튼
     	btnBye = new JButton("취소");
 		btnBye.setFont(fontNanumGothic18);
-  setBorderPainted(false);
+  btnBye.setBorderPainted(false);
+  btnBye.setFocusPainted(false);
   btnBye.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnBye.setBackground(Color.LIGHT_GRAY);
 		btnBye.setPreferredSize(new Dimension(80, 30));
@@ -416,11 +421,13 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		btnLogo.setSize(200, 70);
 		btnLogo.setLocation(10, 25);
 		btnLogo.addActionListener(this);
-  setBorderPainted(false);
+  btnLogo.setBorderPainted(false);
+  btnLogo.setFocusPainted(false);
   btnLogo.setOpaque(true); //불투명 설정으로 배경색 표시
 		btnLogo.setBackground(Color.WHITE);
 		btnLogo.setForeground(new Color(24, 62, 111));	// 글자색 변경
 		btnLogo.setBorderPainted(false);
+		btnLogo.setFocusPainted(false);
 		btnLogo.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnLogo.setVerticalAlignment(SwingConstants.BOTTOM);
 		
@@ -437,7 +444,8 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		btnUser.setLocation(200, 0);				
 		btnUser.addActionListener(this);
 		btnUser.setFont(fontNanumGothic18);	
-		btnUser.setBorderPainted(false);		
+		btnUser.setBorderPainted(false);
+		btnUser.setFocusPainted(false);		
 		btnUser.setContentAreaFilled(false);
 		
 		btnAirway = new JButton("항공편");
@@ -446,6 +454,7 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		btnAirway.addActionListener(this);
 		btnAirway.setFont(fontNanumGothic18);
 		btnAirway.setBorderPainted(false);
+		btnAirway.setFocusPainted(false);
 		btnAirway.setContentAreaFilled(false);
 		
 		btnAirport = new JButton("공항");
@@ -454,6 +463,7 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		btnAirport.addActionListener(this);
 		btnAirport.setFont(fontNanumGothic18);
 		btnAirport.setBorderPainted(false);
+		btnAirport.setFocusPainted(false);
 		btnAirport.setContentAreaFilled(false);
 		
 		btnAirplane = new JButton("비행기");
@@ -462,6 +472,7 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		btnAirplane.addActionListener(this);
 		btnAirplane.setFont(fontNanumGothic18);
 		btnAirplane.setBorderPainted(false);
+		btnAirplane.setFocusPainted(false);
 		btnAirplane.setContentAreaFilled(false);
 		
 		btnPay = new JButton("매출");
@@ -470,6 +481,7 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		btnPay.addActionListener(this);
 		btnPay.setFont(fontNanumGothic18);
 		btnPay.setBorderPainted(false);
+		btnPay.setFocusPainted(false);
 		btnPay.setContentAreaFilled(false);
 		
 		
@@ -482,6 +494,7 @@ public class AirwayList extends JFrame implements ActionListener, MouseListener 
 		btnLogout.addActionListener(this);
 		btnLogout.setFont(fontArial);
 		btnLogout.setBorderPainted(false);
+		btnLogout.setFocusPainted(false);
 		btnLogout.setContentAreaFilled(false);
 		
 		

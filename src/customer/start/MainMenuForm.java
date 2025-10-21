@@ -104,8 +104,8 @@ public class MainMenuForm extends JFrame implements ActionListener {
 	private void setMenu() {
 		
 		jpMenu = new JPanel(new GridLayout(4, 1, 30, 30));
-		jpMenu.setSize(400, 400);
-		jpMenu.setLocation(355, 180);
+		jpMenu.setSize(500, 400);
+		jpMenu.setLocation(305, 180);
 		jpMenu.setBorder(new EmptyBorder(50, 50, 50, 50));
 		jpMenu.setBackground(Color.WHITE);
 		
