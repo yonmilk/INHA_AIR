@@ -98,9 +98,9 @@ public class FindTripsForm extends JFrame implements ActionListener {
 		private Component lblRArr;
 		private Component lblRSeat;
 		private JButton btnDetail1;
-		private Component btnDetail2;
+		private JButton btnDetail2;
 		private JButton btnDetail3;
-		private Component btnDetail4;
+		private JButton btnDetail4;
 		private JLabel lblName;
 		private JLabel lblReserveNum;
 		private JLabel lblFromDate;
