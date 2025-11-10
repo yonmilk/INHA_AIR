@@ -1,10 +1,12 @@
-인하공업 전문대학 컴퓨터시스템과 2학년 1학기 [Java 프로그래밍 응용] 과제 팀 프로젝트로, 
+> 인하공업 전문대학 컴퓨터시스템과 2학년 1학기 [Java 프로그래밍 응용] 과제 팀 프로젝트입니다.\
+> 원본은 [INHA_AIR_TEAM](https://github.com/yonmilk/INHA_AIR_TEAM.git)에서 확인 가능합니다.
+
 항공 예매 시스템에서 항공 예매 기능을 주로 구현했습니다.
 
 # INHA_AIR: 항공 예매 시스템
 
 ## 프로젝트 개요
-**기간**: 2021.05.13 ~ 2021.07.15 (2개월)
+**기간**: 2021.05.13 ~ 2021.06.15 (약 1개월)
 
 ### 목표
 #### 사용자
@@ -43,42 +45,43 @@
 
 # 프로젝트 결과 및 자료
 
-<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1hYKoS6fPkDNljlhXNhuokQLwa3Z_oDYQ" width="100%">
+<img src="https://github.com/user-attachments/assets/ac704783-e1f2-4070-b46c-5af008a3f2b8" width="100%">
 
 <table>
 <tr>
-  <td width="33%"><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1W3uTisglJD07sBNfSZSSpLCWVnfSZ8IV" width="100%"></td>
-  <td width="33%"><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1yWwvyJXIesM0nrNqSDZftihP_rAlYJow" width="100%"></td>
-  <td width="33%"><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1flFgBbYWoKjmkpf2e8ClDT8ISc59Akdt" width="100%"></td>
+  <td width="33%"><img alt="00_start" src="https://github.com/user-attachments/assets/8d25ba5e-fd9b-4b41-a871-f6a1465601cb" /></td>
+  <td width="33%"><img alt="01_idpw" src="https://github.com/user-attachments/assets/2fe7278e-5e35-4c3b-aa19-1b9451bd6f11" /></td>
+  <td width="33%"><img alt="01_signin" src="https://github.com/user-attachments/assets/3d2c226d-c833-46cc-b33b-eac3209f9eec" /></td>
 </tr>
 <tr>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=16tHRwO-1PqRqIvmU4sjJkoziLVhTD7RA" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1_Sj6X8udB9_pcaXGbDH2Aj5z_cwu1B-L" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1ETJO-MRfQ6to-EIZveVpj7OlR4Dd1tek" width="100%"></td>
+  <td><img alt="01_signup_1" src="https://github.com/user-attachments/assets/48fb7544-0f25-4b42-976c-3497ba9070c2" /></td>
+  <td><img alt="02_menu" src="https://github.com/user-attachments/assets/d4a5bf4e-fca3-4284-a2d1-0501782eeb6b" /></td>
+  <td><img alt="03_search_1" src="https://github.com/user-attachments/assets/4fa8ce57-c3e0-43e5-9dee-291737aacc27" /></td>
 </tr>
 <tr>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=11mYnvZ4LTsgewt2corrjqkw48Q5urfpH" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1xZRAin6WFhIpTo030r-rmOQ5JZgNePJV" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1cbgEU80dB7VuoqinXxp4WDSJI9JHul9s" width="100%"></td>
+  <td><img alt="04_book_00" src="https://github.com/user-attachments/assets/5865e186-b488-4317-ac13-84cfd0eb682b" /></td>
+  <td><img alt="04_book_01" src="https://github.com/user-attachments/assets/4f024dbd-2f6e-46f4-bd31-9163ff649130" /></td>
+  <td><img alt="04_book_02" src="https://github.com/user-attachments/assets/15acb567-7c9e-401d-8d6d-198f0b6ea313" /></td>
 </tr>
 <tr>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1omwDCxBnc9MVkHwTNHDrqtUgfDCRRp7J" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1ZJUpI2sHrVJRQ_8FYCb6qMAlbtvgQjEL" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=195OnuocaAEA46OMDA10Oe3FJni2uPZUy" width="100%"></td>
+  <td><img alt="04_book_03" src="https://github.com/user-attachments/assets/2e3e205c-7b23-4f31-9cd0-62be51380c33" /></td>
+  <td><img alt="04_book_04" src="https://github.com/user-attachments/assets/29aa911d-a0f4-4316-a7bb-8d71511d3baf" /></td>
+  <td><img alt="04_book_06" src="https://github.com/user-attachments/assets/6b9f2f89-a237-4cc1-9293-2fe1bf19ce6c" /></td>
 </tr>
 <tr>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1oxID5EIgmSVdiRfW6Trfrilird4IeNx1" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1msN5mJ1C3qi-iQft2R0ot5iWr-qEV2Vy" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1L1X8K7BETB0zLgvlPR04BF8qxJyKiUda" width="100%"></td>
+  <td><img alt="04_book_07" src="https://github.com/user-attachments/assets/65ae08da-a1f9-4e8a-a766-7cb20985cf70" /></td>
+  <td><img alt="04_book_08" src="https://github.com/user-attachments/assets/c8edc703-c17e-4b1e-b196-70ec9d706932" /></td>
+  <td><img alt="04_book_09" src="https://github.com/user-attachments/assets/b537accb-6148-4e6a-8286-d91f7d512350" /></td>
 </tr>
 <tr>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=18yLaQqJ7YHDkpb_Btjx6RVM5WOlk5Uct" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1XDQz3tPVIFQFLZuTZfQ0hUwsqJ7FQEtu" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1JREKkAn9FYk04-COAi1TbXtbD9c8dgrO" width="100%"></td>
+  <td><img alt="04_book_10" src="https://github.com/user-attachments/assets/8f07ccca-aab9-4291-bfa1-4d9ee1659b48" /></td>
+  <td><img alt="04_book_11" src="https://github.com/user-attachments/assets/f0e82257-9ecf-41d7-8fa3-0b74500cbf38" /></td>
+  <td><img alt="04_book_12" src="https://github.com/user-attachments/assets/5b6f7cb4-cf37-4436-8102-8a9b06fefd30" /></td>
 </tr>
 <tr>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1mIxbeC-cRuT3G2tgs0CsrZiFzFr1cAIX" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1KmpklNOM562pjpHwFFhv3vGAJq5qbA-K" width="100%"></td>
+  <td><img alt="05_detail_0" src="https://github.com/user-attachments/assets/21364126-fbfb-47fc-bdec-a8e39f0d993f" /></td>
+  <td><img alt="05_detail_1" src="https://github.com/user-attachments/assets/3da38672-ce72-41c8-acdc-e0e6a33404d4" /></td>
+  <td><img alt="06_management" src="https://github.com/user-attachments/assets/adc3b157-c14a-4236-9ec9-77c787584b66" /></td>
 </tr>
 </table>
 
@@ -86,8 +89,8 @@
 
 <table>
 <tr>
-  <td width="50%"><sub>사용자 정보 구조</sub><br><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1S6y0iOPoA_eXcCaYAG5B_7WBLwV4ioVy" width="100%"></td>
-  <td width="50%"><sub>관리자 구조</sub><br><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1NaDzUyO83XwcGebzRfeadkQSjiOueRPP" width="100%"></td>
+  <td width="50%"><sub>사용자 페이지 구조</sub><br><img alt="information_architecture_admin" src="https://github.com/user-attachments/assets/7f27ce80-0fe5-4f92-bda8-71eeb63719a5" /></td>
+  <td width="50%"><sub>관리자 페이지 구조</sub><br><img alt="information_architecture_user" src="https://github.com/user-attachments/assets/36d630ce-7c55-41ce-8b61-94b5993bbbbb" /></td>
 </tr>
 </table>
 
@@ -95,23 +98,23 @@
 
 <table>
 <tr>
-  <td width="33%"><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1RfkcVe0waqq2WKPShMIBwppOOaCoABDL" width="100%"></td>
-  <td width="33%"><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1CIHP2HJK36pYJYnEzrLkeyNOcsTwKhk-" width="100%"></td>
-  <td width="33%"><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1IOa4mZlFAYvk11yqc-gcf4TTCirtyA9q" width="100%"></td>
+  <td width="33%"><img alt="flow_U01_signin" src="https://github.com/user-attachments/assets/e32932b6-cec6-4410-9136-3641a330b8a1" /></td>
+  <td width="33%"><img alt="flow_U02_signup" src="https://github.com/user-attachments/assets/34a613ec-fc44-4c03-b026-0a79baaa995d" /></td>
+  <td width="33%"><img alt="flow_U03_book_0" src="https://github.com/user-attachments/assets/f03169ce-183d-45d2-9623-827578af2797" /></td>
 </tr>
 <tr>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1eM90AYk5JwFT9QFjL32L3EgeWIRLv2PG" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1cUD5wyA1LK3ulpnYUlIMNwd1r7I24vas" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1hpr8bh9KBj0WJwCghOmhViDvBCMqyAL6" width="100%"></td>
+  <td><img alt="flow_U03_book_1" src="https://github.com/user-attachments/assets/df65bd0a-80a7-4db1-91e2-9044f92a0a7e" /></td>
+  <td><img alt="flow_U03_book_2" src="https://github.com/user-attachments/assets/c29e168c-35d8-46ce-83fa-11533ea4b9eb" /></td>
+  <td><img alt="flow_U04_book_info_0" src="https://github.com/user-attachments/assets/c6415db6-39c8-44bd-a9d7-dea6d8055828" /></td>
 </tr>
 <tr>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=19ZZDfIX0inkkscjPNKwd7I0bJXmHh8Nf" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1m1wfjc6lUFBRStPEK8cgLMxvdHRZYJSF" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=126o4jhM7knoWNeX6rTULEIjz5mv1MbSP" width="100%"></td>
+  <td><img alt="flow_U04_book_info_1" src="https://github.com/user-attachments/assets/331d27d7-6746-4f99-80dd-16176c8517c8" /></td>
+  <td><img alt="flow_U04_book_info_2" src="https://github.com/user-attachments/assets/f9283639-be69-442e-83fb-3fb3bfabe2ce" /></td>
+  <td><img alt="flow_U05_detail_0" src="https://github.com/user-attachments/assets/8d1f2efb-2571-42ab-b7bc-3e838bff0bd5" /></td>
 </tr>
 <tr>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1D9y9jyryDc5VCOmZnfRrytHrVScKdXHL" width="100%"></td>
-  <td><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1BDwQF5R0IZtEMSGlyh-eSjyEESJvHhz9" width="100%"></td>
+  <td><img alt="flow_U05_detail_1" src="https://github.com/user-attachments/assets/43846314-5cf2-4940-9751-49f0efdef398" /></td>
+  <td><img alt="flow_A06_admin_0" src="https://github.com/user-attachments/assets/0cbce240-08be-4bbd-b019-9bc4d7b3a1fe" /></td>
 </tr>
 </table>
 
@@ -131,6 +134,6 @@
 | payment | 결제 |
 | login | 로그인 정보 |
 
+  <img alt="databases_1" src="https://github.com/user-attachments/assets/70668a44-f117-4198-b88a-acd03750c90f" />
+  <img alt="databases_2" src="https://github.com/user-attachments/assets/93759053-23e8-4601-98dc-c865f09ba2b1" />
 
-  <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=19ohm7rvbV6FCsueKJA5JMTzj4UyYbxbG" width="100%">
-  <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fdrive.google.com/uc?id=1o070AZduiid4qwcEncJUE8q-qMHFHheR" width="100%">
